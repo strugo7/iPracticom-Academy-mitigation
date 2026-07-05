@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+@media (max-width:560px){[data-pad]{padding-left:16px !important;padding-right:16px !important;}[data-title]{font-size:24px !important;}}
+</style>
+</helmet>
+<div dir="rtl" data-screen-label="ההכשרות שלי" style="min-height:100vh;background:var(--surface-app);color:var(--text-primary);font-family:var(--font-sans);display:flex;flex-direction:row;">
+
+  <dc-import name="SideNav" active="trainings" hint-size="248px,100vh"></dc-import>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+
+  <dc-import name="TopBar" title="ההכשרות שלי" subtitle="המסלול שהוקצה לך" notif="3" hint-size="100%,76px" style="position:sticky;top:0;z-index:20;"></dc-import>
+
+  <main data-pad style="flex:1;width:100%;max-width:1240px;margin:0 auto;padding:30px 36px 40px;">
+    <dc-import name="TracksCatalog" tracks="{{ tracks }}" hint-size="100%,520px"></dc-import>
+  </main>
+
+  <footer style="border-top:1px solid var(--border-default);background:var(--surface-card);">
+    <div data-pad style="max-width:1240px;margin:0 auto;padding:18px 36px;text-align:center;color:var(--text-secondary);font-size:13px;">© iPracticom Academy — לשימוש פנימי בלבד</div>
+  </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:760},&quot;cardStatus&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;in_progress&quot;,&quot;not_started&quot;,&quot;completed&quot;],&quot;default&quot;:&quot;in_progress&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;מצב לתצוגה&quot;},&quot;mode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;populated&quot;,&quot;empty&quot;],&quot;default&quot;:&quot;populated&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;מצב לתצוגה&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const status = this.props.cardStatus ?? 'in_progress';
+    const empty = (this.props.mode ?? 'populated') === 'empty';
+    const track = {
+      status,
+      category: 'טכנאי שטח',
+      title: 'הכשרת טכנאי שטח',
+      description: 'יסודות התקנה, חיווט ותחזוקת מערכות בשטח — מהבטיחות ועד מסירה ללקוח.',
+      difficulty: 'בינוני',
+      hours: '8 שעות',
+      thumb: 'assets/illus-support.png',
+      href: 'TrackDetails.dc.html',
+    };
+    return { tracks: empty ? [] : [track] };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+/* iPracticom brand webfont — Ploni ML v2 AAA (Hebrew, RTL) */
+
+@font-face {
+  font-family: 'Ploni ML v2 AAA';
+  src: url('../fonts/ploni-regular-aaa.woff2') format('woff2'),
+       url('../fonts/ploni-regular-aaa.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ploni ML v2 AAA';
+  src: url('../fonts/ploni-demibold-aaa.woff2') format('woff2'),
+       url('../fonts/ploni-demibold-aaa.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,25 @@
+/* iPracticom — Spacing tokens
+   The DS is built on an 8-px grid (4 only as a deliberate half-step).
+   Rule from DESIGN_FEEDBACK_RULES: every margin/padding/gap is a multiple of 8. */
+
+:root {
+  --space-0:  0px;
+  --space-1:  4px;   /* half-step — use sparingly */
+  --space-2:  8px;
+  --space-3:  12px;  /* half-step */
+  --space-4:  16px;
+  --space-5:  20px;  /* half-step */
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radii — buttons use a 20px pill; cards 16px; inputs 8px; tags/badges full */
+  --radius-sm:   4px;
+  --radius-md:   8px;   /* inputs */
+  --radius-lg:   10px;  /* status banner (desktop) */
+  --radius-xl:   16px;  /* cards */
+  --radius-pill: 20px;  /* buttons */
+  --radius-full: 9999px;/* tags, badges, icon buttons, avatars */
+}

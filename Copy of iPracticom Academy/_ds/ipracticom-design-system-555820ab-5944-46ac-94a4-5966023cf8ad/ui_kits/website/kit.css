@@ -1,0 +1,38 @@
+/* iPracticom — Website UI kit styles. Loads after colors_and_type.css */
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font-family:var(--ip-font);background:#fff;color:var(--ip-ink);direction:rtl;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.ipw-shell{max-width:1180px;margin:0 auto;padding:0 32px;}
+button{font-family:var(--ip-font);cursor:pointer;}
+
+/* buttons */
+.ipw-btn{font-weight:700;font-size:16px;border:0;border-radius:999px;padding:13px 26px;display:inline-flex;align-items:center;gap:9px;transition:all .22s cubic-bezier(.22,.61,.36,1);}
+.ipw-btn svg{width:18px;height:18px;}
+.ipw-btn--primary{background:#0075DB;color:#fff;box-shadow:0 10px 26px rgba(0,117,219,.30);}
+.ipw-btn--primary:hover{background:#0059A8;transform:translateY(-1px);}
+.ipw-btn--primary:active{background:#0059A8;transform:scale(.98);}
+.ipw-btn--grad{background:linear-gradient(135deg,#2EB4FF,#0075DB);color:#fff;box-shadow:0 10px 26px rgba(0,117,219,.30);}
+.ipw-btn--grad:hover{filter:brightness(1.04);transform:translateY(-1px);}
+.ipw-btn--ghost{background:#E9F3FC;color:#0075DB;}
+.ipw-btn--ghost:hover{background:#DCEBFB;}
+.ipw-btn--onnavy{background:#fff;color:#0075DB;}
+.ipw-btn--onnavy:hover{background:#EAF3FC;transform:translateY(-1px);}
+.ipw-btn--outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);}
+.ipw-btn--outline:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+
+/* section heads */
+.ipw-eyebrow{font-weight:700;font-size:15px;color:#0075DB;letter-spacing:.02em;margin:0 0 12px;}
+.ipw-h2{font-weight:800;font-size:clamp(28px,3.4vw,42px);line-height:1.15;letter-spacing:-.01em;margin:0;}
+.ipw-sub{font-size:18px;line-height:1.55;color:var(--ip-ink-2);margin:16px 0 0;max-width:560px;}
+
+/* hexagon helper */
+.ipw-hex{clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);}
+/* Base state is always visible; entrance is a pure enhancement so content
+   can never get stuck hidden (throttled/background tabs, reduced motion). */
+.fade-up{opacity:1;transform:none;}
+@media (prefers-reduced-motion:no-preference){
+  .fade-up{animation:ipwUp .55s cubic-bezier(.22,.61,.36,1) both;}
+}
+@keyframes ipwUp{from{opacity:0;transform:translateY(16px);} to{opacity:1;transform:none;}}
+@media (max-width:760px){ .ipw-shell{padding:0 20px;} }

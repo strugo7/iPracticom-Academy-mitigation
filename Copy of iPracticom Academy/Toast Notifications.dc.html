@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px) scale(.98);}to{opacity:1;transform:none;}}
+@keyframes toastOut{from{opacity:1;transform:none;}to{opacity:0;transform:translateY(6px) scale(.98);}}
+</style>
+</helmet>
+<div dir="rtl" data-screen-label="דפוסי הודעות למשתמש" style="min-height:100vh;background:var(--surface-app);color:var(--text-primary);">
+
+  <header style="border-bottom:1px solid var(--border-default);background:var(--surface-card);">
+    <div style="max-width:1080px;margin:0 auto;padding:32px 32px 24px;">
+      <h1 style="font-weight:var(--font-weight-demibold);font-size:28px;margin:0 0 8px;color:var(--text-primary);">דפוסי הודעות למשתמש — Modal · Toast · Banner · Tooltip</h1>
+      <p style="font-size:var(--text-body-size);line-height:1.6;color:var(--text-secondary);margin:0;max-width:720px;">מדריך שימוש מערכתי: מתי להשתמש בכל אחד מארבעת דפוסי התקשורת עם המשתמש, בנוי כולו על רכיבי מערכת העיצוב (Dialog · Toast · Alert · Tooltip). לחצו על הכפתורים כדי להריץ דוגמאות חיות.</p>
+    </div>
+  </header>
+
+  <main style="max-width:1080px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:40px;">
+
+    <!-- ===================== 1. MODAL ===================== -->
+    <section style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <span style="flex:none;width:44px;height:44px;border-radius:var(--radius-lg);background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-demibold);font-size:17px;">1</span>
+        <div>
+          <h2 style="font-weight:var(--font-weight-demibold);font-size:21px;margin:0 0 6px;color:var(--text-primary);">Modal — חסימת תהליך / פעולה קריטית</h2>
+          <p style="font-size:var(--text-tiny-size);line-height:1.6;color:var(--text-secondary);margin:0;max-width:640px;">כאשר המשתמש נמצא ב"מצב עריכה" או ב"צומת החלטה" — פעולה שדורשת אישור מפורש או ריכוז מלא, ללא הסחות מהתפריטים הצידיים.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;">
+        <sc-for list="{{ modalCards }}" as="m" hint-placeholder-count="5">
+        <div style="background:var(--surface-card);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:20px;display:flex;flex-direction:column;gap:12px;">
+          <span style="font-size:11px;font-weight:var(--font-weight-demibold);color:var(--accent);background:var(--hue-sky);border-radius:var(--radius-full);padding:3px 10px;width:fit-content;">{{ m.system }}</span>
+          <div style="font-weight:var(--font-weight-demibold);font-size:15px;color:var(--text-primary);line-height:1.4;">{{ m.title }}</div>
+          <p style="font-size:var(--text-tiny-size);line-height:1.55;color:var(--text-secondary);margin:0;flex:1;">{{ m.desc }}</p>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ m.onOpen }}" hint-size="auto,40px">פתח דוגמה</x-import>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===================== 2. TOAST ===================== -->
+    <section style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <span style="flex:none;width:44px;height:44px;border-radius:var(--radius-lg);background:var(--hue-mint);color:var(--success);display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-demibold);font-size:17px;">2</span>
+        <div>
+          <h2 style="font-weight:var(--font-weight-demibold);font-size:21px;margin:0 0 6px;color:var(--text-primary);">Toast — משוב מהיר על רקע</h2>
+          <p style="font-size:var(--text-tiny-size);line-height:1.6;color:var(--text-secondary);margin:0;max-width:640px;">"אנחנו כאן, והכל עובד טוב" — מבלי להפריע למשתמש לקרוא או ללמוד. מופיע רגעית ונעלם לבד.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <sc-for list="{{ toastGroups }}" as="g" hint-placeholder-count="3">
+        <div style="background:var(--surface-card);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:20px;">
+          <div style="font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-muted);margin-bottom:12px;">{{ g.label }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;">
+            <sc-for list="{{ g.examples }}" as="ex" hint-placeholder-count="2">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ ex.onFire }}" hint-size="auto,40px">{{ ex.label }}</x-import>
+            </sc-for>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===================== 3. BANNERS ===================== -->
+    <section style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <span style="flex:none;width:44px;height:44px;border-radius:var(--radius-lg);background:rgba(241,194,27,.18);color:var(--hue-bronze);display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-demibold);font-size:17px;">3</span>
+        <div>
+          <h2 style="font-weight:var(--font-weight-demibold);font-size:21px;margin:0 0 6px;color:var(--text-primary);">Banners — התראות דף קבועות</h2>
+          <p style="font-size:var(--text-tiny-size);line-height:1.6;color:var(--text-secondary);margin:0;max-width:640px;">התראות שמחכות למשתמש ולא נעלמות לבד — מוצגות בהקשר קבוע בדף, עד לפעולה או סגירה מפורשת.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <sc-for list="{{ banners }}" as="b" hint-placeholder-count="3">
+        <sc-if value="{{ b.visible }}" hint-placeholder-val="{{ true }}">
+        <div style="border:1px dashed var(--border-strong);border-radius:var(--radius-lg);overflow:hidden;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;background:var(--surface-subtle);border-bottom:1px dashed var(--border-strong);">
+            <span style="font-size:11.5px;font-weight:var(--font-weight-demibold);color:var(--text-muted);">{{ b.context }}</span>
+          </div>
+          <div style="padding:16px;background:var(--surface-app);">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Alert" kind="{{ b.kind }}" title="{{ b.title }}" onClose="{{ b.onClose }}" hint-size="100%,auto">
+              <span>{{ b.body }}</span>
+              <sc-if value="{{ b.hasAction }}">
+                <span> </span><a href="#" onClick="{{ b.onAction }}" style="color:var(--accent);font-weight:var(--font-weight-demibold);text-decoration:none;">{{ b.actionLabel }}</a>
+              </sc-if>
+            </x-import>
+          </div>
+        </div>
+        </sc-if>
+        </sc-for>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ resetBanners }}" hint-size="auto,36px" style="align-self:flex-start;">אפס באנרים שנסגרו</x-import>
+      </div>
+    </section>
+
+    <!-- ===================== 4. TOOLTIPS ===================== -->
+    <section style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;align-items:flex-start;gap:16px;">
+        <span style="flex:none;width:44px;height:44px;border-radius:var(--radius-lg);background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-demibold);font-size:17px;">4</span>
+        <div>
+          <h2 style="font-weight:var(--font-weight-demibold);font-size:21px;margin:0 0 6px;color:var(--text-primary);">Tooltips — עזרה הקשרית</h2>
+          <p style="font-size:var(--text-tiny-size);line-height:1.6;color:var(--text-secondary);margin:0;max-width:640px;">מפחיתים עומס קוגניטיבי במערכות טכניות — מסבירים שדה או אייקון בדיוק במקום ובזמן שבו המשתמש זקוק להסבר. רחפו עם העכבר מעל כל דוגמה.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+        <sc-for list="{{ tooltips }}" as="tp" hint-placeholder-count="4">
+        <div style="background:var(--surface-card);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:24px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;">
+          <span style="font-size:11px;font-weight:var(--font-weight-demibold);color:var(--accent);background:var(--hue-sky);border-radius:var(--radius-full);padding:3px 10px;">{{ tp.system }}</span>
+          <div style="padding:20px 0;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tooltip" content="{{ tp.content }}" placement="{{ tp.placement }}" theme="accent" hint-size="auto,auto">
+              <span style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:var(--radius-md);border:1px solid var(--border-default);background:var(--surface-card);font-size:var(--text-tiny-size);font-weight:var(--font-weight-demibold);color:var(--text-primary);">{{ tp.triggerLabel }}</span>
+            </x-import>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-secondary);line-height:1.5;">{{ tp.caption }}</div>
+        </div>
+        </sc-for>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIVE TOAST STACK -->
+  <div aria-live="polite" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:100;display:flex;flex-direction:column-reverse;align-items:center;gap:10px;">
+    <sc-for list="{{ toasts }}" as="t" hint-placeholder-count="0">
+    <div style="animation:{{ t.anim }} .22s ease-out;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Toast" kind="{{ t.kind }}" state="{{ t.state }}" action="{{ t.actionLabel }}" onAction="{{ t.onAction }}" hint-size="auto,auto">{{ t.message }}</x-import>
+    </div>
+    </sc-for>
+  </div>
+
+  <!-- ===================== MODAL INSTANCES ===================== -->
+
+  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Dialog" open="{{ modal.deleteOpen }}" on-close="{{ closeModal }}" title="מחיקת מאמר" size="sm" hint-size="384px,auto">
+    <p style="margin:0;font-size:var(--text-small-size);line-height:1.6;color:var(--text-secondary);">האם אתה בטוח שברצונך למחוק את <strong style="color:var(--text-primary);">"מדריך הטכנאי ל-VLAN"</strong>? פעולה זו לא ניתנת לשחזור.</p>
+    <div style="display:flex;justify-content:flex-end;gap:10px;padding-top:24px;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ closeModal }}" hint-size="auto,40px">ביטול</x-import>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="red" onClick="{{ onDeleteConfirm }}" hint-size="auto,40px">מחק מאמר</x-import>
+    </div>
+  </x-import>
+
+  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Dialog" open="{{ modal.editorOpen }}" on-close="{{ closeModal }}" title="עריכת מאמר — מדריך הטכנאי ל-VLAN" size="lg" hint-size="800px,auto">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;gap:6px;border-bottom:1px solid var(--border-default);padding-bottom:12px;">
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Edit" size="17" hint-size="17px,17px" style="color:var(--text-secondary);"></x-import>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Link" size="17" hint-size="17px,17px" style="color:var(--text-secondary);"></x-import>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Image" size="17" hint-size="17px,17px" style="color:var(--text-secondary);"></x-import>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Table" size="17" hint-size="17px,17px" style="color:var(--text-secondary);"></x-import>
+      </div>
+      <textarea placeholder="התחילו לכתוב את המאמר…" style="width:100%;min-height:280px;resize:vertical;border:1px solid var(--border-default);border-radius:var(--radius-md);padding:16px;font-family:var(--font-sans);font-size:var(--text-body-size);line-height:1.7;color:var(--text-primary);outline:none;" style-focus="border-color:var(--accent);"></textarea>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;padding-top:24px;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ closeModal }}" hint-size="auto,40px">ביטול</x-import>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ onEditorSave }}" hint-size="auto,40px">שמירה</x-import>
+    </div>
+  </x-import>
+
+  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Dialog" open="{{ modal.shareOpen }}" on-close="{{ closeModal }}" title="שיתוף מאמר" size="md" hint-size="512px,auto">
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" label="הוסף משתמש" placeholder="חפש לפי שם או אימייל…" hint-size="100%,66px"></x-import>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <sc-for list="{{ shareUsers }}" as="u" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;gap:12px;border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:10px 12px;">
+          <span style="flex:none;width:34px;height:34px;border-radius:50%;background:var(--gradient-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-demibold);font-size:13px;">{{ u.initial }}</span>
+          <span style="flex:1;min-width:0;font-size:var(--text-tiny-size);font-weight:var(--font-weight-demibold);color:var(--text-primary);">{{ u.name }}</span>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tabs" tabs="{{ permTabs }}" value="{{ u.perm }}" onChange="{{ u.onPerm }}" variant="pill" hint-size="auto,32px"></x-import>
+        </div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;padding-top:24px;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ closeModal }}" hint-size="auto,40px">סגור</x-import>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ onShareSave }}" hint-size="auto,40px">שמירה</x-import>
+    </div>
+  </x-import>
+
+  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Dialog" open="{{ modal.examOpen }}" on-close="{{ closeModal }}" title="התחלת מבחן מסכם" size="sm" hint-size="384px,auto">
+    <p style="margin:0;font-size:var(--text-small-size);line-height:1.6;color:var(--text-secondary);">אתה עומד להתחיל את המבחן. לאחר הלחיצה על "התחל" לא ניתן לעצור את הטיימר. האם להמשיך?</p>
+    <div style="display:flex;justify-content:flex-end;gap:10px;padding-top:24px;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ closeModal }}" hint-size="auto,40px">ביטול</x-import>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ onExamStart }}" hint-size="auto,40px">התחל מבחן</x-import>
+    </div>
+  </x-import>
+
+  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Dialog" open="{{ modal.finishOpen }}" on-close="{{ closeModal }}" title="כל הכבוד!" size="md" hint-size="512px,auto">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:8px 0;">
+      <span style="width:72px;height:72px;border-radius:50%;background:var(--gradient-accent);color:#fff;display:flex;align-items:center;justify-content:center;">
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="SuccessV" size="34" hint-size="34px,34px"></x-import>
+      </span>
+      <div style="font-weight:var(--font-weight-demibold);font-size:19px;color:var(--text-primary);">סיימת את הקורס "יסודות אבטחת מידע"</div>
+      <div style="font-weight:var(--font-weight-demibold);font-size:36px;color:var(--accent);">92<span style="font-size:18px;color:var(--text-secondary);">/100</span></div>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" hint-size="auto,40px">
+        <span style="display:inline-flex;align-items:center;gap:8px;">
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Export" size="16" hint-size="16px,16px"></x-import>
+          הורדת תעודה
+        </span>
+      </x-import>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;padding-top:24px;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ closeModal }}" hint-size="auto,40px">סגור</x-import>
+    </div>
+  </x-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:1200}}">
+let uid = 1;
+
+class Component extends DCLogic {
+  state = {
+    toasts: [],
+    modal: { deleteOpen: false, editorOpen: false, shareOpen: false, examOpen: false, finishOpen: false },
+    shareUsers: [
+      { id: 'u1', name: 'יוסי מזרחי', initial: 'י', perm: 'view' },
+      { id: 'u2', name: 'דנה לוי', initial: 'ד', perm: 'edit' },
+    ],
+    bannersClosed: {},
+  };
+
+  openModal(key) {
+    this.setState(s => ({ modal: { ...Object.keys(s.modal).reduce((a, k) => (a[k] = false, a), {}), [key]: true } }));
+  }
+  closeModal() {
+    this.setState(s => ({ modal: Object.keys(s.modal).reduce((a, k) => (a[k] = false, a), {}) }));
+  }
+
+  fire(kind, message, opts) {
+    opts = opts || {};
+    const id = 'toast-' + (uid++);
+    const entry = {
+      id, kind, message, state: 'start', leaving: false,
+      actionLabel: opts.actionLabel || null,
+      onAction: () => { if (opts.onAction) opts.onAction(); this.dismiss(id); },
+    };
+    this.setState(s => ({ toasts: [...s.toasts, entry] }));
+    setTimeout(() => {
+      this.setState(s => ({ toasts: s.toasts.map(t => t.id === id ? { ...t, state: 'end' } : t) }));
+    }, 40);
+    const life = opts.duration || 4200;
+    setTimeout(() => {
+      this.setState(s => ({ toasts: s.toasts.map(t => t.id === id ? { ...t, leaving: true } : t) }));
+      setTimeout(() => this.dismiss(id), 200);
+    }, life);
+  }
+  dismiss(id) { this.setState(s => ({ toasts: s.toasts.filter(t => t.id !== id) })); }
+
+  renderVals() {
+    const s = this.state;
+    const fire = (kind, msg, opts) => () => this.fire(kind, msg, opts);
+
+    const modalCards = [
+      { system: 'KMS', title: 'אישור מחיקת מאמר', desc: '"האם אתה בטוח שברצונך למחוק את \'מדריך הטכנאי ל-VLAN\'? פעולה זו לא ניתנת לשחזור."', onOpen: () => this.openModal('deleteOpen') },
+      { system: 'KMS', title: 'עורך טקסט עשיר — מסך מלא', desc: 'פתיחת ה-Editor של המאמר בחלון מוגדל, לכתיבה מרוכזת ללא הסחות מהתפריטים הצידיים.', onOpen: () => this.openModal('editorOpen') },
+      { system: 'KMS', title: 'שיתוף הרשאות', desc: 'הוספת משתמשים חדשים למאמר עם בחירת רמת הרשאה — צפייה או עריכה.', onOpen: () => this.openModal('shareOpen') },
+      { system: 'LMS', title: 'התחלת מבחן מסכם', desc: '"לאחר הלחיצה על \'התחל\' לא ניתן לעצור את הטיימר. האם להמשיך?"', onOpen: () => this.openModal('examOpen') },
+      { system: 'LMS', title: 'סיום קורס / הסמכה', desc: 'חלון סיכום הישגים בסוף קורס — ציון סופי ואפשרות להוריד תעודה.', onOpen: () => this.openModal('finishOpen') },
+    ];
+
+    const toastGroups = [
+      { label: 'פעולות עריכה', examples: [
+        { label: 'שמירה אוטומטית', onFire: fire('success', 'השינויים במאמר נשמרו אוטומטית') },
+        { label: 'הוספת הערה', onFire: fire('success', 'הערה חדשה נוספה למדריך') },
+      ]},
+      { label: 'מערכת התראות', examples: [
+        { label: 'הרשמה לקורס', onFire: fire('success', 'נרשמת בהצלחה לקורס: "יסודות אבטחת מידע"') },
+        { label: 'העלאת קובץ', onFire: fire('success', 'הקובץ "טופס_נהלים_2026.pdf" הועלה בהצלחה') },
+      ]},
+      { label: 'ניהול תהליכים', examples: [
+        { label: 'עדכון פרופיל', onFire: fire('success', 'הגדרות הפרופיל שלך עודכנו') },
+        { label: 'שיבוץ הקלטה', onFire: fire('success', 'ההקלטה של השיעור שובצה בלוח השנה') },
+      ]},
+    ];
+
+    const bannersDef = [
+      { key: 'maint', context: 'מוצג בראש המסך — כלל המערכת', kind: 'warning', title: null,
+        body: 'שים לב: המערכת תעבור תחזוקה מתוכננת ביום שלישי בשעה 22:00.' },
+      { key: 'prereq', context: 'מוצג בתוך דף הקורס', kind: 'error', title: null,
+        body: 'לא ניתן להתחיל קורס זה לפני השלמת הדרכת הבטיחות השנתית.' },
+      { key: 'update', context: 'מוצג בתוך מדריך הידע', kind: 'info', title: null,
+        body: 'גרסה חדשה למדריך זה פורסמה על ידי מנהל המערכת.', actionLabel: 'צפה בעדכונים' },
+    ];
+    const banners = bannersDef.map(b => ({
+      ...b,
+      visible: !s.bannersClosed[b.key],
+      hasAction: !!b.actionLabel,
+      onClose: () => this.setState(st => ({ bannersClosed: { ...st.bannersClosed, [b.key]: true } })),
+      onAction: (e) => { if (e) e.preventDefault(); },
+    }));
+    const resetBanners = () => this.setState({ bannersClosed: {} });
+
+    const tooltips = [
+      { system: 'KMS', placement: 'top', trigger: 'תגיות (Tags)', content: 'הוסף מילות מפתח כדי שיהיה קל למצוא את המאמר בחיפוש.', caption: 'ליד שדה התגיות בעריכת מאמר' },
+      { system: 'KMS', placement: 'top', trigger: 'עקוב אחרי מאמר', content: 'קבל התראה במייל בכל פעם שמאמר זה מתעדכן.', caption: 'ליד אייקון המעקב במאמר' },
+      { system: 'LMS', placement: 'top', trigger: '4 / 10 שיעורים', content: 'סיימת 4 מתוך 10 שיעורים.', caption: 'ליד מד ההתקדמות של הקורס' },
+      { system: 'LMS', placement: 'top', trigger: 'דרוש עזרה', content: 'פנה למדריך הקורס במידה ונתקלת בקושי טכני.', caption: 'ליד כפתור "דרוש עזרה"' },
+    ].map(t => ({ ...t, triggerLabel: t.trigger }));
+
+    const toasts = s.toasts.map(t => ({
+      kind: t.kind, state: t.state, message: t.message, actionLabel: t.actionLabel, onAction: t.onAction,
+      anim: t.leaving ? 'toastOut' : 'toastIn',
+    }));
+
+    return {
+      modalCards, modal: s.modal, closeModal: () => this.closeModal(),
+      onDeleteConfirm: () => { this.closeModal(); this.fire('success', 'המאמר נמחק בהצלחה'); },
+      onEditorSave: () => { this.closeModal(); this.fire('success', 'השינויים במאמר נשמרו אוטומטית'); },
+      onShareSave: () => { this.closeModal(); this.fire('success', 'הרשאות השיתוף עודכנו'); },
+      onExamStart: () => { this.closeModal(); },
+      toastGroups, toasts,
+      banners, resetBanners,
+      shareUsers: s.shareUsers.map(u => ({ ...u })),
+      permTabs: [ { id: 'view', label: 'צפייה' }, { id: 'edit', label: 'עריכה' } ],
+      tooltips,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

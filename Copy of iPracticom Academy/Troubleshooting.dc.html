@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+@media (max-width:760px){[data-pad]{padding-left:16px !important;padding-right:16px !important;}[data-filters]{flex-wrap:wrap;}[data-missrow]{flex-wrap:wrap;}}
+</style>
+</helmet>
+<div dir="rtl" data-screen-label="פתרון בעיות" style="min-height:100vh;background:var(--surface-app);color:var(--text-primary);display:flex;flex-direction:row;">
+
+  <dc-import name="SideNav" active="troubleshooting" hint-size="248px,100vh"></dc-import>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+
+    <dc-import name="TopBar" title="פתרון בעיות" subtitle="מצא במהירות את ה-Playbook לתקלה שמולך" notif="3" hint-size="100%,76px" style="position:sticky;top:0;z-index:20;"></dc-import>
+
+    <main data-pad style="flex:1;width:100%;max-width:1180px;margin:0 auto;padding:32px 32px 40px;display:flex;flex-direction:column;gap:24px;">
+
+      <!-- tabs + new button -->
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;border-bottom:1px solid var(--border-default);padding-bottom:0;">
+        <div style="display:flex;align-items:flex-end;gap:32px;">
+          <button onClick="{{ setLibrary }}" style="display:flex;flex-direction:column;gap:2px;align-items:stretch;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:var(--text-body-size);color:var(--text-primary);font-weight:{{ libWeight }};padding-bottom:12px;">
+              ספריית Playbooks
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tag" type="number" hint-size="auto,20px">{{ libCount }}</x-import>
+            </span>
+            <span style="height:4px;border-radius:var(--radius-full);background:{{ libBar }};"></span>
+          </button>
+          <button onClick="{{ setMissing }}" style="display:flex;flex-direction:column;gap:2px;align-items:stretch;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;">
+            <span style="display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:var(--text-body-size);color:var(--text-primary);font-weight:{{ missWeight }};padding-bottom:12px;">
+              תסריטים חסרים
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tag" type="red" hint-size="auto,20px">{{ missCount }}</x-import>
+            </span>
+            <span style="height:4px;border-radius:var(--radius-full);background:{{ missBar }};"></span>
+          </button>
+        </div>
+        <sc-if value="{{ canEdit }}">
+        <div style="padding-bottom:12px;">
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" hint-size="auto,40px">
+            <span style="display:inline-flex;align-items:center;gap:8px;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Plus" size="18" hint-size="18px,18px"></x-import>
+              Playbook חדש
+            </span>
+          </x-import>
+        </div>
+        </sc-if>
+      </div>
+
+      <!-- LIBRARY TAB -->
+      <sc-if value="{{ libraryTab }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:24px;">
+
+        <!-- search + filters -->
+        <div data-filters style="display:flex;align-items:center;gap:16px;">
+          <div style="flex:1;min-width:220px;display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:var(--radius-md);border:1px solid var(--border-default);background:var(--surface-card);transition:border-color var(--transition-fast);" style-focus-within="border-color:var(--accent);">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Search" size="18" hint-size="18px,18px" style="color:var(--neutral-lead);flex:none;"></x-import>
+            <input placeholder="חיפוש לפי תקלה, מוצר או תגית…" style="flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--font-sans);font-size:var(--text-body-size);color:var(--text-primary);"/>
+          </div>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" dropdown="{{ true }}" hint-size="auto,40px">קטגוריה</x-import>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" dropdown="{{ true }}" hint-size="auto,40px">רמת קושי</x-import>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" dropdown="{{ true }}" hint-size="auto,40px">תגית</x-import>
+        </div>
+
+        <!-- grid -->
+        <sc-if value="{{ hasPlaybooks }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;">
+          <sc-for list="{{ playbooks }}" as="pb" hint-placeholder-count="4">
+          <dc-import name="PlaybookCard" category="{{ pb.category }}" title="{{ pb.title }}" description="{{ pb.description }}" difficulty="{{ pb.difficulty }}" avg-time="{{ pb.avgTime }}" success-rate="{{ pb.successRate }}" uses="{{ pb.uses }}" tags="{{ pb.tags }}" can-edit="{{ canEdit }}" href="#" hint-size="100%,270px"></dc-import>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <!-- empty -->
+        <sc-if value="{{ empty }}">
+        <div style="max-width:560px;margin:24px auto;background:var(--surface-card);border-radius:var(--radius-xl);padding:48px 40px;text-align:center;box-shadow:var(--shadow-card);display:flex;flex-direction:column;align-items:center;">
+          <img src="assets/illus-file.png" alt="" style="width:160px;height:auto;margin-bottom:24px;"/>
+          <h3 style="font-weight:var(--font-weight-demibold);font-size:23px;margin:0 0 8px;color:var(--text-primary);">עדיין אין Playbooks</h3>
+          <p style="font-size:var(--text-small-size);line-height:1.6;color:var(--text-secondary);margin:0 0 24px;max-width:380px;">צרו את ה-Playbook הראשון כדי שכל הצוות יוכל לפתור את התקלה הזו בצורה אחידה ומהירה.</p>
+          <sc-if value="{{ canEdit }}">
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" hint-size="auto,40px">
+            <span style="display:inline-flex;align-items:center;gap:8px;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Plus" size="18" hint-size="18px,18px"></x-import>
+              Playbook חדש
+            </span>
+          </x-import>
+          </sc-if>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+
+      <!-- MISSING TAB -->
+      <sc-if value="{{ missingTab }}">
+      <div style="background:var(--surface-card);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);overflow:hidden;">
+        <div style="display:flex;align-items:center;gap:16px;padding:24px;border-bottom:1px solid var(--border-default);">
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Warning" size="20" hint-size="20px,20px" style="color:var(--warning);flex:none;"></x-import>
+          <div style="flex:1;">
+            <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-small-size);color:var(--text-primary);">תסריטים חסרים</div>
+            <div style="font-size:var(--text-tiny-size);color:var(--text-secondary);margin-top:4px;">שיחות שירות שבהן לא נמצא Playbook — הזדמנות להוסיף ידע חדש</div>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:16px;padding:12px 24px;border-bottom:1px solid var(--border-default);font-size:var(--text-tiny-size);font-weight:var(--font-weight-demibold);color:var(--text-secondary);">
+          <div style="width:180px;flex:none;">נציג</div>
+          <div style="flex:1;">תיאור התקלה החסרה</div>
+          <div style="width:74px;flex:none;text-align:center;">משך</div>
+          <div style="width:90px;flex:none;text-align:center;">סטטוס</div>
+          <div style="width:160px;flex:none;"></div>
+        </div>
+
+        <sc-for list="{{ missingRows }}" as="row" hint-placeholder-count="3">
+        <div data-missrow style="display:flex;align-items:center;gap:16px;padding:16px 24px;border-bottom:1px solid var(--border-default);opacity:{{ row.opacity }};">
+          <div style="width:180px;flex:none;">
+            <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-small-size);color:var(--text-primary);">{{ row.name }}</div>
+            <div style="font-size:var(--text-tiny-size);color:var(--text-secondary);direction:ltr;text-align:right;">{{ row.phone }}</div>
+          </div>
+          <div style="flex:1;font-size:var(--text-small-size);color:var(--text-secondary);">{{ row.issue }}</div>
+          <div style="width:74px;flex:none;text-align:center;font-size:var(--text-tiny-size);color:var(--text-secondary);">{{ row.duration }}</div>
+          <div style="width:90px;flex:none;display:flex;justify-content:center;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tag" type="{{ row.tagType }}" hint-size="auto,24px">{{ row.statusLabel }}</x-import>
+          </div>
+          <div style="width:160px;flex:none;display:flex;justify-content:flex-start;">
+            <sc-if value="{{ row.hasPlaybook }}" hint-placeholder-val="{{ false }}">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" hint-size="auto,40px">צפה ב-Playbook</x-import>
+            </sc-if>
+            <sc-if value="{{ row.needsPlaybook }}" hint-placeholder-val="{{ true }}">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="link" hint-size="auto,24px">
+                <span style="display:inline-flex;align-items:center;gap:6px;">
+                  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Plus" size="14" hint-size="14px,14px"></x-import>
+                  צור Playbook
+                </span>
+              </x-import>
+            </sc-if>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+    </main>
+
+    <footer style="border-top:1px solid var(--border-default);background:var(--surface-card);">
+      <div data-pad style="max-width:1180px;margin:0 auto;padding:18px 32px;text-align:center;color:var(--text-secondary);font-size:var(--text-tiny-size);">© iPracticom Academy — לשימוש פנימי בלבד</div>
+    </footer>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820},&quot;mode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;populated&quot;,&quot;empty&quot;],&quot;default&quot;:&quot;populated&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;מצב לתצוגה&quot;},&quot;canEdit&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;מצב לתצוגה&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'library' };
+  renderVals() {
+    const mode = this.props.mode ?? 'populated';
+    const canEdit = this.props.canEdit ?? true;
+    const empty = mode === 'empty';
+    const tab = this.state.tab;
+    const playbooks = empty ? [] : [
+      { category: 'pbx', title: 'אין צליל חיוג במרכזיית PBX', description: 'אבחון שלב-אחר-שלב של תקלת צליל חיוג: בדיקת רישום SIP, חיווט פיזי ומצב השלוחה.', difficulty: 'בינוני', avgTime: '4 דק׳', successRate: 92, uses: 47, tags: ['SIP', 'שלוחות', 'חיוג'] },
+      { category: 'cameras', title: 'מצלמת אבטחה לא מתחברת לרשת', description: 'מסלול בדיקה מהיר לחיבור מצלמת IP: כתובת, PoE, והגדרות ה-NVR.', difficulty: 'קל', avgTime: '3 דק׳', successRate: 88, uses: 134, tags: ['IP', 'PoE', 'NVR'] },
+      { category: 'mikrotik', title: 'חסימת תעבורה ב-MikroTik Firewall', description: 'איתור חוק שחוסם תעבורה לגיטימית בטבלת ה-Filter, וכיצד לתקן בבטחה.', difficulty: 'מתקדם', avgTime: '9 דק׳', successRate: 76, uses: 23, tags: ['Firewall', 'Filter', 'NAT'] },
+      { category: 'fire', title: 'גלאי עשן בהתראת שווא', description: 'אבחון התראות שווא חוזרות: ניקוי, רגישות, ובדיקת לולאת הגילוי.', difficulty: 'בינוני', avgTime: '6 דק׳', successRate: 81, uses: 58, tags: ['גלאי עשן', 'לולאה'] },
+    ];
+    const missingRows = [
+      { name: 'יוסי מזרחי', phone: '052-1234567', issue: 'מערכת כריזה לא משמיעה קול באזור C', duration: '12 דק׳', statusLabel: 'פתוח', tagType: 'mission', hasPlaybook: false, needsPlaybook: true, opacity: 1 },
+      { name: 'עידן כהן', phone: '050-9988776', issue: 'אין גישה לממשק MikroTik אחרי עדכון גרסה', duration: '15 דק׳', statusLabel: 'פתוח', tagType: 'mission', hasPlaybook: false, needsPlaybook: true, opacity: 1 },
+      { name: 'דנה לוי', phone: '054-7654321', issue: 'בקר טמפרטורה מציג שגיאה E4 במזגן המרכזי', duration: '8 דק׳', statusLabel: 'טופל', tagType: 'free', hasPlaybook: true, needsPlaybook: false, opacity: 0.72 },
+    ];
+    return {
+      libraryTab: tab === 'library',
+      missingTab: tab === 'missing',
+      canEdit,
+      empty,
+      playbooks,
+      hasPlaybooks: playbooks.length > 0,
+      libCount: playbooks.length,
+      missCount: missingRows.filter(r => r.needsPlaybook).length,
+      libWeight: tab === 'library' ? 'var(--font-weight-demibold)' : 'var(--font-weight-regular)',
+      missWeight: tab === 'missing' ? 'var(--font-weight-demibold)' : 'var(--font-weight-regular)',
+      libBar: tab === 'library' ? 'var(--gradient-accent)' : 'transparent',
+      missBar: tab === 'missing' ? 'var(--gradient-accent)' : 'transparent',
+      missingRows,
+      setLibrary: () => this.setState({ tab: 'library' }),
+      setMissing: () => this.setState({ tab: 'missing' }),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
