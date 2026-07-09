@@ -1,0 +1,13 @@
+/* iPracticom — Effects tokens (shadows + transitions)
+   Card shadow is the Figma EFFECT style "Card": 0/11/30, color #040D37 @ 5%. */
+
+:root {
+  --shadow-card:  0px 11px 30px 0px rgba(4, 13, 55, 0.05);
+  /* Slightly stronger elevation for menus / dialogs / popovers */
+  --shadow-menu:  0px 8px 24px 0px rgba(4, 13, 55, 0.12);
+  --shadow-focus-ring: 0 0 0 3px rgba(0, 117, 219, 0.20);
+
+  /* Standard interaction timing (fast, no bounce — subtle fades/color shifts) */
+  --transition-fast: 150ms ease; /* @kind other */
+  --transition-base: 200ms ease; /* @kind other */
+}

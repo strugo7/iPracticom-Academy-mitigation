@@ -1,0 +1,117 @@
+/* אנימציות ומצבי hover של מסך ההתחברות — הועתקו 1:1 מ-design-export/Login.dc.html */
+@keyframes lgFade {
+  from {
+    transform: translateY(10px);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes lgFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+@keyframes lgDash {
+  to {
+    stroke-dashoffset: -44;
+  }
+}
+@keyframes lgPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    r: 4;
+  }
+  50% {
+    opacity: 1;
+    r: 6;
+  }
+}
+@keyframes lgShake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+  40%,
+  60% {
+    transform: translateX(4px);
+  }
+}
+
+.lg-anim {
+  animation: lgFade 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.lg-google:hover {
+  border-color: #cfd8e3;
+  box-shadow: 0 8px 24px rgba(20, 60, 110, 0.12);
+  transform: translateY(-1px);
+}
+.lg-google:active {
+  transform: translateY(0);
+}
+.lg-otp:focus {
+  outline: none;
+  border-color: #0075db;
+  box-shadow: 0 0 0 3px rgba(0, 117, 219, 0.2);
+  background: #fff;
+}
+.lg-resend:hover {
+  color: #004e9b;
+}
+.lg-link:hover {
+  color: #0075db;
+}
+.lg-shake {
+  animation: lgShake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+.lg-node-motif {
+  animation: lgDash 3s linear infinite;
+}
+.lg-float {
+  animation: lgFloat 5s ease-in-out infinite;
+}
+
+.lg-switch {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 90;
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  border: 1px solid #e1e6ec;
+  border-radius: 11px;
+  padding: 4px;
+  box-shadow: 0 6px 18px rgba(20, 60, 110, 0.12);
+}
+.lg-switch button {
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 6px 11px;
+  border-radius: 8px;
+  background: transparent;
+  color: #757d86;
+  transition: all 0.15s;
+}
+.lg-switch button[data-on='1'] {
+  background: #0075db;
+  color: #fff;
+}

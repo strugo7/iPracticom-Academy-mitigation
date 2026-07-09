@@ -1,0 +1,166 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/*
+ * iPracticom Design System — Foundation (Step 0).
+ * Ported 1:1 from `DesignSystem/` (source of truth): tokens translated from
+ * `DesignSystem/tailwind.config.ts` (Tailwind v3 JS) to Tailwind v4 `@theme`
+ * (CSS-first) — identical hex/px values, different format only. Ploni font,
+ * RTL base and accent-gradient utilities are copied verbatim from
+ * `DesignSystem/index.css`. Do NOT invent values here; every token traces to the DS.
+ */
+
+/* ── Ploni ML v2 AAA — the DS font (assets in /public/fonts) ───────────────── */
+@font-face {
+  font-family: 'Ploni ML v2 AAA';
+  src:
+    url('/fonts/ploni-regular-aaa.woff2') format('woff2'),
+    url('/fonts/ploni-regular-aaa.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ploni ML v2 AAA';
+  src:
+    url('/fonts/ploni-demibold-aaa.woff2') format('woff2'),
+    url('/fonts/ploni-demibold-aaa.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Design tokens (1:1 with DesignSystem/tailwind.config.ts theme.extend) ─── */
+@theme {
+  /* Font family */
+  --font-sans: 'Ploni ML v2 AAA', 'Heebo', sans-serif;
+
+  /* Typography scale (size / line-height / letter-spacing / weight) */
+  --text-h1: 44px;
+  --text-h1--line-height: 48px;
+  --text-h1--letter-spacing: -0.37px;
+  --text-h1--font-weight: 400;
+
+  --text-h2: 36px;
+  --text-h2--line-height: 45px;
+  --text-h2--letter-spacing: -0.3px;
+  --text-h2--font-weight: 400;
+
+  --text-h3: 28px;
+  --text-h3--line-height: 35px;
+  --text-h3--letter-spacing: -0.23px;
+  --text-h3--font-weight: 400;
+
+  --text-h4: 23px;
+  --text-h4--line-height: 32px;
+  --text-h4--font-weight: 400;
+
+  --text-body: 18px;
+  --text-body--line-height: 24px;
+  --text-body--font-weight: 400;
+
+  --text-body-bold: 18px;
+  --text-body-bold--line-height: 24px;
+  --text-body-bold--font-weight: 600;
+
+  --text-small: 16px;
+  --text-small--line-height: 20px;
+  --text-small--font-weight: 400;
+
+  --text-tiny: 14px;
+  --text-tiny--line-height: 20px;
+  --text-tiny--font-weight: 400;
+
+  --text-tiny-bold: 14px;
+  --text-tiny-bold--line-height: 20px;
+  --text-tiny-bold--font-weight: 600;
+
+  /* Neutrals */
+  --color-neutrals-charcoal: #181d24;
+  --color-neutrals-lead: #757d86;
+  --color-neutrals-nickel: #9ea5ad;
+  --color-neutrals-palladium: #bcc3cb;
+  --color-neutrals-silver: #e1e6ec;
+  --color-neutrals-whisper: #f2f5f8;
+
+  /* Functional */
+  --color-accent: #0075db;
+  --color-caution: #c94236;
+  --color-success: #00857c;
+  --color-warning: #f1c21b;
+  --color-focus: #8e7057;
+  --color-neutral: #9ea5ad;
+
+  /* Hues */
+  --color-hues-bronze: #8e7057;
+  --color-hues-cobalt: #004e9b;
+  --color-hues-denim: #0075db;
+  --color-hues-green: #51d5a5;
+  --color-hues-indigo: #2eb4ff;
+  --color-hues-latte: #bca28d;
+  --color-hues-mint: #bbffd6;
+  --color-hues-red: #c94236;
+  --color-hues-salmon: #f5aca3;
+  --color-hues-sky: #c9edff;
+  --color-hues-strawberry: #ad2120;
+  --color-hues-teal: #00857c;
+  --color-hues-yellow: #f1c21b;
+
+  /* Semantic aliases */
+  --color-charcoal: #181d24;
+  --color-white: #ffffff;
+
+  /* Figma EFFECT style "Card": drop-shadow 0 / 11 / 30, color #040D37 @ 5% */
+  --shadow-card: 0px 11px 30px 0px rgba(4, 13, 55, 0.05);
+}
+
+/* ── Base (1:1 with DesignSystem/index.css @layer base) ────────────────────── */
+@layer base {
+  :root {
+    direction: rtl;
+  }
+
+  body {
+    font-family: 'Ploni ML v2 AAA', 'Heebo', sans-serif;
+    background-color: #f2f5f8;
+    color: #181d24;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+  }
+}
+
+/* ── Accent gradient utilities (1:1 with DesignSystem/index.css) ───────────── */
+@layer components {
+  .bg-accent-gradient {
+    background: linear-gradient(45deg, #33b1ff 0%, #282fef 100%);
+  }
+  .bg-accent-gradient:hover:not(:disabled) {
+    background: linear-gradient(45deg, #2877ef 0%, #33c1ff 100%);
+  }
+  .bg-accent-gradient:active:not(:disabled) {
+    background: linear-gradient(45deg, #1419a8 0%, #1d82c1 100%);
+  }
+  .text-accent-gradient {
+    background: linear-gradient(45deg, #33b1ff 0%, #282fef 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ── App-shell utility (1:1 with design-export/SideNav.dc.html @keyframes navSub) ── */
+@keyframes nav-sub {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@layer components {
+  .animate-nav-sub {
+    animation: nav-sub 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+}

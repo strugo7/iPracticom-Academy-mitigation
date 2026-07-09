@@ -1,0 +1,38 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+
+# Env — סודות לעולם לא ב-git
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# מערכת העיצוב הנפרדת (repo/plugin עצמאי — לא חלק מהאפליקציה)
+DesignSystem
+
+# fixtures של ה-MockApi — נוצרים מהגיבוי ע"י `npm run fixtures`, לא נכנסים ל-git
+src/lib/api/mock/fixtures/
+
+# גיבוי Base44 הגולמי — דאטה אמיתי של משתמשים (PII), נשאר מקומי בלבד
+data/

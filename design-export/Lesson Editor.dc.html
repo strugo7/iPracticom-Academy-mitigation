@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+input,textarea,select,button{font-family:inherit;}
+.le-scroll{scrollbar-width:thin;scrollbar-color:var(--hue-indigo) transparent;}
+.le-scroll::-webkit-scrollbar{width:9px;height:9px;}.le-scroll::-webkit-scrollbar-thumb{background:var(--hue-indigo);border-radius:9px;}
+.le-blk:hover .le-gutter{opacity:1 !important;}
+.le-blk:hover .le-ins{opacity:1 !important;}
+.le-pchip:hover{border-color:var(--hue-indigo) !important;background:#F4F9FF !important;}
+.le-tbtn:hover{background:#F0F5FA !important;color:var(--accent) !important;}
+.le-tdanger:hover{background:rgba(201,66,54,.10) !important;color:var(--caution) !important;}
+.le-outline-row:hover{background:var(--surface-subtle) !important;}
+.le-in:focus{border-color:var(--accent) !important;box-shadow:0 0 0 3px rgba(0,117,219,.12) !important;}
+.le-topbtn:hover{border-color:var(--border-strong) !important;background:var(--surface-subtle) !important;}
+.le-add:hover{border-color:var(--accent) !important;background:var(--hue-sky) !important;color:var(--accent) !important;}
+.le-vrow:hover{border-color:var(--hue-indigo) !important;background:#FAFDFF !important;}
+[contenteditable]:focus{outline:none;}
+.le-fmt:hover{background:rgba(255,255,255,.14) !important;color:#fff !important;}
+.le-chip:hover{filter:brightness(.97);}
+.le-tcell:focus{background:var(--surface-app) !important;box-shadow:inset 0 0 0 2px rgba(0,117,219,.25) !important;}
+.le-mediabtn:hover{border-color:var(--accent) !important;background:var(--hue-sky) !important;color:var(--accent) !important;}
+table.le-table td,table.le-table th{border:1px solid var(--border-default);}
+@keyframes le-tabin{from{opacity:0;transform:translateX(14px);}to{opacity:1;transform:translateX(0);}}
+@keyframes le-spin{to{transform:rotate(360deg);}}
+@keyframes le-aipulse{0%,100%{box-shadow:0 12px 30px rgba(124,77,218,.4),0 0 0 0 rgba(124,77,218,.35);}50%{box-shadow:0 12px 30px rgba(124,77,218,.4),0 0 0 14px rgba(124,77,218,0);}}
+.le-spin{animation:le-spin .8s linear infinite;}
+.le-aipulse{animation:le-aipulse 1.8s ease-in-out infinite;}
+.le-navbtn:hover{border-color:var(--hue-indigo) !important;background:#F4F9FF !important;color:var(--accent) !important;}
+.le-cardrow:hover{border-color:var(--hue-indigo) !important;}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="var(--accent)"/><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="24" y="22" width="52" height="56" rx="5"/><path d="M34 38h32M34 50h32M34 62h20"/></g></svg></template>
+<div dir="rtl" data-screen-label="עורך שיעור" style="height:100vh;background:var(--surface-app);color:var(--neutral-charcoal);display:flex;flex-direction:column;overflow:hidden;font-family:var(--font-sans);">
+
+  <!-- ===== TOP BAR ===== -->
+  <header style="flex:none;background:#fff;border-bottom:1px solid var(--border-default);box-shadow:0 1px 3px rgba(20,60,110,.05);z-index:40;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 20px;">
+      <div style="display:flex;align-items:center;gap:11px;min-width:0;">
+        <a href="ContentManager.dc.html" aria-label="חזרה לניהול תוכן" class="le-topbtn" style="width:38px;height:38px;border-radius:11px;border:1px solid var(--border-default);background:#fff;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;flex:none;text-decoration:none;transition:all .16s;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+        <span style="width:38px;height:38px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:linear-gradient(135deg,var(--hue-indigo),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;flex:none;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg></span>
+        <div style="min-width:0;display:flex;flex-direction:column;gap:1px;">
+          <div style="display:flex;align-items:center;gap:7px;min-width:0;">
+            <input class="le-in" value="{{ title }}" onInput="{{ onTitle }}" aria-label="שם השיעור" style="min-width:0;width:200px;border:1px solid transparent;border-radius:8px;background:transparent;font-weight:var(--font-weight-demibold);font-size:17px;color:var(--neutral-charcoal);padding:3px 8px;outline:none;transition:all .15s;" style-hover="background:var(--surface-subtle);" style-focus="background:#fff;"/>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="warning" hint-size="auto,22px">טיוטה</x-import>
+          </div>
+          <span style="font-size:11.5px;color:var(--text-muted);padding-inline-start:8px;white-space:nowrap;">יסודות רשתות · מבוא לרשתות</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:9px;">
+        <span style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--text-secondary);padding-inline-end:2px;white-space:nowrap;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--success)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>{{ autosaveLabel }}</span>
+
+        <div role="tablist" aria-label="מצב תצוגה" style="display:inline-flex;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:11px;padding:3px;gap:2px;">
+          <button role="tab" aria-selected="{{ isEdit }}" onClick="{{ toEdit }}" style="display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;padding:7px 13px;border-radius:8px;background:{{ editBg }};color:{{ editFg }};box-shadow:{{ editSh }};transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"></path></svg>עריכה</button>
+          <button role="tab" aria-selected="{{ isPreview }}" onClick="{{ toPreview }}" style="display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;padding:7px 13px;border-radius:8px;background:{{ prevBg }};color:{{ prevFg }};box-shadow:{{ prevSh }};transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>תצוגת לומד</button>
+        </div>
+
+        <span style="width:1px;height:26px;background:var(--border-default);"></span>
+
+        <button onClick="{{ openSettings }}" class="le-topbtn" title="הגדרות שיעור" aria-label="הגדרות שיעור" style="width:40px;height:40px;border-radius:11px;border:1px solid var(--border-default);background:#fff;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .16s;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+        <button onClick="{{ openVersions }}" class="le-topbtn" title="היסטוריית גרסאות" aria-label="היסטוריית גרסאות" style="width:40px;height:40px;border-radius:11px;border:1px solid var(--border-default);background:#fff;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .16s;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"></path><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"></path><path d="M12 7v5l4 2"></path></svg></button>
+        <button onClick="{{ openAi }}" class="le-topbtn" title="עוזר AI" aria-label="עוזר AI" style="display:inline-flex;align-items:center;gap:7px;height:40px;padding:0 14px;border-radius:11px;border:1px solid var(--hue-indigo);background:var(--hue-sky);color:var(--accent);font-weight:var(--font-weight-demibold);font-size:13.5px;cursor:pointer;transition:all .16s;" style-hover="background:#EFE6FC;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M3 12h3M18 12h3M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"></path><circle cx="12" cy="12" r="3.2"></circle></svg>AI</button>
+
+        <button onClick="{{ openSettings }}" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:11px;padding:0 18px;height:40px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:14px;cursor:pointer;box-shadow:0 8px 20px rgba(0,117,219,.26);transition:all .18s cubic-bezier(.22,.61,.36,1);" style-hover="background:#0059A8;" style-active="transform:scale(.98);"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7z"></path></svg>פרסום</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== BODY ===== -->
+  <div style="flex:1;min-height:0;display:flex;flex-direction:row;">
+
+    <!-- ===== BLOCK PALETTE (right) ===== -->
+    <sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+    <aside aria-label="פלטת בלוקים" style="flex:none;width:{{ paletteW }};background:#fff;border-inline-start:1px solid var(--border-default);display:flex;flex-direction:column;min-height:0;transition:width .22s cubic-bezier(.22,.61,.36,1);">
+      <sc-if value="{{ paletteOpen }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:15px 16px 10px;">
+        <h2 style="font-weight:var(--font-weight-demibold);font-size:15px;margin:0;display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>בלוקים</h2>
+        <button onClick="{{ togglePalette }}" aria-label="כווץ פלטה" class="le-topbtn" style="width:30px;height:30px;border-radius:9px;border:1px solid var(--border-default);background:#fff;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg></button>
+      </div>
+      <div style="flex:none;padding:0 16px 12px;">
+        <div style="display:flex;align-items:center;gap:9px;height:40px;padding:0 12px;border-radius:11px;border:1px solid var(--border-default);background:var(--surface-subtle);">
+          <svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          <input class="le-in" value="{{ paletteSearch }}" onInput="{{ onPaletteSearch }}" placeholder="חיפוש בלוק…" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:13.5px;color:var(--neutral-charcoal);"/>
+        </div>
+      </div>
+      <div class="le-scroll" style="flex:1;overflow-y:auto;padding:2px 12px 18px;">
+        <sc-for list="{{ families }}" as="f" hint-placeholder-count="5">
+        <div style="margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:7px;padding:4px 6px 8px;"><span style="width:7px;height:7px;border-radius:2px;background:{{ f.color }};"></span><span style="font-size:11.5px;font-weight:var(--font-weight-demibold);letter-spacing:.03em;color:var(--text-muted);">{{ f.label }}</span></div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <sc-for list="{{ f.blocks }}" as="b" hint-placeholder-count="4">
+            <button class="le-pchip" draggable="true" onClick="{{ b.onAdd }}" style="display:flex;align-items:center;gap:10px;border:1px solid #EDF1F6;background:#fff;border-radius:10px;padding:8px 10px;cursor:grab;text-align:start;font-family:inherit;transition:all .15s;">
+              <span class="le-pchip-ic" style="flex:none;width:30px;height:30px;border-radius:8px;background:{{ b.iconBg }};color:{{ b.iconFg }};display:flex;align-items:center;justify-content:center;transition:all .15s;">{{ b.icon }}</span>
+              <span style="flex:1;min-width:0;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ b.label }}</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" style="flex:none;color:var(--neutral-palladium);" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.4"></circle><circle cx="15" cy="6" r="1.4"></circle><circle cx="9" cy="12" r="1.4"></circle><circle cx="15" cy="12" r="1.4"></circle><circle cx="9" cy="18" r="1.4"></circle><circle cx="15" cy="18" r="1.4"></circle></svg>
+            </button>
+            </sc-for>
+          </div>
+        </div>
+        </sc-for>
+        <sc-if value="{{ paletteEmpty }}"><div style="text-align:center;padding:24px 8px;color:var(--text-muted);font-size:13px;">לא נמצא בלוק תואם</div></sc-if>
+      </div>
+      </sc-if>
+      <sc-if value="{{ paletteClosed }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px 0;">
+        <button onClick="{{ togglePalette }}" aria-label="הרחב פלטה" class="le-topbtn" style="width:36px;height:36px;border-radius:10px;border:1px solid var(--border-default);background:#fff;color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg></button>
+      </div>
+      </sc-if>
+    </aside>
+    </sc-if>
+
+    <!-- ===== CANVAS (center) ===== -->
+    <main class="le-scroll" role="document" aria-label="קנבס השיעור" style="flex:1;min-width:0;overflow-y:auto;background:{{ canvasBg }};">
+      <sc-if value="{{ isPreview }}">
+      <div style="display:flex;align-items:center;justify-content:center;gap:9px;background:var(--neutral-charcoal);color:#fff;font-size:13px;font-weight:var(--font-weight-demibold);padding:9px;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>תצוגה כפי שהלומד רואה אותה</div>
+      </sc-if>
+
+      <div style="max-width:{{ canvasMax }};margin:0 auto;padding:{{ canvasPad }};">
+        <sc-for list="{{ blocks }}" as="bl" hint-placeholder-count="4">
+        <div class="le-blk" role="group" aria-selected="{{ bl.selected }}" tabindex="0" onClick="{{ bl.onSelect }}" style="position:relative;margin:{{ bl.margin }};border-radius:14px;outline:{{ bl.ring }};outline-offset:3px;transition:outline .14s;">
+
+          <!-- gutter (drag handle + add) -->
+          <sc-if value="{{ bl.chrome }}" hint-placeholder-val="{{ true }}">
+          <div class="le-gutter" style="position:absolute;inset-inline-start:-46px;top:6px;display:flex;flex-direction:column;align-items:center;gap:3px;opacity:{{ bl.gutterOpacity }};">
+            <button onClick="{{ bl.onAddAbove }}" title="הוסף בלוק מעל" aria-label="הוסף בלוק מעל" class="le-tbtn" style="width:26px;height:26px;border-radius:7px;border:0;background:#fff;border:1px solid var(--border-default);color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+            <button onClick="{{ bl.stop }}" title="גרור לסידור" aria-label="גרור לסידור" draggable="true" style="width:26px;height:30px;border-radius:7px;border:1px solid var(--border-default);background:#fff;color:var(--neutral-palladium);display:flex;align-items:center;justify-content:center;cursor:grab;transition:all .14s;" style-hover="color:var(--accent);border-color:var(--hue-indigo);"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.5"></circle><circle cx="15" cy="6" r="1.5"></circle><circle cx="9" cy="12" r="1.5"></circle><circle cx="15" cy="12" r="1.5"></circle><circle cx="9" cy="18" r="1.5"></circle><circle cx="15" cy="18" r="1.5"></circle></svg></button>
+          </div>
+          </sc-if>
+
+          <!-- floating TEXT toolbar (selection formatting) -->
+          <sc-if value="{{ bl.showTextToolbar }}">
+          <div role="toolbar" aria-label="עיצוב טקסט" onClick="{{ bl.stop }}" style="position:absolute;top:-52px;inset-inline-start:0;display:flex;align-items:center;gap:3px;background:var(--neutral-charcoal);border-radius:12px;padding:5px 6px;box-shadow:0 16px 38px rgba(20,40,70,.4);z-index:25;">
+            <sc-if value="{{ bl.isHeadingSel }}">
+            <div style="display:flex;gap:2px;">
+              <sc-for list="{{ bl.levels }}" as="lv" hint-placeholder-count="3">
+              <button onClick="{{ lv.onPick }}" class="le-fmt" style="height:30px;min-width:34px;padding:0 8px;border-radius:7px;border:0;cursor:pointer;font-family:var(--font-sans);font-weight:var(--font-weight-demibold);font-size:12.5px;background:{{ lv.bg }};color:{{ lv.fg }};transition:all .14s;">{{ lv.label }}</button>
+              </sc-for>
+            </div>
+            <span style="width:1px;height:20px;background:rgba(255,255,255,.16);margin:0 3px;"></span>
+            </sc-if>
+            <button onClick="{{ bl.stop }}" class="le-fmt" title="מודגש" aria-label="מודגש" style="width:30px;height:30px;border-radius:7px;border:0;background:rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"></path><path d="M6 12h9a4 4 0 0 1 0 8H6z"></path></svg></button>
+            <button onClick="{{ bl.stop }}" class="le-fmt" title="נטוי" aria-label="נטוי" style="width:30px;height:30px;border-radius:7px;border:0;background:transparent;color:var(--neutral-palladium);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="4" x2="10" y2="4"></line><line x1="14" y1="20" x2="5" y2="20"></line><line x1="15" y1="4" x2="9" y2="20"></line></svg></button>
+            <button onClick="{{ bl.stop }}" class="le-fmt" title="קו תחתון" aria-label="קו תחתון" style="width:30px;height:30px;border-radius:7px;border:0;background:transparent;color:var(--neutral-palladium);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a6 6 0 0 0 12 0V3"></path><line x1="4" y1="21" x2="20" y2="21"></line></svg></button>
+            <span style="width:1px;height:20px;background:rgba(255,255,255,.16);margin:0 3px;"></span>
+            <button onClick="{{ bl.stop }}" class="le-fmt" title="קישור" aria-label="קישור" style="width:30px;height:30px;border-radius:7px;border:0;background:transparent;color:var(--neutral-palladium);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></button>
+            <button onClick="{{ bl.onToggleOrdered }}" class="le-fmt" title="רשימת תבליטים" aria-label="רשימת תבליטים" style="width:30px;height:30px;border-radius:7px;border:0;background:transparent;color:var(--neutral-palladium);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="3.5" cy="6" r="1"></circle><circle cx="3.5" cy="12" r="1"></circle><circle cx="3.5" cy="18" r="1"></circle></svg></button>
+            <button onClick="{{ bl.onToggleOrdered }}" class="le-fmt" title="רשימה ממוספרת" aria-label="רשימה ממוספרת" style="width:30px;height:30px;border-radius:7px;border:0;background:transparent;color:var(--neutral-palladium);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"></line><line x1="10" y1="12" x2="21" y2="12"></line><line x1="10" y1="18" x2="21" y2="18"></line><path d="M4 6h1v4M4 10h2M6 18H4l2-2.5V14H4"></path></svg></button>
+            <span style="width:1px;height:20px;background:rgba(255,255,255,.16);margin:0 3px;"></span>
+            <button onClick="{{ bl.onOpenStyle }}" class="le-fmt" title="עיצוב מתקדם" aria-label="עיצוב מתקדם" style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:7px;border:0;background:transparent;color:#7CCBFF;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12.5px;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>עיצוב</button>
+          </div>
+          </sc-if>
+
+          <!-- block ACTIONS toolbar -->
+          <sc-if value="{{ bl.showToolbar }}">
+          <div role="toolbar" aria-label="פעולות בלוק" style="position:absolute;top:-50px;inset-inline-end:0;display:flex;align-items:center;gap:2px;background:#fff;border:1px solid var(--border-default);border-radius:12px;padding:4px;box-shadow:0 12px 30px rgba(20,60,110,.16);z-index:15;">
+            <button onClick="{{ bl.stop }}" class="le-tbtn" title="הזז" aria-label="הזז" draggable="true" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:grab;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 9 2 12 5 15"></polyline><polyline points="9 5 12 2 15 5"></polyline><polyline points="15 19 12 22 9 19"></polyline><polyline points="19 9 22 12 19 15"></polyline><line x1="2" y1="12" x2="22" y2="12"></line><line x1="12" y1="2" x2="12" y2="22"></line></svg></button>
+            <button onClick="{{ bl.onOpenStyle }}" class="le-tbtn" title="עיצוב בלוק" aria-label="עיצוב בלוק" style="width:32px;height:32px;border-radius:8px;border:0;background:{{ bl.styleBtnBg }};color:{{ bl.styleBtnFg }};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"></circle><circle cx="6.5" cy="12.5" r="2.5"></circle><circle cx="17" cy="14" r="2.5"></circle><path d="M2 21s2-4 7-4M22 21s-2-6-9-6"></path></svg></button>
+            <button onClick="{{ bl.onDuplicate }}" class="le-tbtn" title="שכפל" aria-label="שכפל" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button>
+            <button onClick="{{ bl.stop }}" class="le-tbtn" title="נראות" aria-label="נראות" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+            <span style="width:1px;height:18px;background:var(--border-default);margin:0 2px;"></span>
+            <button onClick="{{ bl.onDelete }}" class="le-tdanger" title="מחק" aria-label="מחק" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+          </div>
+          </sc-if>
+
+          <!-- STYLE popover -->
+          <sc-if value="{{ bl.showStylePopover }}">
+          <div role="dialog" aria-label="עיצוב הבלוק" onClick="{{ bl.stop }}" style="position:absolute;top:46px;inset-inline-end:0;z-index:30;width:288px;background:#fff;border:1px solid var(--border-default);border-radius:16px;box-shadow:0 22px 54px rgba(20,60,110,.22);padding:15px 16px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:13px;"><span style="width:28px;height:28px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg></span><div style="min-width:0;"><div style="font-weight:var(--font-weight-demibold);font-size:14px;line-height:1.1;">עיצוב בלוק</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;">ברירות מחדל חכמות לפי הסוג</div></div></div>
+
+            <div style="margin-bottom:13px;">
+              <label style="display:block;font-weight:var(--font-weight-demibold);font-size:11.5px;color:var(--text-secondary);margin-bottom:7px;">רקע</label>
+              <div style="display:flex;gap:8px;">
+                <sc-for list="{{ bl.popBg }}" as="o" hint-placeholder-count="5">
+                <button onClick="{{ o.onPick }}" aria-label="{{ o.name }}" class="le-chip" style="width:34px;height:34px;border-radius:9px;background:{{ o.bg }};border:{{ o.border }};cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;transition:all .14s;"><sc-if value="{{ o.sel }}"><span style="color:{{ o.check }};"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span></sc-if></button>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="margin-bottom:13px;">
+              <label style="display:block;font-weight:var(--font-weight-demibold);font-size:11.5px;color:var(--text-secondary);margin-bottom:7px;">צבע טקסט</label>
+              <div style="display:flex;gap:9px;">
+                <sc-for list="{{ bl.popText }}" as="o" hint-placeholder-count="4">
+                <button onClick="{{ o.onPick }}" aria-label="צבע" class="le-chip" style="width:32px;height:32px;border-radius:9px;background:{{ o.bg }};border:{{ o.border }};cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .14s;"><sc-if value="{{ o.sel }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></sc-if></button>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="margin-bottom:13px;">
+              <label style="display:block;font-weight:var(--font-weight-demibold);font-size:11.5px;color:var(--text-secondary);margin-bottom:7px;">גודל גופן</label>
+              <div style="display:flex;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:10px;padding:3px;gap:2px;">
+                <sc-for list="{{ bl.popSize }}" as="o" hint-placeholder-count="4">
+                <button onClick="{{ o.onPick }}" style="flex:1;border:0;cursor:pointer;font-family:var(--font-sans);font-weight:var(--font-weight-demibold);font-size:12.5px;padding:7px;border-radius:7px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.sh }};transition:all .15s;">{{ o.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="margin-bottom:13px;">
+              <label style="display:block;font-weight:var(--font-weight-demibold);font-size:11.5px;color:var(--text-secondary);margin-bottom:7px;">יישור</label>
+              <div style="display:flex;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:10px;padding:3px;gap:2px;">
+                <sc-for list="{{ bl.popAlign }}" as="o" hint-placeholder-count="3">
+                <button onClick="{{ o.onPick }}" style="flex:1;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:7px;border-radius:7px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.sh }};transition:all .15s;">{{ o.icon }}</button>
+                </sc-for>
+              </div>
+            </div>
+
+            <div>
+              <label style="display:block;font-weight:var(--font-weight-demibold);font-size:11.5px;color:var(--text-secondary);margin-bottom:7px;">ריווח</label>
+              <div style="display:flex;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:10px;padding:3px;gap:2px;">
+                <sc-for list="{{ bl.popSpace }}" as="o" hint-placeholder-count="3">
+                <button onClick="{{ o.onPick }}" style="flex:1;border:0;cursor:pointer;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12.5px;padding:7px;border-radius:7px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.sh }};transition:all .15s;">{{ o.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- ==== BLOCK CONTENT ==== -->
+          <!-- cover -->
+          <sc-if value="{{ bl.isCover }}">
+          <div style="position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(125deg,var(--neutral-charcoal) 0%,#1d3a55 60%,var(--accent) 135%);padding:30px 32px;">
+            <span style="position:absolute;inset-inline-end:-26px;top:-34px;width:150px;height:150px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(46,180,255,.16);"></span>
+            <span style="position:absolute;inset-inline-end:74px;bottom:-44px;width:108px;height:108px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(255,255,255,.06);"></span>
+            <div style="position:relative;">
+              <span style="display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:var(--font-weight-demibold);color:#fff;background:rgba(46,180,255,.22);border:1px solid rgba(124,203,255,.4);border-radius:999px;padding:5px 12px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"></path></svg>רשתות</span>
+              <h1 style="font-weight:var(--font-weight-demibold);font-size:33px;line-height:1.12;margin:14px 0 8px;color:#fff;">מבוא ל-VLAN</h1>
+              <p style="font-size:15.5px;line-height:1.6;color:#C7D6E6;margin:0 0 18px;max-width:520px;">מה זה VLAN, למה הוא חשוב ואיך הוא מפריד רשת אחת לכמה רשתות לוגיות — בלי תשתית פיזית נוספת.</p>
+              <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <span style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:var(--font-weight-demibold);color:#fff;background:rgba(255,255,255,.12);border-radius:999px;padding:6px 13px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>9 דק׳</span>
+                <span style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:var(--font-weight-demibold);color:#fff;background:rgba(255,255,255,.12);border-radius:999px;padding:6px 13px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>50 XP</span>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+          <!-- heading -->
+          <sc-if value="{{ bl.isHeading }}">
+          <h2 contenteditable="{{ bl.editable }}" dir="rtl" style="font-weight:var(--font-weight-demibold);font-size:{{ bl.hSize }};line-height:1.22;margin:0;color:var(--neutral-charcoal);padding:4px 6px;">מהו VLAN?</h2>
+          </sc-if>
+          <!-- paragraph -->
+          <sc-if value="{{ bl.isParagraph }}">
+          <div contenteditable="{{ bl.editable }}" dir="rtl" style="font-size:16.5px;line-height:1.85;color:var(--text-primary);padding:6px;">VLAN (רשת מקומית וירטואלית) מאפשר לחלק <strong style="color:var(--accent);">מתג רשת פיזי אחד</strong> לכמה רשתות לוגיות נפרדות. <span style="background:{{ bl.selBg }};border-radius:3px;transition:background .15s;">מכשירים באותו VLAN רואים זה את זה כאילו הם על רשת פרטית</span>, גם אם הם מחוברים לאותו מתג עם מכשירים מ-VLAN אחר. כך אפשר להפריד, למשל, בין רשת המצלמות לרשת המשרד — ולשמור על אבטחה וסדר על תשתית משותפת.</div>
+          </sc-if>
+          <!-- image -->
+          <sc-if value="{{ bl.isImage }}">
+          <div>
+            <div style="position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--border-default);background:linear-gradient(135deg,var(--hue-sky) 0%,#ffffff 92%);height:240px;display:flex;align-items:center;justify-content:center;">
+              <span style="position:absolute;inset-inline-start:-20px;bottom:-28px;width:90px;height:90px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(0,117,219,.06);"></span>
+              <svg viewBox="0 0 24 24" width="60" height="60" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"></path></svg>
+              <sc-if value="{{ bl.chrome }}">
+              <button onClick="{{ bl.stop }}" class="le-mediabtn" style="position:absolute;top:12px;inset-inline-start:12px;display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border-default);border-radius:10px;padding:8px 12px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12.5px;color:var(--text-secondary);cursor:pointer;box-shadow:0 4px 12px rgba(20,60,110,.12);transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-2.83 0L7 19"></path></svg>בחר מספריית מדיה</button>
+              </sc-if>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:9px;padding:0 4px;flex-wrap:wrap;">
+              <div contenteditable="{{ bl.editable }}" style="flex:1;min-width:160px;font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" width="14" height="14" style="flex:none;" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15l-5-5L5 21"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle></svg>תרשים: הפרדת VLAN במתג מנוהל</div>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:var(--font-weight-demibold);color:var(--success);background:var(--hue-mint);border-radius:999px;padding:3px 9px;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>טקסט חלופי (alt) קיים</span>
+            </div>
+          </div>
+          </sc-if>
+          <!-- list -->
+          <sc-if value="{{ bl.isList }}">
+          <div dir="rtl" style="padding:4px 6px;">
+            <sc-for list="{{ bl.listItems }}" as="li" hint-placeholder-count="3">
+            <div style="display:flex;gap:12px;align-items:flex-start;margin:9px 0;">
+              {{ li.marker }}
+              <div contenteditable="{{ bl.editable }}" style="flex:1;min-width:0;font-size:16.5px;line-height:1.6;color:var(--text-primary);">{{ li.text }}</div>
+            </div>
+            </sc-for>
+          </div>
+          </sc-if>
+          <!-- quote -->
+          <sc-if value="{{ bl.isQuote }}">
+          <div dir="rtl" style="position:relative;overflow:hidden;border-inline-start:4px solid var(--accent);background:var(--surface-app);border-radius:12px;padding:18px 20px;">
+            <svg viewBox="0 0 24 24" width="38" height="38" style="position:absolute;inset-inline-end:14px;top:10px;color:#D6EAFB;" fill="currentColor" stroke="none"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>
+            <div contenteditable="{{ bl.editable }}" style="position:relative;font-size:18.5px;line-height:1.65;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);">‏‎"VLAN הוא הדרך לקחת מתג פיזי אחד ולגרום לו להתנהג כמו כמה רשתות נפרדות — בלי למשוך כבל נוסף."</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:12px;color:var(--text-secondary);font-size:13.5px;font-weight:var(--font-weight-demibold);"><span style="color:var(--accent);">—</span><span contenteditable="{{ bl.editable }}">תקן IEEE 802.1Q</span></div>
+          </div>
+          </sc-if>
+          <!-- note -->
+          <sc-if value="{{ bl.isNote }}">
+          <div dir="rtl" style="display:flex;gap:13px;border:1px solid {{ bl.noteBorder }};background:{{ bl.noteBg }};border-radius:14px;padding:15px 16px;">
+            <span style="flex:none;width:36px;height:36px;border-radius:10px;background:#fff;color:{{ bl.noteFg }};display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(20,60,110,.08);">{{ bl.noteIcon }}</span>
+            <div style="flex:1;min-width:0;">
+              <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;">
+                <span style="font-weight:var(--font-weight-demibold);font-size:14.5px;color:{{ bl.noteFg }};">{{ bl.noteTitle }}</span>
+                <sc-if value="{{ bl.chrome }}">
+                <div style="display:flex;gap:5px;">
+                  <sc-for list="{{ bl.noteChips }}" as="nc" hint-placeholder-count="3">
+                  <button onClick="{{ nc.onPick }}" class="le-chip" style="display:inline-flex;align-items:center;gap:5px;border:{{ nc.border }};background:{{ nc.bg }};color:{{ nc.fg }};border-radius:8px;padding:4px 9px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:11.5px;cursor:pointer;transition:all .14s;">{{ nc.icon }}{{ nc.label }}</button>
+                  </sc-for>
+                </div>
+                </sc-if>
+              </div>
+              <div contenteditable="{{ bl.editable }}" style="font-size:15px;line-height:1.7;color:var(--text-secondary);margin-top:5px;">רוב המתגים המנוהלים תומכים ב-VLAN דרך תקן 802.1Q. כדאי לתעד את מספרי ה-VLAN (VLAN ID) בטבלה מסודרת — זה חוסך שעות של איתור תקלות בהמשך.</div>
+            </div>
+          </div>
+          </sc-if>
+          <!-- motivation -->
+          <sc-if value="{{ bl.isMotivation }}">
+          <div dir="rtl" style="position:relative;overflow:hidden;border-radius:16px;background:linear-gradient(125deg,var(--hue-indigo) 0%,var(--accent) 100%);padding:22px 24px;color:#fff;">
+            <span style="position:absolute;inset-inline-start:-30px;top:-36px;width:130px;height:130px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(255,255,255,.12);"></span>
+            <span style="position:absolute;inset-inline-start:64px;bottom:-40px;width:96px;height:96px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(255,255,255,.08);"></span>
+            <div style="position:relative;display:flex;gap:15px;align-items:center;">
+              <span style="flex:none;width:46px;height:46px;border-radius:13px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:var(--font-weight-demibold);font-size:18px;">כל מומחה רשתות התחיל מ-VLAN אחד</div>
+                <div contenteditable="{{ bl.editable }}" style="font-size:15px;line-height:1.6;color:#EAF6FF;margin-top:3px;">תבינו את העיקרון פעם אחת — וכל מה שבא אחריו (Trunk, Routing, Inter-VLAN) פשוט יתחבר.</div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+          <!-- table -->
+          <sc-if value="{{ bl.isTable }}">
+          <div dir="rtl">
+            <div class="le-scroll" style="overflow-x:auto;border:1px solid var(--border-default);border-radius:13px;">
+              <table class="le-table" style="width:100%;border-collapse:collapse;font-size:14.5px;">
+                <thead>
+                  <tr style="background:var(--hue-sky);">
+                    <th contenteditable="{{ bl.editable }}" class="le-tcell" style="text-align:right;font-weight:var(--font-weight-demibold);color:var(--accent);padding:11px 14px;">מאפיין</th>
+                    <th contenteditable="{{ bl.editable }}" class="le-tcell" style="text-align:right;font-weight:var(--font-weight-demibold);color:var(--accent);padding:11px 14px;">פורט Access</th>
+                    <th contenteditable="{{ bl.editable }}" class="le-tcell" style="text-align:right;font-weight:var(--font-weight-demibold);color:var(--accent);padding:11px 14px;">פורט Trunk</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);">מספר VLANs</td><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;color:var(--text-secondary);">VLAN יחיד</td><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;color:var(--text-secondary);">כמה VLANs יחד</td></tr>
+                  <tr style="background:#FBFDFF;"><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);">תיוג 802.1Q</td><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;color:var(--text-secondary);">ללא תיוג</td><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;color:var(--text-secondary);">תיוג לכל מסגרת</td></tr>
+                  <tr><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);">שימוש טיפוסי</td><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;color:var(--text-secondary);">מחשב, מדפסת</td><td contenteditable="{{ bl.editable }}" class="le-tcell" style="padding:11px 14px;color:var(--text-secondary);">בין מתגים</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <sc-if value="{{ bl.chrome }}">
+            <div style="display:flex;gap:9px;margin-top:10px;">
+              <button onClick="{{ bl.stop }}" class="le-mediabtn" style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border-default);border-radius:10px;padding:8px 13px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>הוסף שורה</button>
+              <button onClick="{{ bl.stop }}" class="le-mediabtn" style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border-default);border-radius:10px;padding:8px 13px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg>הוסף עמודה</button>
+              <button onClick="{{ bl.stop }}" class="le-tdanger" style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border-default);border-radius:10px;padding:8px 13px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path></svg>מחק שורה</button>
+            </div>
+            </sc-if>
+          </div>
+          </sc-if>
+          <!-- video -->
+          <sc-if value="{{ bl.isVideo }}">
+          <div dir="rtl">
+            <div style="position:relative;border-radius:14px;overflow:hidden;background:#0B1016;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;">
+              <div style="position:absolute;inset:0;background:linear-gradient(135deg,#15263A 0%,#0B1016 70%);"></div>
+              <span style="position:absolute;inset-inline-end:-26px;top:-30px;width:130px;height:130px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(46,180,255,.12);"></span>
+              <button onClick="{{ bl.stop }}" aria-label="נגן וידאו" style="position:relative;width:70px;height:70px;border-radius:50%;border:0;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.4);"><svg viewBox="0 0 24 24" width="28" height="28" fill="var(--accent)" stroke="none" style="margin-inline-start:4px;"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg></button>
+              <span style="position:absolute;top:14px;inset-inline-start:14px;display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:var(--font-weight-demibold);color:#fff;background:rgba(0,0,0,.45);border-radius:8px;padding:5px 10px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg>04:12</span>
+              <div style="position:absolute;inset-inline:0;bottom:0;display:flex;align-items:center;gap:11px;padding:11px 14px;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent);">
+                <svg viewBox="0 0 24 24" width="17" height="17" fill="#fff" stroke="none"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+                <div style="flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.25);position:relative;"><span style="position:absolute;inset-inline-start:0;top:0;bottom:0;width:34%;border-radius:4px;background:var(--hue-indigo);"></span></div>
+                <span style="font-family:var(--font-sans);font-size:11.5px;color:#fff;">01:25 / 04:12</span>
+                <span style="font-size:10.5px;font-weight:var(--font-weight-demibold);color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:5px;padding:1px 5px;">CC</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:9px;padding:0 4px;flex-wrap:wrap;">
+              <div contenteditable="{{ bl.editable }}" style="flex:1;min-width:160px;font-size:13px;color:var(--text-muted);display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" width="14" height="14" style="flex:none;" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg>וידאו: הדגמת הגדרת VLAN במתג מנוהל</div>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:var(--font-weight-demibold);color:var(--accent);background:var(--hue-sky);border-radius:999px;padding:3px 9px;">כתוביות עברית</span>
+            </div>
+          </div>
+          </sc-if>
+          <!-- pdf -->
+          <sc-if value="{{ bl.isPdf }}">
+          <div dir="rtl" style="border:1px solid var(--border-default);border-radius:14px;overflow:hidden;background:#fff;">
+            <div style="display:flex;align-items:center;gap:11px;padding:13px 16px;border-bottom:1px solid var(--border-default);background:var(--surface-subtle);">
+              <span style="flex:none;width:36px;height:36px;border-radius:10px;background:rgba(201,66,54,.10);color:var(--caution);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M9 13h6M9 17h6"></path></svg></span>
+              <div style="flex:1;min-width:0;"><div contenteditable="{{ bl.editable }}" style="font-weight:var(--font-weight-demibold);font-size:14.5px;color:var(--neutral-charcoal);">תרשים רשת — תצורת VLAN.pdf</div><div style="font-size:11.5px;color:var(--text-muted);font-family:var(--font-sans);">3 עמודים · 1.4MB</div></div>
+              <button onClick="{{ bl.stop }}" class="le-mediabtn" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--border-default);border-radius:10px;padding:7px 12px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12.5px;color:var(--text-secondary);cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>פתח</button>
+            </div>
+            <div style="background:var(--surface-subtle);padding:22px;display:flex;justify-content:center;">
+              <div style="width:78%;max-width:340px;background:#fff;border:1px solid var(--border-default);border-radius:6px;box-shadow:0 6px 18px rgba(20,60,110,.1);padding:24px 22px;">
+                <div style="height:9px;width:55%;border-radius:4px;background:var(--neutral-charcoal);margin-bottom:14px;"></div>
+                <div style="height:6px;width:100%;border-radius:4px;background:var(--border-default);margin-bottom:8px;"></div>
+                <div style="height:6px;width:92%;border-radius:4px;background:var(--border-default);margin-bottom:8px;"></div>
+                <div style="height:6px;width:96%;border-radius:4px;background:var(--border-default);margin-bottom:18px;"></div>
+                <div style="height:74px;border-radius:8px;background:linear-gradient(135deg,var(--hue-sky),#fff);border:1px solid var(--border-default);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"></path></svg></div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+          <!-- separator -->
+          <sc-if value="{{ bl.isSeparator }}">
+          <div dir="rtl" style="padding:8px 6px;">
+            <sc-if value="{{ bl.sepLine }}"><div style="height:1px;background:var(--border-default);"></div></sc-if>
+            <sc-if value="{{ bl.sepDots }}"><div style="display:flex;align-items:center;justify-content:center;gap:11px;color:var(--neutral-palladium);"><span style="width:5px;height:5px;border-radius:50%;background:currentColor;"></span><span style="width:5px;height:5px;border-radius:50%;background:currentColor;"></span><span style="width:5px;height:5px;border-radius:50%;background:currentColor;"></span></div></sc-if>
+            <sc-if value="{{ bl.sepPage }}"><div style="display:flex;align-items:center;gap:12px;color:var(--text-muted);"><div style="flex:1;height:0;border-top:2px dashed var(--border-strong);"></div><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:var(--font-weight-demibold);color:var(--text-secondary);"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6M6 21v-6M18 3v6M18 21v-6"></path><line x1="3" y1="12" x2="9" y2="12"></line><line x1="15" y1="12" x2="21" y2="12"></line></svg>מעבר עמוד</span><div style="flex:1;height:0;border-top:2px dashed var(--border-strong);"></div></div></sc-if>
+            <sc-if value="{{ bl.chrome }}">
+            <div style="display:flex;gap:6px;justify-content:center;margin-top:12px;">
+              <sc-for list="{{ bl.sepChips }}" as="sc" hint-placeholder-count="3">
+              <button onClick="{{ sc.onPick }}" class="le-chip" style="border:{{ sc.border }};background:{{ sc.bg }};color:{{ sc.fg }};border-radius:8px;padding:5px 12px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12px;cursor:pointer;transition:all .14s;">{{ sc.label }}</button>
+              </sc-for>
+            </div>
+            </sc-if>
+          </div>
+          </sc-if>
+          <!-- flashcard -->
+          <sc-if value="{{ bl.isFlashcard }}">
+          <div dir="rtl">
+            <div style="perspective:1800px;">
+              <div role="button" tabindex="0" aria-label="כרטיס זיכרון — לחצו או הקישו רווח להיפוך" onClick="{{ bl.fc.onFlip }}" onKeyDown="{{ bl.fc.onKey }}" style="position:relative;height:236px;cursor:pointer;transition:transform .6s cubic-bezier(.4,.15,.2,1);transform-style:preserve-3d;transform:{{ bl.fc.flipTransform }};">
+                <!-- FRONT -->
+                <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--border-default);box-shadow:0 12px 30px rgba(20,60,110,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:26px;text-align:center;">
+                  <span style="position:absolute;inset-inline-end:-22px;top:-26px;width:110px;height:110px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(46,180,255,.07);"></span>
+                  <span style="font-size:12px;font-weight:var(--font-weight-demibold);letter-spacing:.04em;color:var(--text-muted);">מונח</span>
+                  <div style="font-weight:var(--font-weight-demibold);font-size:40px;color:var(--accent);letter-spacing:-.01em;">{{ bl.fc.frontText }}</div>
+                  <div style="display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--text-muted);margin-top:2px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v6h6"></path><path d="M3.51 9a9 9 0 1 0 2.13-3.36L3 8"></path></svg>{{ bl.fc.hint }}</div>
+                </div>
+                <!-- BACK -->
+                <div style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg);border-radius:18px;overflow:hidden;background:linear-gradient(135deg,var(--hue-indigo) 0%,var(--accent) 100%);color:#fff;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:28px 30px;">
+                  <span style="position:absolute;inset-inline-start:-26px;bottom:-30px;width:120px;height:120px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(255,255,255,.1);"></span>
+                  <span style="font-size:12px;font-weight:var(--font-weight-demibold);letter-spacing:.04em;color:#D6EEFF;">הסבר</span>
+                  <div style="position:relative;font-size:17.5px;line-height:1.65;font-weight:var(--font-weight-regular);">{{ bl.fc.backText }}</div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:15px;">
+              <button onClick="{{ bl.fc.onPrev }}" class="le-navbtn" aria-label="כרטיס קודם" style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border-default);border-radius:11px;padding:9px 15px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13.5px;color:var(--text-secondary);cursor:{{ bl.fc.prevCur }};opacity:{{ bl.fc.prevOpacity }};transition:all .15s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>הקודם</button>
+              <div style="display:flex;align-items:center;gap:13px;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <sc-for list="{{ bl.fc.dots }}" as="d" hint-placeholder-count="3">
+                  <button onClick="{{ d.onPick }}" aria-label="עבור לכרטיס" style="height:7px;width:{{ d.w }};border-radius:999px;border:0;background:{{ d.bg }};cursor:pointer;padding:0;transition:all .25s cubic-bezier(.22,.61,.36,1);"></button>
+                  </sc-for>
+                </div>
+                <span dir="ltr" style="font-family:var(--font-sans);font-size:13px;font-weight:var(--font-weight-demibold);color:var(--text-secondary);min-width:46px;text-align:center;">{{ bl.fc.counter }}</span>
+              </div>
+              <button onClick="{{ bl.fc.onNext }}" class="le-navbtn" aria-label="כרטיס הבא" style="display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border-default);border-radius:11px;padding:9px 15px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13.5px;color:var(--text-secondary);cursor:{{ bl.fc.nextCur }};opacity:{{ bl.fc.nextOpacity }};transition:all .15s;">הבא<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            </div>
+            <sc-if value="{{ bl.chrome }}">
+            <div style="margin-top:18px;border-top:1px dashed var(--border-default);padding-top:15px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px;"><span style="font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="16" height="14" rx="2"></rect><path d="M22 6v12a2 2 0 0 1-2 2"></path></svg>עריכת כרטיסים</span></div>
+              <sc-for list="{{ bl.fc.cards }}" as="c" hint-placeholder-count="3">
+              <div class="le-cardrow" style="display:flex;gap:10px;align-items:stretch;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:13px;padding:10px 11px;margin-bottom:9px;transition:border-color .14s;">
+                <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:2px;"><svg viewBox="0 0 24 24" width="14" height="14" style="color:var(--neutral-palladium);cursor:grab;" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.4"></circle><circle cx="15" cy="6" r="1.4"></circle><circle cx="9" cy="12" r="1.4"></circle><circle cx="15" cy="12" r="1.4"></circle><circle cx="9" cy="18" r="1.4"></circle><circle cx="15" cy="18" r="1.4"></circle></svg><span style="width:22px;height:22px;border-radius:7px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-sans);font-weight:var(--font-weight-demibold);font-size:11.5px;">{{ c.num }}</span></div>
+                <div style="flex:1;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:9px;">
+                  <div><label style="display:block;font-size:10.5px;font-weight:var(--font-weight-demibold);color:var(--text-muted);margin-bottom:4px;">צד קדמי</label><div contenteditable="{{ bl.editable }}" onClick="{{ c.stop }}" style="background:#fff;border:1px solid var(--border-default);border-radius:9px;padding:8px 10px;font-size:14px;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);min-height:22px;">{{ c.front }}</div></div>
+                  <div><label style="display:block;font-size:10.5px;font-weight:var(--font-weight-demibold);color:var(--text-muted);margin-bottom:4px;">צד אחורי</label><div contenteditable="{{ bl.editable }}" onClick="{{ c.stop }}" style="background:#fff;border:1px solid var(--border-default);border-radius:9px;padding:8px 10px;font-size:13.5px;line-height:1.5;color:var(--text-secondary);min-height:22px;">{{ c.back }}</div></div>
+                </div>
+                <div style="flex:none;display:flex;flex-direction:column;gap:5px;">
+                  <button onClick="{{ c.stop }}" class="le-mediabtn" title="הוסף מדיה" aria-label="הוסף מדיה" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border-default);background:#fff;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-2.83 0L7 19"></path></svg></button>
+                  <button onClick="{{ c.onRemove }}" class="le-tdanger" title="מחק כרטיס" aria-label="מחק כרטיס" style="width:32px;height:32px;border-radius:8px;border:1px solid var(--border-default);background:#fff;color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                </div>
+              </div>
+              </sc-for>
+              <button onClick="{{ bl.fc.addCard }}" class="le-add" style="display:inline-flex;align-items:center;gap:7px;border:1px dashed var(--hue-indigo);background:var(--surface-subtle);color:var(--accent);border-radius:11px;padding:9px 14px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>הוסף כרטיס</button>
+            </div>
+            </sc-if>
+          </div>
+          </sc-if>
+          <!-- tabs -->
+          <sc-if value="{{ bl.isTabs }}">
+          <div dir="rtl">
+            <div role="tablist" aria-label="לשוניות תוכן" style="display:flex;gap:2px;border-bottom:2px solid var(--border-default);">
+              <sc-for list="{{ bl.tb.tabs }}" as="t" hint-placeholder-count="3">
+              <button role="tab" aria-selected="{{ t.active }}" tabindex="0" onClick="{{ t.onPick }}" onKeyDown="{{ t.onKey }}" style="position:relative;border:0;background:transparent;cursor:pointer;font-family:inherit;font-weight:{{ t.weight }};font-size:14.5px;color:{{ t.fg }};padding:11px 18px;transition:color .2s;">{{ t.title }}<span style="position:absolute;inset-inline:10px;bottom:-2px;height:2.5px;border-radius:2px;background:{{ t.underline }};transition:background .2s;"></span></button>
+              </sc-for>
+            </div>
+            <div style="overflow:hidden;">
+              <div key="{{ bl.tb.activeKey }}" style="animation:le-tabin .35s cubic-bezier(.3,.1,.2,1);font-size:16px;line-height:1.8;color:var(--text-primary);padding:17px 4px 6px;">{{ bl.tb.activeBody }}</div>
+            </div>
+            <sc-if value="{{ bl.chrome }}">
+            <div style="margin-top:16px;border-top:1px dashed var(--border-default);padding-top:15px;">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:11px;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"></rect><path d="M7 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path></svg>עריכת לשוניות</div>
+              <sc-for list="{{ bl.tb.editTabs }}" as="t" hint-placeholder-count="3">
+              <div class="le-cardrow" style="display:flex;gap:10px;align-items:stretch;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:13px;padding:10px 11px;margin-bottom:9px;transition:border-color .14s;">
+                <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:2px;"><svg viewBox="0 0 24 24" width="14" height="14" style="color:var(--neutral-palladium);cursor:grab;" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.4"></circle><circle cx="15" cy="6" r="1.4"></circle><circle cx="9" cy="12" r="1.4"></circle><circle cx="15" cy="12" r="1.4"></circle><circle cx="9" cy="18" r="1.4"></circle><circle cx="15" cy="18" r="1.4"></circle></svg><span style="width:22px;height:22px;border-radius:7px;background:rgba(241,194,27,.16);color:var(--hue-bronze);display:flex;align-items:center;justify-content:center;font-family:var(--font-sans);font-weight:var(--font-weight-demibold);font-size:11.5px;">{{ t.num }}</span></div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px;">
+                  <div contenteditable="{{ bl.editable }}" onClick="{{ t.stop }}" aria-label="כותרת לשונית" style="background:#fff;border:1px solid var(--border-default);border-radius:9px;padding:8px 10px;font-size:14px;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);">{{ t.title }}</div>
+                  <div contenteditable="{{ bl.editable }}" onClick="{{ t.stop }}" aria-label="תוכן לשונית" style="background:#fff;border:1px solid var(--border-default);border-radius:9px;padding:9px 11px;font-size:13.5px;line-height:1.6;color:var(--text-secondary);">{{ t.body }}</div>
+                </div>
+                <button onClick="{{ t.onRemove }}" class="le-tdanger" title="מחק לשונית" aria-label="מחק לשונית" style="flex:none;width:32px;height:32px;align-self:flex-start;border-radius:8px;border:1px solid var(--border-default);background:#fff;color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+              </div>
+              </sc-for>
+              <button onClick="{{ bl.tb.addTab }}" class="le-add" style="display:inline-flex;align-items:center;gap:7px;border:1px dashed var(--hue-indigo);background:var(--surface-subtle);color:var(--accent);border-radius:11px;padding:9px 14px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>הוסף לשונית</button>
+            </div>
+            </sc-if>
+          </div>
+          </sc-if>
+          <!-- ai_generated -->
+          <sc-if value="{{ bl.isAiGen }}">
+          <div dir="rtl" style="border:1px solid var(--hue-sky);border-radius:16px;overflow:hidden;background:linear-gradient(180deg,var(--surface-subtle),#fff);">
+            <div style="display:flex;align-items:center;gap:9px;padding:11px 15px;border-bottom:1px solid var(--hue-sky);background:var(--hue-sky);">
+              <span style="flex:none;width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--hue-indigo),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4z"></path></svg></span>
+              <span style="flex:1;min-width:0;font-weight:var(--font-weight-demibold);font-size:13.5px;color:var(--hue-cobalt);">תוכן שנוצר ב-AI</span>
+              <span style="flex:none;display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:var(--font-weight-demibold);color:var(--accent);background:#fff;border:1px solid var(--hue-sky);border-radius:999px;padding:3px 9px;"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);"></span>Claude · iPracticom</span>
+            </div>
+            <div style="padding:14px 16px;">
+              <label style="display:block;font-size:11px;font-weight:var(--font-weight-demibold);color:var(--text-secondary);margin-bottom:6px;">הנחיה (Prompt)</label>
+              <div style="display:flex;gap:9px;align-items:flex-start;">
+                <div contenteditable="{{ bl.editable }}" dir="rtl" style="flex:1;min-width:0;background:#fff;border:1px solid var(--hue-sky);border-radius:11px;padding:10px 12px;font-size:13.5px;line-height:1.6;color:var(--text-secondary);">כתוב פסקת הסבר קצרה וברורה על ההבדל בין VLAN גישה (Access) ל-VLAN תיוג (Trunk), בשפה פשוטה לטכנאי שטח.</div>
+                <sc-if value="{{ bl.chrome }}">
+                <button onClick="{{ bl.onRegen }}" style="flex:none;display:inline-flex;align-items:center;gap:6px;align-self:stretch;background:var(--accent);color:#fff;border:0;border-radius:11px;padding:0 14px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;cursor:pointer;box-shadow:0 6px 16px rgba(124,77,218,.28);transition:background .18s;" style-hover="background:var(--accent);"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v6h6"></path><path d="M3.51 9a9 9 0 1 0 2.13-3.36L3 8"></path></svg>צור מחדש</button>
+                </sc-if>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin:14px 0 8px;"><span style="flex:none;font-size:11px;font-weight:var(--font-weight-demibold);color:var(--text-secondary);">התוצאה</span><span style="flex:1;height:1px;background:var(--hue-sky);"></span></div>
+              <div contenteditable="{{ bl.editable }}" dir="rtl" style="font-size:16px;line-height:1.85;color:var(--text-primary);background:#fff;border:1px solid var(--hue-sky);border-radius:11px;padding:13px 15px;">פורט <strong style="color:var(--accent);">Access</strong> מחבר מכשיר קצה יחיד (מחשב, מצלמה) ל-VLAN אחד ומעביר תעבורה ללא תיוג. פורט <strong style="color:var(--accent);">Trunk</strong>, לעומת זאת, מחבר בין מתגים ומעביר כמה VLANs יחד — כל מסגרת מקבלת תג 802.1Q שמזהה לאיזה VLAN היא שייכת. כך מספיק כבל אחד בין המתגים כדי לשאת את כל הרשתות הלוגיות.</div>
+              <div style="display:flex;align-items:center;gap:7px;margin-top:9px;font-size:11.5px;color:var(--text-secondary);"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"></path></svg>נוצר על-ידי AI — מומלץ לעבור ולערוך לפני פרסום</div>
+            </div>
+          </div>
+          </sc-if>
+          <!-- gamma_embed -->
+          <sc-if value="{{ bl.isGamma }}">
+          <div dir="rtl" style="border:1px solid var(--border-default);border-radius:16px;overflow:hidden;background:#fff;">
+            <div style="display:flex;align-items:center;gap:9px;padding:11px 15px;border-bottom:1px solid var(--border-default);background:var(--surface-subtle);">
+              <span style="flex:none;width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--hue-indigo),var(--hue-bronze));color:#fff;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"></path><path d="M4 3v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3"></path><path d="M12 16v5M9 21h6"></path></svg></span>
+              <span style="flex:1;min-width:0;font-weight:var(--font-weight-demibold);font-size:13.5px;color:var(--neutral-charcoal);">מצגת Gamma</span>
+              <sc-if value="{{ bl.chrome }}"><span style="flex:none;font-size:11px;font-weight:var(--font-weight-demibold);color:var(--accent);background:var(--hue-sky);border-radius:999px;padding:3px 10px;">מקושר</span></sc-if>
+            </div>
+            <sc-if value="{{ bl.chrome }}">
+            <div style="padding:12px 15px;border-bottom:1px solid var(--surface-subtle);display:flex;gap:9px;align-items:center;">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--border-default);background:var(--surface-subtle);"><svg viewBox="0 0 24 24" width="15" height="15" style="flex:none;" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><span dir="ltr" style="flex:1;min-width:0;font-family:var(--font-sans);font-size:12.5px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">gamma.app/docs/vlan-basics-9fx2</span></div>
+              <button style="flex:none;height:40px;padding:0 13px;border-radius:10px;border:1px solid var(--border-default);background:#fff;color:var(--text-secondary);font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12.5px;cursor:pointer;">החלף</button>
+            </div>
+            </sc-if>
+            <div style="position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1B1430,#2A1C4A 60%,var(--accent));display:flex;align-items:center;justify-content:center;">
+              <span style="position:absolute;inset-inline-end:-26px;top:-30px;width:130px;height:130px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(224,134,11,.16);"></span>
+              <div style="position:relative;text-align:center;color:#fff;padding:24px;">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.16);margin-bottom:12px;"><svg viewBox="0 0 24 24" width="26" height="26" fill="#fff" stroke="none"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg></span>
+                <div style="font-weight:var(--font-weight-demibold);font-size:19px;">יסודות VLAN — מצגת אינטראקטיבית</div>
+                <div style="font-size:13px;color:#CDBEEA;margin-top:5px;">12 שקופיות · Gamma</div>
+              </div>
+              <div style="position:absolute;inset-inline:0;bottom:0;display:flex;align-items:center;gap:9px;padding:10px 14px;background:linear-gradient(0deg,rgba(0,0,0,.5),transparent);"><span style="font-family:var(--font-sans);font-size:11.5px;color:#fff;">1 / 12</span><div style="flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.25);"><span style="display:block;width:8%;height:100%;border-radius:3px;background:var(--hue-bronze);"></span></div></div>
+            </div>
+          </div>
+          </sc-if>
+          <!-- html_embed -->
+          <sc-if value="{{ bl.isHtmlEmbed }}">
+          <div dir="rtl" style="border:1px solid var(--border-default);border-radius:16px;overflow:hidden;background:#fff;">
+            <div style="display:flex;align-items:center;gap:9px;padding:11px 15px;border-bottom:1px solid var(--border-default);background:var(--surface-subtle);">
+              <span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--neutral-charcoal);color:#7CCBFF;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"></path></svg></span>
+              <span style="flex:1;min-width:0;font-weight:var(--font-weight-demibold);font-size:13.5px;color:var(--neutral-charcoal);">הטמעת HTML / iframe</span>
+            </div>
+            <sc-if value="{{ bl.chrome }}">
+            <div style="padding:12px 15px;border-bottom:1px solid var(--surface-subtle);display:flex;gap:9px;align-items:center;">
+              <div style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--border-default);background:var(--surface-subtle);"><svg viewBox="0 0 24 24" width="15" height="15" style="flex:none;" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M2 8h20"></path></svg><span dir="ltr" style="flex:1;min-width:0;font-family:var(--font-sans);font-size:12.5px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">figma.com/proto/vlan-switch-sim/embed</span></div>
+              <button style="flex:none;height:40px;padding:0 13px;border-radius:10px;border:1px solid var(--border-default);background:#fff;color:var(--text-secondary);font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12.5px;cursor:pointer;">URL / קוד</button>
+            </div>
+            </sc-if>
+            <div style="position:relative;aspect-ratio:16/9;background:var(--surface-subtle);display:flex;align-items:center;justify-content:center;background-image:radial-gradient(#D8E3EF 1.2px,transparent 1.2px);background-size:22px 22px;">
+              <div style="text-align:center;color:var(--text-secondary);"><span style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:#fff;border:1px solid var(--border-default);box-shadow:0 6px 16px rgba(20,60,110,.1);margin-bottom:11px;color:var(--accent);"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg></span><div style="font-weight:var(--font-weight-demibold);font-size:14px;color:var(--text-secondary);">פרוטוטייפ אינטראקטיבי מוטמע</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px;">Figma · 960×540</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:9px 15px;background:rgba(241,194,27,.18);border-top:1px solid rgba(241,194,27,.35);"><svg viewBox="0 0 24 24" width="15" height="15" style="flex:none;color:var(--hue-bronze);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><path d="M12 9v4M12 17h.01"></path></svg><span style="font-size:12px;font-weight:var(--font-weight-demibold);color:#8A6A12;">תוכן חיצוני — נטען מאתר צד-שלישי. ודאו שהמקור מהימן.</span></div>
+          </div>
+          </sc-if>
+          <!-- designed_section -->
+          <sc-if value="{{ bl.isDesigned }}">
+          <div dir="rtl">
+            <sc-if value="{{ bl.dsHero }}">
+            <div style="position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(125deg,var(--neutral-charcoal),#1d3a55 60%,var(--accent) 140%);padding:30px 32px;color:#fff;">
+              <span style="position:absolute;inset-inline-end:-26px;top:-30px;width:140px;height:140px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(46,180,255,.16);"></span>
+              <div style="position:relative;"><span style="font-size:12px;font-weight:var(--font-weight-demibold);color:#7CCBFF;">פרק 2</span><div contenteditable="{{ bl.editable }}" style="font-weight:var(--font-weight-demibold);font-size:30px;margin:8px 0 8px;">מתגים מנוהלים ו-VLAN</div><div contenteditable="{{ bl.editable }}" style="font-size:15.5px;line-height:1.6;color:#C7D6E6;max-width:540px;">כל מה שצריך לדעת כדי להגדיר רשת לוגית נקייה על מתג אחד.</div></div>
+            </div>
+            </sc-if>
+            <sc-if value="{{ bl.dsCallout }}">
+            <div style="display:flex;gap:15px;align-items:center;border:1px solid var(--hue-indigo);background:linear-gradient(120deg,var(--hue-sky),#fff);border-radius:16px;padding:20px 22px;">
+              <span style="flex:none;width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,var(--hue-indigo),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></span>
+              <div style="flex:1;min-width:0;"><div contenteditable="{{ bl.editable }}" style="font-weight:var(--font-weight-demibold);font-size:18px;color:var(--neutral-charcoal);">נקודת מפתח לזכור</div><div contenteditable="{{ bl.editable }}" style="font-size:15px;line-height:1.6;color:var(--text-secondary);margin-top:3px;">VLAN אחד = רשת לוגית אחת. תיוג 802.1Q הוא מה שמאפשר לכמה VLANs לחלוק כבל פיזי אחד.</div></div>
+            </div>
+            </sc-if>
+            <sc-if value="{{ bl.dsCard }}">
+            <div style="border:1px solid var(--border-default);border-radius:16px;background:#fff;box-shadow:0 6px 18px rgba(20,60,110,.07);overflow:hidden;">
+              <div style="height:8px;background:linear-gradient(90deg,var(--hue-indigo),var(--accent));"></div>
+              <div style="padding:20px 22px;"><div contenteditable="{{ bl.editable }}" style="font-weight:var(--font-weight-demibold);font-size:18px;color:var(--neutral-charcoal);">סיכום הפרק</div><div contenteditable="{{ bl.editable }}" style="font-size:15px;line-height:1.7;color:var(--text-secondary);margin-top:6px;">למדנו מהו VLAN, מתי להשתמש ב-Access מול Trunk, ואיך תיוג 802.1Q מאפשר רשת מסודרת על תשתית משותפת.</div></div>
+            </div>
+            </sc-if>
+            <sc-if value="{{ bl.chrome }}">
+            <div style="display:flex;gap:6px;margin-top:11px;align-items:center;"><span style="font-size:11px;font-weight:var(--font-weight-demibold);color:var(--text-muted);margin-inline-end:2px;">וריאנט:</span>
+              <sc-for list="{{ bl.dsChips }}" as="dc" hint-placeholder-count="3">
+              <button onClick="{{ dc.onPick }}" class="le-chip" style="border:{{ dc.border }};background:{{ dc.bg }};color:{{ dc.fg }};border-radius:8px;padding:5px 13px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12px;cursor:pointer;transition:all .14s;">{{ dc.label }}</button>
+              </sc-for>
+            </div>
+            </sc-if>
+          </div>
+          </sc-if>
+          <!-- empty / slash hint -->
+          <sc-if value="{{ bl.isEmpty }}">
+          <div role="textbox" aria-label="בלוק ריק" style="display:flex;align-items:center;gap:10px;padding:10px 8px;color:var(--neutral-palladium);font-size:16px;">
+            <span style="flex:none;width:22px;height:22px;border-radius:6px;border:1px solid var(--border-default);background:#fff;color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-demibold);font-size:13px;font-family:var(--font-sans);">/</span>
+            הקלידו <strong style="color:var(--accent);font-weight:var(--font-weight-demibold);margin:0 3px;">/</strong> לפקודה, או פשוט התחילו לכתוב…
+          </div>
+          </sc-if>
+
+          <!-- insert affordance below -->
+          <sc-if value="{{ bl.chrome }}">
+          <div class="le-ins" style="position:relative;height:0;opacity:{{ bl.insOpacity }};">
+            <div style="position:absolute;inset-inline:0;top:{{ bl.insTop }};display:flex;align-items:center;gap:8px;">
+              <div style="flex:1;height:2px;border-radius:2px;background:{{ bl.insLine }};"></div>
+              <button onClick="{{ bl.onAddBelow }}" title="הוסף בלוק" aria-label="הוסף בלוק" style="flex:none;width:24px;height:24px;border-radius:50%;border:0;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 10px rgba(0,117,219,.32);"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+              <div style="flex:1;height:2px;border-radius:2px;background:{{ bl.insLine }};"></div>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-for>
+
+        <!-- bottom add-block + picker -->
+        <sc-if value="{{ showChrome }}">
+        <div style="position:relative;margin-top:14px;">
+          <button onClick="{{ togglePicker }}" class="le-add" aria-expanded="{{ pickerOpen }}" style="display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:1.5px dashed var(--hue-indigo);background:var(--surface-subtle);color:var(--accent);border-radius:14px;padding:15px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:14.5px;cursor:pointer;transition:all .16s;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>הוסף בלוק</button>
+
+          <sc-if value="{{ pickerOpen }}">
+          <div role="menu" aria-label="בורר בלוקים" style="margin-top:10px;background:#fff;border:1px solid var(--border-default);border-radius:16px;box-shadow:0 18px 44px rgba(20,60,110,.16);overflow:hidden;">
+            <div style="display:flex;align-items:center;gap:9px;padding:13px 16px;border-bottom:1px solid var(--surface-subtle);">
+              <svg viewBox="0 0 24 24" width="17" height="17" style="flex:none;" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input class="le-in" value="{{ pickerSearch }}" onInput="{{ onPickerSearch }}" placeholder="חיפוש בלוק להוספה…" style="flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:14.5px;color:var(--neutral-charcoal);"/>
+              <button onClick="{{ togglePicker }}" aria-label="סגור" style="flex:none;width:28px;height:28px;border-radius:8px;border:0;background:var(--surface-subtle);color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+            </div>
+            <div class="le-scroll" style="max-height:300px;overflow-y:auto;padding:14px 16px;">
+              <sc-for list="{{ pickerFamilies }}" as="f" hint-placeholder-count="5">
+              <div style="margin-bottom:16px;">
+                <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px;"><span style="width:7px;height:7px;border-radius:2px;background:{{ f.color }};"></span><span style="font-size:11.5px;font-weight:var(--font-weight-demibold);letter-spacing:.03em;color:var(--text-muted);">{{ f.label }}</span></div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+                  <sc-for list="{{ f.blocks }}" as="b" hint-placeholder-count="3">
+                  <button class="le-pchip" onClick="{{ b.onAdd }}" style="display:flex;align-items:center;gap:9px;border:1px solid #EDF1F6;background:#fff;border-radius:11px;padding:9px 11px;cursor:pointer;text-align:start;font-family:inherit;transition:all .15s;">
+                    <span style="flex:none;width:30px;height:30px;border-radius:8px;background:{{ b.iconBg }};color:{{ b.iconFg }};display:flex;align-items:center;justify-content:center;">{{ b.icon }}</span>
+                    <span style="flex:1;min-width:0;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ b.label }}</span>
+                  </button>
+                  </sc-for>
+                </div>
+              </div>
+              </sc-for>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+      </div>
+    </main>
+
+    <!-- ===== INSPECTOR + OUTLINE (left) ===== -->
+    <sc-if value="{{ showChrome }}">
+    <aside class="le-scroll" aria-label="מאפיינים ומבנה" style="flex:none;width:300px;background:#fff;border-inline-end:1px solid var(--border-default);overflow-y:auto;display:flex;flex-direction:column;">
+
+      <!-- inspector -->
+      <div style="padding:16px;border-bottom:1px solid var(--border-default);">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:15px;">
+          <span style="width:32px;height:32px;border-radius:9px;background:{{ sel.iconBg }};color:{{ sel.iconFg }};display:flex;align-items:center;justify-content:center;">{{ sel.icon }}</span>
+          <div style="min-width:0;"><div style="font-weight:var(--font-weight-demibold);font-size:14.5px;line-height:1.1;">{{ sel.typeLabel }}</div><div style="font-size:11.5px;color:var(--text-muted);margin-top:2px;">מאפייני הבלוק הנבחר</div></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:15px;">
+          <div>
+            <label style="display:block;font-weight:var(--font-weight-demibold);font-size:12px;color:var(--text-secondary);margin-bottom:7px;">גודל טקסט</label>
+            <div style="display:flex;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:10px;padding:3px;gap:2px;">
+              <sc-for list="{{ sizeOptions }}" as="o" hint-placeholder-count="3">
+              <button onClick="{{ o.onPick }}" style="flex:1;border:0;cursor:pointer;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:12.5px;padding:7px;border-radius:7px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.sh }};transition:all .15s;">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font-weight:var(--font-weight-demibold);font-size:12px;color:var(--text-secondary);margin-bottom:7px;">יישור</label>
+            <div style="display:flex;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:10px;padding:3px;gap:2px;">
+              <sc-for list="{{ alignOptions }}" as="o" hint-placeholder-count="3">
+              <button onClick="{{ o.onPick }}" aria-label="{{ o.label }}" style="flex:1;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:7px;border-radius:7px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.sh }};transition:all .15s;">{{ o.icon }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font-weight:var(--font-weight-demibold);font-size:12px;color:var(--text-secondary);margin-bottom:7px;">צבע טקסט</label>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <sc-for list="{{ colorOptions }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.onPick }}" aria-label="צבע" style="width:32px;height:32px;border-radius:9px;border:{{ c.border }};background:{{ c.bg }};cursor:pointer;position:relative;transition:all .15s;" style-hover="transform:scale(1.06);"><sc-if value="{{ c.active }}"><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:{{ c.check }};"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span></sc-if></button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:3px;">
+            <div style="min-width:0;"><div style="font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);">הצג בתצוגת לומד</div><div style="font-size:11px;color:var(--text-muted);margin-top:1px;">בלוק מוסתר לא יוצג ללומד</div></div>
+            <button onClick="{{ toggleVisible }}" role="switch" aria-checked="{{ visible }}" style="flex:none;position:relative;width:46px;height:27px;border-radius:999px;border:0;cursor:pointer;background:{{ visTrack }};transition:background .2s;"><span style="position:absolute;top:3px;left:{{ visKnob }};width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(20,40,70,.28);transition:left .2s cubic-bezier(.22,.61,.36,1);"></span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- outline -->
+      <div style="padding:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;">
+          <h3 style="font-weight:var(--font-weight-demibold);font-size:14px;margin:0;display:flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>מבנה השיעור</h3>
+          <span style="font-family:var(--font-sans);font-size:11.5px;font-weight:var(--font-weight-demibold);color:var(--accent);background:var(--hue-sky);border-radius:999px;padding:2px 9px;">{{ blockCount }} בלוקים</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <sc-for list="{{ outline }}" as="o" hint-placeholder-count="4">
+          <div class="le-outline-row" onClick="{{ o.onSelect }}" style="display:flex;align-items:center;gap:9px;border-radius:10px;padding:8px 9px;cursor:pointer;background:{{ o.bg }};border:1px solid {{ o.border }};transition:all .14s;">
+            <svg viewBox="0 0 24 24" width="14" height="14" style="flex:none;color:var(--neutral-palladium);cursor:grab;" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.4"></circle><circle cx="15" cy="6" r="1.4"></circle><circle cx="9" cy="12" r="1.4"></circle><circle cx="15" cy="12" r="1.4"></circle><circle cx="9" cy="18" r="1.4"></circle><circle cx="15" cy="18" r="1.4"></circle></svg>
+            <span style="flex:none;width:26px;height:26px;border-radius:7px;background:{{ o.iconBg }};color:{{ o.iconFg }};display:flex;align-items:center;justify-content:center;">{{ o.icon }}</span>
+            <span style="flex:1;min-width:0;font-weight:{{ o.weight }};font-size:13px;color:{{ o.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ o.label }}</span>
+            <sc-if value="{{ o.hidden }}"><svg viewBox="0 0 24 24" width="14" height="14" style="flex:none;color:var(--neutral-palladium);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c6.5 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3.5 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><path d="M2 2l20 20"></path></svg></sc-if>
+          </div>
+          </sc-for>
+        </div>
+      </div>
+    </aside>
+    </sc-if>
+  </div>
+
+  <!-- ===== VERSION HISTORY DRAWER ===== -->
+  <sc-if value="{{ versionsOpen }}">
+  <div style="position:fixed;inset:0;z-index:80;display:flex;justify-content:flex-start;">
+    <div onClick="{{ closeVersions }}" style="position:absolute;inset:0;background:rgba(15,30,50,.34);"></div>
+    <aside class="le-scroll" dir="rtl" aria-label="היסטוריית גרסאות" style="position:relative;width:440px;max-width:100%;height:100%;background:#fff;box-shadow:0 0 60px rgba(20,60,110,.3);overflow-y:auto;display:flex;flex-direction:column;">
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 22px;border-bottom:1px solid var(--border-default);">
+        <div style="display:flex;align-items:center;gap:11px;"><span style="width:40px;height:40px;border-radius:11px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"></path><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"></path><path d="M12 7v5l4 2"></path></svg></span><div><h3 style="font-weight:var(--font-weight-demibold);font-size:18px;margin:0;">היסטוריית גרסאות</h3><p style="font-size:12.5px;color:var(--text-secondary);margin:2px 0 0;">{{ versionCount }} גרסאות שמורות</p></div></div>
+        <button onClick="{{ closeVersions }}" aria-label="סגור" style="width:36px;height:36px;border-radius:10px;border:0;background:var(--surface-subtle);color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;" style-hover="background:var(--border-default);color:var(--neutral-charcoal);"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+      <div style="flex:1;padding:16px 20px 26px;display:flex;flex-direction:column;gap:10px;">
+        <sc-for list="{{ versions }}" as="v" hint-placeholder-count="4">
+        <div class="le-vrow" style="border:1px solid {{ v.border }};background:{{ v.bg }};border-radius:14px;padding:14px 16px;transition:all .15s;">
+          <div style="display:flex;align-items:flex-start;gap:11px;">
+            <span style="flex:none;width:36px;height:36px;border-radius:10px;background:{{ v.numBg }};color:{{ v.numFg }};display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-demibold);font-size:13px;font-family:var(--font-sans);">{{ v.num }}</span>
+            <div style="flex:1;min-width:0;">
+              <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;"><span style="font-weight:var(--font-weight-demibold);font-size:14.5px;">{{ v.note }}</span><sc-if value="{{ v.current }}"><span style="font-size:10.5px;font-weight:var(--font-weight-demibold);color:var(--success);background:var(--hue-mint);border-radius:6px;padding:2px 7px;">נוכחית</span></sc-if></div>
+              <div style="display:flex;align-items:center;gap:9px;margin-top:5px;font-size:12px;color:var(--text-muted);flex-wrap:wrap;">
+                <span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:20px;height:20px;border-radius:50%;background:{{ v.avBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:var(--font-weight-demibold);font-size:10px;">{{ v.initials }}</span>{{ v.editor }}</span>
+                <span>·</span><span>{{ v.date }}</span><span>·</span>
+                <span style="display:inline-flex;align-items:center;gap:4px;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>{{ v.blocks }} בלוקים</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px;">
+            <button style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#fff;color:var(--text-secondary);border:1px solid var(--border-default);border-radius:10px;padding:8px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;cursor:pointer;transition:all .15s;" style-hover="border-color:var(--border-strong);background:var(--surface-subtle);"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>צפה</button>
+            <button disabled="{{ v.current }}" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:{{ v.restoreBg }};color:{{ v.restoreFg }};border:0;border-radius:10px;padding:8px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;cursor:{{ v.restoreCur }};transition:all .15s;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"></path><path d="M3.51 15a9 9 0 1 0 .49-5.5L3 13"></path></svg>שחזר</button>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+    </aside>
+  </div>
+  </sc-if>
+
+  <!-- ===== LESSON SETTINGS MODAL ===== -->
+  <sc-if value="{{ settingsOpen }}">
+  <div style="position:fixed;inset:0;z-index:85;display:flex;align-items:center;justify-content:center;padding:24px;">
+    <div onClick="{{ closeSettings }}" style="position:absolute;inset:0;background:rgba(15,30,50,.5);"></div>
+    <div dir="rtl" style="position:relative;width:600px;max-width:100%;max-height:90vh;display:flex;flex-direction:column;background:#fff;border-radius:20px;box-shadow:0 24px 70px rgba(20,60,110,.34);overflow:hidden;">
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 24px;border-bottom:1px solid var(--border-default);">
+        <div style="display:flex;align-items:center;gap:11px;"><span style="width:40px;height:40px;border-radius:11px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg></span><div><h3 style="font-weight:var(--font-weight-demibold);font-size:18px;margin:0;">הגדרות שיעור</h3><p style="font-size:12.5px;color:var(--text-secondary);margin:2px 0 0;">פרטים, מטרות והגדרות התקדמות</p></div></div>
+        <button onClick="{{ closeSettings }}" aria-label="סגור" style="width:36px;height:36px;border-radius:10px;border:0;background:var(--surface-subtle);color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;" style-hover="background:var(--border-default);color:var(--neutral-charcoal);"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+      <div class="le-scroll" style="flex:1;overflow-y:auto;padding:22px 24px;display:flex;flex-direction:column;gap:18px;">
+        <div>
+          <label style="display:block;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);margin-bottom:7px;">כותרת השיעור</label>
+          <input class="le-in" value="{{ title }}" onInput="{{ onTitle }}" style="width:100%;height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--border-default);background:var(--surface-subtle);font-size:15px;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);outline:none;transition:all .15s;"/>
+        </div>
+        <div>
+          <label style="display:block;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);margin-bottom:7px;">מבוא קצר</label>
+          <textarea class="le-in" value="{{ intro }}" onInput="{{ onIntro }}" style="width:100%;min-height:74px;resize:vertical;padding:12px 14px;border-radius:12px;border:1px solid var(--border-default);background:var(--surface-subtle);font-size:14.5px;line-height:1.6;color:var(--text-secondary);outline:none;transition:all .15s;"></textarea>
+        </div>
+        <div>
+          <label style="display:block;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);margin-bottom:9px;">מטרות למידה</label>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ objectives }}" as="ob" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="flex:none;width:26px;height:26px;border-radius:50%;background:var(--hue-mint);color:var(--success);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+              <input class="le-in" value="{{ ob.text }}" onInput="{{ ob.onInput }}" style="flex:1;min-width:0;height:42px;padding:0 13px;border-radius:11px;border:1px solid var(--border-default);background:var(--surface-subtle);font-size:14px;color:var(--text-secondary);outline:none;transition:all .15s;"/>
+              <button onClick="{{ ob.onRemove }}" aria-label="הסר" style="flex:none;width:34px;height:42px;border-radius:10px;border:0;background:transparent;color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;" style-hover="background:rgba(201,66,54,.10);color:var(--caution);"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+            </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ addObjective }}" class="le-add" style="display:inline-flex;align-items:center;gap:7px;margin-top:9px;border:1px dashed var(--hue-indigo);background:var(--surface-subtle);color:var(--accent);border-radius:11px;padding:9px 14px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13.5px;cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>הוסף מטרה</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+          <div>
+            <label style="display:block;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);margin-bottom:7px;">משך מוערך</label>
+            <div style="display:flex;align-items:center;height:44px;padding:0 13px;border-radius:11px;border:1px solid var(--border-default);background:var(--surface-subtle);font-size:14px;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);"><span style="font-family:var(--font-sans);">9</span><span style="font-size:12px;color:var(--text-muted);margin-inline-start:5px;">דקות</span></div>
+          </div>
+          <div>
+            <label style="display:block;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);margin-bottom:7px;">XP בהשלמה</label>
+            <div style="display:flex;align-items:center;height:44px;padding:0 13px;border-radius:11px;border:1px solid var(--border-default);background:var(--surface-subtle);font-size:14px;font-weight:var(--font-weight-demibold);color:var(--neutral-charcoal);"><span style="font-family:var(--font-sans);">50</span><span style="font-size:12px;color:var(--text-muted);margin-inline-start:5px;">XP</span></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:13px;padding:13px 15px;">
+          <div style="min-width:0;"><div style="font-weight:var(--font-weight-demibold);font-size:14px;">אכיפת רצף</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px;">הלומד חייב לסיים שיעור קודם לפני הכניסה</div></div>
+          <button onClick="{{ toggleSeq }}" role="switch" aria-checked="{{ seq }}" style="flex:none;position:relative;width:46px;height:27px;border-radius:999px;border:0;cursor:pointer;background:{{ seqTrack }};transition:background .2s;"><span style="position:absolute;top:3px;left:{{ seqKnob }};width:21px;height:21px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(20,40,70,.28);transition:left .2s cubic-bezier(.22,.61,.36,1);"></span></button>
+        </div>
+        <div>
+          <label style="display:block;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);margin-bottom:7px;">מבחן מקושר</label>
+          <div style="display:flex;align-items:center;gap:11px;height:48px;padding:0 14px;border-radius:12px;border:1px solid var(--border-default);background:#fff;"><span style="flex:none;width:30px;height:30px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span><span style="flex:1;min-width:0;font-weight:var(--font-weight-demibold);font-size:14px;color:var(--neutral-charcoal);">בוחן · יסודות רשתות</span><svg viewBox="0 0 24 24" width="17" height="17" style="flex:none;" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+        </div>
+        <div>
+          <label style="display:block;font-weight:var(--font-weight-demibold);font-size:13px;color:var(--text-secondary);margin-bottom:7px;">סטטוס</label>
+          <div style="display:inline-flex;background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:12px;padding:4px;gap:3px;">
+            <sc-for list="{{ statusOptions }}" as="o" hint-placeholder-count="3">
+            <button onClick="{{ o.onPick }}" style="display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13px;padding:8px 16px;border-radius:9px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.sh }};transition:all .15s;">{{ o.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="flex:none;display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:14px 24px;border-top:1px solid var(--border-default);">
+        <button onClick="{{ closeSettings }}" style="background:#fff;color:var(--text-secondary);border:1px solid var(--border-default);border-radius:11px;padding:11px 20px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:14px;cursor:pointer;transition:all .15s;" style-hover="background:var(--surface-subtle);">ביטול</button>
+        <button onClick="{{ closeSettings }}" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:11px;padding:11px 24px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:14px;cursor:pointer;box-shadow:0 8px 20px rgba(0,117,219,.26);transition:all .15s;" style-hover="background:#0059A8;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>שמירה</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===== AI ASSISTANT DRAWER ===== -->
+  <sc-if value="{{ aiOpen }}">
+  <div style="position:fixed;inset:0;z-index:90;display:flex;justify-content:flex-start;">
+    <div onClick="{{ closeAi }}" style="position:absolute;inset:0;background:rgba(15,30,50,.34);"></div>
+    <aside class="le-scroll" dir="rtl" aria-label="עוזר AI" style="position:relative;width:420px;max-width:100%;height:100%;background:#fff;box-shadow:0 0 60px rgba(20,60,110,.3);overflow-y:auto;display:flex;flex-direction:column;">
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 22px;border-bottom:1px solid var(--border-default);background:linear-gradient(120deg,var(--hue-sky),#fff);">
+        <div style="display:flex;align-items:center;gap:11px;"><span style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--hue-indigo),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 18px rgba(124,77,218,.32);"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4z"></path><path d="m19 14 .7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg></span><div><h3 style="font-weight:var(--font-weight-demibold);font-size:18px;margin:0;">עוזר ה-AI</h3><p style="font-size:12.5px;color:var(--accent);margin:2px 0 0;font-weight:var(--font-weight-demibold);">בנו, שפרו והעשירו את השיעור</p></div></div>
+        <button onClick="{{ closeAi }}" aria-label="סגור" style="width:36px;height:36px;border-radius:10px;border:0;background:var(--surface-subtle);color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;" style-hover="background:var(--border-default);color:var(--neutral-charcoal);"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+
+      <!-- menu -->
+      <sc-if value="{{ aiMenu }}">
+      <div style="flex:1;padding:18px 20px;">
+        <div style="position:relative;margin-bottom:18px;">
+          <textarea class="le-in" placeholder="תארו מה תרצו ליצור… למשל: שיעור על תת-רשתות (subnetting) לטכנאים מתחילים" style="width:100%;min-height:84px;resize:none;padding:13px 14px;border-radius:13px;border:1px solid var(--border-default);background:var(--surface-subtle);font-size:14px;line-height:1.6;color:var(--text-secondary);outline:none;transition:all .15s;"></textarea>
+        </div>
+        <div style="font-size:11.5px;font-weight:var(--font-weight-demibold);letter-spacing:.03em;color:var(--text-muted);margin-bottom:10px;">מה לעשות?</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <sc-for list="{{ aiOptions }}" as="o" hint-placeholder-count="4">
+          <button onClick="{{ o.onPick }}" class="le-vrow" style="display:flex;align-items:center;gap:12px;text-align:start;border:1px solid var(--border-default);background:#fff;border-radius:13px;padding:13px 14px;cursor:pointer;font-family:inherit;transition:all .15s;">
+            <span style="flex:none;width:40px;height:40px;border-radius:11px;background:{{ o.bg }};color:{{ o.fg }};display:flex;align-items:center;justify-content:center;">{{ o.icon }}</span>
+            <span style="flex:1;min-width:0;"><span style="display:block;font-weight:var(--font-weight-demibold);font-size:14.5px;color:var(--neutral-charcoal);">{{ o.label }}</span><span style="display:block;font-size:12.5px;color:var(--text-muted);margin-top:1px;">{{ o.desc }}</span></span>
+            <svg viewBox="0 0 24 24" width="17" height="17" style="flex:none;color:var(--neutral-palladium);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          </sc-for>
+        </div>
+        <button onClick="{{ openTemplates }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:16px;border:1px dashed var(--hue-indigo);background:var(--surface-subtle);color:var(--accent);border-radius:12px;padding:12px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13.5px;cursor:pointer;transition:all .15s;" style-hover="background:#F4EEFE;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>או התחילו מתבנית פדגוגית</button>
+      </div>
+      </sc-if>
+
+      <!-- generating -->
+      <sc-if value="{{ aiGenerating }}">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:24px 28px;">
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:26px;">
+          <span class="le-aipulse" style="width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--hue-indigo),var(--accent));color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(124,77,218,.4);margin-bottom:16px;"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4z"></path></svg></span>
+          <div style="font-weight:var(--font-weight-demibold);font-size:18px;color:var(--neutral-charcoal);">ה-AI מייצר {{ aiTaskLabel }}…</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">רגע, בונים עבורכם תוכן איכותי</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <sc-for list="{{ aiSteps }}" as="st" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 6px;">
+            <span style="flex:none;width:26px;height:26px;border-radius:50%;background:{{ st.dotBg }};color:{{ st.dotFg }};display:flex;align-items:center;justify-content:center;transition:all .3s;">
+              <sc-if value="{{ st.showCheck }}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></sc-if>
+              <sc-if value="{{ st.showSpin }}"><span class="le-spin" style="width:13px;height:13px;border:2px solid rgba(255,255,255,.5);border-top-color:#fff;border-radius:50%;display:block;"></span></sc-if>
+            </span>
+            <span style="flex:1;font-size:14.5px;font-weight:{{ st.labelW }};color:{{ st.labelFg }};transition:color .3s;">{{ st.label }}</span>
+          </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- done -->
+      <sc-if value="{{ aiDone }}">
+      <div style="flex:1;display:flex;flex-direction:column;padding:20px 22px;">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;"><span style="width:30px;height:30px;border-radius:9px;background:var(--hue-mint);color:var(--success);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span><div style="font-weight:var(--font-weight-demibold);font-size:15.5px;color:var(--neutral-charcoal);">{{ aiTaskLabel }} מוכן/ה</div></div>
+        <div class="le-scroll" style="flex:1;border:1px solid var(--hue-sky);background:var(--surface-subtle);border-radius:13px;padding:15px 16px;overflow-y:auto;">
+          <div style="font-weight:var(--font-weight-demibold);font-size:17px;color:var(--neutral-charcoal);margin-bottom:6px;">מהו תיוג 802.1Q?</div>
+          <div style="font-size:14.5px;line-height:1.75;color:var(--text-secondary);">תקן 802.1Q מוסיף תג של 4 בתים לכל מסגרת Ethernet, המזהה את ה-VLAN שאליו היא שייכת. כך מתג יכול להעביר תעבורה של כמה VLANs על קישור אחד (Trunk), מבלי לערבב ביניהם…</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:11.5px;font-weight:var(--font-weight-demibold);color:var(--accent);background:#fff;border:1px solid var(--hue-sky);border-radius:999px;padding:4px 10px;">בלוק פסקה + כרטיסיות</div>
+        </div>
+        <div style="display:flex;gap:9px;margin-top:14px;">
+          <button onClick="{{ runDraft }}" style="flex:none;display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--accent);border:1px solid var(--hue-indigo);border-radius:11px;padding:11px 15px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:13.5px;cursor:pointer;transition:all .15s;" style-hover="background:var(--surface-subtle);"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v6h6"></path><path d="M3.51 9a9 9 0 1 0 2.13-3.36L3 8"></path></svg>שוב</button>
+          <button onClick="{{ aiAdd }}" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:11px;padding:11px;font-family:inherit;font-weight:var(--font-weight-demibold);font-size:14px;cursor:pointer;box-shadow:0 8px 20px rgba(0,117,219,.26);transition:background .18s;" style-hover="background:#0059A8;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>הוסף לקנבס</button>
+        </div>
+      </div>
+      </sc-if>
+    </aside>
+  </div>
+  </sc-if>
+
+  <!-- ===== PEDAGOGICAL TEMPLATES (new lesson) ===== -->
+  <sc-if value="{{ templatesOpen }}">
+  <div style="position:fixed;inset:0;z-index:95;display:flex;align-items:center;justify-content:center;padding:24px;">
+    <div onClick="{{ closeTemplates }}" style="position:absolute;inset:0;background:rgba(15,30,50,.5);"></div>
+    <div dir="rtl" style="position:relative;width:840px;max-width:100%;max-height:92vh;display:flex;flex-direction:column;background:var(--surface-app);border-radius:22px;box-shadow:0 24px 70px rgba(20,60,110,.34);overflow:hidden;">
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:22px 26px;border-bottom:1px solid var(--border-default);background:#fff;">
+        <div><h3 style="font-weight:var(--font-weight-demibold);font-size:21px;margin:0;">שיעור חדש — בחרו תבנית</h3><p style="font-size:13px;color:var(--text-secondary);margin:3px 0 0;">תבנית פדגוגית קובעת את מבנה הבלוקים ההתחלתי. תוכלו לשנות הכול אחר כך.</p></div>
+        <button onClick="{{ closeTemplates }}" aria-label="סגור" style="width:38px;height:38px;border-radius:11px;border:0;background:var(--surface-subtle);color:var(--text-secondary);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;" style-hover="background:var(--border-default);color:var(--neutral-charcoal);"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+      <div class="le-scroll" style="flex:1;overflow-y:auto;padding:24px 26px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <sc-for list="{{ templates }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.onUse }}" class="le-vrow" style="display:flex;flex-direction:column;text-align:start;border:1px solid var(--border-default);background:#fff;border-radius:16px;padding:18px 19px;cursor:pointer;font-family:inherit;transition:all .16s;">
+            <div style="display:flex;align-items:center;gap:11px;margin-bottom:14px;">
+              <span style="flex:none;width:44px;height:44px;border-radius:12px;background:{{ t.tone }};color:{{ t.toneFg }};display:flex;align-items:center;justify-content:center;">{{ t.icon }}</span>
+              <div style="min-width:0;"><div style="font-weight:var(--font-weight-demibold);font-size:16px;color:var(--neutral-charcoal);">{{ t.label }}</div></div>
+            </div>
+            <div style="font-size:13px;line-height:1.55;color:var(--text-secondary);min-height:40px;">{{ t.desc }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:13px;border-top:1px solid var(--surface-subtle);">
+              <sc-for list="{{ t.blocks }}" as="bn" hint-placeholder-count="5">
+              <span style="font-size:11px;font-weight:var(--font-weight-demibold);color:var(--text-secondary);background:var(--surface-subtle);border:1px solid var(--border-default);border-radius:7px;padding:3px 9px;">{{ bn }}</span>
+              </sc-for>
+            </div>
+          </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;view&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;edit&quot;,&quot;preview&quot;],&quot;default&quot;:&quot;edit&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;מצב התצוגה&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.raw = (s)=>React.createElement('span',{dangerouslySetInnerHTML:{__html:s},style:{display:'flex'}});
+
+    const I = {
+      paragraph:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H9a4 4 0 0 0 0 8h2"></path><path d="M13 6v14M17 6v14"></path></svg>',
+      heading:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12M6 4v16M18 4v16"></path></svg>',
+      sub:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8M4 18V6M12 18V6"></path><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-3-1"></path></svg>',
+      list:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>',
+      quote:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>',
+      divider:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line></svg>',
+      columns:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="1.5"></rect><rect x="14" y="3" width="7" height="18" rx="1.5"></rect></svg>',
+      accordion:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"></rect><rect x="3" y="14" width="18" height="6" rx="1.5"></rect><path d="M17 7h0"></path></svg>',
+      callout:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg>',
+      image:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-2.83 0L7 19"></path></svg>',
+      video:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8z"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg>',
+      audio:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"></path></svg>',
+      gallery:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>',
+      cover:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 14l4-4 5 5 3-3 6 6"></path></svg>',
+      quiz:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>',
+      question:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>',
+      flash:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="16" height="14" rx="2"></rect><path d="M22 6v12a2 2 0 0 1-2 2"></path></svg>',
+      poll:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>',
+      ai:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M3 12h3M18 12h3"></path><circle cx="12" cy="12" r="3.2"></circle></svg>',
+      summary:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M9 13l2 2 4-4"></path></svg>',
+      embed:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>',
+      iframe:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"></rect><line x1="2" y1="8" x2="22" y2="8"></line></svg>',
+      note:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"></path></svg>',
+      motiv:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+      table:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M3 15h18M9 3v18M15 3v18"></path></svg>',
+      pdf:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1"></path></svg>',
+      separator:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line></svg>',
+      pagebreak:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v6M6 21v-6M18 3v6M18 21v-6"></path><line x1="3" y1="12" x2="9" y2="12"></line><line x1="15" y1="12" x2="21" y2="12"></line></svg>',
+      flash:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="16" height="14" rx="2"></rect><path d="M22 6v12a2 2 0 0 1-2 2"></path></svg>',
+      tabs:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"></rect><path d="M7 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"></path></svg>',
+      aigen:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 4.6L18.5 9l-4.6 1.9L12 15.5l-1.9-4.6L5.5 9l4.6-1.4z"></path><path d="m19 14 .7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"></path></svg>',
+      gamma:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"></path><path d="M4 3v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3"></path><path d="M12 16v5M9 21h6"></path></svg>',
+      code:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4M6 8l-4 4 4 4M14.5 4l-5 16"></path></svg>',
+      section:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"></path></svg>',
+      wand:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4V2M15 16v-2M8 9h2M20 9h2M17.8 11.8 19 13M15 9h.01M17.8 6.2 19 5M3 21l9-9M12.2 6.2 11 5"></path></svg>',
+      imgplus:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v6M18 18h6"></path><path d="M21 11V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6"></path><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-2.83 0L8 18"></path></svg>',
+    };
+    this.I = I;
+
+    this.FAMILIES = [
+      { key:'text', label:'טקסט', color:'var(--accent)', tone:'var(--hue-sky)', toneFg:'var(--accent)', blocks:[
+        {type:'paragraph',label:'פסקה',icon:'paragraph'},{type:'heading',label:'כותרת',icon:'heading'},{type:'list',label:'רשימה',icon:'list'},{type:'quote',label:'ציטוט',icon:'quote'} ] },
+      { key:'structure', label:'מבנה והדגשה', color:'var(--hue-cobalt)', tone:'var(--hue-sky)', toneFg:'var(--hue-cobalt)', blocks:[
+        {type:'note',label:'תיבת הערה',icon:'note'},{type:'motivation',label:'תיבה מעוררת',icon:'motiv'},{type:'table',label:'טבלה',icon:'table'},{type:'separator',label:'מפריד',icon:'separator'},{type:'pagebreak',label:'מעבר עמוד',icon:'pagebreak'} ] },
+      { key:'media', label:'מדיה', color:'var(--success)', tone:'var(--hue-mint)', toneFg:'var(--success)', blocks:[
+        {type:'image',label:'תמונה',icon:'image'},{type:'video',label:'וידאו',icon:'video'},{type:'pdf',label:'מסמך PDF',icon:'pdf'},{type:'cover',label:'עטיפת שיעור',icon:'cover'} ] },
+      { key:'interactive', label:'אינטראקטיבי', color:'var(--hue-bronze)', tone:'rgba(241,194,27,.16)', toneFg:'var(--hue-bronze)', blocks:[
+        {type:'flashcard',label:'כרטיסי זיכרון',icon:'flash'},{type:'tabs',label:'טאבים',icon:'tabs'} ] },
+      { key:'ai', label:'AI והטמעה', color:'var(--accent)', tone:'var(--hue-sky)', toneFg:'var(--accent)', blocks:[
+        {type:'ai_generated',label:'תוכן AI',icon:'aigen'},{type:'gamma_embed',label:'מצגת Gamma',icon:'gamma'},{type:'html_embed',label:'הטמעת HTML',icon:'code'},{type:'designed_section',label:'סקשן מעוצב',icon:'section'} ] },
+    ];
+
+    this.BTYPE = {
+      cover:{label:'עטיפת שיעור',icon:'cover',fam:'media'},
+      heading:{label:'כותרת',icon:'heading',fam:'text'},
+      paragraph:{label:'פסקת טקסט',icon:'paragraph',fam:'text'},
+      list:{label:'רשימה',icon:'list',fam:'text'},
+      quote:{label:'ציטוט',icon:'quote',fam:'text'},
+      note:{label:'תיבת הערה',icon:'note',fam:'structure'},
+      motivation:{label:'תיבה מעוררת',icon:'motiv',fam:'structure'},
+      table:{label:'טבלה',icon:'table',fam:'structure'},
+      separator:{label:'מפריד',icon:'separator',fam:'structure'},
+      image:{label:'תמונה',icon:'image',fam:'media'},
+      video:{label:'וידאו',icon:'video',fam:'media'},
+      pdf:{label:'מסמך PDF',icon:'pdf',fam:'media'},
+      flashcard:{label:'כרטיסי זיכרון',icon:'flash',fam:'interactive'},
+      tabs:{label:'טאבים',icon:'tabs',fam:'interactive'},
+      ai_generated:{label:'תוכן שנוצר ב-AI',icon:'aigen',fam:'ai'},
+      gamma_embed:{label:'מצגת Gamma',icon:'gamma',fam:'ai'},
+      html_embed:{label:'הטמעת HTML',icon:'code',fam:'ai'},
+      designed_section:{label:'סקשן מעוצב',icon:'section',fam:'ai'},
+      empty:{label:'בלוק ריק',icon:'paragraph',fam:'text'},
+    };
+
+    this.NOTE = {
+      info:{bg:'var(--hue-sky)',border:'var(--hue-indigo)',fg:'var(--accent)',title:'לתשומת לב',icon:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg>'},
+      warning:{bg:'rgba(241,194,27,.18)',border:'rgba(241,194,27,.35)',fg:'var(--hue-bronze)',title:'אזהרה',icon:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><path d="M12 9v4M12 17h.01"></path></svg>'},
+      tip:{bg:'var(--hue-mint)',border:'var(--hue-mint)',fg:'var(--success)',title:'טיפ',icon:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"></path></svg>'},
+    };
+
+    this.VERSIONS = [
+      { num:'v4', note:'נוסף בלוק תמונה — תרשים VLAN', editor:'דנה לוי', initials:'דל', avBg:'var(--accent)', date:'היום · 09:42', blocks:4, current:true },
+      { num:'v3', note:'עריכת פסקת ההסבר', editor:'דנה לוי', initials:'דל', avBg:'var(--accent)', date:'אתמול · 16:20', blocks:3, current:false },
+      { num:'v2', note:'הוספת כותרת ומבוא', editor:'יוסי מזרחי', initials:'ימ', avBg:'var(--success)', date:'25/06 · 11:05', blocks:3, current:false },
+      { num:'v1', note:'גרסה ראשונית', editor:'דנה לוי', initials:'דל', avBg:'var(--accent)', date:'24/06 · 14:30', blocks:1, current:false },
+    ];
+
+    this.state = {
+      title:'מבוא ל-VLAN',
+      view: this.props.view==='preview' ? 'preview' : 'edit',
+      paletteOpen:true, paletteSearch:'',
+      pickerOpen:false, pickerSearch:'',
+      blocks:[
+        {id:'b1',type:'cover'},
+        {id:'b2',type:'heading'},
+        {id:'b3',type:'paragraph'},
+        {id:'b4',type:'note',noteVariant:'tip'},
+        {id:'b5',type:'list',ordered:false},
+        {id:'b6',type:'quote'},
+        {id:'b7',type:'image'},
+        {id:'b8',type:'table'},
+        {id:'b9',type:'motivation'},
+        {id:'b10',type:'video'},
+        {id:'b11',type:'separator',sep:'line'},
+        {id:'b12',type:'pdf'},
+        {id:'b13',type:'flashcard',cards:[
+          {front:'VLAN',back:'רשת מקומית וירטואלית — מחלקת מתג פיזי אחד לכמה רשתות לוגיות נפרדות, בלי תשתית נוספת.'},
+          {front:'DHCP',back:'פרוטוקול שמקצה כתובות IP אוטומטית למכשירים שמתחברים לרשת — בלי הגדרה ידנית.'},
+          {front:'PoE',back:'Power over Ethernet — אספקת חשמל למכשיר (מצלמה, AP) דרך כבל הרשת עצמו.'},
+        ]},
+        {id:'b14',type:'tabs',tabs:[
+          {title:'הגדרה',body:'VLAN הוא מנגנון שמאפשר לחלק מתג רשת פיזי אחד לכמה רשתות לוגיות נפרדות. כל VLAN מתנהג כרשת עצמאית, גם כשהמכשירים יושבים על אותו ציוד פיזי.'},
+          {title:'דוגמה',body:'במשרד עם מתג אחד: VLAN 10 למחשבי העובדים, VLAN 20 למצלמות האבטחה, VLAN 30 לאורחים. שלושתם על אותו מתג — אך מבודדים זה מזה לחלוטין.'},
+          {title:'טיפים',body:'תעדו תמיד את מספרי ה-VLAN בטבלה. השאירו את VLAN 1 (ברירת המחדל) ללא שימוש תפעולי, והקפידו על שמות עקביים בין המתגים ברשת.'},
+        ]},
+        {id:'b15',type:'ai_generated'},
+        {id:'b16',type:'gamma_embed'},
+        {id:'b17',type:'html_embed'},
+      ],
+      selectedId:'b15',
+      headingLevel:2,
+      fcIdx:{}, fcFlip:{}, tabIdx:{},
+      stylePopoverFor:null,
+      styleBg:'none', styleColor:'ink', styleSize:'M', styleAlign:'right', styleSpace:'normal',
+      size:'normal', align:'right', color:'ink', visible:true,
+      versionsOpen:false, settingsOpen:false,
+      aiOpen:false, aiMode:'menu', aiStep:0, aiTask:'draft',
+      templatesOpen:false,
+      intro:'שיעור פתיחה שמסביר מה זה VLAN, למה צריך אותו ואיך הוא עובד.',
+      objectives:['להבין מהו VLAN ומה היתרון בו','לזהות מתי להפריד רשת לוגית','להכיר את תקן 802.1Q'],
+      seq:true, status:'draft',
+    };
+  }
+
+  ic(name,w){ const s=this.I[name]||this.I.paragraph; return this.raw(w?s.replace(/width="16" height="16"/,'width="'+w+'" height="'+w+'"'):s); }
+  select(id){ this.setState({selectedId:id}); }
+  mk(type){ let nb={id:'b'+Date.now()+Math.floor(Math.random()*99),type}; if(type==='pagebreak'){nb.type='separator';nb.sep='page';} if(type==='separator'){nb.sep=nb.sep||'line';} if(type==='note'){nb.noteVariant='tip';} if(type==='list'){nb.ordered=false;} return nb; }
+  add(type){ const s=this.state; const sel=s.blocks.findIndex(b=>b.id===s.selectedId); const nb=this.mk(type); const arr=s.blocks.slice(); arr.splice(sel<0?arr.length:sel+1,0,nb); this.setState({blocks:arr,selectedId:nb.id,pickerOpen:false,paletteSearch:'',pickerSearch:''}); }
+  setNoteVar(id,v){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,noteVariant:v}:b)})); }
+  setSep(id,v){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,sep:v}:b)})); }
+  toggleOrdered(id){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,ordered:!b.ordered}:b)})); }
+  openStyle(id){ this.setState(st=>({stylePopoverFor: st.stylePopoverFor===id?null:id})); }
+  flipCard(id){ this.setState(st=>({fcFlip:{...st.fcFlip,[id]:!st.fcFlip[id]}})); }
+  stepCard(id,d,n){ this.setState(st=>{ let nx=(st.fcIdx[id]||0)+d; if(nx<0)nx=0; if(nx>n-1)nx=n-1; return {fcIdx:{...st.fcIdx,[id]:nx}, fcFlip:{...st.fcFlip,[id]:false}}; }); }
+  gotoCard(id,j){ this.setState(st=>({fcIdx:{...st.fcIdx,[id]:j}, fcFlip:{...st.fcFlip,[id]:false}})); }
+  cardKey(e,id,n){ if(e.key==='ArrowRight'){e.preventDefault();this.stepCard(id,-1,n);} else if(e.key==='ArrowLeft'){e.preventDefault();this.stepCard(id,1,n);} else if(e.key===' '||e.key==='Enter'){e.preventDefault();this.flipCard(id);} }
+  addCard(id){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,cards:[...(b.cards||[]),{front:'מונח חדש',back:'הסבר…'}]}:b)})); }
+  removeCard(id,j){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,cards:(b.cards||[]).filter((_,k)=>k!==j)}:b)})); }
+  setTab(id,j){ this.setState(st=>({tabIdx:{...st.tabIdx,[id]:j}})); }
+  tabKey(e,id,j,n){ if(e.key==='ArrowLeft'){e.preventDefault();this.setTab(id,Math.min(n-1,j+1));} else if(e.key==='ArrowRight'){e.preventDefault();this.setTab(id,Math.max(0,j-1));} }
+  addTab(id){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,tabs:[...(b.tabs||[]),{title:'לשונית חדשה',body:'תוכן הלשונית…'}]}:b)})); }
+  removeTab(id,j){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,tabs:(b.tabs||[]).filter((_,k)=>k!==j)}:b)})); }
+  addAt(idx,type){ const id='b'+Date.now(); const arr=this.state.blocks.slice(); arr.splice(idx,0,{id,type}); this.setState({blocks:arr,selectedId:id,pickerOpen:false}); }
+  duplicate(id){ const arr=this.state.blocks.slice(); const i=arr.findIndex(b=>b.id===id); if(i<0)return; const nid='b'+Date.now(); arr.splice(i+1,0,{...arr[i],id:nid}); this.setState({blocks:arr,selectedId:nid}); }
+  del(id){ const arr=this.state.blocks.filter(b=>b.id!==id); this.setState({blocks:arr,selectedId:arr.length?arr[0].id:null}); }
+  setVariant(id,v){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,variant:v}:b)})); }
+  regen(id){ this.setState(st=>({blocks:st.blocks.map(b=>b.id===id?{...b,regenAt:Date.now()}:b)})); }
+  // ---- AI assistant ----
+  openAi(){ this.setState({aiOpen:true,aiMode:'menu',aiStep:0}); }
+  closeAi(){ this._clearAi(); this.setState({aiOpen:false,aiMode:'menu',aiStep:0}); }
+  _clearAi(){ (this._aiT||[]).forEach(t=>clearTimeout(t)); this._aiT=[]; }
+  runAi(task){ this._clearAi(); this.setState({aiMode:'gen',aiStep:0,aiTask:task}); this._aiT=[];
+    [1,2,3].forEach((st,i)=>{ this._aiT.push(setTimeout(()=>this.setState({aiStep:st}), (i+1)*1100)); });
+    this._aiT.push(setTimeout(()=>this.setState({aiMode:'done'}), 4500)); }
+  aiAdd(){ const s=this.state; const task=s.aiTask;
+    const id='b'+Date.now();
+    let nb={id,type:'ai_generated'};
+    if(task==='image') nb={id,type:'image'};
+    if(task==='questions') nb={id,type:'flashcard',cards:[{front:'מהו טווח VLAN ID חוקי?',back:'1–4094 (כאשר 1 ו-4095 שמורים).'},{front:'איזה תקן מתייג VLAN?',back:'IEEE 802.1Q.'}]};
+    const arr=s.blocks.slice(); arr.push(nb);
+    this._clearAi(); this.setState({blocks:arr,selectedId:id,aiOpen:false,aiMode:'menu',aiStep:0}); }
+  // ---- pedagogical templates ----
+  openTemplates(){ this.setState({templatesOpen:true,aiOpen:false}); }
+  closeTemplates(){ this.setState({templatesOpen:false}); }
+  useTemplate(key){
+    const T={
+      concept:['cover','heading','paragraph','note','image','flashcard','tabs'],
+      guided:['cover','heading','paragraph','list','image','separator','tabs'],
+      troubleshoot:['cover','heading','note','table','list','flashcard'],
+      blank:['cover','heading','paragraph'],
+    };
+    const seq=T[key]||T.blank;
+    const arr=seq.map((t,i)=>{ const nb={id:'t'+Date.now()+i,type:t}; if(t==='note')nb.noteVariant='tip'; if(t==='separator')nb.sep='line'; if(t==='flashcard')nb.cards=[{front:'מונח',back:'הסבר…'}]; if(t==='tabs')nb.tabs=[{title:'לשונית',body:'תוכן…'}]; return nb; });
+    this.setState({blocks:arr,selectedId:arr[0].id,templatesOpen:false}); }
+  componentWillUnmount(){ this._clearAi(); }
+
+  renderVals(){
+    const s=this.state;
+    const isPreview=s.view==='preview';
+    const isEdit=!isPreview;
+    const showChrome=isEdit;
+
+    // palette
+    const pq=(s.paletteSearch||'').trim().toLowerCase();
+    const families=this.FAMILIES.map(f=>{
+      const blocks=f.blocks.filter(b=>!pq||b.label.toLowerCase().includes(pq)).map(b=>({
+        label:b.label, icon:this.ic(b.icon), iconBg:f.tone, iconFg:f.toneFg, onAdd:()=>this.add(b.type) }));
+      return { label:f.label, color:f.color, blocks };
+    }).filter(f=>f.blocks.length>0);
+
+    // picker (separate search)
+    const kq=(s.pickerSearch||'').trim().toLowerCase();
+    const pickerFamilies=this.FAMILIES.map(f=>{
+      const blocks=f.blocks.filter(b=>!kq||b.label.toLowerCase().includes(kq)).map(b=>({
+        label:b.label, icon:this.ic(b.icon), iconBg:f.tone, iconFg:f.toneFg, onAdd:()=>this.add(b.type) }));
+      return { label:f.label, color:f.color, blocks };
+    }).filter(f=>f.blocks.length>0);
+
+    // ---- styling-popover shared option arrays ----
+    const aIcons={right:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="12" x2="9" y2="12"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>',center:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"></line><line x1="18" y1="12" x2="6" y2="12"></line><line x1="20" y1="18" x2="4" y2="18"></line></svg>',justify:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="12" x2="3" y2="12"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg>'};
+    const segp=(cur,k)=>({bg:cur===k?'#fff':'transparent',fg:cur===k?'var(--neutral-charcoal)':'var(--text-secondary)',sh:cur===k?'0 1px 3px rgba(20,60,110,.14)':'none'});
+    const popBg=[{k:'none',c:'#FFFFFF',name:'ללא'},{k:'tint',c:'var(--hue-sky)',name:'תכלת'},{k:'navy',c:'var(--neutral-charcoal)',name:'כהה'},{k:'amber',c:'rgba(241,194,27,.18)',name:'חום'},{k:'green',c:'var(--hue-mint)',name:'ירוק'}].map(o=>({name:o.name,bg:o.c,sel:s.styleBg===o.k,border:s.styleBg===o.k?'2px solid var(--accent)':'1px solid var(--border-default)',check:o.k==='navy'?'#fff':'var(--accent)',onPick:(e)=>{if(e)e.stopPropagation();this.setState({styleBg:o.k});}}));
+    const popText=[{k:'ink',c:'var(--neutral-charcoal)'},{k:'blue',c:'var(--accent)'},{k:'gray',c:'#757D86'},{k:'green',c:'var(--success)'}].map(o=>({bg:o.c,sel:s.styleColor===o.k,border:s.styleColor===o.k?'2px solid var(--neutral-charcoal)':'2px solid transparent',onPick:(e)=>{if(e)e.stopPropagation();this.setState({styleColor:o.k});}}));
+    const popSize=[{k:'S',l:'S'},{k:'M',l:'M'},{k:'L',l:'L'},{k:'XL',l:'XL'}].map(o=>{const g=segp(s.styleSize,o.k);return{label:o.l,bg:g.bg,fg:g.fg,sh:g.sh,onPick:(e)=>{if(e)e.stopPropagation();this.setState({styleSize:o.k});}};});
+    const popAlign=['right','center','justify'].map(k=>{const g=segp(s.styleAlign,k);return{icon:this.raw(aIcons[k]),bg:g.bg,fg:g.fg,sh:g.sh,onPick:(e)=>{if(e)e.stopPropagation();this.setState({styleAlign:k});}};});
+    const popSpace=[{k:'compact',l:'צפוף'},{k:'normal',l:'רגיל'},{k:'loose',l:'מרווח'}].map(o=>{const g=segp(s.styleSpace,o.k);return{label:o.l,bg:g.bg,fg:g.fg,sh:g.sh,onPick:(e)=>{if(e)e.stopPropagation();this.setState({styleSpace:o.k});}};});
+    const hSize = s.headingLevel===1?'34px':s.headingLevel===3?'21px':'27px';
+    const levels=[1,2,3].map(n=>({label:'H'+n, bg:s.headingLevel===n?'#fff':'transparent', fg:s.headingLevel===n?'var(--neutral-charcoal)':'var(--neutral-palladium)', onPick:(e)=>{if(e)e.stopPropagation();this.setState({headingLevel:n});}}));
+
+    // blocks on canvas
+    const isTextType=(t)=>t==='paragraph'||t==='heading'||t==='list'||t==='quote';
+    const blocks=s.blocks.map((b,i)=>{
+      const selected=isEdit && b.id===s.selectedId;
+      const nv=this.NOTE[b.noteVariant||'tip'];
+      const noteChips = showChrome ? ['info','warning','tip'].map(k=>{const d=this.NOTE[k];const on=(b.noteVariant||'tip')===k;return{label:d.title,icon:this.raw(d.icon.replace(/width="18" height="18"/,'width="14" height="14"')),bg:on?d.fg:'#fff',fg:on?'#fff':d.fg,border:'1px solid '+(on?d.fg:d.border),onPick:(e)=>{if(e)e.stopPropagation();this.setNoteVar(b.id,k);}};}) : [];
+      const sep=b.sep||'line';
+      const sepChips = showChrome ? [{k:'line',l:'קו'},{k:'dots',l:'נקודות'},{k:'page',l:'מעבר עמוד'}].map(o=>{const on=sep===o.k;return{label:o.l,bg:on?'var(--hue-sky)':'#fff',fg:on?'var(--accent)':'var(--text-secondary)',border:'1px solid '+(on?'var(--hue-indigo)':'var(--border-default)'),onPick:(e)=>{if(e)e.stopPropagation();this.setSep(b.id,o.k);}};}) : [];
+      const bulletMarker='<span style="display:inline-block;flex:none;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-top:10px;"></span>';
+      const listItems=['אבטחה — הפרדה לוגית בין מחלקות על אותה תשתית פיזית.','ביצועים — צמצום תעבורת broadcast והקטנת עומס מיותר על הרשת.','גמישות — הוספה ושינוי רשתות לוגיות בלי לגעת בחיווט הפיזי.'].map((t,j)=>({text:t, marker: b.ordered ? this.raw('<span style="flex:none;min-width:22px;font-family:Assistant,sans-serif;font-weight:var(--font-weight-demibold);font-size:15px;color:var(--accent);text-align:center;">'+(j+1)+'.</span>') : this.raw(bulletMarker)}));
+      // flashcard
+      const fcCards=b.cards||[];
+      const fIdx=Math.min(s.fcIdx[b.id]||0, Math.max(0,fcCards.length-1));
+      const fCur=fcCards[fIdx]||{front:'',back:''};
+      const fFlip=!!s.fcFlip[b.id];
+      const fc={
+        frontText:fCur.front, backText:fCur.back,
+        counter:(fcCards.length?(fIdx+1):0)+' / '+fcCards.length,
+        flipTransform: fFlip?'rotateY(180deg)':'rotateY(0deg)',
+        hint: fFlip?'לחצו לחזרה אל המונח':'לחצו לחשיפת ההסבר',
+        prevOpacity: fIdx<=0?'.35':'1', nextOpacity: fIdx>=fcCards.length-1?'.35':'1',
+        prevCur: fIdx<=0?'default':'pointer', nextCur: fIdx>=fcCards.length-1?'default':'pointer',
+        onFlip:(e)=>{if(e)e.stopPropagation(); this.flipCard(b.id);},
+        onNext:(e)=>{if(e)e.stopPropagation(); this.stepCard(b.id,1,fcCards.length);},
+        onPrev:(e)=>{if(e)e.stopPropagation(); this.stepCard(b.id,-1,fcCards.length);},
+        onKey:(e)=>this.cardKey(e,b.id,fcCards.length),
+        dots: fcCards.map((c,j)=>({bg:j===fIdx?'var(--accent)':'var(--hue-sky)', w:j===fIdx?'22px':'7px', onPick:(e)=>{if(e)e.stopPropagation(); this.gotoCard(b.id,j);}})),
+        cards: fcCards.map((c,j)=>({num:String(j+1), front:c.front, back:c.back,
+          onRemove:(e)=>{if(e)e.stopPropagation(); this.removeCard(b.id,j);},
+          stop:(e)=>{if(e)e.stopPropagation();} })),
+        addCard:(e)=>{if(e)e.stopPropagation(); this.addCard(b.id);},
+      };
+      // tabs
+      const tbTabs=b.tabs||[];
+      const tIdx=Math.min(s.tabIdx[b.id]||0, Math.max(0,tbTabs.length-1));
+      const tb={
+        activeKey:'t'+tIdx, activeBody:(tbTabs[tIdx]||{}).body,
+        tabs: tbTabs.map((t,j)=>({title:t.title, active:j===tIdx,
+          fg:j===tIdx?'var(--accent)':'var(--text-secondary)', weight:j===tIdx?600:400, underline:j===tIdx?'var(--accent)':'transparent',
+          onPick:(e)=>{if(e)e.stopPropagation(); this.setTab(b.id,j);},
+          onKey:(e)=>this.tabKey(e,b.id,j,tbTabs.length) })),
+        editTabs: tbTabs.map((t,j)=>({num:String(j+1), title:t.title, body:t.body,
+          onRemove:(e)=>{if(e)e.stopPropagation(); this.removeTab(b.id,j);},
+          stop:(e)=>{if(e)e.stopPropagation();} })),
+        addTab:(e)=>{if(e)e.stopPropagation(); this.addTab(b.id);},
+      };
+      return {
+        isCover:b.type==='cover', isHeading:b.type==='heading', isParagraph:b.type==='paragraph',
+        isImage:b.type==='image', isEmpty:b.type==='empty',
+        isList:b.type==='list', isQuote:b.type==='quote', isNote:b.type==='note',
+        isMotivation:b.type==='motivation', isTable:b.type==='table',
+        isVideo:b.type==='video', isPdf:b.type==='pdf', isSeparator:b.type==='separator',
+        isFlashcard:b.type==='flashcard', isTabs:b.type==='tabs',
+        isAiGen:b.type==='ai_generated', isGamma:b.type==='gamma_embed', isHtmlEmbed:b.type==='html_embed', isDesigned:b.type==='designed_section',
+        dsHero:(b.variant||'hero')==='hero', dsCallout:b.variant==='callout', dsCard:b.variant==='card',
+        dsChips: showChrome ? [{k:'hero',l:'Hero'},{k:'callout',l:'Callout'},{k:'card',l:'Card'}].map(o=>{const on=(b.variant||'hero')===o.k;return{label:o.l,bg:on?'var(--hue-sky)':'#fff',fg:on?'var(--accent)':'var(--text-secondary)',border:'1px solid '+(on?'var(--hue-indigo)':'var(--border-default)'),onPick:(e)=>{if(e)e.stopPropagation();this.setVariant(b.id,o.k);}};}) : [],
+        onRegen:(e)=>{if(e)e.stopPropagation(); this.regen(b.id);},
+        learner:!showChrome, fc, tb,
+        selected: b.id===s.selectedId,
+        chrome:showChrome, editable: isEdit ? 'true':'false',
+        ring: selected ? '2px solid var(--accent)' : '2px solid transparent',
+        margin: selected ? '58px 0 12px' : (i===0 ? '0 0 12px' : '12px 0'),
+        gutterOpacity: selected ? '1' : '0',
+        showToolbar: selected,
+        showTextToolbar: selected && isTextType(b.type),
+        showStylePopover: isEdit && s.stylePopoverFor===b.id,
+        styleOn: s.stylePopoverFor===b.id,
+        styleBtnBg: s.stylePopoverFor===b.id ? 'var(--hue-sky)' : 'transparent',
+        styleBtnFg: s.stylePopoverFor===b.id ? 'var(--accent)' : 'var(--text-secondary)',
+        isHeadingSel:b.type==='heading',
+        selBg: selected ? 'rgba(0,117,219,.20)' : 'transparent',
+        // note
+        noteBg:nv.bg, noteBorder:nv.border, noteFg:nv.fg, noteTitle:nv.title, noteIcon:this.raw(nv.icon), noteChips,
+        // list
+        listItems,
+        // heading
+        hSize, levels,
+        // separator
+        sepLine:sep==='line', sepDots:sep==='dots', sepPage:sep==='page', sepChips,
+        // popover arrays
+        popBg, popText, popSize, popAlign, popSpace,
+        insOpacity: selected ? '1' : '0',
+        insTop: '6px', insLine: selected ? 'var(--hue-indigo)' : 'var(--border-default)',
+        onSelect:()=>this.select(b.id),
+        onAddAbove:(e)=>{ if(e)e.stopPropagation(); this.addAt(i,'empty'); },
+        onAddBelow:(e)=>{ if(e)e.stopPropagation(); this.addAt(i+1,'empty'); },
+        onDuplicate:(e)=>{ if(e)e.stopPropagation(); this.duplicate(b.id); },
+        onDelete:(e)=>{ if(e)e.stopPropagation(); this.del(b.id); },
+        onOpenStyle:(e)=>{ if(e)e.stopPropagation(); this.openStyle(b.id); },
+        onToggleOrdered:(e)=>{ if(e)e.stopPropagation(); this.toggleOrdered(b.id); },
+        stop:(e)=>{ if(e)e.stopPropagation(); },
+      };
+    });
+
+    // selected inspector
+    const selBlock=s.blocks.find(b=>b.id===s.selectedId)||s.blocks[0]||{type:'paragraph'};
+    const bt=this.BTYPE[selBlock.type]||this.BTYPE.paragraph;
+    const fam=this.FAMILIES.find(f=>f.key===bt.fam)||this.FAMILIES[0];
+
+    const seg=(cur,k)=>({ bg:cur===k?'#fff':'transparent', fg:cur===k?'var(--neutral-charcoal)':'var(--text-secondary)', sh:cur===k?'0 1px 3px rgba(20,60,110,.14)':'none' });
+    const sizeOptions=[{k:'small',l:'קטן'},{k:'normal',l:'רגיל'},{k:'large',l:'גדול'}].map(o=>{ const g=seg(s.size,o.k); return {label:o.l,bg:g.bg,fg:g.fg,sh:g.sh,onPick:()=>this.setState({size:o.k})}; });
+    const alignIcons={right:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="12" x2="9" y2="12"></line><line x1="21" y1="18" x2="7" y2="18"></line></svg>',center:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"></line><line x1="18" y1="12" x2="6" y2="12"></line><line x1="20" y1="18" x2="4" y2="18"></line></svg>',justify:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="12" x2="3" y2="12"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg>'};
+    const alignOptions=[{k:'right',l:'ימין'},{k:'center',l:'מרכז'},{k:'justify',l:'פיזור'}].map(o=>{ const g=seg(s.align,o.k); return {label:o.l,icon:this.raw(alignIcons[o.k]),bg:g.bg,fg:g.fg,sh:g.sh,onPick:()=>this.setState({align:o.k})}; });
+    const colorDefs=[{k:'ink',c:'var(--neutral-charcoal)'},{k:'blue',c:'var(--accent)'},{k:'gray',c:'#757D86'},{k:'green',c:'var(--success)'}];
+    const colorOptions=colorDefs.map(o=>({ active:s.color===o.k, bg:o.c, check:'#fff', border:s.color===o.k?'2px solid var(--neutral-charcoal)':'2px solid transparent', onPick:()=>this.setState({color:o.k}) }));
+
+    // outline
+    const outline=s.blocks.map(b=>{ const t=this.BTYPE[b.type]||this.BTYPE.paragraph; const f=this.FAMILIES.find(x=>x.key===t.fam)||this.FAMILIES[0]; const on=b.id===s.selectedId;
+      let lbl=t.label; if(b.type==='heading')lbl='מהו VLAN?'; if(b.type==='cover')lbl='מבוא ל-VLAN'; if(b.type==='paragraph')lbl='פסקת הסבר';
+      return { label:lbl, icon:this.ic(t.icon,15), iconBg:on?f.color:f.tone, iconFg:on?'#fff':f.toneFg,
+        bg:on?'var(--hue-sky)':'transparent', border:on?'rgba(0,117,219,.28)':'transparent', fg:on?'var(--accent)':'var(--text-secondary)', weight:on?600:400,
+        hidden:false, onSelect:()=>this.select(b.id) }; });
+
+    // versions
+    const versions=this.VERSIONS.map(v=>({ num:v.num, note:v.note, editor:v.editor, initials:v.initials, avBg:v.avBg, date:v.date, blocks:String(v.blocks), current:v.current,
+      border:v.current?'rgba(0,117,219,.3)':'var(--border-default)', bg:v.current?'var(--surface-app)':'#fff', numBg:v.current?'var(--accent)':'var(--border-default)', numFg:v.current?'#fff':'var(--text-secondary)',
+      restoreBg:v.current?'var(--border-default)':'var(--hue-sky)', restoreFg:v.current?'var(--neutral-palladium)':'var(--accent)', restoreCur:v.current?'default':'pointer' }));
+
+    // settings
+    const objectives=s.objectives.map((t,i)=>({ text:t, onInput:(e)=>this.setState(st=>({objectives:st.objectives.map((x,j)=>j===i?e.target.value:x)})), onRemove:()=>this.setState(st=>({objectives:st.objectives.filter((_,j)=>j!==i)})) }));
+    const statusOptions=[{k:'draft',l:'טיוטה',dot:'var(--hue-bronze)'},{k:'review',l:'בבדיקה',dot:'var(--accent)'},{k:'published',l:'פורסם',dot:'var(--success)'}].map(o=>{ const g=seg(s.status,o.k); return {label:o.l,dot:o.dot,bg:g.bg,fg:g.fg,sh:g.sh,onPick:()=>this.setState({status:o.k})}; });
+
+    return {
+      title:s.title, onTitle:(e)=>this.setState({title:e.target.value}),
+      autosaveLabel:'נשמר · לפני רגע',
+      isEdit, isPreview, showChrome,
+      toEdit:()=>this.setState({view:'edit'}), toPreview:()=>this.setState({view:'preview'}),
+      editBg:isEdit?'#fff':'transparent', editFg:isEdit?'var(--accent)':'var(--text-secondary)', editSh:isEdit?'0 1px 3px rgba(20,60,110,.14)':'none',
+      prevBg:isPreview?'#fff':'transparent', prevFg:isPreview?'var(--accent)':'var(--text-secondary)', prevSh:isPreview?'0 1px 3px rgba(20,60,110,.14)':'none',
+      canvasBg:isPreview?'#fff':'var(--surface-app)', canvasMax:isPreview?'680px':'720px', canvasPad:isPreview?'40px 24px 80px':'26px 56px 80px',
+      // palette
+      paletteOpen:s.paletteOpen, paletteClosed:!s.paletteOpen, paletteW:s.paletteOpen?'258px':'64px',
+      togglePalette:()=>this.setState(x=>({paletteOpen:!x.paletteOpen})),
+      paletteSearch:s.paletteSearch, onPaletteSearch:(e)=>this.setState({paletteSearch:e.target.value}),
+      families, paletteEmpty:families.length===0,
+      // blocks
+      blocks,
+      // picker
+      pickerOpen:s.pickerOpen, togglePicker:()=>this.setState(x=>({pickerOpen:!x.pickerOpen})),
+      pickerSearch:s.pickerSearch, onPickerSearch:(e)=>this.setState({pickerSearch:e.target.value}),
+      pickerFamilies,
+      // inspector
+      sel:{ typeLabel:bt.label, icon:this.ic(bt.icon,17), iconBg:fam.tone, iconFg:fam.toneFg },
+      sizeOptions, alignOptions, colorOptions,
+      visible:s.visible, visTrack:s.visible?'var(--accent)':'var(--neutral-palladium)', visKnob:s.visible?'22px':'3px', toggleVisible:()=>this.setState(x=>({visible:!x.visible})),
+      // outline
+      outline, blockCount:String(s.blocks.length),
+      // versions
+      versionsOpen:s.versionsOpen, openVersions:()=>this.setState({versionsOpen:true}), closeVersions:()=>this.setState({versionsOpen:false}),
+      versions, versionCount:String(this.VERSIONS.length),
+      // settings
+      settingsOpen:s.settingsOpen, openSettings:()=>this.setState({settingsOpen:true}), closeSettings:()=>this.setState({settingsOpen:false}),
+      intro:s.intro, onIntro:(e)=>this.setState({intro:e.target.value}),
+      objectives, addObjective:()=>this.setState(st=>({objectives:[...st.objectives,'']})),
+      seq:s.seq, seqTrack:s.seq?'var(--accent)':'var(--neutral-palladium)', seqKnob:s.seq?'22px':'3px', toggleSeq:()=>this.setState(x=>({seq:!x.seq})),
+      statusOptions,
+      // ===== AI assistant =====
+      aiOpen:s.aiOpen, openAi:()=>this.openAi(), closeAi:()=>this.closeAi(),
+      aiMenu:s.aiMode==='menu', aiGenerating:s.aiMode==='gen', aiDone:s.aiMode==='done',
+      aiOptions:[
+        {key:'draft',label:'צור טיוטת שיעור',desc:'מנושא או מקבצים שתעלו',icon:this.ic('wand',18),bg:'var(--hue-sky)',fg:'var(--accent)'},
+        {key:'section',label:'צור / שפר סקשן',desc:'פסקה, רשימה או הדגשה',icon:this.ic('aigen',18),bg:'var(--hue-sky)',fg:'var(--accent)'},
+        {key:'questions',label:'צור שאלות',desc:'בוחן או כרטיסי זיכרון',icon:this.ic('question',18),bg:'var(--hue-mint)',fg:'var(--success)'},
+        {key:'image',label:'צור תמונה',desc:'איור או תרשים לשיעור',icon:this.ic('imgplus',18),bg:'rgba(241,194,27,.16)',fg:'var(--hue-bronze)'},
+      ].map(o=>({ ...o, onPick:()=>this.runAi(o.key) })),
+      aiSteps:[
+        {k:0,label:'מחלץ הקשר'},{k:1,label:'חוקר מקורות'},{k:2,label:'מייצר תוכן'},{k:3,label:'מסיים ומסדר'},
+      ].map(st=>({ label:st.label,
+        done: s.aiStep>st.k, active: s.aiStep===st.k,
+        dotBg: s.aiStep>st.k?'var(--success)':(s.aiStep===st.k?'var(--accent)':'var(--hue-sky)'),
+        dotFg: s.aiStep>=st.k?'#fff':'var(--neutral-palladium)',
+        labelFg: s.aiStep>=st.k?'var(--neutral-charcoal)':'var(--text-muted)', labelW: s.aiStep===st.k?700:600,
+        showCheck: s.aiStep>st.k, showSpin: s.aiStep===st.k })),
+      aiTaskLabel: ({draft:'טיוטת שיעור',section:'סקשן',questions:'שאלות',image:'תמונה'})[s.aiTask]||'תוכן',
+      aiAdd:()=>this.aiAdd(), runDraft:()=>this.runAi('draft'),
+      // ===== pedagogical templates =====
+      templatesOpen:s.templatesOpen, openTemplates:()=>this.openTemplates(), closeTemplates:()=>this.closeTemplates(),
+      templates:[
+        {key:'concept',label:'שיעור מושג',desc:'הקניית מושג חדש: הגדרה, דוגמה ותרגול',icon:this.ic('aigen',20),tone:'var(--hue-sky)',toneFg:'var(--accent)',
+         blocks:['עטיפה','כותרת','הסבר','טיפ','תמונה','כרטיסיות']},
+        {key:'guided',label:'תהליך מודרך',desc:'שלב-אחר-שלב לביצוע משימה טכנית',icon:this.ic('list',20),tone:'var(--hue-sky)',toneFg:'var(--hue-cobalt)',
+         blocks:['עטיפה','כותרת','מבוא','שלבים','תמונה','טאבים']},
+        {key:'troubleshoot',label:'תרגול תקלות',desc:'אבחון ופתרון תקלות נפוצות',icon:this.ic('question',20),tone:'rgba(201,66,54,.12)',toneFg:'var(--caution)',
+         blocks:['עטיפה','כותרת','אזהרה','טבלה','צ׳קליסט','כרטיסיות']},
+        {key:'blank',label:'ריק',desc:'התחילו מאפס עם מבנה בסיסי',icon:this.ic('section',20),tone:'#F1F4F8',toneFg:'var(--text-secondary)',
+         blocks:['עטיפה','כותרת','פסקה']},
+      ].map(t=>({ ...t, onUse:()=>this.useTemplate(t.key) })),
+    };
+  }
+}
+</script>
+</body>
+</html>

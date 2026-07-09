@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+@media (max-width:820px){[data-2col]{grid-template-columns:1fr !important;}[data-id-card]{flex-direction:column !important;text-align:center;}[data-id-glance]{justify-content:center !important;}[data-pad]{padding-left:16px !important;padding-right:16px !important;}}
+</style>
+</helmet>
+<div dir="rtl" data-screen-label="פרופיל אישי" style="min-height:100vh;background:var(--surface-app);color:var(--text-primary);display:flex;flex-direction:row;">
+
+  <dc-import name="SideNav" active="profile" hint-size="248px,100vh"></dc-import>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+
+    <dc-import name="TopBar" title="הפרופיל שלי" subtitle="סיכום ההתקדמות וההישגים שלך" hint-size="100%,76px" style="position:sticky;top:0;z-index:20;"></dc-import>
+
+    <main data-pad style="flex:1;width:100%;max-width:1180px;margin:0 auto;padding:32px 32px 40px;display:flex;flex-direction:column;gap:24px;">
+
+      <div style="display:flex;justify-content:flex-end;">
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" hint-size="auto,40px" onClick="{{ openSettings }}">
+          <span style="display:inline-flex;align-items:center;gap:8px;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Settings" size="17" hint-size="17px,17px"></x-import>
+            הגדרות חשבון
+          </span>
+        </x-import>
+      </div>
+
+      <!-- IDENTITY + MY TRACK -->
+      <div data-2col style="display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:stretch;">
+        <!-- identity -->
+        <div data-id-card style="display:flex;align-items:center;gap:24px;background:var(--surface-card);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow-card);">
+          <div style="position:relative;flex:none;width:128px;height:128px;">
+            <svg viewBox="0 0 128 128" width="128" height="128" style="transform:rotate(-90deg);"><circle cx="64" cy="64" r="58" fill="none" stroke="var(--hue-sky)" stroke-width="7"></circle><circle cx="64" cy="64" r="58" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="153.0"></circle></svg>
+            <div style="position:absolute;inset:11px;border-radius:50%;background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:var(--font-weight-demibold);font-size:42px;">ד</div>
+            <span style="position:absolute;bottom:6px;left:6px;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="white" size="sm" hint-size="32px,32px" aria-label="החלפת תמונה">
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Image" size="16" hint-size="16px,16px"></x-import>
+              </x-import>
+            </span>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="margin-bottom:12px;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="denim" hint-size="auto,24px">
+                <span style="display:inline-flex;align-items:center;gap:6px;">
+                  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="LocationLine" size="13" hint-size="13px,13px"></x-import>
+                  טכנאי שטח
+                </span>
+              </x-import>
+            </div>
+            <h2 style="font-weight:var(--font-weight-demibold);font-size:28px;margin:0 0 4px;color:var(--text-primary);">דניאל לוי</h2>
+            <div style="font-size:var(--text-small-size);color:var(--text-secondary);margin-bottom:16px;">מחלקת טכנאי שטח · הצטרף במרץ 2025</div>
+            <div data-id-glance style="display:flex;gap:24px;flex-wrap:wrap;">
+              <div><div style="font-weight:var(--font-weight-demibold);font-size:21px;color:var(--accent);">1,240</div><div style="font-size:var(--text-tiny-size);color:var(--text-secondary);">נקודות XP</div></div>
+              <div style="width:1px;background:var(--border-default);"></div>
+              <div><div style="font-weight:var(--font-weight-demibold);font-size:21px;color:var(--text-primary);">4</div><div style="font-size:var(--text-tiny-size);color:var(--text-secondary);">רמה</div></div>
+              <div style="width:1px;background:var(--border-default);"></div>
+              <div><div style="font-weight:var(--font-weight-demibold);font-size:21px;color:var(--text-primary);">2</div><div style="font-size:var(--text-tiny-size);color:var(--text-secondary);">תעודות</div></div>
+            </div>
+          </div>
+        </div>
+        <!-- my track -->
+        <div style="background:var(--surface-card);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow-card);display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Worldwide" size="18" hint-size="18px,18px" style="color:var(--accent);"></x-import>
+            <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-small-size);color:var(--text-primary);">המסלול שלי</div>
+          </div>
+          <div style="font-weight:var(--font-weight-demibold);font-size:19px;margin-bottom:4px;color:var(--text-primary);">הכשרת טכנאי שטח</div>
+          <div style="font-size:var(--text-tiny-size);color:var(--text-secondary);margin-bottom:16px;">7 מתוך 12 שיעורים הושלמו</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><span style="font-size:var(--text-tiny-size);font-weight:var(--font-weight-demibold);color:var(--text-secondary);">התקדמות</span><span style="font-weight:var(--font-weight-demibold);font-size:15px;color:var(--accent);">58%</span></div>
+          <div style="height:8px;border-radius:var(--radius-full);background:var(--hue-sky);overflow:hidden;margin-bottom:20px;"><div style="height:100%;border-radius:var(--radius-full);background:var(--gradient-accent);width:58%;"></div></div>
+          <div style="margin-top:auto;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" hint-size="100%,40px" style="width:100%;">
+              <span style="display:inline-flex;align-items:center;gap:8px;">
+                המשך ללמוד
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="ArrowWest" size="18" hint-size="18px,18px"></x-import>
+              </span>
+            </x-import>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="5">
+        <div style="background:var(--surface-card);border-radius:var(--radius-xl);padding:20px;box-shadow:var(--shadow-card);">
+          <div style="width:40px;height:40px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:var(--hue-sky);display:flex;align-items:center;justify-content:center;color:var(--accent);margin-bottom:12px;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="{{ s.icon }}" size="19" hint-size="19px,19px"></x-import>
+          </div>
+          <div style="font-weight:var(--font-weight-demibold);font-size:26px;line-height:1;color:var(--text-primary);">{{ s.value }}</div>
+          <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-tiny-size);margin-top:8px;color:var(--text-secondary);">{{ s.label }}</div>
+        </div>
+        </sc-for>
+      </div>
+
+      <!-- RADAR + CERT split -->
+      <div data-2col style="display:grid;grid-template-columns:1fr 1.25fr;gap:24px;align-items:stretch;">
+        <!-- radar -->
+        <div style="background:var(--surface-card);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow-card);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Worldwide" size="18" hint-size="18px,18px" style="color:var(--accent);"></x-import>
+            <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-small-size);color:var(--text-primary);">רדאר ביצועים</div>
+          </div>
+          <div style="font-size:var(--text-tiny-size);color:var(--text-secondary);margin-bottom:8px;">ציון ממוצע לפי תחום</div>
+          <svg viewBox="0 0 360 320" style="width:100%;height:auto;">
+            <sc-for list="{{ radarRings }}" as="r" hint-placeholder-count="4"><polygon points="{{ r.pts }}" fill="none" stroke="var(--neutral-silver)" stroke-width="1.2"></polygon></sc-for>
+            <sc-for list="{{ radarAxes }}" as="a" hint-placeholder-count="5"><line x1="180" y1="148" x2="{{ a.x }}" y2="{{ a.y }}" stroke="var(--neutral-silver)" stroke-width="1.2"></line></sc-for>
+            <polygon points="{{ radarData }}" fill="rgba(0,117,219,.16)" stroke="var(--accent)" stroke-width="2.4" stroke-linejoin="round"></polygon>
+            <sc-for list="{{ radarDots }}" as="d" hint-placeholder-count="5"><circle cx="{{ d.x }}" cy="{{ d.y }}" r="3.6" fill="var(--accent)"></circle></sc-for>
+            <sc-for list="{{ radarLabels }}" as="l" hint-placeholder-count="5"><text x="{{ l.x }}" y="{{ l.y }}" text-anchor="{{ l.anchor }}" font-family="var(--font-sans)" font-size="12.5" font-weight="600" fill="#3D4753">{{ l.label }}</text><text x="{{ l.x }}" y="{{ l.sy }}" text-anchor="{{ l.anchor }}" font-family="var(--font-sans)" font-size="12" font-weight="600" fill="#0075DB">{{ l.score }}</text></sc-for>
+          </svg>
+        </div>
+        <!-- certificates -->
+        <div style="background:var(--surface-card);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow-card);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="SuccessV" size="18" hint-size="18px,18px" style="color:var(--warning);"></x-import>
+              <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-small-size);color:var(--text-primary);">התעודות שלי</div>
+            </div>
+            <span style="font-size:var(--text-tiny-size);color:var(--text-secondary);font-weight:var(--font-weight-demibold);">2 תעודות</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <sc-for list="{{ certs }}" as="c" hint-placeholder-count="2">
+            <div style="border:1px solid var(--border-default);border-radius:var(--radius-lg);overflow:hidden;background:var(--surface-card);transition:box-shadow var(--transition-base);" style-hover="box-shadow:var(--shadow-menu);">
+              <div style="height:80px;background:linear-gradient(135deg,{{ c.c1 }},{{ c.c2 }});display:flex;align-items:center;justify-content:center;position:relative;">
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="SuccessV" size="26" hint-size="26px,26px" style="color:#fff;"></x-import>
+                <span style="position:absolute;top:8px;left:8px;">
+                  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="green" hint-size="auto,20px">ציון {{ c.score }}</x-import>
+                </span>
+              </div>
+              <div style="padding:16px;">
+                <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-tiny-size);line-height:1.35;margin-bottom:4px;color:var(--text-primary);">{{ c.title }}</div>
+                <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">הונפק {{ c.date }} · {{ c.code }}</div>
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" hint-size="auto,32px" style="width:100%;padding:6px 12px;">
+                  <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;">
+                    <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Export" size="14" hint-size="14px,14px"></x-import>
+                    הורד PDF
+                  </span>
+                </x-import>
+              </div>
+            </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXAM HISTORY (drill-down) -->
+      <div style="background:var(--surface-card);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow-card);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="File" size="18" hint-size="18px,18px" style="color:var(--accent);"></x-import>
+          <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-small-size);color:var(--text-primary);">היסטוריית מבחנים</div>
+        </div>
+        <div style="font-size:var(--text-tiny-size);color:var(--text-secondary);margin-bottom:16px;">לחץ על מבחן כדי לראות את הפירוט וללמוד מהטעויות</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <sc-for list="{{ exams }}" as="ex" hint-placeholder-count="3">
+          <div style="border:1px solid {{ ex.border }};border-radius:var(--radius-lg);overflow:hidden;background:{{ ex.bg }};">
+            <button onClick="{{ ex.toggle }}" style="width:100%;display:flex;align-items:center;gap:16px;padding:15px 16px;background:transparent;border:0;cursor:pointer;text-align:right;font-family:inherit;">
+              <span style="width:38px;height:38px;border-radius:var(--radius-md);background:{{ ex.passTint }};color:{{ ex.passColor }};display:flex;align-items:center;justify-content:center;flex:none;">
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="{{ ex.passIconName }}" size="18" hint-size="18px,18px"></x-import>
+              </span>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-small-size);color:var(--text-primary);">{{ ex.title }}</div>
+                <div style="font-size:12.5px;color:var(--text-secondary);">{{ ex.date }} · {{ ex.questions }} שאלות</div>
+              </div>
+              <span style="font-weight:var(--font-weight-demibold);font-size:18px;color:{{ ex.passColor }};">{{ ex.score }}</span>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ ex.passBadgeColor }}" hint-size="auto,24px">{{ ex.passLabel }}</x-import>
+              <span style="flex:none;display:flex;transition:transform var(--transition-base);transform:rotate({{ ex.deg }});color:var(--neutral-nickel);">
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="ChevronDown" size="18" hint-size="18px,18px"></x-import>
+              </span>
+            </button>
+            <sc-if value="{{ ex.open }}">
+            <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:16px;">
+              <sc-for list="{{ ex.detail }}" as="q" hint-placeholder-count="2">
+              <div style="border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:16px;background:var(--surface-card);">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;">
+                  <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-tiny-size);line-height:1.4;color:var(--text-primary);">{{ q.q }}</div>
+                  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ q.okBadgeColor }}" hint-size="auto,24px" style="flex:none;white-space:nowrap;">{{ q.points }}</x-import>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+                  <sc-for list="{{ q.options }}" as="op" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;gap:10px;border:1.5px solid {{ op.border }};background:{{ op.bg }};border-radius:var(--radius-md);padding:9px 12px;">
+                    <span style="width:20px;height:20px;border-radius:50%;border:2px solid {{ op.dotBorder }};background:{{ op.dotBg }};color:#fff;display:flex;align-items:center;justify-content:center;flex:none;">
+                      <sc-if value="{{ op.mark }}"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="{{ op.markIcon }}" size="12" hint-size="12px,12px"></x-import></sc-if>
+                    </span>
+                    <span style="flex:1;font-size:var(--text-tiny-size);font-weight:{{ op.weight }};color:{{ op.textColor }};">{{ op.text }}</span>
+                    <sc-if value="{{ op.tag }}"><span style="font-size:12px;font-weight:var(--font-weight-demibold);color:{{ op.tagColor }};">{{ op.tagText }}</span></sc-if>
+                  </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:10px;background:var(--surface-subtle);border-radius:var(--radius-md);padding:12px 14px;">
+                  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="QuestionFill" size="17" hint-size="17px,17px" style="color:var(--accent);flex:none;margin-top:1px;"></x-import>
+                  <div><div style="font-weight:var(--font-weight-demibold);font-size:12.5px;color:var(--accent);margin-bottom:3px;">הסבר</div><div style="font-size:var(--text-tiny-size);color:var(--text-secondary);line-height:1.55;">{{ q.explanation }}</div></div>
+                </div>
+              </div>
+              </sc-for>
+            </div>
+            </sc-if>
+          </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- NOTES -->
+      <div style="background:var(--surface-card);border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow-card);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="StickyNoteLine" size="18" hint-size="18px,18px" style="color:var(--accent);"></x-import>
+            <div style="font-weight:var(--font-weight-demibold);font-size:var(--text-small-size);color:var(--text-primary);">ההערות שלי</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;width:240px;max-width:50vw;height:40px;padding:0 12px;border-radius:var(--radius-md);border:1px solid var(--border-default);background:var(--surface-card);">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Search" size="16" hint-size="16px,16px" style="color:var(--neutral-lead);flex:none;"></x-import>
+            <input placeholder="חיפוש בהערות…" style="flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--font-sans);font-size:var(--text-tiny-size);color:var(--text-primary);"/>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <sc-for list="{{ notes }}" as="n" hint-placeholder-count="3">
+          <div style="border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:16px;background:var(--surface-subtle);border-inline-start:3px solid var(--hue-indigo);">
+            <div style="font-size:var(--text-small-size);color:var(--text-primary);line-height:1.5;margin-bottom:8px;">{{ n.text }}</div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-secondary);">
+              <span style="display:inline-flex;align-items:center;gap:5px;">
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Pushpin2Line" size="13" hint-size="13px,13px"></x-import>
+                {{ n.lesson }}
+              </span>
+              <span>{{ n.date }}</span>
+            </div>
+          </div>
+          </sc-for>
+        </div>
+      </div>
+
+    </main>
+    <footer style="border-top:1px solid var(--border-default);background:var(--surface-card);"><div data-pad style="max-width:1180px;margin:0 auto;padding:18px 32px;text-align:center;color:var(--text-secondary);font-size:var(--text-tiny-size);">© iPracticom Academy — לשימוש פנימי בלבד</div></footer>
+  </div>
+
+  <!-- SETTINGS DIALOG -->
+  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Dialog" open="{{ settingsOpen }}" on-close="{{ closeSettings }}" title="הגדרות חשבון" size="md" hint-size="512px,auto">
+    <div style="display:flex;flex-direction:column;gap:24px;">
+
+      <div>
+        <div style="font-weight:var(--font-weight-demibold);font-size:12px;color:var(--text-muted);margin-bottom:12px;">פרטים אישיים</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" label="שם מלא" defaultValue="דניאל לוי" hint-size="100%,66px"></x-import>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" label="אימייל" defaultValue="daniel@ipracticom.co.il" style="direction:ltr;" hint-size="100%,66px"></x-import>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border-default);padding-top:20px;">
+        <div style="font-weight:var(--font-weight-demibold);font-size:12px;color:var(--text-muted);margin-bottom:12px;">אבטחה</div>
+        <button style="width:100%;display:flex;align-items:center;gap:12px;border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:13px 14px;background:var(--surface-card);cursor:pointer;text-align:right;margin-bottom:12px;transition:all var(--transition-fast);font-family:inherit;" style-hover="border-color:var(--border-strong);background:var(--surface-subtle);">
+          <span style="width:34px;height:34px;border-radius:var(--radius-md);background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;flex:none;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="Password" size="17" hint-size="17px,17px"></x-import>
+          </span>
+          <div style="flex:1;"><div style="font-weight:var(--font-weight-demibold);font-size:var(--text-tiny-size);color:var(--text-primary);">החלפת סיסמה</div><div style="font-size:12px;color:var(--text-secondary);">עודכנה לאחרונה לפני 3 חודשים</div></div>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="ChevronLeft" size="17" hint-size="17px,17px" style="color:var(--neutral-nickel);"></x-import>
+        </button>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:13px 14px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="width:34px;height:34px;border-radius:var(--radius-md);background:var(--hue-mint);color:var(--success);display:flex;align-items:center;justify-content:center;flex:none;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Icon" name="SuccessV" size="17" hint-size="17px,17px"></x-import>
+            </span>
+            <div><div style="font-weight:var(--font-weight-demibold);font-size:var(--text-tiny-size);color:var(--text-primary);">אימות דו-שלבי (2FA)</div><div style="font-size:12px;color:var(--success);font-weight:var(--font-weight-demibold);">פעיל</div></div>
+          </div>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Toggle" checked="{{ true }}" hint-size="44px,24px"></x-import>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border-default);padding-top:20px;">
+        <div style="font-weight:var(--font-weight-demibold);font-size:12px;color:var(--text-muted);margin-bottom:12px;">העדפות התראות</div>
+        <sc-for list="{{ notifPrefs }}" as="p" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;">
+          <div style="font-size:var(--text-tiny-size);font-weight:var(--font-weight-demibold);color:var(--text-primary);">{{ p.label }}</div>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Toggle" checked="{{ p.on }}" onChange="{{ p.toggle }}" hint-size="44px,24px"></x-import>
+        </div>
+        </sc-for>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;padding-top:8px;">
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" hint-size="auto,40px" onClick="{{ closeSettings }}">ביטול</x-import>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" hint-size="auto,40px" onClick="{{ closeSettings }}">שמירת שינויים</x-import>
+      </div>
+    </div>
+  </x-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:1600}}">
+class Component extends DCLogic {
+  constructor(...a){ super(...a); this.state={ expanded:'net', settingsOpen:false, notifOn:[true,true,false] }; }
+  renderVals(){
+    const stats=[
+      { value:'14.5', label:'שעות למידה', icon:'Clock' },
+      { value:'1', label:'קורסים שהושלמו', icon:'Play2' },
+      { value:'2', label:'תעודות', icon:'SuccessV' },
+      { value:'4/6', label:'מבחנים שעברת', icon:'File' },
+      { value:'1,240', label:'סך XP', icon:'ArrowNorthEast' },
+    ];
+    // radar
+    const cx=180, cy=148, RR=104;
+    const axes=[ {label:'רשתות', s:88},{label:'Firewall', s:72},{label:'מצלמות', s:90},{label:'סאונד', s:65},{label:'מרכזיות', s:80} ];
+    const ang=(i)=> (-90 + i*(360/axes.length)) * Math.PI/180;
+    const pt=(i,r)=> [ (cx + r*Math.cos(ang(i))).toFixed(1), (cy + r*Math.sin(ang(i))).toFixed(1) ];
+    const radarRings=[0.25,0.5,0.75,1].map(f=>({ pts: axes.map((_,i)=>pt(i,RR*f).join(',')).join(' ') }));
+    const radarAxes=axes.map((_,i)=>{ const [x,y]=pt(i,RR); return {x,y}; });
+    const radarData=axes.map((a,i)=>pt(i,RR*a.s/100).join(',')).join(' ');
+    const radarDots=axes.map((a,i)=>{ const [x,y]=pt(i,RR*a.s/100); return {x,y}; });
+    const radarLabels=axes.map((a,i)=>{ const [x,y]=pt(i,RR+22); const c=Math.cos(ang(i)); const anchor= c>0.3?'start':(c<-0.3?'end':'middle'); return { x, y:(+y).toFixed(1), sy:(+y+15).toFixed(1), anchor, label:a.label, score:a.s }; });
+
+    const certs=[
+      {title:'יסודות רשתות', date:'12.06.2026', score:85, code:'IP-7F3A', c1:'#2EB4FF', c2:'#0075DB'},
+      {title:'מצלמות אבטחה IP', date:'18.06.2026', score:92, code:'IP-9C2E', c1:'#51D5A5', c2:'#00857C'},
+    ];
+    const notes=[
+      {text:'VLAN מפריד תעבורה לוגית — לזכור שצריך trunk בין מתגים כדי להעביר כמה VLANs.', lesson:'מבוא ל-VLAN', date:'לפני 3 ימים'},
+      {text:'ב-MikroTik סדר חוקי ה-Filter קריטי — חוק drop כללי בסוף, אחרת חוסם הכל.', lesson:'חוקי Firewall', date:'לפני שבוע'},
+      {text:'מצלמת PoE לא עולה? קודם לבדוק שהפורט במתג תומך PoE ומספק מספיק וואט.', lesson:'התקנת מצלמות', date:'12.05.2026'},
+    ];
+    const prefDefs=[
+      {label:'מסלול חדש שהוקצה לי'},
+      {label:'תזכורת על מבחן קרוב'},
+      {label:'עדכוני מערכת ושינויים'},
+    ];
+    const notifPrefs=prefDefs.map((p,i)=>({ label:p.label, on: this.state.notifOn[i],
+      toggle: () => this.setState(s => { const arr=[...s.notifOn]; arr[i]=!arr[i]; return { notifOn: arr }; }) }));
+
+    // exams
+    const mkOpt=(text,{user,correct})=>{
+      const isC=correct, isU=user;
+      let border='var(--border-default)', bg='var(--surface-card)', textColor='var(--text-secondary)', weight='var(--font-weight-regular)', dotBorder='var(--neutral-palladium)', dotBg='var(--white)', mark=false, markIcon='', tag=false, tagText='', tagColor='';
+      if(isC){ border='var(--hue-mint)'; bg='rgba(0,133,124,0.06)'; textColor='var(--success)'; weight='var(--font-weight-demibold)'; dotBorder='var(--success)'; dotBg='var(--success)'; mark=true; markIcon='Check'; tag=true; tagText='התשובה הנכונה'; tagColor='var(--success)'; }
+      if(isU && !isC){ border='var(--hue-salmon)'; bg='rgba(201,66,54,0.06)'; textColor='var(--caution)'; weight='var(--font-weight-demibold)'; dotBorder='var(--caution)'; dotBg='var(--caution)'; mark=true; markIcon='Close'; tag=true; tagText='בחרת'; tagColor='var(--caution)'; }
+      if(isU && isC){ tagText='בחרת · נכון'; }
+      return { text, border, bg, textColor, weight, dotBorder, dotBg, mark, markIcon, tag, tagText, tagColor };
+    };
+    const netDetail=[
+      { q:'כמה כתובות IP ניתנות להקצאה ברשת /24?', points:'0/10', ok:false,
+        options:[ mkOpt('254',{user:false,correct:true}), mkOpt('255',{user:false,correct:false}), mkOpt('256',{user:true,correct:false}), mkOpt('128',{user:false,correct:false}) ],
+        explanation:'ברשת /24 יש 256 כתובות סה״כ, אך 2 שמורות (כתובת הרשת וה-broadcast), כך שנותרות 254 כתובות זמינות להקצאה.' },
+      { q:'איזה פרוטוקול מקצה כתובות IP אוטומטית למכשירים ברשת?', points:'10/10', ok:true,
+        options:[ mkOpt('DNS',{user:false,correct:false}), mkOpt('DHCP',{user:true,correct:true}), mkOpt('NAT',{user:false,correct:false}), mkOpt('ARP',{user:false,correct:false}) ],
+        explanation:'DHCP (Dynamic Host Configuration Protocol) מקצה כתובות IP, מסכת רשת, שער ברירת מחדל ו-DNS באופן אוטומטי.' },
+    ].map(d=>({ q:d.q, points:d.points, explanation:d.explanation, options:d.options,
+      okBadgeColor: d.ok?'success':'caution' }));
+
+    const examsRaw=[
+      {id:'net', title:'יסודות רשתות', date:'12.06.2026', q:8, score:'85%', passed:true, detail:netDetail},
+      {id:'cam', title:'מצלמות אבטחה IP', date:'18.06.2026', q:10, score:'92%', passed:true, detail:[]},
+      {id:'fw', title:'MikroTik Firewall', date:'22.06.2026', q:8, score:'64%', passed:false, detail:[]},
+    ];
+    const exp=this.state.expanded;
+    const exams=examsRaw.map(e=>({
+      title:e.title, date:e.date, questions:e.q, score:e.score,
+      passLabel:e.passed?'עבר':'נכשל', passColor: e.passed?'var(--success)':'var(--caution)',
+      passTint: e.passed?'var(--hue-mint)':'var(--hue-salmon)',
+      passBadgeColor: e.passed?'success':'caution',
+      passIconName:e.passed?'Check':'Close',
+      open:exp===e.id, deg: exp===e.id?'180deg':'0deg',
+      border: exp===e.id?'var(--accent)':'var(--border-default)', bg: exp===e.id?'var(--surface-subtle)':'var(--surface-card)',
+      detail:e.detail,
+      toggle:()=>this.setState(s=>({expanded: s.expanded===e.id?null:e.id})),
+    }));
+
+    return {
+      stats,
+      radarRings, radarAxes, radarData, radarDots, radarLabels,
+      certs, notes, notifPrefs, exams,
+      settingsOpen:this.state.settingsOpen,
+      openSettings:()=>this.setState({settingsOpen:true}),
+      closeSettings:()=>this.setState({settingsOpen:false}),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

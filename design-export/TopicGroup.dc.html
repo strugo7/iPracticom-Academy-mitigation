@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+</helmet>
+<div style="padding-inline-end:4px;font-family:var(--font-sans);">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 4px 12px;">
+    <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+      <svg viewBox="0 0 24 24" width="16" height="16" style="color:var(--accent);flex:none;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>
+      <h4 style="font-weight:600;font-size:15.5px;margin:0;color:var(--neutral-charcoal);">{{ title }}</h4>
+    </div>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--neutral-lead);font-weight:400;flex:none;white-space:nowrap;">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+      {{ duration }} · {{ lessonCount }} שיעורים
+    </span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:4px;">
+    <sc-for list="{{ lessons }}" as="lesson" hint-placeholder-count="3">
+    <dc-import name="LessonRow" title="{{ lesson.title }}" duration="{{ lesson.duration }}" status="{{ lesson.status }}" percent="{{ lesson.percent }}" xp="{{ lesson.xp }}" hint-size="100%,70px"></dc-import>
+    </sc-for>
+    <sc-if value="{{ hasExam }}">
+    <dc-import name="LessonRow" is-exam="{{ trueVal }}" title="{{ examTitle }}" duration="{{ examDuration }}" exam-kind="{{ examKind }}" hint-size="100%,72px"></dc-import>
+    </sc-if>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:680,&quot;height&quot;:300},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;מבוא לרשתות&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;duration&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;42 דק׳&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;lessons&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;Lesson[]&quot;},&quot;examTitle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;examDuration&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;examKind&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;מבחן נושא&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const lessons = Array.isArray(p.lessons) ? p.lessons : [];
+    return {
+      title: p.title ?? '',
+      duration: p.duration ?? '',
+      lessons,
+      lessonCount: p.lessonCount ?? lessons.length,
+      hasExam: !!p.examTitle,
+      examTitle: p.examTitle ?? '',
+      examDuration: p.examDuration ?? '',
+      examKind: p.examKind ?? 'מבחן נושא',
+      trueVal: true,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+@keyframes mdDrawer{from{transform:translateX(-28px);opacity:0;}to{transform:none;opacity:1;}}
+@keyframes mdFade{from{opacity:0;}to{opacity:1;}}
+@media (max-width:1080px){[data-cmp-grid]{grid-template-columns:1fr !important;}}
+@media (max-width:760px){[data-pad]{padding-left:16px !important;padding-right:16px !important;}[data-head]{flex-direction:column !important;align-items:flex-start !important;}[data-kpi]{grid-template-columns:repeat(2,1fr) !important;}[data-table-wrap]{overflow-x:auto;}[data-team-table]{min-width:720px;}[data-drawer]{width:100% !important;}}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0075DB"/><g fill="none" stroke="#fff" stroke-width="5"><circle cx="50" cy="50" r="28"/><path d="M50 22a28 28 0 0 1 24 42" stroke="#fff"/></g></svg></template>
+
+<div dir="rtl" data-screen-label="דשבורד ניהול" style="min-height:100vh;background:var(--surface-app);color:var(--neutral-charcoal);display:flex;flex-direction:row;font-family:var(--font-sans);">
+
+  <dc-import name="SideNav" active="manager" hint-size="248px,100vh"></dc-import>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+
+    <dc-import name="TopBar" title="דשבורד ניהול — מחלקת תמיכה טכנית" subtitle="7 עובדים · מבט מנהל על התקדמות וביצועים" notif="5" hint-size="100%,76px" style="position:sticky;top:0;z-index:20;"></dc-import>
+
+    <main data-pad style="flex:1;width:100%;max-width:1280px;margin:0 auto;padding:24px 32px 48px;display:flex;flex-direction:column;gap:24px;">
+
+      <!-- DEPARTMENT CONTROLS -->
+      <div data-head style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+        <div style="font-weight:600;font-size:var(--text-h4-size);color:var(--neutral-charcoal);">סקירת מחלקה</div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tabs" variant="pill" tabs="{{ periodTabs }}" value="{{ period }}" onChange="{{ setPeriod }}" hint-size="auto,40px"></x-import>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ exportReport }}" leadingIcon="{{ exportIcon }}" hint-size="auto,40px">ייצוא דוח</x-import>
+        </div>
+      </div>
+
+      <!-- KPI ROW -->
+      <section data-kpi style="display:grid;grid-template-columns:repeat(6,1fr);gap:16px;">
+
+        <!-- Ring KPI: average progress (Ring Pie — RingProgress, blue accent) -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <span style="align-self:flex-start;font-size:var(--text-tiny-size);font-weight:400;color:var(--neutral-charcoal);">התקדמות ממוצעת</span>
+          <div style="position:relative;width:96px;height:96px;">
+            <svg width="96" height="96" viewBox="0 0 96 96" style="transform:rotate(-90deg);overflow:visible;">
+              <circle cx="48" cy="48" r="{{ ringProgress.r }}" fill="none" stroke="var(--neutral-silver)" stroke-width="6"></circle>
+              <circle cx="48" cy="48" r="{{ ringProgress.r }}" fill="none" stroke="url(#ringGradBlue)" stroke-width="6" stroke-linecap="round" stroke-dasharray="{{ ringProgress.dash }} {{ ringProgress.c }}"></circle>
+              <defs><linearGradient id="ringGradBlue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#282FEF"></stop><stop offset="1" stop-color="#33B1FF"></stop></linearGradient></defs>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><span style="display:flex;align-items:baseline;" dir="ltr"><span style="font-size:24px;color:var(--neutral-charcoal);line-height:1;">57</span><span style="font-size:15px;color:#9EACC2;">%</span></span></div>
+          </div>
+        </div>
+
+        <!-- Ring KPI: track completion (Ring Pie — RingProgress, yellow) -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:20px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <span style="align-self:flex-start;font-size:var(--text-tiny-size);font-weight:400;color:var(--neutral-charcoal);">אחוז השלמת מסלול</span>
+          <div style="position:relative;width:96px;height:96px;">
+            <svg width="96" height="96" viewBox="0 0 96 96" style="transform:rotate(-90deg);overflow:visible;">
+              <circle cx="48" cy="48" r="{{ ringTrack.r }}" fill="none" stroke="var(--neutral-silver)" stroke-width="6"></circle>
+              <circle cx="48" cy="48" r="{{ ringTrack.r }}" fill="none" stroke="var(--warning)" stroke-width="6" stroke-linecap="round" stroke-dasharray="{{ ringTrack.dash }} {{ ringTrack.c }}"></circle>
+            </svg>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;"><span style="display:flex;align-items:baseline;" dir="ltr"><span style="font-size:24px;color:var(--neutral-charcoal);line-height:1;">14</span><span style="font-size:15px;color:#9EACC2;">%</span></span></div>
+          </div>
+        </div>
+
+        <!-- Cube: exam score -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:20px;display:flex;flex-direction:column;gap:4px;justify-content:center;">
+          <span style="font-size:var(--text-tiny-size);font-weight:400;color:var(--neutral-charcoal);">ציון מבחן ממוצע</span>
+          <span style="font-size:28px;line-height:1.2;color:var(--neutral-charcoal);">78</span>
+        </div>
+
+        <!-- Cube: active learners -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:20px;display:flex;flex-direction:column;gap:4px;justify-content:center;">
+          <span style="font-size:var(--text-tiny-size);font-weight:400;color:var(--neutral-charcoal);">לומדים פעילים השבוע</span>
+          <span style="font-size:28px;line-height:1.2;color:var(--neutral-charcoal);">6<span style="font-size:16px;color:var(--neutral-nickel);">/7</span></span>
+        </div>
+
+        <!-- Cube: certificates -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:20px;display:flex;flex-direction:column;gap:4px;justify-content:center;">
+          <span style="font-size:var(--text-tiny-size);font-weight:400;color:var(--neutral-charcoal);">סך תעודות במחלקה</span>
+          <span style="font-size:28px;line-height:1.2;color:var(--neutral-charcoal);">12</span>
+        </div>
+
+        <!-- Warning card (exact DS "Warning" pattern) -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:20px;display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;border-radius:10px;border:1px solid var(--caution);background:#FFF1F1;padding:8px 16px;">
+            <span style="font-size:var(--text-small-size);font-weight:400;color:var(--neutral-charcoal);">עובדים בסיכון</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:28px;line-height:1;color:var(--caution);">2</span>
+              <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M21.2278 19.3945L11.1445 1.97781L1.06113 19.3945H21.2278ZM10.2278 16.6445V14.8111H12.0611V16.6445H10.2278ZM10.2278 12.9778H12.0611V9.31114H10.2278V12.9778Z" fill="var(--neutral-charcoal)"></path></svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACTIVITY TREND (exact DS "Chart" card pattern) -->
+      <section style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:10px 24px;">
+        <div style="display:flex;align-items:center;gap:20px;padding:8px 0;">
+          <div style="display:flex;flex-direction:column;gap:5px;flex:none;">
+            <span style="display:flex;align-items:center;justify-content:center;width:27px;height:27px;border-radius:50%;background:var(--neutral-whisper);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19.59 7L12 14.59 6.41 9H11V7H3v8h2v-4.59l7 7 9-9L19.59 7z" fill="var(--neutral-nickel)"></path></svg></span>
+            <span style="font-size:var(--text-small-size);font-weight:400;color:var(--neutral-charcoal);">כניסות השבוע</span>
+            <span style="font-size:48px;line-height:1;color:var(--neutral-charcoal);">24</span>
+          </div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+            <svg viewBox="0 0 1076 106" fill="none" preserveAspectRatio="none" style="width:100%;height:86px;">
+              <path opacity="0.47" d="M14.7852 83.1803C61.4883 69.6912 622.006 -38.241 1070.05 16.8534V53.8226V87.7891H0L14.7852 83.1803Z" fill="url(#lineFill)"></path>
+              <path d="M33.5115 81.6896C205.97 31.0529 859.405 -28.5832 1063.99 20.0262" stroke="url(#lineStroke)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              <defs>
+                <linearGradient id="lineStroke" x1="555.914" y1="-37.2882" x2="543.833" y2="118.937" gradientUnits="userSpaceOnUse"><stop stop-color="#282FEF"></stop><stop offset="1" stop-color="#33B1FF"></stop></linearGradient>
+                <linearGradient id="lineFill" x1="541.445" y1="-102.87" x2="541.399" y2="95.2649" gradientUnits="userSpaceOnUse"><stop stop-color="#37FFA8"></stop><stop offset="1" stop-color="#50A2FF" stop-opacity="0"></stop></linearGradient>
+              </defs>
+            </svg>
+            <div style="display:flex;justify-content:space-between;"><span style="font-size:13px;color:var(--neutral-nickel);">א׳</span><span style="font-size:13px;color:var(--neutral-nickel);">ד׳</span><span style="font-size:13px;color:var(--neutral-nickel);">ש׳</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPARISON + AT-RISK -->
+      <section data-cmp-grid style="display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:start;">
+
+        <!-- BAR CHART -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:24px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" width="19" height="19" style="color:var(--accent);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><rect x="7" y="11" width="3" height="6" rx="1"></rect><rect x="12" y="7" width="3" height="10" rx="1"></rect><rect x="17" y="13" width="3" height="4" rx="1"></rect></svg><div style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">השוואת עובדים</div></div>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tabs" variant="pill" tabs="{{ metricTabs }}" value="{{ metric }}" onChange="{{ setMetric }}" hint-size="auto,32px"></x-import>
+          </div>
+          <div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-bottom:20px;">מדורג לפי {{ metricLabel }} · מהגבוה לנמוך</div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <sc-for list="{{ bars }}" as="b" hint-placeholder-count="7">
+            <button onClick="{{ b.view }}" style="display:flex;align-items:center;gap:16px;background:transparent;border:0;padding:0;cursor:pointer;font-family:inherit;text-align:right;width:100%;">
+              <span style="width:30px;height:30px;border-radius:50%;background:var(--gradient-accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex:none;">{{ b.initial }}</span>
+              <span style="width:80px;flex:none;font-weight:400;font-size:var(--text-small-size);color:var(--neutral-charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ b.name }}</span>
+              <span style="flex:1;height:22px;border-radius:var(--radius-full);background:var(--neutral-whisper);overflow:hidden;display:block;"><span style="display:block;height:100%;border-radius:var(--radius-full);background:{{ b.fill }};width:{{ b.pct }}%;transition:width .4s cubic-bezier(.22,.61,.36,1);"></span></span>
+              <span style="width:64px;flex:none;font-weight:600;font-size:var(--text-small-size);text-align:left;color:{{ b.valColor }};">{{ b.value }}</span>
+            </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- AT RISK -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:24px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><svg viewBox="0 0 24 24" width="19" height="19" style="color:var(--caution);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg><div style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">עובדים בסיכון</div></div>
+          <div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-bottom:16px;">דורשים תשומת לב ומעקב</div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <sc-for list="{{ atRisk }}" as="r" hint-placeholder-count="2">
+            <div style="border:1px solid var(--caution);border-radius:8px;padding:16px;background:#FFF7F6;">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+                <span style="width:40px;height:40px;border-radius:50%;background:var(--gradient-accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;flex:none;">{{ r.initial }}</span>
+                <div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">{{ r.name }}</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);">{{ r.track }}</div></div>
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="red" onClick="{{ r.view }}" hint-size="auto,36px" style="padding:6px 16px;font-size:13px;">צפה</x-import>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <sc-for list="{{ r.reasons }}" as="rs" hint-placeholder-count="2">
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="caution" hint-size="auto,24px">{{ rs }}</x-import>
+                </sc-for>
+              </div>
+            </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <!-- TEAM TABLE -->
+      <section style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);padding:24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" width="19" height="19" style="color:var(--accent);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><div style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">צוות המחלקה</div></div>
+          <span style="font-size:var(--text-tiny-size);color:var(--neutral-lead);font-weight:400;">לחיצה על שורה — פרופיל מלא של העובד</span>
+        </div>
+        <div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-bottom:16px;">מיון: לחיצה על כותרת עמודה</div>
+        <div data-table-wrap>
+        <table data-team-table style="width:100%;border-collapse:collapse;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--neutral-silver);">
+              <th onClick="{{ sortName }}" style="text-align:right;padding:8px 12px;font-family:inherit;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-lead);cursor:pointer;user-select:none;white-space:nowrap;">עובד <span style="color:var(--accent);">{{ arrowName }}</span></th>
+              <th onClick="{{ sortTrack }}" style="text-align:right;padding:8px 12px;font-family:inherit;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-lead);cursor:pointer;user-select:none;white-space:nowrap;">מסלול מוקצה <span style="color:var(--accent);">{{ arrowTrack }}</span></th>
+              <th onClick="{{ sortProgress }}" style="text-align:right;padding:8px 12px;font-family:inherit;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-lead);cursor:pointer;user-select:none;white-space:nowrap;width:180px;">התקדמות <span style="color:var(--accent);">{{ arrowProgress }}</span></th>
+              <th onClick="{{ sortScore }}" style="text-align:right;padding:8px 12px;font-family:inherit;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-lead);cursor:pointer;user-select:none;white-space:nowrap;">ציון ממוצע <span style="color:var(--accent);">{{ arrowScore }}</span></th>
+              <th onClick="{{ sortLast }}" style="text-align:right;padding:8px 12px;font-family:inherit;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-lead);cursor:pointer;user-select:none;white-space:nowrap;">פעילות אחרונה <span style="color:var(--accent);">{{ arrowLast }}</span></th>
+              <th onClick="{{ sortStatus }}" style="text-align:right;padding:8px 12px;font-family:inherit;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-lead);cursor:pointer;user-select:none;white-space:nowrap;">סטטוס <span style="color:var(--accent);">{{ arrowStatus }}</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ rows }}" as="row" hint-placeholder-count="7">
+            <tr onClick="{{ row.view }}" style="border-bottom:1px solid var(--neutral-silver);cursor:pointer;transition:background .15s;">
+              <td style="padding:16px 12px;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                  <span style="width:36px;height:36px;border-radius:50%;background:var(--gradient-accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;flex:none;">{{ row.initial }}</span>
+                  <span style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);white-space:nowrap;">{{ row.name }}</span>
+                </div>
+              </td>
+              <td style="padding:16px 12px;font-size:var(--text-small-size);font-weight:400;color:var(--neutral-charcoal);white-space:nowrap;">{{ row.track }}</td>
+              <td style="padding:16px 12px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="flex:1;min-width:80px;height:8px;border-radius:var(--radius-full);background:var(--hue-sky);overflow:hidden;display:block;"><span style="display:block;height:100%;border-radius:var(--radius-full);background:{{ row.barFill }};width:{{ row.progress }}%;"></span></span>
+                  <span style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);width:38px;flex:none;">{{ row.progress }}%</span>
+                </div>
+              </td>
+              <td style="padding:16px 12px;font-weight:600;font-size:var(--text-small-size);color:{{ row.scoreColor }};">{{ row.score }}</td>
+              <td style="padding:16px 12px;font-size:var(--text-tiny-size);color:{{ row.lastColor }};white-space:nowrap;">{{ row.last }}</td>
+              <td style="padding:16px 12px;"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ row.statusColor }}" hint-size="auto,24px">{{ row.statusLabel }}</x-import></td>
+            </tr>
+            </sc-for>
+          </tbody>
+        </table>
+        </div>
+      </section>
+
+      <footer style="text-align:center;color:var(--neutral-nickel);font-size:var(--text-tiny-size);padding-top:8px;">© iPracticom Academy — לשימוש פנימי בלבד</footer>
+    </main>
+  </div>
+
+  <!-- DRILL-DOWN DRAWER -->
+  <sc-if value="{{ selected }}">
+  <div onClick="{{ close }}" style="position:fixed;inset:0;background:rgba(24,29,36,.4);backdrop-filter:blur(4px);z-index:50;display:flex;justify-content:flex-start;animation:mdFade .2s ease;">
+    <div data-drawer onClick="{{ stop }}" dir="rtl" style="width:560px;max-width:100%;height:100%;background:var(--surface-app);box-shadow:var(--shadow-menu);overflow-y:auto;animation:mdDrawer .28s cubic-bezier(.22,.61,.36,1);">
+
+      <!-- drawer header -->
+      <div style="position:sticky;top:0;z-index:5;background:var(--neutral-charcoal);padding:24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span style="width:60px;height:60px;border-radius:50%;background:var(--gradient-accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:24px;flex:none;border:2px solid rgba(255,255,255,.25);">{{ sel.initial }}</span>
+          <div>
+            <div style="color:var(--white);font-weight:600;font-size:var(--text-h4-size);">{{ sel.name }}</div>
+            <div style="color:#AEB9C6;font-size:var(--text-small-size);margin-top:4px;">{{ sel.role }} · {{ sel.track }}</div>
+            <span style="display:inline-block;margin-top:8px;"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ sel.statusColor }}" hint-size="auto,24px">{{ sel.statusLabel }}</x-import></span>
+          </div>
+        </div>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="ghost" size="md" onClick="{{ close }}" aria-label="סגירה" hint-size="34px,34px" style="background:rgba(255,255,255,.08);color:#fff;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></x-import>
+      </div>
+
+      <div style="padding:24px;display:flex;flex-direction:column;gap:16px;">
+
+        <!-- mini stats -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+          <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;"><div style="font-weight:600;font-size:21px;color:var(--accent);">{{ sel.progress }}%</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-top:4px;">התקדמות</div></div>
+          <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;"><div style="font-weight:600;font-size:21px;color:var(--neutral-charcoal);">{{ sel.score }}</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-top:4px;">ציון ממוצע</div></div>
+          <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;"><div style="font-weight:600;font-size:21px;color:var(--neutral-charcoal);">{{ sel.xp }}</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-top:4px;">XP</div></div>
+          <div style="background:var(--white);border-radius:8px;padding:12px;text-align:center;"><div style="font-weight:600;font-size:21px;color:var(--neutral-charcoal);">{{ sel.time }}</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-top:4px;">שעות</div></div>
+        </div>
+
+        <!-- track progress -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><div style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">{{ sel.track }}</div><span style="font-weight:600;font-size:var(--text-body-size);color:var(--accent);">{{ sel.progress }}%</span></div>
+          <div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-bottom:12px;">{{ sel.lessons }} שיעורים הושלמו</div>
+          <div style="height:8px;border-radius:var(--radius-full);background:var(--hue-sky);overflow:hidden;"><div style="height:100%;border-radius:var(--radius-full);background:{{ sel.barFill }};width:{{ sel.progress }}%;"></div></div>
+        </div>
+
+        <!-- exam history -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;"><svg viewBox="0 0 24 24" width="17" height="17" style="color:var(--accent);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg><div style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">היסטוריית מבחנים</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ sel.exams }}" as="ex" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:12px;border:1px solid {{ ex.border }};background:{{ ex.bg }};border-radius:8px;padding:12px;">
+              <span style="width:32px;height:32px;border-radius:8px;background:{{ ex.tint }};color:{{ ex.color }};display:flex;align-items:center;justify-content:center;flex:none;">{{ ex.icon }}</span>
+              <span style="flex:1;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">{{ ex.title }}</span>
+              <span style="font-weight:600;font-size:var(--text-body-size);color:{{ ex.color }};">{{ ex.score }}</span>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ ex.badgeColor }}" hint-size="auto,24px">{{ ex.label }}</x-import>
+            </div>
+            </sc-for>
+            <sc-if value="{{ sel.noExams }}"><div style="font-size:var(--text-small-size);color:var(--neutral-nickel);text-align:center;padding:8px;">עדיין לא ניגש למבחנים</div></sc-if>
+          </div>
+        </div>
+
+        <!-- certificates + activity -->
+        <div style="background:var(--white);border-radius:var(--radius-xl);padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;"><svg viewBox="0 0 24 24" width="17" height="17" style="color:var(--warning);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg><div style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">תעודות</div></div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <sc-for list="{{ sel.certs }}" as="c" hint-placeholder-count="2">
+            <span style="display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:8px 12px;background:var(--neutral-whisper);"><span style="width:26px;height:26px;border-radius:8px;background:var(--gradient-accent);color:var(--white);display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg></span><span><span style="display:block;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-charcoal);">{{ c.title }}</span><span style="display:block;font-size:var(--text-tiny-size);color:var(--neutral-nickel);">{{ c.date }} · ציון {{ c.score }}</span></span></span>
+            </sc-for>
+            <sc-if value="{{ sel.noCerts }}"><div style="font-size:var(--text-small-size);color:var(--neutral-nickel);padding:4px;">אין תעודות עדיין</div></sc-if>
+          </div>
+        </div>
+
+        <div style="background:var(--white);border-radius:var(--radius-xl);padding:20px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;"><svg viewBox="0 0 24 24" width="17" height="17" style="color:var(--accent);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><div style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">פעילות אחרונה</div></div>
+          <div style="display:flex;flex-direction:column;">
+            <sc-for list="{{ sel.activity }}" as="a" hint-placeholder-count="3">
+            <div style="display:flex;gap:16px;padding-bottom:16px;position:relative;">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;margin-top:6px;"></span>
+              <div style="flex:1;"><div style="font-weight:400;font-size:var(--text-small-size);line-height:1.4;color:var(--neutral-charcoal);">{{ a.text }}</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:2px;">{{ a.time }}</div></div>
+            </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;">
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" leadingIcon="{{ msgIcon }}" hint-size="auto,44px" style="flex:1;">שלח הודעה לעובד</x-import>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" onClick="{{ sel.downloadReport }}" leadingIcon="{{ reportIcon }}" hint-size="auto,44px">הורד דוח עובד</x-import>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ close }}" hint-size="auto,44px">סגירה</x-import>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(...a){
+    super(...a);
+    this.raw=(s)=>React.createElement('span',{dangerouslySetInnerHTML:{__html:s},style:{display:'flex'}});
+    this.ICONS={
+      exportI:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>',
+      msg:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>',
+      report:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>',
+    };
+    this.state={ period:'month', metric:'progress', sortKey:'progress', sortDir:'desc', selectedId:null };
+  }
+  renderVals(){
+    const R=React.createElement;
+    const tiny=(name)=>R('svg',{viewBox:'0 0 24 24',width:15,height:15,fill:'none',stroke:'currentColor',strokeWidth:2.6,strokeLinecap:'round',strokeLinejoin:'round'}, name==='chk'?R('polyline',{points:'20 6 9 17 4 12'}):[R('line',{key:1,x1:18,y1:6,x2:6,y2:18}),R('line',{key:2,x1:6,y1:6,x2:18,y2:18})]);
+    const AB='var(--gradient-accent)';
+
+    const emp=[
+      {id:'roni',name:'רוני כהן',initial:'ר',track:'פתרון תקלות רשת מתקדם',progress:100,score:94,xp:2310,time:18.5,status:'done',last:'אתמול',lastDays:1,lessons:'15/15',
+        exams:[{t:'יסודות רשתות',s:96,p:true},{t:'אבחון תקלות חומרה',s:92,p:true},{t:'ניתוב מתקדם',s:94,p:true}],
+        certs:[{t:'יסודות רשתות',s:96,d:'10.05.26'},{t:'אבחון תקלות',s:92,d:'02.06.26'},{t:'ניתוב מתקדם',s:94,d:'20.06.26'},{t:'אבטחת רשת',s:90,d:'24.06.26'}],
+        activity:[{t:'השלים את המסלול במלואו',d:'אתמול'},{t:'קיבל תעודה: אבטחת רשת',d:'לפני 3 ימים'},{t:'עבר מבחן ניתוב מתקדם · 94',d:'לפני 6 ימים'}]},
+      {id:'maya',name:'מאיה אבני',initial:'מ',track:'קליטת נציג תמיכה',progress:80,score:88,xp:1980,time:15,status:'active',last:'לפני 3 שעות',lastDays:0.13,lessons:'12/15',
+        exams:[{t:'מבוא למוקד התמיכה',s:90,p:true},{t:'תקשורת עם לקוח',s:86,p:true}],
+        certs:[{t:'מבוא למוקד',s:90,d:'08.06.26'},{t:'תקשורת עם לקוח',s:86,d:'19.06.26'}],
+        activity:[{t:'השלימה שיעור: ניהול שיחה קשה',d:'לפני 3 שעות'},{t:'עברה מבחן תקשורת עם לקוח · 86',d:'לפני יומיים'}]},
+      {id:'itai',name:'איתי ברק',initial:'א',track:'מערכת CRM ותמיכה',progress:66,score:79,xp:1560,time:12,status:'active',last:'היום',lastDays:0,lessons:'10/15',
+        exams:[{t:'יסודות CRM',s:82,p:true},{t:'ניהול פניות',s:76,p:true}],
+        certs:[{t:'יסודות CRM',s:82,d:'12.06.26'},{t:'ניהול פניות',s:76,d:'23.06.26'}],
+        activity:[{t:'התחיל מודול: דוחות ומדדים',d:'היום'},{t:'עבר מבחן ניהול פניות · 76',d:'לפני 3 ימים'}]},
+      {id:'daniel',name:'דניאל לוי',initial:'ד',track:'הכשרת טכנאי שטח',progress:58,score:87,xp:1240,time:14.5,status:'active',last:'לפני שעתיים',lastDays:0.08,lessons:'9/15',
+        exams:[{t:'יסודות רשתות',s:85,p:true},{t:'מצלמות אבטחה IP',s:92,p:true},{t:'MikroTik Firewall',s:64,p:false}],
+        certs:[{t:'יסודות רשתות',s:85,d:'12.06.26'},{t:'מצלמות אבטחה IP',s:92,d:'18.06.26'}],
+        activity:[{t:'השלים שיעור: הגדרת Firewall בסיסי',d:'לפני שעתיים'},{t:'קיבל תעודה: מצלמות אבטחה IP',d:'אתמול'}]},
+      {id:'noa',name:'נועה שגב',initial:'נ',track:'קליטת נציג תמיכה',progress:45,score:72,xp:1090,time:9,status:'active',last:'לפני יומיים',lastDays:2,lessons:'7/15',
+        exams:[{t:'מבוא למוקד התמיכה',s:74,p:true},{t:'תקשורת עם לקוח',s:70,p:true}],
+        certs:[{t:'מבוא למוקד',s:74,d:'14.06.26'}],
+        activity:[{t:'השלימה שיעור: פתיחת פנייה',d:'לפני יומיים'},{t:'עברה מבחן מבוא למוקד · 74',d:'לפני 5 ימים'}]},
+      {id:'amit',name:'עמית רגב',initial:'ע',track:'הכשרת טכנאי שטח',progress:18,score:61,xp:420,time:3,status:'risk',last:'לפני 5 ימים',lastDays:5,lessons:'3/15',reasons:['התקדמות 18%','נכשל ב-2 מבחנים'],
+        exams:[{t:'יסודות רשתות',s:48,p:false},{t:'אבחון תקלות',s:55,p:false},{t:'מבוא לציוד תקשורת',s:72,p:true}],
+        certs:[],
+        activity:[{t:'נכשל במבחן אבחון תקלות · 55',d:'לפני 5 ימים'},{t:'נכשל במבחן יסודות רשתות · 48',d:'לפני 8 ימים'}]},
+      {id:'tal',name:'טל מזרחי',initial:'ט',track:'מערכת CRM ותמיכה',progress:34,score:68,xp:760,time:5,status:'risk',last:'לפני 12 ימים',lastDays:12,lessons:'5/15',reasons:['לא פעיל 12 ימים','התקדמות 34%'],
+        exams:[{t:'יסודות CRM',s:68,p:true}],
+        certs:[{t:'יסודות CRM',s:68,d:'10.06.26'}],
+        activity:[{t:'השלים שיעור: ניהול פניות בסיסי',d:'לפני 12 ימים'},{t:'עבר מבחן יסודות CRM · 68',d:'לפני 14 ימים'}]},
+    ];
+    emp.forEach(e=>e.avatarBg=AB);
+
+    const statusMap={
+      done:{label:'הושלם',color:'success',rank:2},
+      active:{label:'פעיל',color:'accent',rank:1},
+      risk:{label:'בסיכון',color:'caution',rank:0},
+    };
+    const barFillFor=(s)=> s==='done'?'linear-gradient(90deg,var(--hue-green),var(--success))' : s==='risk'?'linear-gradient(90deg,var(--hue-salmon),var(--caution))' : 'var(--gradient-accent)';
+
+    // RING GEOMETRY (RingProgress formula from DS RingPie.tsx, size=96)
+    const ringGeo=(pct)=>{ const size=96; const stroke=(9.94/164)*size; const r=(size-stroke)/2; const c=2*Math.PI*r; const dash=(Math.max(0,Math.min(100,pct))/100)*c; return { r:r.toFixed(2), c:c.toFixed(2), dash:dash.toFixed(2) }; };
+    const ringProgress=ringGeo(57);
+    const ringTrack=ringGeo(14);
+
+    // PERIODS
+    const periodTabs=[{id:'week',label:'שבוע'},{id:'month',label:'חודש'},{id:'all',label:'הכל'}];
+
+    // METRICS / BAR CHART
+    const metricCfg={
+      progress:{label:'התקדמות',max:100,fmt:v=>v+'%'},
+      score:{label:'ציון ממוצע',max:100,fmt:v=>String(v)},
+      xp:{label:'נקודות XP',max:Math.max(...emp.map(e=>e.xp)),fmt:v=>v.toLocaleString('en-US')},
+      time:{label:'זמן למידה',max:Math.max(...emp.map(e=>e.time)),fmt:v=>v+' שע׳'},
+    };
+    const mk=this.state.metric;
+    const metricTabs=Object.keys(metricCfg).map(k=>({ id:k, label:metricCfg[k].label }));
+    const cfg=metricCfg[mk];
+    const bars=[...emp].sort((a,b)=>b[mk]-a[mk]).map(e=>({
+      name:e.name,initial:e.initial,avatarBg:e.avatarBg,
+      pct:Math.max(4,Math.round(e[mk]/cfg.max*100)),
+      value:cfg.fmt(e[mk]),
+      valColor:e.status==='risk'?'var(--caution)':'var(--neutral-charcoal)',
+      fill:barFillFor(e.status),
+      view:()=>this.setState({selectedId:e.id}),
+    }));
+
+    // AT RISK
+    const atRisk=emp.filter(e=>e.status==='risk').map(e=>({
+      name:e.name,initial:e.initial,avatarBg:e.avatarBg,track:e.track,reasons:e.reasons,
+      view:()=>this.setState({selectedId:e.id}),
+    }));
+
+    // TABLE SORT
+    const sk=this.state.sortKey, sd=this.state.sortDir;
+    const cmp=(a,b)=>{
+      let r=0;
+      if(sk==='name'||sk==='track') r=a[sk].localeCompare(b[sk],'he');
+      else if(sk==='last') r=a.lastDays-b.lastDays;
+      else if(sk==='status') r=statusMap[a.status].rank-statusMap[b.status].rank;
+      else r=a[sk]-b[sk];
+      return sd==='asc'?r:-r;
+    };
+    const rows=[...emp].sort(cmp).map(e=>{
+      const st=statusMap[e.status];
+      return {
+        name:e.name,initial:e.initial,avatarBg:e.avatarBg,track:e.track,
+        progress:e.progress,barFill:barFillFor(e.status),
+        score:e.score,scoreColor:e.score>=85?'var(--success)':e.score>=70?'var(--neutral-charcoal)':'var(--caution)',
+        last:e.last,lastColor:e.lastDays>=10?'var(--caution)':'var(--neutral-charcoal)',
+        statusLabel:st.label,statusColor:st.color,
+        view:()=>this.setState({selectedId:e.id}),
+      };
+    });
+    const arrow=(k)=> sk===k ? (sd==='desc'?'▼':'▲') : '';
+    const setSort=(k,defDir)=>()=>this.setState(s=> s.sortKey===k ? {sortDir:s.sortDir==='asc'?'desc':'asc'} : {sortKey:k,sortDir:defDir});
+
+    // SELECTED DRILL-DOWN
+    const selE=emp.find(e=>e.id===this.state.selectedId);
+    let sel=null;
+    if(selE){
+      const st=statusMap[selE.status];
+      sel={
+        name:selE.name,initial:selE.initial,avatarBg:selE.avatarBg,track:selE.track,
+        role:selE.track.indexOf('טכנאי')>=0?'טכנאי שטח':'נציג תמיכה',
+        progress:selE.progress,score:selE.score,xp:selE.xp.toLocaleString('en-US'),time:selE.time,
+        lessons:selE.lessons,barFill:barFillFor(selE.status),
+        statusLabel:st.label,statusColor:st.color,
+        exams:selE.exams.map(x=>({
+          title:x.t,score:x.s,label:x.p?'עבר':'נכשל',badgeColor:x.p?'success':'caution',
+          color:x.p?'var(--success)':'var(--caution)',tint:x.p?'var(--hue-mint)':'var(--hue-salmon)',
+          border:x.p?'var(--success)':'var(--caution)',bg:x.p?'#F7FCF9':'#FFF7F6',
+          icon:x.p?tiny('chk'):tiny('x'),
+        })),
+        noExams:selE.exams.length===0,
+        certs:selE.certs.map(c=>({title:c.t,score:c.s,date:c.d})),
+        noCerts:selE.certs.length===0,
+        activity:selE.activity.map(a=>({text:a.t,time:a.d})),
+        downloadReport:()=>{ try{ window.open('Employee Report.dc.html?emp='+selE.id,'_blank'); }catch(e){} },
+      };
+    }
+
+    return {
+      periodTabs, period:this.state.period, setPeriod:(k)=>this.setState({period:k}),
+      metricTabs, metric:mk, setMetric:(k)=>this.setState({metric:k}), metricLabel:cfg.label,
+      ringProgress, ringTrack,
+      bars, atRisk, rows,
+      sortName:setSort('name','asc'), sortTrack:setSort('track','asc'),
+      sortProgress:setSort('progress','desc'), sortScore:setSort('score','desc'),
+      sortLast:setSort('last','asc'), sortStatus:setSort('status','asc'),
+      arrowName:arrow('name'), arrowTrack:arrow('track'), arrowProgress:arrow('progress'),
+      arrowScore:arrow('score'), arrowLast:arrow('last'), arrowStatus:arrow('status'),
+      selected:!!sel, sel:sel||{},
+      close:()=>this.setState({selectedId:null}),
+      stop:(e)=>{ if(e&&e.stopPropagation) e.stopPropagation(); },
+      exportReport:()=>{ try{ window.open('Department Report.dc.html','_blank'); }catch(e){} },
+      exportIcon:this.raw(this.ICONS.exportI), msgIcon:this.raw(this.ICONS.msg), reportIcon:this.raw(this.ICONS.report),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

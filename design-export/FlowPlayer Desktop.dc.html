@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+@font-face{font-family:"Ploni";src:url("fonts/PloniRegular.otf") format("opentype");font-weight:400;font-display:swap;}
+@font-face{font-family:"Ploni";src:url("fonts/PloniMedium.otf") format("opentype");font-weight:500;font-display:swap;}
+@font-face{font-family:"Ploni";src:url("fonts/PloniDBold.otf") format("opentype");font-weight:600;font-display:swap;}
+@font-face{font-family:"Ploni";src:url("fonts/PloniBold.otf") format("opentype");font-weight:700;font-display:swap;}
+@font-face{font-family:"Ploni";src:url("fonts/PloniUBold.otf") format("opentype");font-weight:800;font-display:swap;}
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:"Ploni","Assistant",system-ui,sans-serif;background:#F4FBFF;-webkit-font-smoothing:antialiased;}
+@keyframes ipShimmer{0%{opacity:.5;}50%{opacity:1;}100%{opacity:.5;}}
+@media (max-width:880px){[data-body]{flex-direction:column !important;}[data-doc]{width:auto !important;border-inline-start:0 !important;border-top:1px solid #E3E9F0;}}
+</style>
+</helmet>
+<div dir="rtl" data-screen-label="נגן Playbook · דסקטופ" style="height:100vh;display:flex;flex-direction:column;background:#F4FBFF;color:#181D24;overflow:hidden;">
+
+  <!-- HEADER -->
+  <header style="flex:none;height:64px;background:#fff;border-bottom:1px solid #E3E9F0;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:20;box-shadow:0 1px 3px rgba(20,60,110,.05);">
+    <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+      <span style="width:36px;height:36px;border-radius:10px;background:#E2F5FD;color:#0490C2;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></span>
+      <div><div style="font-weight:800;font-size:17px;line-height:1.2;">תקלת מצלמת אבטחה</div><div style="font-size:12px;color:#6B7785;">נגן Playbook · פתרון בעיות</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button onClick="{{ restart }}" style="display:inline-flex;align-items:center;gap:7px;background:#fff;color:#3D4753;border:1px solid #E3E9F0;border-radius:11px;padding:9px 15px;font-family:inherit;font-weight:600;font-size:13.5px;cursor:pointer;transition:all .18s;" style-hover="border-color:#CFD8E3;background:#F8FBFE;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v6h6"></path><path d="M3.51 15a9 9 0 1 0 2.13-9.36L3 8"></path></svg>התחל מחדש</button>
+      <button onClick="{{ markUnsolved }}" style="display:inline-flex;align-items:center;gap:7px;background:#FDECEC;color:#C53A3F;border:1px solid #F6D5D5;border-radius:11px;padding:9px 15px;font-family:inherit;font-weight:700;font-size:13.5px;cursor:pointer;transition:all .18s;" style-hover="background:#FBE0E0;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>התקלה לא נפתרה</button>
+      <a href="Troubleshooting.dc.html" aria-label="סגור" style="width:38px;height:38px;border-radius:10px;border:1px solid #E3E9F0;background:#fff;color:#6B7785;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .18s;" style-hover="border-color:#CFD8E3;background:#F8FBFE;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></a>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div data-body style="flex:1;min-height:0;display:flex;">
+
+    <!-- MAIN (right) -->
+    <main style="flex:1;min-width:0;overflow-y:auto;padding:32px;display:flex;flex-direction:column;align-items:center;">
+      <div style="width:100%;max-width:640px;">
+
+        <!-- QUESTION -->
+        <sc-if value="{{ isQuestion }}">
+        <div style="display:flex;flex-direction:column;">
+          <span style="display:inline-flex;align-items:center;gap:7px;align-self:flex-start;font-size:12.5px;font-weight:700;color:#0490C2;background:#E2F5FD;border-radius:999px;padding:5px 13px;margin-bottom:20px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>שאלה · צעד 2</span>
+          <h1 style="font-weight:800;font-size:30px;margin:0 0 10px;line-height:1.25;">האם נורית ה-LED במצלמה דולקת?</h1>
+          <p style="font-size:16px;color:#6B7785;margin:0 0 28px;line-height:1.55;">הסתכל על גב המצלמה ובדוק אם נורית החיווי דולקת.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <button style="display:flex;flex-direction:column;align-items:flex-start;gap:14px;background:#fff;border:1.5px solid #E3E9F0;border-radius:18px;padding:22px;cursor:pointer;text-align:right;transition:all .2s cubic-bezier(.22,.61,.36,1);box-shadow:0 4px 14px rgba(20,60,110,.06);" style-hover="border-color:#2EB4FF;box-shadow:0 12px 30px rgba(20,60,110,.13);transform:translateY(-3px);">
+              <span style="width:48px;height:48px;border-radius:13px;background:#E6F6EF;color:#1F9E6B;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+              <span style="font-weight:700;font-size:19px;">כן, דולקת</span>
+              <span style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:#0075DB;font-weight:600;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"></path></svg>צפה בתמונת עזר</span>
+            </button>
+            <button style="display:flex;flex-direction:column;align-items:flex-start;gap:14px;background:#fff;border:1.5px solid #E3E9F0;border-radius:18px;padding:22px;cursor:pointer;text-align:right;transition:all .2s cubic-bezier(.22,.61,.36,1);box-shadow:0 4px 14px rgba(20,60,110,.06);" style-hover="border-color:#2EB4FF;box-shadow:0 12px 30px rgba(20,60,110,.13);transform:translateY(-3px);">
+              <span style="width:48px;height:48px;border-radius:13px;background:#FDECEC;color:#E5484D;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+              <span style="font-weight:700;font-size:19px;">לא, כבויה</span>
+              <span style="font-size:12.5px;color:#9AA5B1;">המסלול ימשיך לבדיקת חשמל</span>
+            </button>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- SOLVED / UNSOLVED summary -->
+        <sc-if value="{{ isEnd }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:22px;">
+          <!-- banner -->
+          <div style="position:relative;overflow:hidden;border-radius:20px;padding:26px 28px;background:{{ bannerBg }};display:flex;align-items:center;gap:18px;">
+            <span style="width:60px;height:60px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 8px 20px rgba(0,0,0,.12);color:{{ bannerIconColor }};">{{ bannerIcon }}</span>
+            <div><h1 style="color:#fff;font-weight:800;font-size:26px;margin:0 0 5px;">{{ bannerTitle }}</h1><p style="color:rgba(255,255,255,.92);font-size:15px;margin:0;line-height:1.5;">{{ bannerSub }}</p></div>
+          </div>
+
+          <!-- AI SUMMARY CARD -->
+          <div style="background:#fff;border:1px solid #E3E9F0;border-radius:18px;box-shadow:0 6px 18px rgba(20,60,110,.07);overflow:hidden;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid #F0F4F8;background:#FBFAFE;">
+              <div style="display:flex;align-items:center;gap:10px;"><span style="width:32px;height:32px;border-radius:9px;background:#F1ECFD;color:#7C4DDA;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M18.4 5.6l-1.4 1.4M7 17l-1.4 1.4M18.4 18.4 17 17M7 7 5.6 5.6"></path><circle cx="12" cy="12" r="4"></circle></svg></span><div style="font-weight:800;font-size:16px;">סיכום הסשן · AI</div></div>
+              <sc-if value="{{ aiReady }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;gap:8px;">
+                <button style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#3D4753;border:1px solid #E3E9F0;border-radius:9px;padding:7px 12px;font-family:inherit;font-weight:600;font-size:12.5px;cursor:pointer;" style-hover="background:#F8FBFE;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>העתק</button>
+                <button style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#3D4753;border:1px solid #E3E9F0;border-radius:9px;padding:7px 12px;font-family:inherit;font-weight:600;font-size:12.5px;cursor:pointer;" style-hover="background:#F8FBFE;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>ייצוא</button>
+              </div>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ aiLoading }}">
+            <div style="padding:24px 20px;display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;align-items:center;gap:10px;color:#7C4DDA;font-weight:700;font-size:14px;"><svg viewBox="0 0 24 24" width="17" height="17" style="animation:ipShimmer 1.1s ease-in-out infinite;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>ה-AI מסכם את הסשן…</div>
+              <div style="height:12px;border-radius:6px;background:#EEF2F7;width:90%;animation:ipShimmer 1.3s ease-in-out infinite;"></div>
+              <div style="height:12px;border-radius:6px;background:#EEF2F7;width:75%;animation:ipShimmer 1.3s ease-in-out .2s infinite;"></div>
+              <div style="height:12px;border-radius:6px;background:#EEF2F7;width:82%;animation:ipShimmer 1.3s ease-in-out .4s infinite;"></div>
+            </div>
+            </sc-if>
+
+            <sc-if value="{{ aiReady }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:20px;display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;gap:13px;"><span style="width:30px;height:30px;border-radius:8px;background:#E2F5FD;color:#0490C2;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span><div><div style="font-weight:700;font-size:13.5px;color:#181D24;margin-bottom:3px;">תיאור הבעיה</div><div style="font-size:13.5px;color:#3D4753;line-height:1.55;">{{ aiProblem }}</div></div></div>
+              <div style="display:flex;gap:13px;"><span style="width:30px;height:30px;border-radius:8px;background:#FEF3DD;color:#B5760A;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></span><div><div style="font-weight:700;font-size:13.5px;color:#181D24;margin-bottom:3px;">ממצאים</div><div style="font-size:13.5px;color:#3D4753;line-height:1.55;">{{ aiFindings }}</div></div></div>
+              <div style="display:flex;gap:13px;"><span style="width:30px;height:30px;border-radius:8px;background:{{ aiResTint }};color:{{ aiResColor }};display:flex;align-items:center;justify-content:center;flex:none;">{{ aiResIcon }}</span><div><div style="font-weight:700;font-size:13.5px;color:#181D24;margin-bottom:3px;">סיכום הפתרון שבוצע</div><div style="font-size:13.5px;color:#3D4753;line-height:1.55;">{{ aiResolution }}</div></div></div>
+            </div>
+            </sc-if>
+          </div>
+
+          <!-- UNSOLVED actions -->
+          <sc-if value="{{ isUnsolved }}">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button style="flex:1;min-width:200px;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#E5A100;color:#fff;border:0;border-radius:13px;padding:14px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(229,161,0,.3);transition:filter .2s;" style-hover="filter:brightness(.95);"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>דווח על Playbook חסר</button>
+            <button style="flex:1;min-width:200px;display:inline-flex;align-items:center;justify-content:center;gap:9px;background:#fff;color:#3D4753;border:1px solid #E3E9F0;border-radius:13px;padding:14px;font-family:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:all .18s;" style-hover="border-color:#CFD8E3;background:#F8FBFE;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>פתח קריאת שירות</button>
+          </div>
+          </sc-if>
+
+          <!-- FEEDBACK -->
+          <div style="background:#fff;border:1px solid #E3E9F0;border-radius:18px;box-shadow:0 6px 18px rgba(20,60,110,.07);padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;">
+            <div style="font-weight:700;font-size:15px;">האם ה-Playbook עזר?</div>
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="display:flex;gap:8px;">
+                <sc-for list="{{ stars }}" as="st" hint-placeholder-count="5">
+                <button onClick="{{ st.set }}" aria-label="דרג" style="width:38px;height:38px;border-radius:10px;border:1px solid #E3E9F0;background:{{ st.bg }};color:{{ st.color }};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;"><svg viewBox="0 0 24 24" width="19" height="19" fill="{{ st.fill }}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <button onClick="{{ helpfulYes }}" style="display:inline-flex;align-items:center;gap:7px;background:{{ hYesBg }};color:{{ hYesColor }};border:1.5px solid {{ hYesBorder }};border-radius:11px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:all .18s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"></path><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88z"></path></svg>כן</button>
+                <button onClick="{{ helpfulNo }}" style="display:inline-flex;align-items:center;gap:7px;background:{{ hNoBg }};color:{{ hNoColor }};border:1.5px solid {{ hNoBorder }};border-radius:11px;padding:9px 16px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:all .18s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 14V2"></path><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88z"></path></svg>לא</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+      </div>
+    </main>
+
+    <!-- DOC PANEL (left) -->
+    <aside data-doc style="flex:none;width:344px;background:#fff;border-inline-start:1px solid #E3E9F0;display:flex;flex-direction:column;overflow:hidden;">
+      <div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #F0F4F8;">
+        <div style="display:flex;align-items:center;gap:9px;"><svg viewBox="0 0 24 24" width="18" height="18" style="color:#0075DB;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><line x1="9" y1="13" x2="15" y2="13"></line><line x1="9" y1="17" x2="13" y2="17"></line></svg><div style="font-weight:800;font-size:15px;">תיעוד הסשן</div></div>
+        <span style="font-family:'Assistant',sans-serif;font-size:12px;font-weight:700;color:#0075DB;background:#E9F3FC;border-radius:999px;padding:3px 10px;">{{ totalTime }}</span>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:18px 20px;">
+        <sc-for list="{{ timeline }}" as="ev" hint-placeholder-count="4">
+        <div style="display:flex;gap:13px;padding-bottom:18px;position:relative;">
+          <sc-if value="{{ ev.line }}"><div style="position:absolute;top:30px;right:13px;bottom:-2px;width:2px;background:#E3E9F0;"></div></sc-if>
+          <div style="width:28px;height:28px;border-radius:50%;background:{{ ev.tint }};color:{{ ev.color }};display:flex;align-items:center;justify-content:center;flex:none;z-index:1;"><span style="width:9px;height:9px;border-radius:3px;background:{{ ev.color }};"></span></div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:11px;font-weight:700;color:{{ ev.color }};margin-bottom:2px;">{{ ev.type }}</div>
+            <div style="font-weight:600;font-size:13.5px;color:#181D24;line-height:1.4;">{{ ev.label }}</div>
+            <sc-if value="{{ ev.choice }}"><div style="display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#3D4753;background:#F4F8FC;border-radius:7px;padding:2px 8px;margin-top:5px;">← {{ ev.choice }}</div></sc-if>
+            <div style="font-family:'Assistant',sans-serif;font-size:11.5px;color:#9AA5B1;margin-top:5px;">{{ ev.time }}</div>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+      <div style="flex:none;padding:14px 20px;border-top:1px solid #F0F4F8;">
+        <button style="width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#E9F3FC;color:#0075DB;border:0;border-radius:11px;padding:11px;font-family:inherit;font-weight:700;font-size:14px;cursor:pointer;transition:background .18s;" style-hover="background:#DCEBFB;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>ייצוא תיעוד</button>
+      </div>
+    </aside>
+  </div>
+
+  <footer style="flex:none;height:32px;background:#181D24;display:flex;align-items:center;justify-content:center;"><span style="color:#AEB9C6;font-size:11.5px;">© iPracticom Academy — לשימוש פנימי בלבד</span></footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820},&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;question&quot;,&quot;solved&quot;,&quot;unsolved&quot;],&quot;default&quot;:&quot;solved&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;מסך&quot;},&quot;aiLoading&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;מסך&quot;}}">
+class Component extends DCLogic {
+  constructor(...a){ super(...a); this.state={ screen: this.props.screen||'solved', aiLoading: !!this.props.aiLoading, helpful:null, rating: this.props.screen==='unsolved'?2:5 }; }
+  _icon(p){ return React.createElement('svg',{viewBox:'0 0 24 24',width:30,height:30,fill:'none',stroke:'currentColor',strokeWidth:2.6,strokeLinecap:'round',strokeLinejoin:'round'}, p); }
+  renderVals(){
+    const screen=this.state.screen;
+    const solved=screen==='solved', unsolved=screen==='unsolved', isQuestion=screen==='question';
+    const R=React.createElement;
+    const check=this._icon(R('polyline',{points:'20 6 9 17 4 12'}));
+    const warn=this._icon([R('path',{key:1,d:'M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z'}),R('line',{key:2,x1:12,y1:9,x2:12,y2:13}),R('line',{key:3,x1:12,y1:17,x2:12.01,y2:17})]);
+    const COLT={start:'#0075DB',question:'#2EB4FF',action:'#F59E0B',solution:'#22C55E',end:'#757D86'};
+    const TINT={start:'#E9F3FC',question:'#E2F5FD',action:'#FEF3DD',solution:'#E4F8EC',end:'#EEF1F5'};
+    const baseTl=[
+      {type:'התחלה',t:'start',label:'תקלת מצלמת אבטחה',time:'14:32:05'},
+      {type:'שאלה',t:'question',label:'האם נורית ה-LED דולקת?',choice:'לא, כבויה',time:'14:32:38'},
+      {type:'פעולה',t:'action',label:'בדוק חיבור חשמל ו-PoE',choice:'בוצע',time:'14:33:10'},
+    ];
+    let tl=baseTl.slice();
+    if(solved) tl.push({type:'פתרון',t:'solution',label:'המצלמה חזרה לפעול',time:'14:35:20'});
+    else if(unsolved) tl.push({type:'סיום',t:'end',label:'התקלה לא נפתרה — הוסלמה',time:'14:36:02'});
+    const timeline=tl.map((e,i)=>({ type:e.type, label:e.label, choice:e.choice||'', time:e.time, color:COLT[e.t], tint:TINT[e.t], line:i<tl.length-1 }));
+
+    const rating=this.state.rating, helpful=this.state.helpful;
+    const stars=[1,2,3,4,5].map(n=>({ set:()=>this.setState({rating:n}), fill:n<=rating?'#F5B301':'none', color:n<=rating?'#F5B301':'#CFD8E3', bg:n<=rating?'#FFF8E6':'#fff' }));
+    const hY=helpful==='yes', hN=helpful==='no';
+
+    return {
+      isQuestion, isEnd: solved||unsolved, isUnsolved: unsolved,
+      restart:()=>this.setState({screen:'question'}),
+      markUnsolved:()=>this.setState({screen:'unsolved',rating:2}),
+      // banner
+      bannerBg: solved?'linear-gradient(120deg,#1F9E6B,#22C55E)':'linear-gradient(120deg,#D9822B,#E5484D)',
+      bannerIcon: solved?check:warn, bannerIconColor: solved?'#1F9E6B':'#D9822B',
+      bannerTitle: solved?'הבעיה נפתרה בהצלחה':'התקלה לא נפתרה',
+      bannerSub: solved?'המצלמה חזרה לשדר. מומלץ לוודא תקינות ב-NVR לפני סגירת הקריאה.':'מיצינו את ה-Playbook הקיים. הסשן תועד והועבר להסלמה.',
+      // ai
+      aiLoading: this.state.aiLoading, aiReady: !this.state.aiLoading,
+      aiProblem:'מצלמת אבטחה הפסיקה לשדר וידאו; נורית החיווי בגב המצלמה הייתה כבויה לחלוטין.',
+      aiFindings: solved?'מחבר ה-PoE היה רופף ולא סיפק מתח לשלוחה. שאר רכיבי הרשת נמצאו תקינים.':'כל בדיקות החשמל וה-PoE עברו בהצלחה, אך המצלמה עדיין אינה עולה ברשת.',
+      aiResolution: solved?'חיברנו מחדש את כבל ה-PoE, נורית החיווי נדלקה והתמונה חזרה להופיע ב-NVR תוך כדקה.':'התקלה חורגת מה-Playbook הקיים — ייתכן כשל חומרה במצלמה. נדרשת בדיקת מעבדה או החלפה.',
+      aiResTint: solved?'#E4F8EC':'#FDECEC', aiResColor: solved?'#1F9E6B':'#E5484D',
+      aiResIcon: solved? R('svg',{viewBox:'0 0 24 24',width:16,height:16,fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},R('polyline',{points:'20 6 9 17 4 12'})) : R('svg',{viewBox:'0 0 24 24',width:16,height:16,fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},[R('circle',{key:1,cx:12,cy:12,r:10}),R('line',{key:2,x1:12,y1:8,x2:12,y2:12}),R('line',{key:3,x1:12,y1:16,x2:12.01,y2:16})]),
+      // timeline
+      timeline, totalTime: solved?'03:15':'03:57',
+      // feedback
+      stars, helpfulYes:()=>this.setState({helpful:'yes'}), helpfulNo:()=>this.setState({helpful:'no'}),
+      hYesBg:hY?'#E6F6EF':'#fff', hYesColor:hY?'#178050':'#3D4753', hYesBorder:hY?'#22C55E':'#E3E9F0',
+      hNoBg:hN?'#FDECEC':'#fff', hNoColor:hN?'#C53A3F':'#3D4753', hNoBorder:hN?'#E5484D':'#E3E9F0',
+    };
+  }
+}
+</script>
+</body>
+</html>

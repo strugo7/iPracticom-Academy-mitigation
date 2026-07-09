@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+</helmet>
+<section style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);overflow:hidden;font-family:var(--font-sans);">
+
+  <button onClick="{{ toggle }}" style="width:100%;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:24px;background:transparent;border:0;text-align:right;font-family:inherit;cursor:pointer;transition:background .18s;" style-hover="background:var(--neutral-whisper);">
+
+    <div style="width:48px;height:48px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:{{ iconBg }};color:{{ iconColor }};display:flex;align-items:center;justify-content:center;flex:none;">
+      <sc-if value="{{ moduleDone }}">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </sc-if>
+      <sc-if value="{{ moduleOngoing }}" hint-placeholder-val="{{ true }}">
+      <span style="font-weight:600;font-size:18px;">{{ moduleNumber }}</span>
+      </sc-if>
+    </div>
+
+    <div style="flex:1;min-width:0;">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <h3 style="font-weight:600;font-size:19px;margin:0;color:var(--neutral-charcoal);">{{ title }}</h3>
+        <span style="font-size:12.5px;color:var(--neutral-lead);font-weight:400;">· {{ duration }}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:8px;flex-wrap:wrap;">
+        <span style="font-size:13px;color:var(--neutral-lead);">{{ topicCount }} נושאים · {{ lessonCount }} שיעורים</span>
+        <div style="display:flex;align-items:center;gap:8px;min-width:160px;flex:1;max-width:280px;">
+          <div style="flex:1;height:8px;border-radius:var(--radius-full);background:var(--hue-sky);overflow:hidden;"><div style="height:100%;border-radius:var(--radius-full);background:{{ barColor }};width:{{ barWidth }};transition:width .5s cubic-bezier(.22,.61,.36,1);"></div></div>
+          <span style="font-weight:600;font-size:12.5px;color:{{ barTextColor }};white-space:nowrap;">{{ lessonsDone }}/{{ lessonsTotal }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="width:32px;height:32px;border-radius:8px;background:var(--neutral-whisper);color:var(--neutral-lead);display:flex;align-items:center;justify-content:center;flex:none;transition:transform .25s cubic-bezier(.22,.61,.36,1);transform:rotate({{ chevronDeg }});">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+  </button>
+
+  <sc-if value="{{ open }}" hint-placeholder-val="{{ true }}">
+  <div style="padding:8px 24px 24px;border-top:1px solid var(--neutral-silver);display:flex;flex-direction:column;gap:24px;">
+    <sc-for list="{{ topics }}" as="topic" hint-placeholder-count="1">
+    <dc-import name="TopicGroup" title="{{ topic.title }}" duration="{{ topic.duration }}" lessons="{{ topic.lessons }}" exam-title="{{ topic.examTitle }}" exam-duration="{{ topic.examDuration }}" exam-kind="{{ topic.examKind }}" hint-size="100%,280px"></dc-import>
+    </sc-for>
+  </div>
+  </sc-if>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:420},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;יסודות רשתות ותקשורת&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;duration&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;כ-45 דק׳&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;moduleNumber&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1,&quot;tsType&quot;:&quot;number&quot;},&quot;topicCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1,&quot;tsType&quot;:&quot;number&quot;},&quot;lessonCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;tsType&quot;:&quot;number&quot;},&quot;lessonsDone&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1,&quot;tsType&quot;:&quot;number&quot;},&quot;lessonsTotal&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;tsType&quot;:&quot;number&quot;},&quot;initialOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;topics&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;Topic[]&quot;}}">
+class Component extends DCLogic {
+  state = { open: this.props.initialOpen ?? false };
+  renderVals() {
+    const p = this.props;
+    const topics = Array.isArray(p.topics) ? p.topics : [];
+    const open = this.state.open;
+    const done = p.lessonsDone ?? 0;
+    const total = p.lessonsTotal ?? 0;
+    const pct = total > 0 ? Math.round(done / total * 100) : 0;
+    const moduleDone = total > 0 && done >= total;
+    return {
+      title: p.title ?? '',
+      duration: p.duration ?? '',
+      topicCount: p.topicCount ?? topics.length,
+      lessonCount: p.lessonCount ?? 0,
+      lessonsDone: done,
+      lessonsTotal: total,
+      moduleNumber: p.moduleNumber ?? 1,
+      topics,
+      open,
+      chevronDeg: open ? '180deg' : '0deg',
+      barWidth: pct + '%',
+      moduleDone,
+      moduleOngoing: !moduleDone,
+      barColor: moduleDone ? 'var(--success)' : 'var(--gradient-accent)',
+      barTextColor: moduleDone ? 'var(--success)' : 'var(--accent)',
+      iconBg: moduleDone ? 'var(--hue-mint)' : 'var(--hue-sky)',
+      iconColor: moduleDone ? 'var(--success)' : 'var(--accent)',
+      toggle: () => this.setState(s => ({ open: !s.open })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

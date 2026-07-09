@@ -1,0 +1,4345 @@
+{
+  "exported_at": "2026-07-08T17:32:56.594Z",
+  "summary": {
+    "total_entities": 40,
+    "total_functions": 44,
+    "total_relationships": 40,
+    "modules": {
+      "LEARNING": {
+        "label": "Learning",
+        "entities": [
+          "LearningTrack",
+          "SharedModule",
+          "TrackModule",
+          "Topic",
+          "ModuleLesson",
+          "ModuleExam"
+        ]
+      },
+      "ASSESSMENT": {
+        "label": "Assessment",
+        "entities": [
+          "Question",
+          "Exam",
+          "ExamAttempt",
+          "ExamResult",
+          "CandidateAssessment"
+        ]
+      },
+      "USER_AUTH": {
+        "label": "User / Auth",
+        "entities": [
+          "User",
+          "UserOtp",
+          "UserProgress",
+          "RoleUpgradeRequest"
+        ]
+      },
+      "INVITATIONS": {
+        "label": "Invitations",
+        "entities": [
+          "Invite"
+        ]
+      },
+      "KNOWLEDGE": {
+        "label": "Knowledge & Troubleshooting",
+        "entities": [
+          "KnowledgeArticle",
+          "Concept",
+          "TroubleshootingFlow",
+          "FlowFeedback"
+        ]
+      },
+      "CERTIFICATES": {
+        "label": "Certificates",
+        "entities": [
+          "CertificateTemplate",
+          "UserCertificate"
+        ]
+      },
+      "PROCEDURES": {
+        "label": "Procedures",
+        "entities": [
+          "Procedure",
+          "ProcedureAcknowledgement"
+        ]
+      },
+      "LESSON_CONTENT": {
+        "label": "Lesson Content",
+        "entities": [
+          "LessonNote",
+          "LessonVersion",
+          "SharedGuideLink"
+        ]
+      },
+      "AI_JOBS": {
+        "label": "AI Jobs",
+        "entities": [
+          "AIJob",
+          "AILessonJob"
+        ]
+      },
+      "SYSTEM": {
+        "label": "System / Config",
+        "entities": [
+          "AppSetting",
+          "WizardConfig",
+          "Notification",
+          "Changelog",
+          "SystemFeedback",
+          "SecurityLog",
+          "ContentApprovalLog",
+          "AssistanceRequest"
+        ]
+      },
+      "OPERATIONS": {
+        "label": "Operations",
+        "entities": [
+          "WorkSession",
+          "PromptLog",
+          "AgentKnowledgeSource"
+        ]
+      }
+    }
+  },
+  "entities": [
+    {
+      "name": "LearningTrack",
+      "label_he": "מסלול למידה",
+      "module": "LEARNING",
+      "module_label": "Learning",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "category",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "target_roles",
+          "type": "array",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "difficulty_level",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "estimated_hours",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "is_mandatory",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "order_index",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "SharedModule",
+      "label_he": "מודול משותף",
+      "module": "LEARNING",
+      "module_label": "Learning",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "estimated_duration",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "tags",
+          "type": "array",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "TrackModule",
+      "label_he": "מודול במסלול",
+      "module": "LEARNING",
+      "module_label": "Learning",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "track_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "LearningTrack"
+        },
+        {
+          "name": "shared_module_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "SharedModule"
+        },
+        {
+          "name": "order_index",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "Topic",
+      "label_he": "נושא",
+      "module": "LEARNING",
+      "module_label": "Learning",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "shared_module_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "SharedModule"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "order_index",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "ModuleLesson",
+      "label_he": "שיעור",
+      "module": "LEARNING",
+      "module_label": "Learning",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "topic_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Topic"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "blocks",
+          "type": "array",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "editor_version",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "duration_minutes",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "order_index",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "xp_reward",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "linked_exam_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Exam"
+        }
+      ]
+    },
+    {
+      "name": "ModuleExam",
+      "label_he": "מבחן מודול",
+      "module": "LEARNING",
+      "module_label": "Learning",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "module_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "SharedModule"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "time_limit_minutes",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "passing_score",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "questions",
+          "type": "array",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "Question",
+      "label_he": "שאלה",
+      "module": "ASSESSMENT",
+      "module_label": "Assessment",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "question_text",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "question_type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "category",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "difficulty_level",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "options",
+          "type": "array",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "correct_answer_index",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "explanation",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "points",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "Exam",
+      "label_he": "מבחן",
+      "module": "ASSESSMENT",
+      "module_label": "Assessment",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "exam_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "exam_type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "is_entrance_exam",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "linked_track_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "LearningTrack"
+        },
+        {
+          "name": "linked_module_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "SharedModule"
+        },
+        {
+          "name": "linked_lesson_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "ModuleLesson"
+        },
+        {
+          "name": "questions",
+          "type": "array",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "passing_score",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "ExamAttempt",
+      "label_he": "ניסיון מבחן",
+      "module": "ASSESSMENT",
+      "module_label": "Assessment",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "exam_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Exam"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "attempt_number",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "score",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "passed",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "submitted_at",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "ExamResult",
+      "label_he": "תוצאת מבחן",
+      "module": "ASSESSMENT",
+      "module_label": "Assessment",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "invitation_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Invite"
+        },
+        {
+          "name": "exam_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Exam"
+        },
+        {
+          "name": "candidate_email",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "score",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "decision",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "submitted_at",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "CandidateAssessment",
+      "label_he": "הערכת מועמד",
+      "module": "ASSESSMENT",
+      "module_label": "Assessment",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "invite_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Invite"
+        },
+        {
+          "name": "candidate_email",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "score",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "evaluation_decision",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "submitted_at",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "label_he": "משתמש (built-in)",
+      "module": "USER_AUTH",
+      "module_label": "User / Auth",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "full_name",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "role",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "created_date",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "UserOtp",
+      "label_he": "קוד OTP",
+      "module": "USER_AUTH",
+      "module_label": "User / Auth",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "otp_code",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "expires_at",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "UserProgress",
+      "label_he": "התקדמות משתמש",
+      "module": "USER_AUTH",
+      "module_label": "User / Auth",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "track_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "LearningTrack"
+        },
+        {
+          "name": "module_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "SharedModule"
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "ModuleLesson"
+        },
+        {
+          "name": "exam_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Exam"
+        },
+        {
+          "name": "progress_type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "completion_percentage",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "score",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "completed_at",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "RoleUpgradeRequest",
+      "label_he": "בקשת שדרוג תפקיד",
+      "module": "USER_AUTH",
+      "module_label": "User / Auth",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "requested_role",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "current_role",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "department",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "Invite",
+      "label_he": "הזמנה",
+      "module": "INVITATIONS",
+      "module_label": "Invitations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "department",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "exam_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Exam"
+        },
+        {
+          "name": "assigned_track_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "LearningTrack"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "jti",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "invited_by_user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        }
+      ]
+    },
+    {
+      "name": "KnowledgeArticle",
+      "label_he": "מאמר ידע",
+      "module": "KNOWLEDGE",
+      "module_label": "Knowledge & Troubleshooting",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "category",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "tags",
+          "type": "array",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "views",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "is_featured",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "Concept",
+      "label_he": "מושג",
+      "module": "KNOWLEDGE",
+      "module_label": "Knowledge & Troubleshooting",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "term",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "short_description",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "category",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "TroubleshootingFlow",
+      "label_he": "תסריט פתרון",
+      "module": "KNOWLEDGE",
+      "module_label": "Knowledge & Troubleshooting",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "flow_data",
+          "type": "object",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "category",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "is_published",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "usage_count",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "version",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "FlowFeedback",
+      "label_he": "משוב תסריט",
+      "module": "KNOWLEDGE",
+      "module_label": "Knowledge & Troubleshooting",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "flow_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "TroubleshootingFlow"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "was_helpful",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "CertificateTemplate",
+      "label_he": "תבנית תעודה",
+      "module": "CERTIFICATES",
+      "module_label": "Certificates",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "design",
+          "type": "object",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "UserCertificate",
+      "label_he": "תעודת משתמש",
+      "module": "CERTIFICATES",
+      "module_label": "Certificates",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "template_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "CertificateTemplate"
+        },
+        {
+          "name": "certificate_title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "achievement_type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "issue_date",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "certificate_number",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "Procedure",
+      "label_he": "נוהל",
+      "module": "PROCEDURES",
+      "module_label": "Procedures",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "departments",
+          "type": "array",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "requires_acknowledgement",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "ProcedureAcknowledgement",
+      "label_he": "אישור נוהל",
+      "module": "PROCEDURES",
+      "module_label": "Procedures",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "procedure_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "Procedure"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "acknowledged_at",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "LessonNote",
+      "label_he": "הערת שיעור",
+      "module": "LESSON_CONTENT",
+      "module_label": "Lesson Content",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "ModuleLesson"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "is_bookmark",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "LessonVersion",
+      "label_he": "גרסת שיעור",
+      "module": "LESSON_CONTENT",
+      "module_label": "Lesson Content",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "ModuleLesson"
+        },
+        {
+          "name": "version_number",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "data",
+          "type": "object",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "SharedGuideLink",
+      "label_he": "קישור מדריך",
+      "module": "LESSON_CONTENT",
+      "module_label": "Lesson Content",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "token",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "ModuleLesson"
+        },
+        {
+          "name": "view_count",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "AIJob",
+      "label_he": "משימת AI",
+      "module": "AI_JOBS",
+      "module_label": "AI Jobs",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "job_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "owner_user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "progress_percentage",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "AILessonJob",
+      "label_he": "משימת AI לשיעור",
+      "module": "AI_JOBS",
+      "module_label": "AI Jobs",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "job_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "assigned_track_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "LearningTrack"
+        },
+        {
+          "name": "assigned_module_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "SharedModule"
+        },
+        {
+          "name": "created_lesson_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "ModuleLesson"
+        },
+        {
+          "name": "progress_percentage",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "AppSetting",
+      "label_he": "הגדרת מערכת",
+      "module": "SYSTEM",
+      "module_label": "System / Config",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "value",
+          "type": "object",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "WizardConfig",
+      "label_he": "הגדרת אשף",
+      "module": "SYSTEM",
+      "module_label": "System / Config",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "wizard_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "role",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "is_enabled",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "Notification",
+      "label_he": "התראה",
+      "module": "SYSTEM",
+      "module_label": "System / Config",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "is_read",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "priority",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "Changelog",
+      "label_he": "יומן שינויים",
+      "module": "SYSTEM",
+      "module_label": "System / Config",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "publish_date",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "SystemFeedback",
+      "label_he": "משוב מערכת",
+      "module": "SYSTEM",
+      "module_label": "System / Config",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "category",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "rating",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "SecurityLog",
+      "label_he": "לוג אבטחה",
+      "module": "SYSTEM",
+      "module_label": "System / Config",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "attempt_type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "ContentApprovalLog",
+      "label_he": "לוג אישור תוכן",
+      "module": "SYSTEM",
+      "module_label": "System / Config",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "entity_type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "entity_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "action",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "by_user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        }
+      ]
+    },
+    {
+      "name": "AssistanceRequest",
+      "label_he": "בקשת סיוע",
+      "module": "SYSTEM",
+      "module_label": "System / Config",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "track_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "LearningTrack"
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "ModuleLesson"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "priority",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "WorkSession",
+      "label_he": "שעון נוכחות",
+      "module": "OPERATIONS",
+      "module_label": "Operations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": true,
+          "is_unique": false,
+          "references": "User"
+        },
+        {
+          "name": "start_time",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "end_time",
+          "type": "date-time",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "duration_minutes",
+          "type": "number",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "PromptLog",
+      "label_he": "לוג פרומפטים",
+      "module": "OPERATIONS",
+      "module_label": "Operations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "user_prompt",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "work_summary",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "ai_insight",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "name": "AgentKnowledgeSource",
+      "label_he": "מקור ידע AI",
+      "module": "OPERATIONS",
+      "module_label": "Operations",
+      "fields": [
+        {
+          "name": "id",
+          "type": "string",
+          "is_pk": true,
+          "is_fk": false,
+          "is_unique": true,
+          "references": null
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "file_url",
+          "type": "string",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "file_type",
+          "type": "enum",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        },
+        {
+          "name": "is_active",
+          "type": "boolean",
+          "is_pk": false,
+          "is_fk": false,
+          "is_unique": false,
+          "references": null
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "LearningTrack",
+      "to": "TrackModule",
+      "type": "1:N",
+      "label": "has modules"
+    },
+    {
+      "from": "SharedModule",
+      "to": "TrackModule",
+      "type": "1:N",
+      "label": "linked via"
+    },
+    {
+      "from": "SharedModule",
+      "to": "Topic",
+      "type": "1:N",
+      "label": "has topics"
+    },
+    {
+      "from": "Topic",
+      "to": "ModuleLesson",
+      "type": "1:N",
+      "label": "has lessons"
+    },
+    {
+      "from": "SharedModule",
+      "to": "ModuleExam",
+      "type": "1:1",
+      "label": "has exam"
+    },
+    {
+      "from": "Exam",
+      "to": "ExamAttempt",
+      "type": "1:N",
+      "label": "has attempts"
+    },
+    {
+      "from": "User",
+      "to": "ExamAttempt",
+      "type": "1:N",
+      "label": "attempts"
+    },
+    {
+      "from": "Exam",
+      "to": "ExamResult",
+      "type": "1:N",
+      "label": "has results"
+    },
+    {
+      "from": "Invite",
+      "to": "ExamResult",
+      "type": "1:1",
+      "label": "produces"
+    },
+    {
+      "from": "Invite",
+      "to": "CandidateAssessment",
+      "type": "1:1",
+      "label": "produces"
+    },
+    {
+      "from": "LearningTrack",
+      "to": "Exam",
+      "type": "1:N",
+      "label": "linked exam"
+    },
+    {
+      "from": "ModuleLesson",
+      "to": "Exam",
+      "type": "1:1",
+      "label": "linked exam"
+    },
+    {
+      "from": "User",
+      "to": "UserOtp",
+      "type": "1:N",
+      "label": "has OTPs"
+    },
+    {
+      "from": "User",
+      "to": "UserProgress",
+      "type": "1:N",
+      "label": "has progress"
+    },
+    {
+      "from": "LearningTrack",
+      "to": "UserProgress",
+      "type": "1:N",
+      "label": "tracked in"
+    },
+    {
+      "from": "ModuleLesson",
+      "to": "UserProgress",
+      "type": "1:N",
+      "label": "tracked in"
+    },
+    {
+      "from": "User",
+      "to": "RoleUpgradeRequest",
+      "type": "1:N",
+      "label": "requests"
+    },
+    {
+      "from": "User",
+      "to": "Invite",
+      "type": "1:N",
+      "label": "invited by"
+    },
+    {
+      "from": "Exam",
+      "to": "Invite",
+      "type": "1:N",
+      "label": "assigned exam"
+    },
+    {
+      "from": "LearningTrack",
+      "to": "Invite",
+      "type": "1:N",
+      "label": "assigned track"
+    },
+    {
+      "from": "TroubleshootingFlow",
+      "to": "FlowFeedback",
+      "type": "1:N",
+      "label": "has feedback"
+    },
+    {
+      "from": "User",
+      "to": "FlowFeedback",
+      "type": "1:N",
+      "label": "gives feedback"
+    },
+    {
+      "from": "User",
+      "to": "UserCertificate",
+      "type": "1:N",
+      "label": "earns"
+    },
+    {
+      "from": "CertificateTemplate",
+      "to": "UserCertificate",
+      "type": "1:N",
+      "label": "used in"
+    },
+    {
+      "from": "Procedure",
+      "to": "ProcedureAcknowledgement",
+      "type": "1:N",
+      "label": "acknowledged by"
+    },
+    {
+      "from": "User",
+      "to": "ProcedureAcknowledgement",
+      "type": "1:N",
+      "label": "acknowledges"
+    },
+    {
+      "from": "User",
+      "to": "LessonNote",
+      "type": "1:N",
+      "label": "writes"
+    },
+    {
+      "from": "ModuleLesson",
+      "to": "LessonNote",
+      "type": "1:N",
+      "label": "has notes"
+    },
+    {
+      "from": "ModuleLesson",
+      "to": "LessonVersion",
+      "type": "1:N",
+      "label": "has versions"
+    },
+    {
+      "from": "ModuleLesson",
+      "to": "SharedGuideLink",
+      "type": "1:N",
+      "label": "has links"
+    },
+    {
+      "from": "User",
+      "to": "AIJob",
+      "type": "1:N",
+      "label": "owns"
+    },
+    {
+      "from": "LearningTrack",
+      "to": "AILessonJob",
+      "type": "1:N",
+      "label": "assigned to"
+    },
+    {
+      "from": "ModuleLesson",
+      "to": "AILessonJob",
+      "type": "1:1",
+      "label": "creates"
+    },
+    {
+      "from": "User",
+      "to": "Notification",
+      "type": "1:N",
+      "label": "receives"
+    },
+    {
+      "from": "User",
+      "to": "SystemFeedback",
+      "type": "1:N",
+      "label": "submits"
+    },
+    {
+      "from": "User",
+      "to": "ContentApprovalLog",
+      "type": "1:N",
+      "label": "approves"
+    },
+    {
+      "from": "User",
+      "to": "AssistanceRequest",
+      "type": "1:N",
+      "label": "requests"
+    },
+    {
+      "from": "LearningTrack",
+      "to": "AssistanceRequest",
+      "type": "1:N",
+      "label": "related to"
+    },
+    {
+      "from": "ModuleLesson",
+      "to": "AssistanceRequest",
+      "type": "1:N",
+      "label": "related to"
+    },
+    {
+      "from": "User",
+      "to": "WorkSession",
+      "type": "1:N",
+      "label": "has sessions"
+    }
+  ],
+  "functions": [
+    {
+      "name": "generateInviteToken",
+      "category": "INVITATIONS",
+      "category_label": "Invitations",
+      "auth": "admin | manager",
+      "description": "יוצר הזמנה חדשה למועמד או עובד – מייצר token ייחודי מוצפן Base64 עם JTI, שומר רשומת Invite במסד הנתונים, ושולח מייל הזמנה עם קישור magic-link.",
+      "notes": "ה-token תקף ל-7 ימים. אם require_assessment=true נבדק שהמבחן שנבחר הוא entrance exam ופורסם.",
+      "input": [
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "desc": "כתובת מייל המוזמן"
+        },
+        {
+          "name": "department",
+          "type": "string",
+          "required": true,
+          "desc": "מחלקת יעד"
+        },
+        {
+          "name": "candidate_full_name",
+          "type": "string",
+          "required": false,
+          "desc": "שם מלא לתצוגה במייל"
+        },
+        {
+          "name": "require_assessment",
+          "type": "boolean",
+          "required": false,
+          "desc": "האם נדרש מבחן כניסה (ברירת מחדל: true)"
+        },
+        {
+          "name": "selected_exam_id",
+          "type": "string",
+          "required": false,
+          "desc": "מזהה מבחן ספציפי"
+        },
+        {
+          "name": "target_system_role",
+          "type": "string",
+          "required": false,
+          "desc": "תפקיד מערכת רצוי לאחר קבלה"
+        },
+        {
+          "name": "assigned_track_id",
+          "type": "string",
+          "required": false,
+          "desc": "מסלול לימודים לשיוך"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "invite_id",
+          "type": "string",
+          "desc": "מזהה רשומת ההזמנה"
+        },
+        {
+          "name": "magic_link",
+          "type": "string",
+          "desc": "קישור ייחודי למוזמן"
+        },
+        {
+          "name": "expires_at",
+          "type": "datetime",
+          "desc": "תאריך תפוגה (7 ימים)"
+        },
+        {
+          "name": "exam_id",
+          "type": "string",
+          "desc": "מזהה המבחן אם נבחר"
+        }
+      ],
+      "calls": [
+        "sendEmailWithResend"
+      ],
+      "called_by": [
+        "InviteCandidateModal",
+        "InvitationManagement"
+      ]
+    },
+    {
+      "name": "validateInvitationToken",
+      "category": "INVITATIONS",
+      "category_label": "Invitations",
+      "auth": "public",
+      "description": "מאמת token הזמנה שהגיע מקישור magic-link. מפענח את ה-token, בודק תוקף, JTI ומצב ההזמנה במסד הנתונים.",
+      "notes": "מחזיר גם את נתוני המבחן המשויך אם קיים.",
+      "input": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "desc": "ה-token המוצפן מה-URL"
+        }
+      ],
+      "output": [
+        {
+          "name": "valid",
+          "type": "boolean"
+        },
+        {
+          "name": "invite",
+          "type": "object",
+          "desc": "רשומת ההזמנה המלאה"
+        },
+        {
+          "name": "exam",
+          "type": "object",
+          "desc": "נתוני המבחן אם קיים"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "desc": "הסבר השגיאה אם לא תקין"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/Welcome",
+        "pages/CandidateAssessment"
+      ]
+    },
+    {
+      "name": "InviteValidateTokens",
+      "category": "INVITATIONS",
+      "category_label": "Invitations",
+      "auth": "public",
+      "description": "גרסה נוספת לאימות token הזמנה, מכוונת לאימות דרך JTI בלבד ללא פענוח Base64. משמשת במקרים בהם ה-token הוחלף.",
+      "notes": "שיקול: ה-jti מאוחסן בישות Invite ומאפשר ביטול מהיר.",
+      "input": [
+        {
+          "name": "jti",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה ייחודי של ה-token"
+        }
+      ],
+      "output": [
+        {
+          "name": "valid",
+          "type": "boolean"
+        },
+        {
+          "name": "invite",
+          "type": "object",
+          "desc": "רשומת ההזמנה"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/Welcome",
+        "functions/fetchExamDataForCandidate"
+      ]
+    },
+    {
+      "name": "resendInvitation",
+      "category": "INVITATIONS",
+      "category_label": "Invitations",
+      "auth": "admin | manager",
+      "description": "שולח מחדש מייל הזמנה קיימת. מעדכן את resend_count ו-last_sent_at בישות Invite.",
+      "notes": "לא יוצר token חדש – שולח אותו קישור קיים.",
+      "input": [
+        {
+          "name": "invite_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה ההזמנה הקיימת"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "resend_count",
+          "type": "number",
+          "desc": "מספר שליחות עד כה"
+        }
+      ],
+      "calls": [
+        "sendEmailWithResend"
+      ],
+      "called_by": [
+        "InvitationManagement"
+      ]
+    },
+    {
+      "name": "cancelInvitation",
+      "category": "INVITATIONS",
+      "category_label": "Invitations",
+      "auth": "admin | manager",
+      "description": "מבטל הזמנה קיימת על ידי עדכון status='canceled'. ה-token הופך ללא תקין.",
+      "notes": null,
+      "input": [
+        {
+          "name": "invite_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה ההזמנה לביטול"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "InvitationManagement"
+      ]
+    },
+    {
+      "name": "sendEmailWithResend",
+      "category": "EMAIL",
+      "category_label": "Email",
+      "auth": "admin | manager",
+      "description": "שולח מייל HTML דרך שירות Resend. מוסיף headers לזיהוי השולח. מדווח שגיאות ספציפיות (domain, API key).",
+      "notes": "Domain: noreply@invite.ip-com-academy.com. Secret: Resender_SECRET.",
+      "input": [
+        {
+          "name": "to",
+          "type": "string",
+          "required": true,
+          "desc": "כתובת הנמען"
+        },
+        {
+          "name": "subject",
+          "type": "string",
+          "required": true,
+          "desc": "נושא המייל"
+        },
+        {
+          "name": "emailBody",
+          "type": "string",
+          "required": true,
+          "desc": "תוכן HTML"
+        },
+        {
+          "name": "fromName",
+          "type": "string",
+          "required": false,
+          "desc": "שם השולח המוצג"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "messageId",
+          "type": "string",
+          "desc": "מזהה המייל ב-Resend"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "generateInviteToken",
+        "resendInvitation",
+        "sendRetakeExamInvite",
+        "sendChangelogNotification",
+        "sendProcedureNotification",
+        "generateOtp"
+      ]
+    },
+    {
+      "name": "sendChangelogNotification",
+      "category": "EMAIL",
+      "category_label": "Email",
+      "auth": "admin",
+      "description": "שולח מייל עדכון מערכת לכל המשתמשים הרלוונטיים עם תוכן ה-Changelog שפורסם.",
+      "notes": null,
+      "input": [
+        {
+          "name": "changelog_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה עדכון המערכת שפורסם"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "sent_count",
+          "type": "number",
+          "desc": "כמות מיילים שנשלחו"
+        }
+      ],
+      "calls": [
+        "sendEmailWithResend"
+      ],
+      "called_by": [
+        "pages/Changelog"
+      ]
+    },
+    {
+      "name": "sendProcedureNotification",
+      "category": "EMAIL",
+      "category_label": "Email",
+      "auth": "admin | manager",
+      "description": "שולח מייל ו/או התראה לעובדים על נוהל חדש/מעודכן שדורש אישור.",
+      "notes": null,
+      "input": [
+        {
+          "name": "procedure_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה הנוהל"
+        },
+        {
+          "name": "departments",
+          "type": "string[]",
+          "required": false,
+          "desc": "מחלקות יעד (ברירת מחדל: כולן)"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "sent_count",
+          "type": "number"
+        }
+      ],
+      "calls": [
+        "sendEmailWithResend",
+        "createNotification"
+      ],
+      "called_by": [
+        "ProcedureManager"
+      ]
+    },
+    {
+      "name": "sendRetakeExamInvite",
+      "category": "EMAIL",
+      "category_label": "Email",
+      "auth": "admin | manager",
+      "description": "שולח הזמנה לבחינה חוזרת לעובד שנכשל, כולל פרטי המבחן וקישור.",
+      "notes": null,
+      "input": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה העובד"
+        },
+        {
+          "name": "exam_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה המבחן החוזר"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        }
+      ],
+      "calls": [
+        "sendEmailWithResend"
+      ],
+      "called_by": [
+        "SendRetakeExamModal"
+      ]
+    },
+    {
+      "name": "createNotification",
+      "category": "NOTIFICATIONS",
+      "category_label": "Notifications",
+      "auth": "any authenticated",
+      "description": "יוצר התראות פנימיות בתוך המערכת לפי הגדרות המשתמשים. שולח לכל המנהלים או למשתמשים ספציפיים. בודק הגדרות התראה אישיות לפני יצירה.",
+      "notes": "בודק NotificationSettings לכל משתמש – אם type מושבת, מדלג עליו.",
+      "input": [
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "desc": "סוג ההתראה (מ-enum Notification.type)"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "desc": "כותרת ההתראה"
+        },
+        {
+          "name": "message",
+          "type": "string",
+          "required": true,
+          "desc": "תוכן ההתראה"
+        },
+        {
+          "name": "link",
+          "type": "string",
+          "required": false,
+          "desc": "קישור לעמוד רלוונטי"
+        },
+        {
+          "name": "metadata",
+          "type": "object",
+          "required": false,
+          "desc": "מידע נוסף"
+        },
+        {
+          "name": "priority",
+          "type": "string",
+          "required": false,
+          "desc": "עדיפות: low/medium/high"
+        },
+        {
+          "name": "targetUserIds",
+          "type": "string[]",
+          "required": false,
+          "desc": "משתמשים ספציפיים (ברירת מחדל: כל המנהלים)"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "notificationsCreated",
+          "type": "number",
+          "desc": "כמות התראות שנוצרו"
+        },
+        {
+          "name": "notifications",
+          "type": "object[]",
+          "desc": "רשומות ההתראות שנוצרו"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "submitCandidateAssessment",
+        "makeCandidateDecision",
+        "n8nLessonCallback",
+        "sendProcedureNotification"
+      ]
+    },
+    {
+      "name": "fetchExamDataForCandidate",
+      "category": "ASSESSMENT",
+      "category_label": "Assessment",
+      "auth": "public (token based)",
+      "description": "מביא נתוני מבחן עבור מועמד לא מחובר בעזרת token הזמנה. מאמת את ה-token ומחזיר שאלות המבחן.",
+      "notes": null,
+      "input": [
+        {
+          "name": "token",
+          "type": "string",
+          "required": true,
+          "desc": "token ההזמנה מה-URL"
+        }
+      ],
+      "output": [
+        {
+          "name": "exam",
+          "type": "object",
+          "desc": "פרטי המבחן"
+        },
+        {
+          "name": "invite",
+          "type": "object",
+          "desc": "פרטי ההזמנה"
+        },
+        {
+          "name": "questions",
+          "type": "object[]",
+          "desc": "שאלות המבחן"
+        }
+      ],
+      "calls": [
+        "InviteValidateTokens"
+      ],
+      "called_by": [
+        "pages/CandidateAssessment"
+      ]
+    },
+    {
+      "name": "submitCandidateAssessment",
+      "category": "ASSESSMENT",
+      "category_label": "Assessment",
+      "auth": "public (token based)",
+      "description": "מגיש תוצאות מבחן כניסה של מועמד. מחשב ציון, שומר CandidateAssessment, מעדכן מצב הזמנה ל-test_submitted, ושולח התראה למנהלים.",
+      "notes": null,
+      "input": [
+        {
+          "name": "jti",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה הזמנה ייחודי"
+        },
+        {
+          "name": "answers",
+          "type": "object[]",
+          "required": true,
+          "desc": "תשובות המועמד"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "score",
+          "type": "number",
+          "desc": "ציון מאחוז 0-100"
+        },
+        {
+          "name": "passed",
+          "type": "boolean"
+        }
+      ],
+      "calls": [
+        "createNotification"
+      ],
+      "called_by": [
+        "pages/CandidateAssessment"
+      ]
+    },
+    {
+      "name": "submitInternalAssessment",
+      "category": "ASSESSMENT",
+      "category_label": "Assessment",
+      "auth": "authenticated",
+      "description": "מגיש בחינה פנימית של עובד (לא מועמד). מחשב ציון, שומר UserProgress ו-ExamAttempt.",
+      "notes": null,
+      "input": [
+        {
+          "name": "exam_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה המבחן"
+        },
+        {
+          "name": "answers",
+          "type": "object[]",
+          "required": true,
+          "desc": "תשובות המשתמש"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה המשתמש"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "score",
+          "type": "number"
+        },
+        {
+          "name": "passed",
+          "type": "boolean"
+        },
+        {
+          "name": "attempt",
+          "type": "object",
+          "desc": "רשומת ExamAttempt שנוצרה"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/QuizPage",
+        "pages/InternalEntranceExam"
+      ]
+    },
+    {
+      "name": "makeCandidateDecision",
+      "category": "ASSESSMENT",
+      "category_label": "Assessment",
+      "auth": "admin | manager",
+      "description": "קובע החלטת קבלה/דחייה על מועמד. מעדכן סטטוס ההזמנה (hired/rejected), שומר decision_notes ושולח התראה.",
+      "notes": null,
+      "input": [
+        {
+          "name": "invite_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה ההזמנה"
+        },
+        {
+          "name": "decision",
+          "type": "string",
+          "required": true,
+          "desc": "'hired' | 'rejected'"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "required": false,
+          "desc": "הערות ההחלטה"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "invite",
+          "type": "object",
+          "desc": "ההזמנה המעודכנת"
+        }
+      ],
+      "calls": [
+        "createNotification"
+      ],
+      "called_by": [
+        "CandidateAssessments",
+        "pages/ManagerDashboard"
+      ]
+    },
+    {
+      "name": "generateOtp",
+      "category": "AUTH",
+      "category_label": "Auth & Security",
+      "auth": "authenticated",
+      "description": "מייצר קוד OTP לאימות דו-שלבי, שומר ב-UserOtp עם תאריך תפוגה, ושולח מייל למשתמש.",
+      "notes": null,
+      "input": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה המשתמש"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "expires_at",
+          "type": "datetime",
+          "desc": "תפוגת הקוד"
+        }
+      ],
+      "calls": [
+        "sendEmailWithResend"
+      ],
+      "called_by": [
+        "pages/TwoFactorAuth"
+      ]
+    },
+    {
+      "name": "verifyOtp",
+      "category": "AUTH",
+      "category_label": "Auth & Security",
+      "auth": "authenticated",
+      "description": "מאמת קוד OTP שהוזן על ידי המשתמש. אם תקין, מייצר session_key ייחודי ומעדכן ב-User.",
+      "notes": null,
+      "input": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה המשתמש"
+        },
+        {
+          "name": "otp_code",
+          "type": "string",
+          "required": true,
+          "desc": "הקוד שהוזן"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "session_key",
+          "type": "string",
+          "desc": "מפתח session לאחסון מקומי"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/TwoFactorAuth"
+      ]
+    },
+    {
+      "name": "debugOtp",
+      "category": "AUTH",
+      "category_label": "Auth & Security",
+      "auth": "admin only",
+      "description": "כלי דיבוג לאדמין – מחזיר את קוד ה-OTP הנוכחי של משתמש. מיועד לפתרון בעיות בלבד.",
+      "notes": "⚠️ פונקציית דיבוג. לא לשימוש בסביבת ייצור.",
+      "input": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה המשתמש"
+        }
+      ],
+      "output": [
+        {
+          "name": "otp_code",
+          "type": "string"
+        },
+        {
+          "name": "expires_at",
+          "type": "datetime"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "admin debug tools"
+      ]
+    },
+    {
+      "name": "runSecurityAudit",
+      "category": "AUTH",
+      "category_label": "Auth & Security",
+      "auth": "admin only",
+      "description": "מריץ ביקורת אבטחה על פעילות המערכת – בודק ניסיונות כניסה חשודים, כתובות IP חסומות ואנומליות.",
+      "notes": null,
+      "input": [
+        {
+          "name": "days_back",
+          "type": "number",
+          "required": false,
+          "desc": "כמה ימים לאחור לבדוק (ברירת מחדל: 7)"
+        }
+      ],
+      "output": [
+        {
+          "name": "audit_results",
+          "type": "object",
+          "desc": "ממצאי הביקורת"
+        },
+        {
+          "name": "suspicious_ips",
+          "type": "string[]"
+        },
+        {
+          "name": "failed_attempts",
+          "type": "number"
+        }
+      ],
+      "calls": [
+        "utils/checkIpAccess"
+      ],
+      "called_by": [
+        "pages/SecurityLogs"
+      ]
+    },
+    {
+      "name": "generateAIContent",
+      "category": "AI_CONTENT",
+      "category_label": "AI & Content",
+      "auth": "admin | manager | instructor",
+      "description": "מייצר תוכן לימודי בעזרת AI לפי prompt ו-context נתון. מחזיר תוכן מעוצב לשיעור.",
+      "notes": null,
+      "input": [
+        {
+          "name": "prompt",
+          "type": "string",
+          "required": true,
+          "desc": "הוראת יצירת התוכן"
+        },
+        {
+          "name": "context",
+          "type": "string",
+          "required": false,
+          "desc": "הקשר נוסף לשיעור"
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "required": false,
+          "desc": "מזהה שיעור קיים להקשר"
+        }
+      ],
+      "output": [
+        {
+          "name": "content",
+          "type": "string",
+          "desc": "תוכן HTML/Markdown שנוצר"
+        },
+        {
+          "name": "blocks",
+          "type": "object[]",
+          "desc": "בלוקי תוכן מובנים"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "AIPromptDialog",
+        "AILessonCreator",
+        "AICourseGenerator"
+      ]
+    },
+    {
+      "name": "generateAIImage",
+      "category": "AI_CONTENT",
+      "category_label": "AI & Content",
+      "auth": "admin | manager | instructor",
+      "description": "מייצר תמונה בעזרת AI לפי prompt. שומר ב-storage ומחזיר URL.",
+      "notes": null,
+      "input": [
+        {
+          "name": "prompt",
+          "type": "string",
+          "required": true,
+          "desc": "תיאור התמונה המבוקשת"
+        }
+      ],
+      "output": [
+        {
+          "name": "image_url",
+          "type": "string",
+          "desc": "URL לתמונה שנוצרה"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "ImageBlock editor",
+        "AILessonWizard"
+      ]
+    },
+    {
+      "name": "generateLessonFromAI",
+      "category": "AI_CONTENT",
+      "category_label": "AI & Content",
+      "auth": "admin | manager | instructor",
+      "description": "מייצר שיעור שלם מקבצי קלט (PDF, Word, תמונות) דרך n8n. מתזמן AILessonJob ומחזיר job_id.",
+      "notes": null,
+      "input": [
+        {
+          "name": "files",
+          "type": "File[]",
+          "required": true,
+          "desc": "קבצי המקור"
+        },
+        {
+          "name": "module_id",
+          "type": "string",
+          "required": true,
+          "desc": "מודול יעד"
+        },
+        {
+          "name": "track_id",
+          "type": "string",
+          "required": false,
+          "desc": "מסלול יעד"
+        }
+      ],
+      "output": [
+        {
+          "name": "job_id",
+          "type": "string",
+          "desc": "מזהה עבודת AI"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "desc": "'processing'"
+        }
+      ],
+      "calls": [
+        "sendToN8nWorkflow"
+      ],
+      "called_by": [
+        "AILessonWizard",
+        "DocumentToLessonsWizard"
+      ]
+    },
+    {
+      "name": "getLessonContext",
+      "category": "AI_CONTENT",
+      "category_label": "AI & Content",
+      "auth": "authenticated",
+      "description": "מביא הקשר מלא של שיעור לשימוש ב-AI (כולל בלוקים, נושא, מסלול). משמש את ה-AI agent להבנת התוכן.",
+      "notes": null,
+      "input": [
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה השיעור"
+        }
+      ],
+      "output": [
+        {
+          "name": "lesson",
+          "type": "object",
+          "desc": "נתוני השיעור המלאים"
+        },
+        {
+          "name": "module",
+          "type": "object",
+          "desc": "נתוני המודול"
+        },
+        {
+          "name": "track",
+          "type": "object",
+          "desc": "נתוני המסלול"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "AIPromptDialog",
+        "agents/eduSupportAgent"
+      ]
+    },
+    {
+      "name": "analyzePrompt",
+      "category": "AI_CONTENT",
+      "category_label": "AI & Content",
+      "auth": "admin | manager",
+      "description": "מנתח prompt של עבודה ומייצר תובנות AI לגבי פרודוקטיביות וסיכום עבודה. שומר ב-PromptLog.",
+      "notes": null,
+      "input": [
+        {
+          "name": "prompt",
+          "type": "string",
+          "required": true,
+          "desc": "תיאור העבודה שבוצעה"
+        },
+        {
+          "name": "work_summary",
+          "type": "string",
+          "required": false,
+          "desc": "סיכום נוסף"
+        }
+      ],
+      "output": [
+        {
+          "name": "ai_insight",
+          "type": "string",
+          "desc": "תובנת AI"
+        },
+        {
+          "name": "prompt_log_id",
+          "type": "string"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/TimeClock"
+      ]
+    },
+    {
+      "name": "webSearchOem",
+      "category": "AI_CONTENT",
+      "category_label": "AI & Content",
+      "auth": "authenticated",
+      "description": "מבצע חיפוש ברשת עבור מידע טכני על ציוד OEM, מוצרים ופתרונות. משמש את ה-AI agent.",
+      "notes": null,
+      "input": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "desc": "שאילתת החיפוש"
+        }
+      ],
+      "output": [
+        {
+          "name": "results",
+          "type": "object[]",
+          "desc": "תוצאות חיפוש עם כותרות, קטעים וקישורים"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "agents/eduSupportAgent"
+      ]
+    },
+    {
+      "name": "generateLessonPdf",
+      "category": "EXPORTS",
+      "category_label": "Exports",
+      "auth": "authenticated",
+      "description": "מייצר PDF של שיעור שלם כולל כל הבלוקים, תמונות וקווסט. מחזיר PDF binary לורד.",
+      "notes": null,
+      "input": [
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה השיעור"
+        }
+      ],
+      "output": [
+        {
+          "name": "pdf_blob",
+          "type": "binary",
+          "desc": "קובץ PDF להורדה"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/LessonPage",
+        "LessonSidebarDetails"
+      ]
+    },
+    {
+      "name": "generateGuidePdf",
+      "category": "EXPORTS",
+      "category_label": "Exports",
+      "auth": "authenticated",
+      "description": "מייצר PDF מדריך משותף מתוכן שיעור. משמש לשיתוף חיצוני ללא צורך בהתחברות.",
+      "notes": null,
+      "input": [
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה השיעור"
+        },
+        {
+          "name": "token",
+          "type": "string",
+          "required": false,
+          "desc": "token שיתוף לגישה ציבורית"
+        }
+      ],
+      "output": [
+        {
+          "name": "pdf_url",
+          "type": "string",
+          "desc": "URL לקובץ PDF"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "ShareGuideModal"
+      ]
+    },
+    {
+      "name": "exportConceptsCsv",
+      "category": "EXPORTS",
+      "category_label": "Exports",
+      "auth": "admin | manager | instructor",
+      "description": "מייצא את כל המושגים ממאגר המושגים לקובץ CSV להורדה.",
+      "notes": null,
+      "input": [
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "desc": "סינון לפי קטגוריה"
+        }
+      ],
+      "output": [
+        {
+          "name": "csv_content",
+          "type": "binary",
+          "desc": "קובץ CSV"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "ConceptsManager"
+      ]
+    },
+    {
+      "name": "exportQuestionsCsv",
+      "category": "EXPORTS",
+      "category_label": "Exports",
+      "auth": "admin | manager | instructor",
+      "description": "מייצא שאלות ממאגר השאלות לקובץ CSV, כולל אפשרויות, תשובה נכונה והסבר.",
+      "notes": null,
+      "input": [
+        {
+          "name": "category",
+          "type": "string",
+          "required": false,
+          "desc": "סינון לפי קטגוריה"
+        },
+        {
+          "name": "difficulty_level",
+          "type": "string",
+          "required": false,
+          "desc": "סינון לפי רמת קושי"
+        }
+      ],
+      "output": [
+        {
+          "name": "csv_content",
+          "type": "binary",
+          "desc": "קובץ CSV"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "QuestionBankManager"
+      ]
+    },
+    {
+      "name": "exportWorkHours",
+      "category": "EXPORTS",
+      "category_label": "Exports",
+      "auth": "admin | manager",
+      "description": "מייצא נתוני שעון נוכחות לקובץ CSV/Excel, כולל סיכומים יומיים ושבועיים.",
+      "notes": null,
+      "input": [
+        {
+          "name": "from_date",
+          "type": "date",
+          "required": true,
+          "desc": "תאריך התחלה"
+        },
+        {
+          "name": "to_date",
+          "type": "date",
+          "required": true,
+          "desc": "תאריך סיום"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": false,
+          "desc": "סינון לפי עובד ספציפי"
+        }
+      ],
+      "output": [
+        {
+          "name": "file_content",
+          "type": "binary",
+          "desc": "קובץ Excel/CSV"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/TimeClock"
+      ]
+    },
+    {
+      "name": "importExistingQuestions",
+      "category": "IMPORTS",
+      "category_label": "Imports",
+      "auth": "admin | manager | instructor",
+      "description": "מוסיף שאלות קיימות ממאגר השאלות לבחינה ספציפית, על ידי העתקת שאלות נבחרות.",
+      "notes": null,
+      "input": [
+        {
+          "name": "exam_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה הבחינה"
+        },
+        {
+          "name": "question_ids",
+          "type": "string[]",
+          "required": true,
+          "desc": "מזהים של השאלות לייבוא"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "added_count",
+          "type": "number"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/ExamBuilder"
+      ]
+    },
+    {
+      "name": "importQuestionsCSV",
+      "category": "IMPORTS",
+      "category_label": "Imports",
+      "auth": "admin | manager | instructor",
+      "description": "מייבא שאלות מקובץ CSV לבחינה. מנתח שורות, מוסיף לבחינה ומחזיר דוח ייבוא.",
+      "notes": null,
+      "input": [
+        {
+          "name": "file",
+          "type": "File",
+          "required": true,
+          "desc": "קובץ CSV לייבוא"
+        },
+        {
+          "name": "exam_id",
+          "type": "string",
+          "required": false,
+          "desc": "מזהה בחינה יעד"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "imported_count",
+          "type": "number"
+        },
+        {
+          "name": "errors",
+          "type": "object[]",
+          "desc": "שגיאות לפי שורה"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/ExamBuilder",
+        "CSVImportCard"
+      ]
+    },
+    {
+      "name": "sendToN8nWorkflow",
+      "category": "INTEGRATIONS",
+      "category_label": "Integrations",
+      "auth": "admin | manager | instructor",
+      "description": "שולח בקשה ל-n8n workflow לעיבוד תוכן AI. שומר AILessonJob עם status='processing'.",
+      "notes": "Secret: N8N_WEBHOOK_URL, N8N_WEBHOOK_SECRET.",
+      "input": [
+        {
+          "name": "workflow_type",
+          "type": "string",
+          "required": true,
+          "desc": "סוג ה-workflow: 'lesson'|'docs'"
+        },
+        {
+          "name": "data",
+          "type": "object",
+          "required": true,
+          "desc": "נתוני הקלט ל-workflow"
+        },
+        {
+          "name": "files",
+          "type": "string[]",
+          "required": false,
+          "desc": "URLs לקבצי מקור"
+        }
+      ],
+      "output": [
+        {
+          "name": "job_id",
+          "type": "string",
+          "desc": "מזהה העבודה לעקיבה"
+        },
+        {
+          "name": "success",
+          "type": "boolean"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "generateLessonFromAI",
+        "AILessonWizard"
+      ]
+    },
+    {
+      "name": "n8nLessonCallback",
+      "category": "INTEGRATIONS",
+      "category_label": "Integrations",
+      "auth": "webhook (HMAC)",
+      "description": "Webhook endpoint שמקבל תוצאות מ-n8n לאחר סיום עיבוד שיעור. מעדכן AILessonJob, יוצר את רשומת השיעור ושולח התראה.",
+      "notes": "מאומת דרך HMAC signature עם N8N_WEBHOOK_SECRET.",
+      "input": [
+        {
+          "name": "job_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה עבודת AI"
+        },
+        {
+          "name": "lesson_data",
+          "type": "object",
+          "required": true,
+          "desc": "נתוני השיעור שעובד"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": true,
+          "desc": "'success'|'failed'"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "desc": "מזהה השיעור שנוצר"
+        }
+      ],
+      "calls": [
+        "createNotification"
+      ],
+      "called_by": [
+        "n8n automation (external)"
+      ]
+    },
+    {
+      "name": "sendToFlipbookN8n",
+      "category": "INTEGRATIONS",
+      "category_label": "Integrations",
+      "auth": "admin | instructor",
+      "description": "שולח מצגת/מסמך ל-n8n ליצירת flipbook אינטראקטיבי. Secret: N8N_FLIPBOOK_WEBHOOK.",
+      "notes": null,
+      "input": [
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה שיעור מקור"
+        },
+        {
+          "name": "files",
+          "type": "File[]",
+          "required": false,
+          "desc": "קבצי מצגת לעיבוד"
+        }
+      ],
+      "output": [
+        {
+          "name": "job_id",
+          "type": "string"
+        },
+        {
+          "name": "success",
+          "type": "boolean"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "SlidesGenerator"
+      ]
+    },
+    {
+      "name": "saveFlipbookResult",
+      "category": "INTEGRATIONS",
+      "category_label": "Integrations",
+      "auth": "webhook",
+      "description": "מקבל callback מ-n8n עם URL ה-flipbook שנוצר ומעדכן את רשומת השיעור.",
+      "notes": null,
+      "input": [
+        {
+          "name": "job_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה העבודה"
+        },
+        {
+          "name": "result_url",
+          "type": "string",
+          "required": true,
+          "desc": "URL הפליפבוק שנוצר"
+        }
+      ],
+      "output": [
+        {
+          "name": "success",
+          "type": "boolean"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "n8n webhook callback"
+      ]
+    },
+    {
+      "name": "createDocsDocument",
+      "category": "INTEGRATIONS",
+      "category_label": "Integrations",
+      "auth": "admin | instructor",
+      "description": "יוצר מסמך Google Docs חדש מתוכן שיעור באמצעות Google Docs API (OAuth connector).",
+      "notes": null,
+      "input": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "desc": "שם המסמך"
+        },
+        {
+          "name": "content",
+          "type": "string",
+          "required": true,
+          "desc": "תוכן HTML/Markdown"
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "required": false,
+          "desc": "מזהה שיעור מקור"
+        }
+      ],
+      "output": [
+        {
+          "name": "doc_url",
+          "type": "string",
+          "desc": "קישור למסמך ב-Google Docs"
+        },
+        {
+          "name": "doc_id",
+          "type": "string"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "DocsGenerator"
+      ]
+    },
+    {
+      "name": "createSlidesPresentation",
+      "category": "INTEGRATIONS",
+      "category_label": "Integrations",
+      "auth": "admin | instructor",
+      "description": "יוצר מצגת Google Slides מבלוקי שיעור באמצעות Google Slides API (OAuth connector).",
+      "notes": null,
+      "input": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "desc": "שם המצגת"
+        },
+        {
+          "name": "slides",
+          "type": "object[]",
+          "required": true,
+          "desc": "מבנה השקפים"
+        },
+        {
+          "name": "lesson_id",
+          "type": "string",
+          "required": false,
+          "desc": "מזהה שיעור מקור"
+        }
+      ],
+      "output": [
+        {
+          "name": "presentation_url",
+          "type": "string",
+          "desc": "קישור למצגת"
+        },
+        {
+          "name": "presentation_id",
+          "type": "string"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "SlidesGenerator"
+      ]
+    },
+    {
+      "name": "recalculateUserStats",
+      "category": "UTILS",
+      "category_label": "Utilities",
+      "auth": "admin | manager | automation",
+      "description": "מחשב מחדש סטטיסטיקות למידה של משתמש (אחוזי השלמה, ציונים ממוצעים, XP). שומר תוצאות ב-User.",
+      "notes": null,
+      "input": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "desc": "מזהה המשתמש"
+        }
+      ],
+      "output": [
+        {
+          "name": "stats",
+          "type": "object",
+          "desc": "סטטיסטיקות מעודכנות"
+        },
+        {
+          "name": "success",
+          "type": "boolean"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "scheduled automation",
+        "pages/ManagerDashboard"
+      ]
+    },
+    {
+      "name": "searchKms",
+      "category": "UTILS",
+      "category_label": "Utilities",
+      "auth": "authenticated",
+      "description": "חיפוש בספריית הידע הארגונית (KMS) – מחפש בשיעורים, מאמרים, מושגים ותסריטים.",
+      "notes": null,
+      "input": [
+        {
+          "name": "query",
+          "type": "string",
+          "required": true,
+          "desc": "מחרוזת חיפוש"
+        },
+        {
+          "name": "filters",
+          "type": "object",
+          "required": false,
+          "desc": "סינון לפי קטגוריה, סוג"
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "required": false,
+          "desc": "מספר תוצאות (ברירת מחדל: 20)"
+        }
+      ],
+      "output": [
+        {
+          "name": "results",
+          "type": "object[]",
+          "desc": "תוצאות חיפוש ממוינות לפי רלוונטיות"
+        },
+        {
+          "name": "total",
+          "type": "number"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "pages/GlobalSearch",
+        "agents/eduSupportAgent"
+      ]
+    },
+    {
+      "name": "extractZipImages",
+      "category": "UTILS",
+      "category_label": "Utilities",
+      "auth": "admin | instructor",
+      "description": "מחלץ תמונות מקובץ ZIP שהועלה, מעלה כל תמונה ל-storage ומחזיר רשימת URLs.",
+      "notes": null,
+      "input": [
+        {
+          "name": "zip_url",
+          "type": "string",
+          "required": true,
+          "desc": "URL קובץ ה-ZIP"
+        }
+      ],
+      "output": [
+        {
+          "name": "image_urls",
+          "type": "string[]",
+          "desc": "URLים לתמונות שחולצו"
+        },
+        {
+          "name": "count",
+          "type": "number"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "AILessonWizard",
+        "DocumentToLessonsWizard"
+      ]
+    },
+    {
+      "name": "processPdfSecure",
+      "category": "UTILS",
+      "category_label": "Utilities",
+      "auth": "admin | instructor",
+      "description": "מעבד PDF בצורה מאובטחת – מחלץ טקסט ותמונות, ומארגן לפי מבנה סעיפים. משתמש ב-Adobe PDF Services API.",
+      "notes": "Secrets: PDF_SERVICE_CLIENT_ID, PDF_SERVICES_CLIENT_SECRET.",
+      "input": [
+        {
+          "name": "file_url",
+          "type": "string",
+          "required": true,
+          "desc": "URL ה-PDF"
+        }
+      ],
+      "output": [
+        {
+          "name": "extracted_content",
+          "type": "object",
+          "desc": "טקסט ותמונות מאורגנות"
+        },
+        {
+          "name": "pages",
+          "type": "number"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "DocumentToLessonsWizard",
+        "AILessonWizard"
+      ]
+    },
+    {
+      "name": "pdfInline",
+      "category": "UTILS",
+      "category_label": "Utilities",
+      "auth": "authenticated",
+      "description": "משרת קובץ PDF inline (stream) בתגובת HTTP. מאפשר הצגת PDF ישירה בדפדפן ללא הורדה.",
+      "notes": null,
+      "input": [
+        {
+          "name": "file_url",
+          "type": "string",
+          "required": true,
+          "desc": "URL קובץ ה-PDF"
+        }
+      ],
+      "output": [
+        {
+          "name": "pdf_stream",
+          "type": "binary",
+          "desc": "PDF כ-HTTP stream עם Content-Type: application/pdf"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "PdfBlock (lesson viewer)"
+      ]
+    },
+    {
+      "name": "getClientInfo",
+      "category": "UTILS",
+      "category_label": "Utilities",
+      "auth": "public",
+      "description": "מחלץ מידע על הלקוח מה-request – כתובת IP, שם הדפדפן, מיקום גיאוגרפי. משמש לאבטחה ולוגים.",
+      "notes": null,
+      "input": [],
+      "output": [
+        {
+          "name": "ip",
+          "type": "string",
+          "desc": "כתובת IP"
+        },
+        {
+          "name": "browser",
+          "type": "string",
+          "desc": "שם הדפדפן"
+        },
+        {
+          "name": "location",
+          "type": "object",
+          "desc": "מיקום גיאוגרפי משוער"
+        }
+      ],
+      "calls": [
+        "utils/checkIpAccess"
+      ],
+      "called_by": [
+        "pages/Welcome",
+        "SecurityLog middleware"
+      ]
+    },
+    {
+      "name": "utils/checkIpAccess",
+      "category": "UTILS",
+      "category_label": "Utilities",
+      "auth": "internal",
+      "description": "פונקציית עזר פנימית – בודקת אם כתובת IP מסוימת חסומה או מורשית לפי הגדרות אבטחה.",
+      "notes": "משמשת כ-utility מוייבאת בפונקציות אחרות. אינה endpoint עצמאי.",
+      "input": [
+        {
+          "name": "ip",
+          "type": "string",
+          "required": true,
+          "desc": "כתובת IP לבדיקה"
+        }
+      ],
+      "output": [
+        {
+          "name": "allowed",
+          "type": "boolean"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "desc": "סיבת החסימה אם חסומה"
+        }
+      ],
+      "calls": [],
+      "called_by": [
+        "runSecurityAudit",
+        "getClientInfo"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+dist
+node_modules
+*.md
+data
+schema
+design-export
+docs
