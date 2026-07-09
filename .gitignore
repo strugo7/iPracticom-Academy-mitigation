@@ -36,3 +36,4 @@ src/lib/api/mock/fixtures/
 
 # גיבוי Base44 הגולמי — דאטה אמיתי של משתמשים (PII), נשאר מקומי בלבד
 data/
+app-backup-*.json

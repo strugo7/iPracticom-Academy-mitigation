@@ -6,9 +6,11 @@
 
 ## סטאק
 
-React 19 · Vite · TypeScript · Tailwind CSS v4 · shadcn/ui · React Router ·
-TanStack Query · Zod · Framer Motion · React Flow (@xyflow) · dnd-kit · Recharts ·
-lucide-react.
+React 19 · Vite · TypeScript · Tailwind CSS · React Router v7 · TanStack Query ·
+Zod · react-hook-form · Framer Motion · React Flow (@xyflow) · Tiptap ·
+@hello-pangea/dnd. רכיבי UI ואייקונים — **מ-Design System הארגוני בלבד**
+(`src/components/ui`, upstream: `strugo7/DesignSystem`); אין shadcn/MUI/lucide
+(ראה `CLAUDE.md` §2, §6.1).
 
 ## ארכיטקטורה (קצר)
 
@@ -43,7 +45,7 @@ pre-commit (husky + lint-staged) מריץ ESLint + Prettier על קבצים ב-s
 ```
 src/
 ├── app/            # דפים/ניתוב — (auth), (app)
-├── components/     # ui (shadcn), shell, blocks, flow, network, shared
+├── components/     # ui (Design System), shell, blocks, flow, network, shared
 ├── lib/
 │   ├── api/        # שכבת ה-API Client המופשטת (mock + real) ⭐
 │   ├── services/   # לוגיקה עסקית (progress, tracks, exams...)
