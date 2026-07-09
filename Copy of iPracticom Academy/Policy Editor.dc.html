@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+input,textarea,select,button{font-family:inherit;}
+.pe-scroll{scrollbar-width:thin;scrollbar-color:var(--neutral-silver) transparent;}
+.pe-scroll::-webkit-scrollbar{width:8px;height:8px;}.pe-scroll::-webkit-scrollbar-thumb{background:var(--neutral-silver);border-radius:8px;}
+.pe-blk:hover .pe-gutter{opacity:1 !important;}
+.pe-pchip:hover{border-color:var(--accent) !important;background:var(--hue-sky) !important;}
+.pe-in:focus{border-color:var(--accent) !important;box-shadow:var(--shadow-focus-ring) !important;}
+.pe-drop:hover{border-color:var(--accent) !important;background:var(--hue-sky) !important;}
+[contenteditable]:focus{outline:none;}
+@keyframes peFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0075DB"/><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 20h28l12 12v28a4 4 0 0 1-4 4H30a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4z"/><path d="M56 20v12h12M37 46h26M37 56h18"/></g></svg></template>
+
+<div dir="rtl" data-screen-label="עורך נוהל" style="height:100vh;background:var(--surface-app);color:var(--neutral-charcoal);display:flex;flex-direction:column;overflow:hidden;font-family:var(--font-sans);">
+
+  <!-- ===== TOP BAR ===== -->
+  <header style="flex:none;background:var(--surface-card);border-bottom:1px solid var(--neutral-silver);z-index:40;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;">
+      <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="outline" size="md" aria-label="חזרה לנהלים" hint-size="40px,40px">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </x-import>
+        <span style="width:40px;height:40px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;color:var(--white);flex:none;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"></path></svg></span>
+        <div style="min-width:0;display:flex;flex-direction:column;gap:4px;">
+          <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+            <input class="pe-in" value="{{ title }}" onInput="{{ onTitle }}" aria-label="שם הנוהל" style="min-width:0;width:240px;border:1px solid transparent;border-radius:8px;background:transparent;font-weight:600;font-size:var(--text-h4-size);color:var(--neutral-charcoal);padding:4px 8px;outline:none;transition:var(--transition-fast);" style-hover="background:var(--neutral-whisper);" style-focus="background:var(--white);"/>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ statusColor }}" hint-size="auto,24px">{{ statusLabel }}</x-import>
+          </div>
+          <span style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);padding-inline-start:8px;white-space:nowrap;">נהלים · {{ category }} · גרסה {{ version }}</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="display:inline-flex;align-items:center;gap:8px;font-size:var(--text-tiny-size);color:var(--neutral-lead);white-space:nowrap;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--success)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>{{ autosaveLabel }}</span>
+
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tabs" variant="pill" tabs="{{ methodTabs }}" value="{{ method }}" onChange="{{ setMethod }}" hint-size="auto,40px"></x-import>
+
+        <span style="width:1px;height:24px;background:var(--neutral-silver);"></span>
+
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" leadingIcon="{{ saveIcon }}" hint-size="auto,40px">שמור טיוטה</x-import>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" leadingIcon="{{ publishIcon }}" hint-size="auto,40px">פרסם ושלח</x-import>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== BODY ===== -->
+  <div style="flex:1;min-height:0;display:flex;flex-direction:row;">
+
+    <!-- ===== BLOCK PALETTE (right, write mode only) ===== -->
+    <sc-if value="{{ isWrite }}" hint-placeholder-val="{{ true }}">
+    <aside aria-label="פלטת בלוקים" style="flex:none;width:240px;background:var(--surface-card);border-inline-start:1px solid var(--neutral-silver);display:flex;flex-direction:column;min-height:0;">
+      <div style="flex:none;display:flex;align-items:center;gap:8px;padding:16px 16px 8px;">
+        <h2 style="font-weight:600;font-size:var(--text-small-size);margin:0;display:flex;align-items:center;gap:8px;color:var(--neutral-charcoal);"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>בלוקים</h2>
+      </div>
+      <div style="flex:none;padding:0 16px 8px;"><p style="margin:0;font-size:var(--text-tiny-size);line-height:var(--text-tiny-line);color:var(--neutral-nickel);">בלוקי תוכן בלבד — מותאמים למסמכי נהלים.</p></div>
+      <div class="pe-scroll" style="flex:1;overflow-y:auto;padding:8px 12px 16px;">
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <sc-for list="{{ palette }}" as="b" hint-placeholder-count="7">
+          <button class="pe-pchip" draggable="true" onClick="{{ b.onAdd }}" style="display:flex;align-items:center;gap:8px;border:1px solid var(--neutral-silver);background:var(--white);border-radius:8px;padding:8px 12px;cursor:grab;text-align:start;font-family:inherit;transition:var(--transition-fast);">
+            <span style="flex:none;width:32px;height:32px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;">{{ b.icon }}</span>
+            <span style="flex:1;min-width:0;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ b.label }}</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" style="flex:none;color:var(--neutral-palladium);" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.4"></circle><circle cx="15" cy="6" r="1.4"></circle><circle cx="9" cy="12" r="1.4"></circle><circle cx="15" cy="12" r="1.4"></circle><circle cx="9" cy="18" r="1.4"></circle><circle cx="15" cy="18" r="1.4"></circle></svg>
+          </button>
+          </sc-for>
+        </div>
+      </div>
+    </aside>
+    </sc-if>
+
+    <!-- ===== CANVAS (center) ===== -->
+    <main class="pe-scroll" role="document" aria-label="תוכן הנוהל" style="flex:1;min-width:0;overflow-y:auto;background:var(--surface-app);">
+
+      <!-- WRITE MODE -->
+      <sc-if value="{{ isWrite }}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:720px;margin:0 auto;padding:32px 48px 80px;">
+        <sc-for list="{{ blocks }}" as="bl" hint-placeholder-count="6">
+        <div class="pe-blk" role="group" aria-selected="{{ bl.selected }}" tabindex="0" onClick="{{ bl.onSelect }}" style="position:relative;margin:{{ bl.margin }};border-radius:12px;outline:{{ bl.ring }};outline-offset:4px;transition:outline .14s;">
+
+          <!-- gutter -->
+          <div class="pe-gutter" style="position:absolute;inset-inline-start:-44px;top:4px;display:flex;flex-direction:column;align-items:center;gap:4px;opacity:{{ bl.gutterOpacity }};transition:opacity .14s;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="outline" size="sm" onClick="{{ bl.stop }}" title="גרור לסידור" aria-label="גרור לסידור" hint-size="32px,32px">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.5"></circle><circle cx="15" cy="6" r="1.5"></circle><circle cx="9" cy="12" r="1.5"></circle><circle cx="15" cy="12" r="1.5"></circle><circle cx="9" cy="18" r="1.5"></circle><circle cx="15" cy="18" r="1.5"></circle></svg>
+            </x-import>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="outline" size="sm" onClick="{{ bl.onDelete }}" title="מחק בלוק" aria-label="מחק בלוק" hint-size="32px,32px">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </x-import>
+          </div>
+
+          <!-- toolbar -->
+          <sc-if value="{{ bl.showToolbar }}">
+          <div role="toolbar" aria-label="עיצוב טקסט" style="position:absolute;top:-48px;inset-inline-end:0;display:flex;align-items:center;gap:4px;background:var(--white);border:1px solid var(--neutral-silver);border-radius:12px;padding:4px;box-shadow:var(--shadow-menu);z-index:15;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="icon" size="sm" onClick="{{ bl.stop }}" title="מודגש" aria-label="מודגש" hint-size="32px,32px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 0 8H6z"></path><path d="M6 12h9a4 4 0 0 1 0 8H6z"></path></svg></x-import>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="icon" size="sm" onClick="{{ bl.stop }}" title="נטוי" aria-label="נטוי" hint-size="32px,32px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="4" x2="10" y2="4"></line><line x1="14" y1="20" x2="5" y2="20"></line><line x1="15" y1="4" x2="9" y2="20"></line></svg></x-import>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="icon" size="sm" onClick="{{ bl.stop }}" title="קישור" aria-label="קישור" hint-size="32px,32px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></x-import>
+            <span style="width:1px;height:16px;background:var(--neutral-silver);margin:0 4px;"></span>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="ghost" size="sm" onClick="{{ bl.onDuplicate }}" title="שכפל" aria-label="שכפל" hint-size="32px,32px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></x-import>
+          </div>
+          </sc-if>
+
+          <!-- heading -->
+          <sc-if value="{{ bl.isHeading }}">
+          <h2 contenteditable="true" dir="rtl" style="font-weight:600;font-size:var(--text-h3-size);line-height:var(--text-h3-line);margin:0;color:var(--neutral-charcoal);padding:4px 8px;">{{ bl.text }}</h2>
+          </sc-if>
+          <!-- paragraph -->
+          <sc-if value="{{ bl.isParagraph }}">
+          <div contenteditable="true" dir="rtl" style="font-size:var(--text-body-size);line-height:var(--text-body-line);color:var(--neutral-charcoal);padding:8px;">{{ bl.html }}</div>
+          </sc-if>
+          <!-- list -->
+          <sc-if value="{{ bl.isList }}">
+          <ol dir="rtl" style="margin:0;padding:8px 24px 8px 8px;display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ bl.items }}" as="it" hint-placeholder-count="3">
+            <li contenteditable="true" style="font-size:var(--text-body-size);line-height:var(--text-body-line);color:var(--neutral-charcoal);">{{ it }}</li>
+            </sc-for>
+          </ol>
+          </sc-if>
+          <!-- image -->
+          <sc-if value="{{ bl.isImage }}">
+          <div>
+            <div style="position:relative;overflow:hidden;border-radius:var(--radius-xl);border:1px solid var(--neutral-silver);background:linear-gradient(135deg,var(--hue-sky) 0%,var(--white) 92%);height:224px;display:flex;align-items:center;justify-content:center;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;">
+                <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-2.83 0L7 19"></path></svg>
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ bl.stop }}" leadingIcon="{{ bl.imgIcon }}" hint-size="auto,40px">בחר מספריית המדיה</x-import>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:8px;padding:0 4px;"><svg viewBox="0 0 24 24" width="14" height="14" style="flex:none;" fill="none" stroke="var(--neutral-nickel)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg><span contenteditable="true" style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);outline:none;">כיתוב לתמונה (חובה למלא תיאור נגישות)</span></div>
+          </div>
+          </sc-if>
+          <!-- table -->
+          <sc-if value="{{ bl.isTable }}">
+          <div style="border:1px solid var(--neutral-silver);border-radius:var(--radius-xl);overflow:hidden;">
+            <table dir="rtl" style="width:100%;border-collapse:collapse;font-size:var(--text-small-size);">
+              <thead><tr style="background:var(--neutral-whisper);">
+                <sc-for list="{{ bl.cols }}" as="c" hint-placeholder-count="3">
+                <th contenteditable="true" style="text-align:start;font-weight:600;color:var(--neutral-charcoal);padding:12px 16px;border-inline-end:1px solid var(--neutral-silver);border-bottom:1px solid var(--neutral-silver);outline:none;">{{ c }}</th>
+                </sc-for>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ bl.rows }}" as="r" hint-placeholder-count="3">
+                <tr style="border-bottom:1px solid var(--neutral-silver);">
+                  <sc-for list="{{ r }}" as="cell" hint-placeholder-count="3">
+                  <td contenteditable="true" style="color:var(--neutral-charcoal);padding:8px 16px;border-inline-end:1px solid var(--neutral-silver);outline:none;line-height:var(--text-small-line);">{{ cell }}</td>
+                  </sc-for>
+                </tr>
+                </sc-for>
+              </tbody>
+            </table>
+            <div style="display:flex;gap:8px;padding:8px 12px;background:var(--neutral-whisper);border-top:1px solid var(--neutral-silver);">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" onClick="{{ bl.stop }}" leadingIcon="{{ bl.plusIcon }}" hint-size="auto,32px" style="padding:4px 16px;font-size:13px;">הוסף שורה</x-import>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" onClick="{{ bl.stop }}" leadingIcon="{{ bl.plusIcon }}" hint-size="auto,32px" style="padding:4px 16px;font-size:13px;">הוסף עמודה</x-import>
+            </div>
+          </div>
+          </sc-if>
+          <!-- pdf -->
+          <sc-if value="{{ bl.isPdf }}">
+          <div style="display:flex;align-items:center;gap:16px;border:1px solid var(--neutral-silver);border-radius:var(--radius-xl);background:var(--white);padding:16px;">
+            <span style="flex:none;width:48px;height:56px;border-radius:8px;background:#FFDCD8;color:var(--caution);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M9 15h6M9 18h4"></path></svg></span>
+            <div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">מפרט_טכני_מצלמות.pdf</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:4px;">PDF · 2.4MB · תצוגה מוטמעת ללומד</div></div>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" onClick="{{ bl.stop }}" leadingIcon="{{ bl.pdfIcon }}" hint-size="auto,40px">החלף קובץ</x-import>
+          </div>
+          </sc-if>
+          <!-- divider -->
+          <sc-if value="{{ bl.isDivider }}">
+          <div style="display:flex;align-items:center;gap:12px;padding:8px;"><span style="flex:1;height:1px;background:var(--neutral-silver);"></span><span style="width:4px;height:4px;border-radius:50%;background:var(--neutral-palladium);"></span><span style="flex:1;height:1px;background:var(--neutral-silver);"></span></div>
+          </sc-if>
+        </div>
+        </sc-for>
+
+        <button onClick="{{ addParagraph }}" class="pe-add" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1.5px dashed var(--accent);background:var(--hue-sky);color:var(--accent);border-radius:var(--radius-xl);padding:16px;font-family:inherit;font-weight:600;font-size:var(--text-body-size);cursor:pointer;transition:var(--transition-fast);margin-top:16px;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>הוסף בלוק</button>
+      </div>
+      </sc-if>
+
+      <!-- UPLOAD MODE -->
+      <sc-if value="{{ isUpload }}">
+      <div style="max-width:760px;margin:0 auto;padding:32px 48px 80px;animation:peFade .26s ease;">
+        <sc-if value="{{ noFile }}">
+        <div class="pe-drop" role="button" tabindex="0" onClick="{{ fakeUpload }}" style="border-radius:var(--radius-xl);background:var(--neutral-whisper);padding:56px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;cursor:pointer;transition:background .18s;" style-hover="background:var(--neutral-silver);">
+          <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="var(--neutral-palladium)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05 12.25 20.24a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+          <div><div style="font-weight:600;font-size:18px;color:var(--neutral-charcoal);">העלאת מסמך</div><div style="font-size:14px;color:var(--neutral-nickel);margin-top:8px;">PDF או Word (DOCX) · עד 20MB</div></div>
+          <div style="display:flex;gap:8px;margin-top:4px;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tag" type="red" hint-size="auto,24px">PDF</x-import>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tag" type="blue" hint-size="auto,24px">Word</x-import>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ hasFile }}">
+        <div style="animation:peFade .26s ease;">
+          <div style="display:flex;align-items:center;gap:16px;background:var(--white);border:1px solid var(--neutral-silver);border-radius:var(--radius-xl);padding:16px;margin-bottom:16px;">
+            <span style="flex:none;width:44px;height:52px;border-radius:8px;background:#FFDCD8;color:var(--caution);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg></span>
+            <div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">נוהל_התקנת_מצלמת_אבטחה.pdf</div><div style="display:flex;align-items:center;gap:8px;font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:4px;"><span style="display:inline-flex;align-items:center;gap:4px;color:var(--success);font-weight:600;"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>הועלה</span><span>·</span><span>PDF · 2.4MB · 6 עמודים</span></div></div>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" leadingIcon="{{ replaceIcon }}" hint-size="auto,40px">החלף</x-import>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="outline" onClick="{{ clearFile }}" aria-label="הסר קובץ" hint-size="40px,40px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path></svg></x-import>
+          </div>
+          <div style="position:relative;border:1px solid var(--neutral-silver);border-radius:var(--radius-xl);background:#525A64;overflow:hidden;box-shadow:var(--shadow-menu);">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 16px;background:#2F353D;color:#C7D0DA;font-size:var(--text-tiny-size);"><span style="display:inline-flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>תצוגה מקדימה — כפי שהלומד יראה</span><span>עמוד 1 מתוך 6</span></div>
+            <div style="padding:24px;display:flex;justify-content:center;">
+              <div style="width:100%;max-width:460px;aspect-ratio:1/1.414;background:var(--white);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.28);padding:40px;display:flex;flex-direction:column;gap:16px;">
+                <div style="display:flex;align-items:center;gap:8px;border-bottom:2px solid var(--accent);padding-bottom:12px;"><span style="width:32px;height:32px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:var(--gradient-accent);"></span><span style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">נוהל התקנת מצלמת אבטחה</span></div>
+                <div style="height:8px;width:62%;background:var(--neutral-silver);border-radius:4px;"></div>
+                <div style="height:8px;width:100%;background:var(--neutral-whisper);border-radius:4px;"></div>
+                <div style="height:8px;width:94%;background:var(--neutral-whisper);border-radius:4px;"></div>
+                <div style="height:8px;width:88%;background:var(--neutral-whisper);border-radius:4px;"></div>
+                <div style="height:8px;width:46%;background:var(--neutral-silver);border-radius:4px;margin-top:8px;"></div>
+                <div style="height:8px;width:100%;background:var(--neutral-whisper);border-radius:4px;"></div>
+                <div style="height:8px;width:90%;background:var(--neutral-whisper);border-radius:4px;"></div>
+                <div style="height:120px;width:100%;background:linear-gradient(135deg,var(--hue-sky),var(--white));border:1px solid var(--neutral-silver);border-radius:8px;margin-top:8px;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--neutral-palladium)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-2.83 0L7 19"></path></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+    </main>
+
+    <!-- ===== SETTINGS PANEL (left) ===== -->
+    <aside class="pe-scroll" aria-label="הגדרות הנוהל" style="flex:none;width:320px;background:var(--surface-card);border-inline-end:1px solid var(--neutral-silver);overflow-y:auto;display:flex;flex-direction:column;">
+      <div style="padding:16px 16px 24px;display:flex;flex-direction:column;gap:24px;">
+
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="width:32px;height:32px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg></span>
+          <div><div style="font-weight:600;font-size:var(--text-small-size);line-height:1.1;color:var(--neutral-charcoal);">הגדרות הנוהל</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:4px;">פרטים, שיוך ואישור קריאה</div></div>
+        </div>
+
+        <div>
+          <label style="display:block;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-charcoal);margin-bottom:8px;">כותרת</label>
+          <input class="pe-in" value="{{ title }}" onInput="{{ onTitle }}" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);font-size:var(--text-body-size);font-weight:400;color:var(--neutral-charcoal);outline:none;transition:var(--transition-fast);"/>
+        </div>
+        <div>
+          <label style="display:block;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-charcoal);margin-bottom:8px;">תקציר</label>
+          <textarea class="pe-in" value="{{ summary }}" onInput="{{ onSummary }}" style="width:100%;min-height:64px;resize:vertical;padding:12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);font-size:var(--text-small-size);line-height:var(--text-small-line);color:var(--neutral-charcoal);outline:none;transition:var(--transition-fast);"></textarea>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 88px;gap:12px;">
+          <div>
+            <label style="display:block;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-charcoal);margin-bottom:8px;">קטגוריה</label>
+            <div style="position:relative;">
+              <select class="pe-in" value="{{ category }}" onChange="{{ onCategory }}" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);font-size:var(--text-body-size);font-weight:400;color:var(--neutral-charcoal);outline:none;appearance:none;cursor:pointer;transition:var(--transition-fast);">
+                <sc-for list="{{ categories }}" as="c" hint-placeholder-count="4"><option value="{{ c }}">{{ c }}</option></sc-for>
+              </select>
+              <svg viewBox="0 0 24 24" width="16" height="16" style="position:absolute;inset-inline-start:12px;top:12px;pointer-events:none;" fill="none" stroke="var(--neutral-nickel)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-charcoal);margin-bottom:8px;">גרסה</label>
+            <input class="pe-in" value="{{ version }}" onInput="{{ onVersion }}" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);font-size:var(--text-body-size);font-weight:600;color:var(--neutral-charcoal);outline:none;text-align:center;transition:var(--transition-fast);"/>
+          </div>
+        </div>
+
+        <div>
+          <label style="display:block;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-charcoal);margin-bottom:8px;">סטטוס</label>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tabs" variant="pill" tabs="{{ statusTabs }}" value="{{ status }}" onChange="{{ setStatus }}" hint-size="100%,40px" style="width:100%;justify-content:space-between;"></x-import>
+        </div>
+
+        <span style="height:1px;background:var(--neutral-silver);"></span>
+
+        <!-- assignment -->
+        <div>
+          <label style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-charcoal);margin-bottom:8px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>שיוך מחלקות</label>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <sc-for list="{{ departments }}" as="d" hint-placeholder-count="4">
+            <button onClick="{{ d.onToggle }}" style="display:inline-flex;align-items:center;gap:6px;border:1px solid {{ d.border }};background:{{ d.bg }};color:{{ d.fg }};border-radius:var(--radius-full);padding:6px 12px;font-family:inherit;font-weight:600;font-size:var(--text-tiny-size);cursor:pointer;transition:var(--transition-fast);"><sc-if value="{{ d.on }}"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>{{ d.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <label style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:var(--text-tiny-size);color:var(--neutral-charcoal);margin-bottom:8px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>עובדים ספציפיים</label>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ employees }}" as="e" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:8px;border:1px solid {{ e.border }};background:{{ e.bg }};border-radius:8px;padding:8px;">
+              <span style="flex:none;width:32px;height:32px;border-radius:50%;background:{{ e.avBg }};color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;">{{ e.initials }}</span>
+              <span style="flex:1;min-width:0;"><span style="display:block;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ e.name }}</span><span style="display:block;font-size:var(--text-tiny-size);color:var(--neutral-nickel);">{{ e.dept }}</span></span>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Checkbox" checked="{{ e.on }}" onChange="{{ e.onToggle }}" hint-size="20px,20px"></x-import>
+            </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <span style="height:1px;background:var(--neutral-silver);"></span>
+
+        <!-- read & sign -->
+        <div style="border:1px solid {{ ackBorder }};background:{{ ackBg }};border-radius:var(--radius-xl);padding:16px;transition:var(--transition-base);">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+            <div style="min-width:0;display:flex;align-items:flex-start;gap:8px;">
+              <span style="flex:none;width:32px;height:32px;border-radius:8px;background:{{ ackIcBg }};color:{{ ackIcFg }};display:flex;align-items:center;justify-content:center;transition:var(--transition-base);"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span>
+              <div style="min-width:0;"><div style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">קרא וחתום</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-top:4px;line-height:var(--text-tiny-line);">דרישת אישור קריאה מהמשויכים</div></div>
+            </div>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Toggle" checked="{{ ack }}" onChange="{{ toggleAck }}" hint-size="44px,24px"></x-import>
+          </div>
+          <sc-if value="{{ ack }}">
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-top:12px;padding:12px;background:var(--white);border:1px solid var(--neutral-silver);border-radius:8px;animation:peFade .2s ease;">
+            <svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;margin-top:1px;" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span style="font-size:var(--text-tiny-size);line-height:var(--text-tiny-line);color:var(--neutral-charcoal);">יישלח מייל לכל המשויכים עם קישור לנוהל, ויידרש <strong style="color:var(--accent);font-weight:600;">אישור קריאה</strong> חתום. ההתקדמות תופיע בדוח המעקב.</span>
+          </div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;font-size:var(--text-tiny-size);color:var(--neutral-nickel);background:var(--neutral-whisper);border-radius:8px;padding:12px;"><svg viewBox="0 0 24 24" width="15" height="15" style="flex:none;" fill="none" stroke="var(--neutral-nickel)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg><span>פרסום ישלח את הנוהל ל-<strong style="color:var(--neutral-charcoal);font-weight:600;">{{ reach }}</strong> נמענים.</span></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.raw = (s)=>React.createElement('span',{dangerouslySetInnerHTML:{__html:s},style:{display:'flex'}});
+    this.PIC = {
+      paragraph:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6H9a4 4 0 0 0 0 8h2"></path><path d="M13 6v14M17 6v14"></path></svg>',
+      heading:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12M6 4v16M18 4v16"></path></svg>',
+      list:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>',
+      image:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-2.83 0L7 19"></path></svg>',
+      table:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="12" y1="3" x2="12" y2="21"></line></svg>',
+      pdf:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6M9 15h6M9 18h4"></path></svg>',
+      divider:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line></svg>',
+    };
+    this.PALETTE = [
+      {type:'paragraph',label:'טקסט'},
+      {type:'heading',label:'כותרת'},
+      {type:'list',label:'רשימה'},
+      {type:'image',label:'תמונה'},
+      {type:'table',label:'טבלה'},
+      {type:'pdf',label:'PDF'},
+      {type:'divider',label:'מפריד'},
+    ];
+    this.svg = (d)=>this.raw(d);
+    this.ICONS = {
+      save:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>',
+      publish:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7z"></path></svg>',
+      image:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.5-3.5a2 2 0 0 0-2.83 0L7 19"></path></svg>',
+      plus:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>',
+      pdf:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path></svg>',
+      replace:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path></svg>',
+    };
+    this.state = {
+      method:'write',
+      title:'נוהל התקנת מצלמת אבטחה',
+      summary:'נוהל מסודר להתקנת מצלמות אבטחה באתרי לקוח — דרישות ציוד, שלבי התקנה ובדיקות מסירה.',
+      category:'בטיחות בעבודה', version:'1.0', status:'draft',
+      hasFile:false,
+      ack:true,
+      depts:{ 'טכנאי שטח':true, 'מוקד תמיכה':false, 'תפעול':false, 'מכירות':false },
+      emps:{ e1:true, e2:false, e3:true },
+      selectedId:'b3',
+      blocks:[
+        {id:'b1',type:'heading',text:'מטרת הנוהל'},
+        {id:'b2',type:'paragraph',html:'נוהל זה מגדיר את אופן ההתקנה התקין של מצלמות אבטחה באתרי לקוח, במטרה להבטיח <strong style="color:#0075DB;">איכות התקנה אחידה</strong>, עמידה בדרישות הבטיחות ומסירה תקינה ללקוח.'},
+        {id:'b3',type:'heading',text:'שלבי ההתקנה'},
+        {id:'b4',type:'list',items:['בדיקת תכנית המיקום ואישור הלקוח לנקודות ההתקנה','התקנת התושבת וקיבוע המצלמה לקיר','חיבור כבילה והזנת מתח (PoE / ספק ייעודי)','כיוון זווית, פוקוס ובדיקת שדה ראייה','רישום המצלמה ב-NVR ובדיקת הקלטה']},
+        {id:'b5',type:'image'},
+        {id:'b6',type:'table',cols:['רכיב','דגם מומלץ','כמות'],rows:[['מצלמת כיפה','Hikvision DS-2CD','לפי תכנית'],['כבל רשת','Cat6 חיצוני','לפי מרחק'],['מתאם PoE','Switch PoE 8 פורט','1']]},
+        {id:'b7',type:'pdf'},
+        {id:'b8',type:'divider'},
+        {id:'b9',type:'paragraph',html:'בסיום ההתקנה יש למלא טופס מסירה, לצלם את נקודות ההתקנה ולעדכן את כרטיס הלקוח במערכת.'},
+      ],
+    };
+  }
+  add(type){ const s=this.state; const sel=s.blocks.findIndex(b=>b.id===s.selectedId); const id='b'+Date.now();
+    const seed={paragraph:{html:'טקסט חדש…'},heading:{text:'כותרת חדשה'},list:{items:['פריט ראשון']},table:{cols:['עמודה','עמודה'],rows:[['','']]} };
+    const nb=Object.assign({id,type},seed[type]||{}); const arr=s.blocks.slice(); arr.splice(sel<0?arr.length:sel+1,0,nb);
+    this.setState({blocks:arr,selectedId:id}); }
+  duplicate(id){ const arr=this.state.blocks.slice(); const i=arr.findIndex(b=>b.id===id); if(i<0)return; const nid='b'+Date.now(); arr.splice(i+1,0,Object.assign({},arr[i],{id:nid})); this.setState({blocks:arr,selectedId:nid}); }
+  del(id){ const arr=this.state.blocks.filter(b=>b.id!==id); this.setState({blocks:arr,selectedId:arr.length?arr[0].id:null}); }
+
+  renderVals(){
+    const s=this.state;
+    const isWrite=s.method==='write', isUpload=s.method==='upload';
+
+    const palette=this.PALETTE.map(b=>({ label:b.label, icon:this.raw(this.PIC[b.type]), onAdd:()=>this.add(b.type) }));
+
+    const blocks=s.blocks.map((b,i)=>{
+      const selected=b.id===s.selectedId;
+      return {
+        isHeading:b.type==='heading', isParagraph:b.type==='paragraph', isList:b.type==='list',
+        isImage:b.type==='image', isTable:b.type==='table', isPdf:b.type==='pdf', isDivider:b.type==='divider',
+        text:b.text, html:this.raw(b.html||''), items:b.items||[], cols:b.cols||[], rows:b.rows||[],
+        selected, ring:selected?'2px solid var(--accent)':'2px solid transparent',
+        margin:selected?'48px 0 16px':(i===0?'0 0 16px':'16px 0'),
+        gutterOpacity:selected?'1':'0', showToolbar:selected && (b.type==='paragraph'||b.type==='heading'||b.type==='list'),
+        onSelect:()=>this.setState({selectedId:b.id}),
+        onDuplicate:(e)=>{ if(e)e.stopPropagation(); this.duplicate(b.id); },
+        onDelete:(e)=>{ if(e)e.stopPropagation(); this.del(b.id); },
+        stop:(e)=>{ if(e)e.stopPropagation(); },
+        imgIcon:this.raw(this.ICONS.image), plusIcon:this.raw(this.ICONS.plus), pdfIcon:this.raw(this.ICONS.replace),
+      };
+    });
+
+    const STAT={draft:{label:'טיוטה',color:'warning'},review:{label:'בבדיקה',color:'accent'},published:{label:'פורסם',color:'success'}};
+    const st=STAT[s.status]||STAT.draft;
+    const statusTabs=[['draft','טיוטה'],['review','בבדיקה'],['published','פורסם']].map(([k,l])=>({id:k,label:l}));
+
+    const departments=Object.keys(s.depts).map(d=>{ const on=s.depts[d]; return { label:d, on,
+      border:on?'var(--accent)':'var(--neutral-silver)', bg:on?'var(--hue-sky)':'var(--white)', fg:on?'var(--accent)':'var(--neutral-lead)',
+      onToggle:()=>this.setState(x=>({depts:Object.assign({},x.depts,{[d]:!x.depts[d]})})) }; });
+
+    const EMP=[{id:'e1',name:'דניאל לוי',dept:'טכנאי שטח',initials:'דל',avBg:'var(--hue-denim)'},{id:'e2',name:'עומר פרץ',dept:'טכנאי שטח',initials:'עפ',avBg:'var(--hue-teal)'},{id:'e3',name:'נועה ברק',dept:'מוקד תמיכה',initials:'נב',avBg:'var(--hue-bronze)'}];
+    const employees=EMP.map(e=>{ const on=!!s.emps[e.id]; return { name:e.name, dept:e.dept, initials:e.initials, avBg:e.avBg, on,
+      border:on?'var(--accent)':'var(--neutral-silver)', bg:on?'var(--hue-sky)':'var(--white)',
+      onToggle:()=>this.setState(x=>({emps:Object.assign({},x.emps,{[e.id]:!x.emps[e.id]})})) }; });
+
+    const deptCount=Object.values(s.depts).filter(Boolean).length;
+    const empCount=Object.values(s.emps).filter(Boolean).length;
+    const reach=(deptCount*8)+empCount;
+
+    return {
+      title:s.title, onTitle:(e)=>this.setState({title:e.target.value}),
+      summary:s.summary, onSummary:(e)=>this.setState({summary:e.target.value}),
+      category:s.category, onCategory:(e)=>this.setState({category:e.target.value}), categories:['בטיחות בעבודה','תפעול','אבטחת מידע','כללי','משאבי אנוש'],
+      version:s.version, onVersion:(e)=>this.setState({version:e.target.value}),
+      autosaveLabel:'נשמר · לפני רגע',
+      statusLabel:st.label, statusColor:st.color, statusTabs, status:s.status, setStatus:(k)=>this.setState({status:k}),
+      isWrite, isUpload,
+      method:s.method, methodTabs:[{id:'write',label:'כתוב נוהל'},{id:'upload',label:'העלה קובץ'}], setMethod:(k)=>this.setState({method:k}),
+      saveIcon:this.raw(this.ICONS.save), publishIcon:this.raw(this.ICONS.publish), replaceIcon:this.raw(this.ICONS.replace),
+      palette, blocks, addParagraph:()=>this.add('paragraph'),
+      noFile:!s.hasFile, hasFile:s.hasFile, fakeUpload:()=>this.setState({hasFile:true}), clearFile:()=>this.setState({hasFile:false}),
+      departments, employees,
+      ack:s.ack, toggleAck:()=>this.setState(x=>({ack:!x.ack})),
+      ackBorder:s.ack?'var(--accent)':'var(--neutral-silver)', ackBg:s.ack?'var(--hue-sky)':'var(--neutral-whisper)', ackIcBg:s.ack?'var(--accent)':'var(--neutral-silver)', ackIcFg:s.ack?'var(--white)':'var(--neutral-nickel)',
+      reach:String(reach),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

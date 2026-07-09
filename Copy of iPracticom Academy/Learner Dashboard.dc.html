@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font-family:'Ploni ML v2 AAA','Heebo',system-ui,sans-serif;background:#F2F5F8;-webkit-font-smoothing:antialiased;}
+@keyframes ipaFade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@media (max-width:900px){[data-main-grid]{grid-template-columns:1fr !important;}[data-hero]{flex-direction:column !important;align-items:flex-start !important;}[data-hero-ring]{align-self:center !important;}}
+@media (max-width:560px){[data-pad]{padding-left:16px !important;padding-right:16px !important;}[data-greet]{font-size:24px !important;}}
+</style>
+</helmet>
+<div dir="rtl" data-screen-label="דשבורד לומד" style="min-height:100vh;background:#F2F5F8;color:#181D24;display:flex;flex-direction:row;">
+
+  <dc-import name="SideNav" active="home" role="learner" hint-size="248px,100vh"></dc-import>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+
+  <dc-import name="TopBar" title="שלום, דניאל לוי" subtitle="לומד · תמיכה טכנית" notif="3" hint-size="100%,76px" style="position:sticky;top:0;z-index:20;"></dc-import>
+
+  <main data-pad style="flex:1;width:100%;max-width:1240px;margin:0 auto;padding:28px 36px 36px;display:flex;flex-direction:column;gap:22px;">
+
+    <!-- POPULATED -->
+    <sc-if value="{{ populated }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:22px;">
+
+      <!-- HERO -->
+      <section data-hero style="position:relative;overflow:hidden;border-radius:24px;padding:34px 38px;background:linear-gradient(120deg,#181D24 0%,#1d3a55 100%);display:flex;align-items:center;justify-content:space-between;gap:30px;box-shadow:0 20px 48px rgba(20,60,110,.18);">
+        <div style="position:relative;max-width:560px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;color:#7CCBFF;font-weight:600;font-size:14px;margin-bottom:14px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            ממשיכים מאיפה שעצרת
+          </div>
+          <h2 style="color:#fff;font-weight:600;font-size:30px;line-height:1.18;margin:0 0 10px;">מרכזיות ענן (PBX) — קליטת טכנאי שטח</h2>
+          <p style="color:#AEB9C6;font-size:16px;line-height:1.55;margin:0 0 24px;">נשארו <strong style="color:#fff;font-weight:600;">7 שיעורים</strong> להשלמת המסלול. השיעור הבא: הגדרת VLAN במתג מנוהל.</p>
+          <button style="display:inline-flex;align-items:center;gap:9px;background:linear-gradient(45deg,#33B1FF,#282FEF);color:#fff;font-family:inherit;font-weight:600;font-size:16px;border:0;border-radius:13px;padding:14px 26px;box-shadow:0 10px 26px rgba(0,117,219,.36);transition:all .2s cubic-bezier(.22,.61,.36,1);" style-hover="background:linear-gradient(45deg,#2877EF,#33C1FF);" style-active="transform:scale(.98);">
+            המשך ללמוד
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>
+          </button>
+        </div>
+        <div data-hero-ring style="position:relative;flex:none;width:172px;height:172px;display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 120 120" width="172" height="172" style="transform:rotate(-90deg);">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="11"></circle>
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#2EB4FF" stroke-width="11" stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="104.55"></circle>
+          </svg>
+          <div style="position:absolute;text-align:center;">
+            <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:42px;color:#fff;line-height:1;">68<span style="font-size:20px;">%</span></div>
+            <div style="color:#AEB9C6;font-size:13px;font-weight:600;margin-top:4px;">התקדמות כללית</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KPI ROW -->
+      <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:18px;">
+        <div style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:20px 22px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);">
+          <div style="width:42px;height:42px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:#E9F3FC;display:flex;align-items:center;justify-content:center;color:#0075DB;margin-bottom:14px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"></path></svg>
+          </div>
+          <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:28px;line-height:1;">1,240</div>
+          <div style="font-weight:600;font-size:14.5px;margin:9px 0 2px;">נקודות XP</div>
+          <div style="font-size:13px;color:#757D86;">רמה 4 · עוד 160 לרמה הבאה</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:20px 22px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);">
+          <div style="width:42px;height:42px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:#E9F3FC;display:flex;align-items:center;justify-content:center;color:#0075DB;margin-bottom:14px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+          </div>
+          <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:28px;line-height:1;">18<span style="color:#757D86;font-size:20px;">/25</span></div>
+          <div style="font-weight:600;font-size:14.5px;margin:9px 0 2px;">שיעורים שהושלמו</div>
+          <div style="font-size:13px;color:#757D86;">מתוך המסלול שלך</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:20px 22px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);">
+          <div style="width:42px;height:42px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:#E9F3FC;display:flex;align-items:center;justify-content:center;color:#0075DB;margin-bottom:14px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg>
+          </div>
+          <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:28px;line-height:1;">4<span style="color:#757D86;font-size:20px;">/6</span></div>
+          <div style="font-weight:600;font-size:14.5px;margin:9px 0 2px;">מבחנים שעברת</div>
+          <div style="font-size:13px;color:#757D86;">ציון ממוצע 87</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:20px 22px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);">
+          <div style="width:42px;height:42px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:#E9F3FC;display:flex;align-items:center;justify-content:center;color:#0075DB;margin-bottom:14px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+          </div>
+          <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:28px;line-height:1;">2</div>
+          <div style="font-weight:600;font-size:14.5px;margin:9px 0 2px;">תעודות</div>
+          <div style="font-size:13px;color:#757D86;">אחרונה: יסודות רשתות</div>
+        </div>
+        <div style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:20px 22px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);">
+          <div style="width:42px;height:42px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:#E9F3FC;display:flex;align-items:center;justify-content:center;color:#0075DB;margin-bottom:14px;">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+          </div>
+          <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:28px;line-height:1;">14.5<span style="color:#757D86;font-size:18px;"> שע׳</span></div>
+          <div style="font-weight:600;font-size:14.5px;margin:9px 0 2px;">זמן למידה</div>
+          <div style="font-size:13px;color:#757D86;">870 דקות סה״כ</div>
+        </div>
+      </section>
+
+      <!-- MAIN GRID -->
+      <section data-main-grid style="display:grid;grid-template-columns:1.55fr 1fr;gap:22px;align-items:start;">
+
+        <!-- LEFT COLUMN -->
+        <div style="display:flex;flex-direction:column;gap:22px;">
+
+          <!-- WEEKLY ACTIVITY -->
+          <div style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:24px 26px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+              <h3 style="font-weight:600;font-size:19px;margin:0;">הפעילות השבועית</h3>
+              <span style="display:inline-flex;align-items:center;gap:6px;color:#757D86;font-size:13px;font-weight:600;">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+                7 הימים האחרונים
+              </span>
+            </div>
+            <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:center;">
+              <div style="position:relative;flex:none;width:128px;height:128px;display:flex;align-items:center;justify-content:center;">
+                <svg viewBox="0 0 100 100" width="128" height="128" style="transform:rotate(-90deg);">
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#E9F3FC" stroke-width="10"></circle>
+                  <circle cx="50" cy="50" r="40" fill="none" stroke="#0075DB" stroke-width="10" stroke-linecap="round" stroke-dasharray="251.33" stroke-dashoffset="32.67"></circle>
+                </svg>
+                <div style="position:absolute;text-align:center;">
+                  <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:30px;color:#181D24;line-height:1;">87</div>
+                  <div style="color:#757D86;font-size:12px;font-weight:600;">ציון ממוצע</div>
+                </div>
+              </div>
+              <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:13px;background:#F4F8FC;border-radius:14px;padding:14px 16px;">
+                  <div style="width:38px;height:38px;border-radius:11px;background:#E9F3FC;display:flex;align-items:center;justify-content:center;color:#0075DB;flex:none;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+                  </div>
+                  <div style="flex:1;"><div style="font-weight:600;font-size:15px;">5 שיעורים השבוע</div><div style="font-size:12.5px;color:#757D86;">+2 לעומת השבוע שעבר</div></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:13px;background:#F4F8FC;border-radius:14px;padding:14px 16px;">
+                  <div style="width:38px;height:38px;border-radius:11px;background:#E9F3FC;display:flex;align-items:center;justify-content:center;color:#0075DB;flex:none;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                  </div>
+                  <div style="flex:1;"><div style="font-weight:600;font-size:15px;">95 דקות למידה</div><div style="font-size:12.5px;color:#757D86;">כ-1.6 שעות השבוע</div></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:20px;padding-top:18px;border-top:1px solid #E1E6EC;height:74px;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;"><div style="width:100%;max-width:26px;height:18px;border-radius:7px;background:#E9F3FC;"></div><span style="font-size:11px;color:#757D86;">א</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;"><div style="width:100%;max-width:26px;height:34px;border-radius:7px;background:#9FD4F7;"></div><span style="font-size:11px;color:#757D86;">ב</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;"><div style="width:100%;max-width:26px;height:12px;border-radius:7px;background:#E9F3FC;"></div><span style="font-size:11px;color:#757D86;">ג</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;"><div style="width:100%;max-width:26px;height:40px;border-radius:7px;background:#2EB4FF;"></div><span style="font-size:11px;color:#757D86;">ד</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;"><div style="width:100%;max-width:26px;height:28px;border-radius:7px;background:#9FD4F7;"></div><span style="font-size:11px;color:#757D86;">ה</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;"><div style="width:100%;max-width:26px;height:46px;border-radius:7px;background:#0075DB;"></div><span style="font-size:11px;color:#181D24;font-weight:600;">ו</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;flex:1;"><div style="width:100%;max-width:26px;height:8px;border-radius:7px;background:#E9F3FC;"></div><span style="font-size:11px;color:#757D86;">ש</span></div>
+            </div>
+          </div>
+
+          <!-- LEADERBOARD -->
+          <sc-if value="{{ showLeaderboard }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:24px 26px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <h3 style="display:flex;align-items:center;gap:9px;font-weight:600;font-size:19px;margin:0;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#E5A100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                טבלת מובילים
+              </h3>
+              <span style="color:#757D86;font-size:13px;font-weight:600;">החודש</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;align-items:center;gap:14px;padding:11px 8px;border-radius:12px;">
+                <div style="width:26px;font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:16px;color:#E5A100;text-align:center;flex:none;">1</div>
+                <div style="width:38px;height:38px;border-radius:50%;background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;flex:none;">ר</div>
+                <div style="flex:1;font-weight:600;font-size:15px;">רוני כהן</div>
+                <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:15px;color:#3D4753;">2,310 XP</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:11px 8px;border-radius:12px;">
+                <div style="width:26px;font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:16px;color:#757D86;text-align:center;flex:none;">2</div>
+                <div style="width:38px;height:38px;border-radius:50%;background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;flex:none;">מ</div>
+                <div style="flex:1;font-weight:600;font-size:15px;">מאיה אבני</div>
+                <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:15px;color:#3D4753;">1,980 XP</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:11px 8px;border-radius:12px;">
+                <div style="width:26px;font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:16px;color:#757D86;text-align:center;flex:none;">3</div>
+                <div style="width:38px;height:38px;border-radius:50%;background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;flex:none;">א</div>
+                <div style="flex:1;font-weight:600;font-size:15px;">איתי ברק</div>
+                <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:15px;color:#3D4753;">1,560 XP</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:11px 10px;border-radius:12px;background:linear-gradient(45deg,rgba(51,177,255,.12),rgba(40,47,239,.14));border:1px solid rgba(0,117,219,.22);">
+                <div style="width:26px;font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:16px;color:#0075DB;text-align:center;flex:none;">4</div>
+                <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(45deg,#33B1FF,#282FEF);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;flex:none;">ד</div>
+                <div style="flex:1;display:flex;align-items:center;gap:8px;"><span style="font-weight:600;font-size:15px;">דניאל לוי</span><span style="background:#0075DB;color:#fff;font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;">אתה</span></div>
+                <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:15px;color:#0075DB;">1,240 XP</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:11px 8px;border-radius:12px;">
+                <div style="width:26px;font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:16px;color:#757D86;text-align:center;flex:none;">5</div>
+                <div style="width:38px;height:38px;border-radius:50%;background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;flex:none;">נ</div>
+                <div style="flex:1;font-weight:600;font-size:15px;">נועה שגב</div>
+                <div style="font-family:'Ploni ML v2 AAA',sans-serif;font-weight:600;font-size:15px;color:#3D4753;">1,090 XP</div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+        </div>
+
+        <!-- RIGHT COLUMN: ACTIVITY FEED -->
+        <div style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:24px 26px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);align-self:stretch;">
+          <h3 style="font-weight:600;font-size:19px;margin:0 0 20px;">פעילות אחרונה</h3>
+          <div style="display:flex;flex-direction:column;">
+            <div style="display:flex;gap:14px;padding-bottom:20px;position:relative;">
+              <div style="position:absolute;top:38px;right:18px;bottom:-2px;width:2px;background:#E1E6EC;"></div>
+              <div style="width:38px;height:38px;border-radius:50%;background:#E6F6EF;color:#00857C;display:flex;align-items:center;justify-content:center;flex:none;z-index:1;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
+              </div>
+              <div style="flex:1;padding-top:2px;"><div style="font-weight:600;font-size:14.5px;line-height:1.4;">השלמת את השיעור: הגדרת Firewall בסיסי</div><div style="font-size:12.5px;color:#757D86;margin-top:3px;">לפני שעתיים</div></div>
+            </div>
+            <div style="display:flex;gap:14px;padding-bottom:20px;position:relative;">
+              <div style="position:absolute;top:38px;right:18px;bottom:-2px;width:2px;background:#E1E6EC;"></div>
+              <div style="width:38px;height:38px;border-radius:50%;background:#FCF3DA;color:#E5A100;display:flex;align-items:center;justify-content:center;flex:none;z-index:1;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+              </div>
+              <div style="flex:1;padding-top:2px;"><div style="font-weight:600;font-size:14.5px;line-height:1.4;">קיבלת תעודה: יסודות רשתות</div><div style="font-size:12.5px;color:#757D86;margin-top:3px;">אתמול · 14:20</div></div>
+            </div>
+            <div style="display:flex;gap:14px;padding-bottom:20px;position:relative;">
+              <div style="position:absolute;top:38px;right:18px;bottom:-2px;width:2px;background:#E1E6EC;"></div>
+              <div style="width:38px;height:38px;border-radius:50%;background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;flex:none;z-index:1;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg>
+              </div>
+              <div style="flex:1;padding-top:2px;"><div style="font-weight:600;font-size:14.5px;line-height:1.4;">עברת את המבחן: מצלמות אבטחה IP <span style="color:#00857C;font-weight:600;">· ציון 92</span></div><div style="font-size:12.5px;color:#757D86;margin-top:3px;">לפני 3 ימים</div></div>
+            </div>
+            <div style="display:flex;gap:14px;padding-bottom:20px;position:relative;">
+              <div style="position:absolute;top:38px;right:18px;bottom:-2px;width:2px;background:#E1E6EC;"></div>
+              <div style="width:38px;height:38px;border-radius:50%;background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;flex:none;z-index:1;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </div>
+              <div style="flex:1;padding-top:2px;"><div style="font-weight:600;font-size:14.5px;line-height:1.4;">התחלת מודול חדש: מערכות סאונד</div><div style="font-size:12.5px;color:#757D86;margin-top:3px;">לפני 4 ימים</div></div>
+            </div>
+            <div style="display:flex;gap:14px;position:relative;">
+              <div style="width:38px;height:38px;border-radius:50%;background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;flex:none;z-index:1;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"></path></svg>
+              </div>
+              <div style="flex:1;padding-top:2px;"><div style="font-weight:600;font-size:14.5px;line-height:1.4;">צברת 250 XP השבוע</div><div style="font-size:12.5px;color:#757D86;margin-top:3px;">לפני 5 ימים</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+    <!-- EMPTY STATE -->
+    <sc-if value="{{ empty }}">
+    <div style="display:flex;flex-direction:column;gap:22px;">
+      <section style="position:relative;overflow:hidden;background:#fff;border:1px solid #E1E6EC;border-radius:24px;padding:44px 48px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:300px;max-width:560px;">
+          <div style="display:inline-flex;align-items:center;gap:8px;color:#0075DB;font-weight:600;font-size:14px;margin-bottom:14px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+            ברוך הבא ל-iPracticom Academy
+          </div>
+          <h2 style="font-weight:600;font-size:30px;line-height:1.18;margin:0 0 12px;">עוד לא שובצת למסלול למידה</h2>
+          <p style="color:#3D4753;font-size:16px;line-height:1.6;margin:0 0 26px;">המנהל שלך יקצה לך מסלול קליטה בקרוב. בינתיים אפשר לבחור מסלול פתוח או לעיין בספריית הידע — וכבר להתחיל לצבור XP.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button style="display:inline-flex;align-items:center;gap:9px;background:linear-gradient(45deg,#33B1FF,#282FEF);color:#fff;font-family:inherit;font-weight:600;font-size:15px;border:0;border-radius:13px;padding:13px 24px;box-shadow:0 10px 26px rgba(0,117,219,.30);transition:all .2s cubic-bezier(.22,.61,.36,1);" style-hover="background:linear-gradient(45deg,#2877EF,#33C1FF);" style-active="transform:scale(.98);">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+              בחירת מסלול
+            </button>
+            <button style="display:inline-flex;align-items:center;gap:9px;background:#E9F3FC;color:#0075DB;font-family:inherit;font-weight:600;font-size:15px;border:0;border-radius:13px;padding:13px 24px;transition:all .2s cubic-bezier(.22,.61,.36,1);" style-hover="background:#DCEBFB;">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+              לספריית הידע
+            </button>
+          </div>
+        </div>
+        <img src="assets/illus-support.png" alt="" style="width:240px;max-width:38vw;flex:none;"/>
+      </section>
+
+      <section style="background:#fff;border:1px solid #E1E6EC;border-radius:16px;padding:24px 26px;box-shadow:0px 11px 30px 0px rgba(4,13,55,0.05);">
+        <h3 style="font-weight:600;font-size:18px;margin:0 0 18px;">שלושה צעדים להתחלה</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+          <div style="display:flex;align-items:center;gap:13px;background:#F4F8FC;border-radius:14px;padding:16px 18px;">
+            <div style="width:40px;height:40px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+            <div><div style="font-weight:600;font-size:14.5px;">השלמת פרופיל</div><div style="font-size:12.5px;color:#757D86;">פרטים ומחלקה</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:13px;background:#F4F8FC;border-radius:14px;padding:16px 18px;">
+            <div style="width:40px;height:40px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg></div>
+            <div><div style="font-weight:600;font-size:14.5px;">צפייה בסרטון פתיחה</div><div style="font-size:12.5px;color:#757D86;">3 דקות</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:13px;background:#F4F8FC;border-radius:14px;padding:16px 18px;">
+            <div style="width:40px;height:40px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:#E9F3FC;color:#0075DB;display:flex;align-items:center;justify-content:center;flex:none;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg></div>
+            <div><div style="font-weight:600;font-size:14.5px;">בחירת מסלול</div><div style="font-size:12.5px;color:#757D86;">לפי תחום העניין</div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+
+  </main>
+
+  <footer style="border-top:1px solid #E1E6EC;background:#fff;">
+    <div data-pad style="max-width:1240px;margin:0 auto;padding:18px 36px;text-align:center;color:#757D86;font-size:13px;">© iPracticom Academy — לשימוש פנימי בלבד</div>
+  </footer>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:1520},&quot;mode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;populated&quot;,&quot;empty&quot;],&quot;default&quot;:&quot;populated&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;מצב המסך&quot;},&quot;showLeaderboard&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;מצב המסך&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const mode = this.props.mode ?? 'populated';
+    return {
+      populated: mode !== 'empty',
+      empty: mode === 'empty',
+      showLeaderboard: this.props.showLeaderboard ?? true,
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+input,textarea,select,button{font-family:inherit;}
+@keyframes cnFade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@keyframes cnCard{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+.cn-card{transition:transform .2s cubic-bezier(.22,.61,.36,1),box-shadow .2s;}
+.cn-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-menu) !important;}
+.cn-card:hover .cn-thumb-ic{transform:scale(1.07);}
+.cn-thumb-ic{transition:transform .3s cubic-bezier(.22,.61,.36,1);}
+.cn-scroll{scrollbar-width:thin;scrollbar-color:var(--neutral-silver) transparent;}
+.cn-scroll::-webkit-scrollbar{width:8px;height:8px;}
+.cn-scroll::-webkit-scrollbar-thumb{background:var(--neutral-silver);border-radius:8px;}
+.cn-chips{scrollbar-width:none;}.cn-chips::-webkit-scrollbar{display:none;}
+.cn-rel:hover{background:var(--hue-sky) !important;border-color:var(--accent) !important;}
+.cn-link:hover{background:var(--neutral-whisper) !important;}
+.cn-link:hover .cn-link-arrow{transform:translateX(-4px);opacity:1 !important;}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0075DB"/><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 26h34a4 4 0 0 1 4 4v44a4 4 0 0 1-4 4H36a4 4 0 0 1-4-4V26z"/><path d="M40 38h16M40 50h18M40 62h12"/></g></svg></template>
+<div dir="rtl" data-screen-label="מונחים" style="min-height:100vh;background:var(--surface-app);color:var(--neutral-charcoal);display:flex;flex-direction:row;font-family:var(--font-sans);">
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <dc-import name="SideNav" active="glossary" role="admin" hint-size="248px,100vh"></dc-import>
+  </sc-if>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;min-height:100vh;">
+
+    <!-- ===== HEADER ===== -->
+    <dc-import name="TopBar" title="מונחים" subtitle="{{ termsSubtitle }}" hint-size="100%,76px" style="position:sticky;top:0;z-index:30;">
+      <a href="Term Editor.dc.html" style="text-decoration:none;"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" leadingIcon="{{ plusIcon }}" hint-size="auto,40px">מונח חדש</x-import></a>
+    </dc-import>
+    <header style="flex:none;background:var(--surface-card);border-bottom:1px solid var(--neutral-silver);z-index:29;">
+      <!-- ===== TOOLBAR ===== -->
+      <div style="padding:0 24px 16px;display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:220px;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" value="{{ search }}" onInput="{{ onSearch }}" placeholder="חיפוש מונח, תיאור או תגית…" leadingIcon="{{ searchIcon }}" hint-size="100%,40px"></x-import>
+          </div>
+          <div style="flex:none;display:inline-flex;align-items:center;border:1px solid var(--neutral-silver);border-radius:8px;overflow:hidden;background:var(--white);">
+            <sc-for list="{{ sortOptions }}" as="o" hint-placeholder-count="3">
+            <button onClick="{{ o.onPick }}" style="display:inline-flex;align-items:center;gap:6px;border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:13px;padding:8px 16px;background:{{ o.bg }};color:{{ o.fg }};transition:all .15s;">{{ o.icon }}{{ o.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div class="cn-chips" style="display:flex;align-items:center;gap:8px;overflow-x:auto;padding-bottom:4px;">
+          <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="9">
+          <button onClick="{{ c.onPick }}" style="flex:none;display:inline-flex;align-items:center;gap:8px;border:1px solid {{ c.border }};cursor:pointer;font-family:inherit;font-weight:600;font-size:13px;border-radius:var(--radius-full);padding:6px 12px;background:{{ c.bg }};color:{{ c.fg }};transition:all .15s;">
+            <sc-if value="{{ c.showDot }}"><span style="width:8px;height:8px;border-radius:50%;background:{{ c.dot }};"></span></sc-if>
+            {{ c.label }}
+            <sc-if value="{{ c.hasCount }}"><span style="font-size:11.5px;font-weight:600;color:{{ c.countFg }};">{{ c.count }}</span></sc-if>
+          </button>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);">רמה</span>
+            <div style="display:inline-flex;align-items:center;gap:4px;">
+              <sc-for list="{{ diffChips }}" as="d" hint-placeholder-count="4">
+              <button onClick="{{ d.onPick }}" style="display:inline-flex;align-items:center;gap:5px;border:1px solid {{ d.border }};cursor:pointer;font-family:inherit;font-weight:600;font-size:12.5px;border-radius:var(--radius-full);padding:4px 12px;background:{{ d.bg }};color:{{ d.fg }};transition:all .15s;">{{ d.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <span style="width:1px;height:20px;background:var(--neutral-silver);"></span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);">סטטוס</span>
+            <div style="display:inline-flex;align-items:center;gap:4px;">
+              <sc-for list="{{ statusChips }}" as="st" hint-placeholder-count="3">
+              <button onClick="{{ st.onPick }}" style="display:inline-flex;align-items:center;gap:5px;border:1px solid {{ st.border }};cursor:pointer;font-family:inherit;font-weight:600;font-size:12.5px;border-radius:var(--radius-full);padding:4px 12px;background:{{ st.bg }};color:{{ st.fg }};transition:all .15s;">{{ st.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ hasTag }}">
+          <span style="width:1px;height:20px;background:var(--neutral-silver);"></span>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tag" type="blue" onRemove="{{ clearTag }}" hint-size="auto,24px">תגית: {{ activeTag }}</x-import>
+          </sc-if>
+          <span style="margin-inline-start:auto;font-size:13px;font-weight:400;color:var(--neutral-lead);">{{ resultCount }} מונחים</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== GALLERY ===== -->
+    <main class="cn-scroll" style="flex:1;min-width:0;overflow-y:auto;padding:24px 24px 56px;">
+      <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:{{ gridCols }};gap:16px;max-width:1180px;">
+        <sc-for list="{{ cards }}" as="t" hint-placeholder-count="6">
+        <div class="cn-card" onClick="{{ t.onOpen }}" style="cursor:pointer;background:var(--white);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-card);display:flex;flex-direction:column;{{ t.anim }}">
+          <!-- thumbnail -->
+          <div style="position:relative;height:128px;background:{{ t.thumbBg }};display:flex;align-items:center;justify-content:center;overflow:hidden;">
+            <span style="position:absolute;inset-inline-end:-24px;top:-24px;width:96px;height:96px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:{{ t.hexBg }};"></span>
+            <span style="position:absolute;inset-inline-start:-16px;bottom:-32px;width:72px;height:72px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:{{ t.hexBg2 }};"></span>
+            <span class="cn-thumb-ic" style="position:relative;color:{{ t.catColor }};display:flex;">{{ t.bigIcon }}</span>
+            <sc-if value="{{ t.featured }}"><span style="position:absolute;inset-inline-start:12px;top:12px;display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.92);backdrop-filter:blur(4px);color:#8A6E00;font-size:11.5px;font-weight:600;border-radius:var(--radius-full);padding:4px 10px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>מומלץ</span></sc-if>
+            <span style="position:absolute;inset-inline-end:12px;top:12px;display:inline-flex;align-items:center;gap:5px;background:rgba(24,29,36,.62);backdrop-filter:blur(4px);color:#fff;font-size:11.5px;font-weight:400;border-radius:var(--radius-full);padding:4px 9px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>{{ t.views }}</span>
+          </div>
+          <!-- body -->
+          <div style="flex:1;padding:16px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ t.catBadgeColor }}" hint-size="auto,24px">{{ t.catLabel }}</x-import>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ t.diffBadgeColor }}" hint-size="auto,24px">{{ t.diffLabel }}</x-import>
+              <sc-if value="{{ t.isDraft }}"><span style="margin-inline-start:auto;"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="warning" hint-size="auto,24px">טיוטה</x-import></span></sc-if>
+            </div>
+            <div style="font-weight:600;font-size:19px;line-height:1.2;direction:ltr;text-align:right;color:var(--neutral-charcoal);">{{ t.term }}</div>
+            <p style="margin:0;font-size:13.5px;line-height:1.55;color:var(--neutral-lead);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ t.short }}</p>
+            <div style="margin-top:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:4px;">
+              <sc-for list="{{ t.tags }}" as="g" hint-placeholder-count="3">
+              <button onClick="{{ g.onPick }}" style="border:0;cursor:pointer;font-weight:400;font-size:11.5px;color:var(--neutral-lead);background:var(--neutral-whisper);border-radius:6px;padding:4px 9px;transition:all .15s;" style-hover="background:var(--hue-sky);color:var(--accent);">#{{ g.label }}</button>
+              </sc-for>
+              <sc-if value="{{ t.moreTags }}"><span style="font-size:11.5px;color:var(--neutral-nickel);font-weight:600;">+{{ t.moreCount }}</span></sc-if>
+            </div>
+          </div>
+        </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ noResults }}">
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:64px 24px;">
+        <div style="width:96px;height:96px;border-radius:var(--radius-xl);background:var(--hue-sky);display:flex;align-items:center;justify-content:center;margin-bottom:20px;"><svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div>
+        <h3 style="font-weight:600;font-size:20px;margin:0 0 8px;color:var(--neutral-charcoal);">לא נמצאו מונחים</h3>
+        <p style="font-size:15px;color:var(--neutral-lead);margin:0 0 20px;max-width:360px;line-height:1.6;">נסו לשנות את מילות החיפוש או לאפס את הסינון כדי לראות את כל המאגר.</p>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" onClick="{{ resetFilters }}" leadingIcon="{{ resetIcon }}" hint-size="auto,40px">אפס סינון</x-import>
+      </div>
+      </sc-if>
+    </main>
+  </div>
+
+  <!-- ===== DETAIL DRAWER ===== -->
+  <sc-if value="{{ drawerOpen }}">
+  <div style="position:fixed;inset:0;z-index:60;display:flex;justify-content:flex-start;">
+    <div onClick="{{ closeDrawer }}" style="position:absolute;inset:0;background:rgba(24,29,36,.4);backdrop-filter:blur(4px);"></div>
+    <aside class="cn-scroll" dir="rtl" style="position:relative;width:{{ drawerW }};max-width:100%;height:100%;background:var(--white);box-shadow:var(--shadow-menu);overflow-y:auto;">
+
+      <!-- hero banner -->
+      <div style="position:relative;height:188px;background:linear-gradient(125deg,var(--neutral-charcoal) 0%,#1d3a55 62%,var(--accent) 130%);overflow:hidden;flex:none;">
+        <span style="position:absolute;inset-inline-end:-30px;top:-40px;width:170px;height:170px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:rgba(46,180,255,.16);"></span>
+        <span style="position:absolute;inset-inline-start:32px;top:32px;width:78px;height:78px;border-radius:var(--radius-xl);background:rgba(255,255,255,.12);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;color:#fff;">{{ d.heroIcon }}</span>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="ghost" size="md" onClick="{{ closeDrawer }}" aria-label="סגור" hint-size="38px,38px" style="position:absolute;inset-inline-start:16px;top:16px;background:rgba(255,255,255,.16);color:#fff;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></x-import>
+        <div style="position:absolute;inset-inline:32px;bottom:20px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;">
+          <div style="min-width:0;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ d.catBadgeColor }}" hint-size="auto,24px">{{ d.catLabel }}</x-import>
+              <span style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:400;color:#fff;background:rgba(255,255,255,.16);border-radius:var(--radius-full);padding:4px 11px;">{{ d.diffLabel }}</span>
+            </div>
+            <h2 style="font-weight:600;font-size:34px;line-height:1.05;margin:0;color:#fff;direction:ltr;text-align:right;">{{ d.term }}</h2>
+          </div>
+          <span style="flex:none;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:400;color:#fff;background:rgba(24,29,36,.4);border-radius:var(--radius-full);padding:6px 12px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>{{ d.views }} צפיות</span>
+        </div>
+      </div>
+
+      <div style="padding:24px 32px 40px;display:flex;flex-direction:column;gap:24px;">
+
+        <!-- full description -->
+        <section>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:26px;height:26px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:inline-flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="17" y1="18" x2="3" y2="18"></line></svg></span><h3 style="font-weight:600;font-size:var(--text-body-size);margin:0;color:var(--neutral-charcoal);">הסבר מלא</h3></div>
+          <div style="font-size:15px;line-height:1.75;color:var(--neutral-charcoal);">{{ d.fullHtml }}</div>
+        </section>
+
+        <!-- examples -->
+        <sc-if value="{{ d.hasExamples }}">
+        <section>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:26px;height:26px;border-radius:8px;background:var(--hue-mint);color:var(--success);display:inline-flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path></svg></span><h3 style="font-weight:600;font-size:var(--text-body-size);margin:0;color:var(--neutral-charcoal);">דוגמאות</h3></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ d.examples }}" as="ex" hint-placeholder-count="2">
+            <div style="display:flex;align-items:flex-start;gap:12px;background:var(--neutral-whisper);border-radius:8px;padding:12px 16px;">
+              <span style="flex:none;width:24px;height:24px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;">{{ ex.num }}</span>
+              <span style="flex:1;min-width:0;font-size:14px;line-height:1.6;color:var(--neutral-charcoal);">{{ ex.text }}</span>
+            </div>
+            </sc-for>
+          </div>
+        </section>
+        </sc-if>
+
+        <!-- synonyms + related -->
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <sc-if value="{{ d.hasSynonyms }}">
+          <section style="flex:1;min-width:200px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:26px;height:26px;border-radius:8px;background:rgba(241,194,27,0.3);color:#8A6E00;display:inline-flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg></span><h3 style="font-weight:600;font-size:var(--text-body-size);margin:0;color:var(--neutral-charcoal);">מילים נרדפות</h3></div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <sc-for list="{{ d.synonyms }}" as="sy" hint-placeholder-count="2">
+              <span style="font-size:13.5px;font-weight:400;color:var(--neutral-lead);background:var(--neutral-whisper);border-radius:var(--radius-full);padding:6px 14px;">{{ sy.label }}</span>
+              </sc-for>
+            </div>
+          </section>
+          </sc-if>
+          <sc-if value="{{ d.hasRelated }}">
+          <section style="flex:1;min-width:200px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:26px;height:26px;border-radius:8px;background:rgba(188,162,141,0.3);color:var(--hue-bronze);display:inline-flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></span><h3 style="font-weight:600;font-size:var(--text-body-size);margin:0;color:var(--neutral-charcoal);">מונחים קשורים</h3></div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <sc-for list="{{ d.related }}" as="rl" hint-placeholder-count="2">
+              <button class="cn-rel" onClick="{{ rl.onPick }}" style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--neutral-charcoal);background:var(--white);border:1px solid var(--neutral-silver);border-radius:var(--radius-full);padding:6px 12px;transition:all .15s;"><span style="width:8px;height:8px;border-radius:50%;background:{{ rl.dot }};"></span>{{ rl.label }}<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--neutral-nickel)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button>
+              </sc-for>
+            </div>
+          </section>
+          </sc-if>
+        </div>
+
+        <!-- external links -->
+        <sc-if value="{{ d.hasLinks }}">
+        <section>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:26px;height:26px;border-radius:8px;background:var(--neutral-whisper);color:var(--neutral-charcoal);display:inline-flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span><h3 style="font-weight:600;font-size:var(--text-body-size);margin:0;color:var(--neutral-charcoal);">קישורים חיצוניים</h3></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <sc-for list="{{ d.links }}" as="lk" hint-placeholder-count="2">
+            <a href="{{ lk.url }}" target="_blank" style="display:flex;align-items:center;gap:12px;text-decoration:none;background:var(--white);border:1px solid var(--neutral-silver);border-radius:8px;padding:12px 16px;transition:all .15s;" style-hover="border-color:var(--neutral-palladium);background:var(--neutral-whisper);">
+              <span style="flex:none;width:32px;height:32px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></span>
+              <div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:14px;color:var(--neutral-charcoal);">{{ lk.label }}</div><div style="font-size:12px;color:var(--neutral-nickel);direction:ltr;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ lk.host }}</div></div>
+              <svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;" fill="none" stroke="var(--neutral-palladium)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+            </a>
+            </sc-for>
+          </div>
+        </section>
+        </sc-if>
+
+        <!-- ===== APPEARS IN ===== -->
+        <section style="background:var(--hue-sky);border-radius:var(--radius-xl);padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="width:34px;height:34px;border-radius:8px;background:var(--gradient-accent);color:#fff;display:inline-flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"></path><path d="m2 17 10 5 10-5"></path><path d="m2 12 10 5 10-5"></path></svg></span>
+              <div><h3 style="font-weight:600;font-size:var(--text-small-size);margin:0;color:var(--neutral-charcoal);">מופיע בתוכן</h3><p style="font-size:12.5px;color:var(--neutral-lead);margin:2px 0 0;">היכן המונח מוזכר ומקושר ברחבי האקדמיה</p></div>
+            </div>
+            <span style="flex:none;font-size:12.5px;font-weight:600;color:var(--accent);background:var(--white);border-radius:var(--radius-full);padding:4px 11px;">{{ d.appearsCount }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+            <sc-for list="{{ d.appearsIn }}" as="a" hint-placeholder-count="3">
+            <a class="cn-link" href="{{ a.href }}" style="display:flex;align-items:center;gap:12px;text-decoration:none;background:var(--white);border-radius:8px;padding:12px 16px;transition:all .15s;">
+              <span style="flex:none;width:40px;height:40px;border-radius:8px;background:{{ a.typeBg }};color:{{ a.typeColor }};display:flex;align-items:center;justify-content:center;">{{ a.typeIcon }}</span>
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ a.typeBadgeColor }}" hint-size="auto,20px">{{ a.typeLabel }}</x-import>
+                  <span style="font-weight:600;font-size:14.5px;color:var(--neutral-charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.title }}</span>
+                </div>
+                <div style="font-size:12px;color:var(--neutral-nickel);">{{ a.meta }}</div>
+              </div>
+              <span class="cn-link-arrow" style="flex:none;display:flex;color:var(--accent);opacity:.55;transition:all .15s;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></span>
+            </a>
+            </sc-for>
+          </div>
+        </section>
+
+      </div>
+    </aside>
+  </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1340,&quot;height&quot;:920},&quot;device&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;מצב המסך&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+
+    // color-name -> DS token pairs (fg / bg) shared across cat/diff/status/ctype
+    this.CV = {
+      accent:{fg:'var(--accent)', bg:'var(--hue-sky)'},
+      caution:{fg:'var(--caution)', bg:'var(--hue-salmon)'},
+      bronze:{fg:'var(--hue-bronze)', bg:'rgba(188,162,141,0.3)'},
+      cobalt:{fg:'var(--hue-cobalt)', bg:'var(--hue-sky)'},
+      success:{fg:'var(--success)', bg:'var(--hue-mint)'},
+      warning:{fg:'#8A6E00', bg:'rgba(241,194,27,0.3)'},
+      neutral:{fg:'var(--neutral-lead)', bg:'var(--neutral-silver)'},
+      indigo:{fg:'var(--hue-cobalt)', bg:'rgba(201,237,255,0.5)'},
+    };
+
+    this.CAT = {
+      networks:  { label:'רשתות', color:'accent',
+        icon:'<svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg>' },
+      security:  { label:'אבטחה', color:'caution',
+        icon:'<svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>' },
+      hardware:  { label:'חומרה', color:'bronze',
+        icon:'<svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M15 2v2M9 2v2M15 20v2M9 20v2M20 15h2M20 9h2M2 15h2M2 9h2"></path></svg>' },
+      software:  { label:'תוכנה', color:'cobalt',
+        icon:'<svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M10 4v4"></path><path d="M2 8h20"></path><path d="M6 4v0"></path></svg>' },
+      protocols: { label:'פרוטוקולים', color:'success',
+        icon:'<svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 4-4 4"></path><path d="M4 7h16"></path><path d="m16 21-4-4 4-4"></path><path d="M20 17H4"></path></svg>' },
+      services:  { label:'שירותים', color:'warning',
+        icon:'<svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="8" rx="2"></rect><rect x="2" y="13" width="20" height="8" rx="2"></rect><path d="M6 7h.01M6 17h.01"></path></svg>' },
+      general:   { label:'כללי', color:'neutral',
+        icon:'<svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>' },
+      org:       { label:'ארגוני', color:'indigo',
+        icon:'<svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path><path d="M10 6h4M10 10h4M10 14h4"></path><path d="M6 22h12"></path></svg>' },
+    };
+
+    this.DIFF = {
+      beginner:     { label:'מתחילים', color:'success', dots:1 },
+      intermediate: { label:'בינוני',  color:'warning', dots:2 },
+      advanced:     { label:'מתקדם',   color:'caution', dots:3 },
+    };
+
+    this.CTYPE = {
+      lesson:    { label:'שיעור',      color:'accent', href:'ContentManager.dc.html',
+        icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>' },
+      script:    { label:'תסריט שיחה', color:'cobalt', href:'FlowPlayer Desktop.dc.html',
+        icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 9h8M8 13h5"></path></svg>' },
+      procedure: { label:'נוהל',       color:'success', href:'Troubleshooting.dc.html',
+        icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="m9 14 2 2 4-4"></path></svg>' },
+    };
+
+    this.eyeSm = '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+    this.ICONS = {
+      plus:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>',
+      search:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>',
+      reset:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 21v-5h5"></path></svg>',
+    };
+
+    this.TERMS = [
+      { id:'vlan', term:'VLAN', cat:'networks', diff:'intermediate', views:1284, featured:true, status:'published',
+        short:'רשת מקומית וירטואלית — חלוקה לוגית של רשת פיזית אחת למספר רשתות מבודדות זו מזו.',
+        synonyms:['רשת וירטואלית','Virtual LAN'],
+        tags:['802.1Q','Trunk','מתג מנוהל','בידוד רשת'],
+        related:['dhcp','poe','mikrotik'],
+        full:'<p><strong>VLAN (Virtual LAN)</strong> הוא מנגנון שמאפשר לחלק מתג רשת פיזי אחד לכמה רשתות לוגיות נפרדות. מכשירים באותו VLAN רואים זה את זה כאילו הם על רשת פרטית, גם אם הם מחוברים לאותו מתג עם מכשירים מ-VLAN אחר.</p><p>ההפרדה נשמרת באמצעות תיוג מנות (tagging) לפי תקן <strong>802.1Q</strong>: לכל מנה שעוברת בין מתגים מתווסף מזהה VLAN, וכך המתג בצד השני יודע לאיזו רשת לוגית היא שייכת.</p><p>בשטח משתמשים ב-VLAN כדי להפריד, למשל, בין רשת המצלמות, רשת המשרד ורשת האורחים — מה ששומר על אבטחה וסדר גם על תשתית פיזית משותפת.</p>',
+        examples:[
+          'בעסק עם מצלמות אבטחה ועמדות עבודה — מגדירים VLAN 10 למצלמות ו-VLAN 20 לעובדים, כך שתעבורת הווידאו לא מעמיסה על רשת המשרד.',
+          'רשת אורחים (VLAN 99) מבודדת לחלוטין מהרשת הפנימית, גם אם שני המכשירים מחוברים לאותו מתג.',
+        ],
+        links:[
+          { label:'תקן 802.1Q — IEEE', url:'https://standards.ieee.org' },
+          { label:'הגדרת VLAN ב-MikroTik', url:'https://help.mikrotik.com' },
+        ],
+        appearsIn:[
+          { type:'lesson',    title:'מבוא ל-VLAN',          meta:'מסלול · יסודות רשתות ותקשורת' },
+          { type:'script',    title:'תקלת רשת אצל לקוח',     meta:'מוקד תמיכה · אבחון מרחוק' },
+          { type:'procedure', title:'הגדרת רשת לקוח חדש',    meta:'נוהל התקנה בשטח' },
+        ] },
+
+      { id:'poe', term:'PoE', cat:'hardware', diff:'beginner', views:932, featured:false, status:'published',
+        short:'הזנת חשמל דרך כבל הרשת — מאפשרת להפעיל מצלמות ונקודות גישה בלי שקע חשמל נפרד.',
+        synonyms:['Power over Ethernet','הזנה דרך כבל רשת'],
+        tags:['802.3af','802.3at','מתג PoE','מצלמות IP'],
+        related:['vlan','nvr'],
+        full:'<p><strong>PoE (Power over Ethernet)</strong> מעביר חשמל ונתונים יחד על אותו כבל רשת. כך אפשר להתקין מצלמת IP, טלפון או נקודת גישה במקום שאין בו שקע חשמל — מספיק כבל רשת אחד מהמתג.</p><p>קיימים תקנים שונים לפי הספק: <strong>802.3af</strong> (עד 15.4W), <strong>802.3at / PoE+</strong> (עד 30W) ו-PoE++ להספקים גבוהים יותר.</p>',
+        examples:[
+          'מתקינים מצלמת תקרה במסדרון ללא תשתית חשמל — מושכים כבל רשת בודד ממתג PoE והמצלמה עולה.',
+        ],
+        links:[ { label:'תקני PoE — הסבר', url:'https://www.ieee802.org' } ],
+        appearsIn:[
+          { type:'lesson',    title:'הזנת חשמל למצלמות',     meta:'מסלול · התקנות בשטח' },
+          { type:'procedure', title:'בדיקת תקציב הספק במתג',  meta:'נוהל התקנת מצלמות' },
+        ] },
+
+      { id:'dhcp', term:'DHCP', cat:'protocols', diff:'beginner', views:1567, featured:true, status:'published',
+        short:'פרוטוקול שמחלק כתובות IP אוטומטית למכשירים שמתחברים לרשת, בלי הגדרה ידנית.',
+        synonyms:['הקצאת IP אוטומטית'],
+        tags:['IP','Lease','שרת DHCP','Gateway'],
+        related:['vlan','mikrotik'],
+        full:'<p><strong>DHCP (Dynamic Host Configuration Protocol)</strong> מקצה אוטומטית כתובת IP, מסכת רשת, שער ברירת מחדל וכתובות DNS לכל מכשיר שמתחבר לרשת. כך אין צורך להגדיר כל מכשיר ידנית.</p><p>הכתובת ניתנת לזמן מוגבל (<strong>Lease</strong>) ומתחדשת אוטומטית כל עוד המכשיר מחובר.</p>',
+        examples:[
+          'לקוח מחבר מחשב נייד חדש לרשת המשרד — תוך שניות הוא מקבל כתובת IP ויוצא לאינטרנט, בלי שאף אחד הגדיר לו דבר.',
+        ],
+        links:[ { label:'RFC 2131 — DHCP', url:'https://www.rfc-editor.org' } ],
+        appearsIn:[
+          { type:'lesson',    title:'DHCP ו-DNS',            meta:'מסלול · יסודות רשתות ותקשורת' },
+          { type:'script',    title:'אין חיבור לאינטרנט',     meta:'מוקד תמיכה · אבחון מרחוק' },
+        ] },
+
+      { id:'nvr', term:'NVR', cat:'security', diff:'intermediate', views:744, featured:false, status:'published',
+        short:'מקליט רשת למצלמות IP — מרכז את הצפייה, ההקלטה והאחסון של כל המצלמות במערכת.',
+        synonyms:['Network Video Recorder','מקליט רשת'],
+        tags:['מצלמות IP','RTSP','אחסון','ONVIF'],
+        related:['poe','vlan'],
+        full:'<p><strong>NVR (Network Video Recorder)</strong> הוא היחידה שמרכזת מצלמות IP ברשת: היא מקליטה את הזרמים, מאחסנת אותם על דיסקים ומאפשרת צפייה חיה והיסטורית מממשק אחד.</p><p>בניגוד ל-DVR שמחובר למצלמות אנלוגיות בכבל ייעודי, ה-NVR מקבל את הווידאו דרך הרשת (לרוב בפרוטוקול <strong>RTSP / ONVIF</strong>).</p>',
+        examples:[
+          'בית עסק עם 8 מצלמות IP — כולן מזרימות וידאו ל-NVR אחד, שמאפשר לבעלים לצפות מהנייד וגם לשמור 30 יום אחורה.',
+        ],
+        links:[ { label:'תקן ONVIF', url:'https://www.onvif.org' } ],
+        appearsIn:[
+          { type:'lesson',    title:'מבוא למערכות מצלמות',   meta:'מסלול · אבטחה ומיגון' },
+          { type:'procedure', title:'התקנת NVR אצל לקוח',     meta:'נוהל התקנה בשטח' },
+        ] },
+
+      { id:'mikrotik', term:'MikroTik Firewall', cat:'security', diff:'advanced', views:611, featured:false, status:'draft',
+        short:'חומת האש בנתבי MikroTik — קובעת אילו חיבורים מותרים, חסומים או מנותבים ברשת.',
+        synonyms:['חומת אש MikroTik','RouterOS Firewall'],
+        tags:['RouterOS','Filter Rules','NAT','Chains'],
+        related:['vlan','dhcp'],
+        full:'<p><strong>חומת האש של MikroTik</strong> (במערכת RouterOS) מבוססת על שרשראות חוקים (<strong>chains</strong>) שמסננות תעבורה לפי כתובת, פורט, פרוטוקול ומצב חיבור. כל מנה עוברת דרך החוקים בסדר, והחוק הראשון שמתאים קובע את גורלה.</p><p>בנוסף לסינון, המנגנון מטפל ב-<strong>NAT</strong> (תרגום כתובות) ומאפשר ניתוב פורטים ושירותים החוצה בצורה מבוקרת.</p>',
+        examples:[
+          'חוסמים גישה מבחוץ לממשק הניהול של הנתב, ומאפשרים אותו רק מרשת הניהול הפנימית (VLAN 90).',
+        ],
+        links:[ { label:'תיעוד Firewall — MikroTik', url:'https://help.mikrotik.com' } ],
+        appearsIn:[
+          { type:'lesson',    title:'הגדרת חומת אש בסיסית',   meta:'מסלול · אבטחת רשת מתקדמת' },
+          { type:'script',    title:'לקוח חסום מהאינטרנט',    meta:'מוקד תמיכה · אבחון מרחוק' },
+          { type:'procedure', title:'הקשחת נתב לקוח',          meta:'נוהל אבטחה' },
+        ] },
+    ];
+
+    this.state = {
+      search:'', cat:'all', diff:'all', status:'all', tag:null,
+      sort:'az',
+      selectedId:'vlan', drawerOpen:true,
+    };
+  }
+
+  raw(s){ return React.createElement('span',{dangerouslySetInnerHTML:{__html:s},style:{display:'flex'}}); }
+  rawHtml(s){ return React.createElement('div',{dangerouslySetInnerHTML:{__html:s}}); }
+  dots(n,light){ const on=light?'#fff':'currentColor'; const off=light?'rgba(255,255,255,.35)':'rgba(0,0,0,.16)';
+    let h='<span style="display:inline-flex;gap:2px;align-items:center;">';
+    for(let i=1;i<=3;i++){ h+='<span style="width:4px;height:4px;border-radius:50%;background:'+(i<=n?on:off)+';"></span>'; }
+    h+='</span>'; return this.raw(h); }
+
+  open(id){ this.setState({selectedId:id, drawerOpen:true}); }
+  pickTag(t){ this.setState({tag:t}); }
+
+  renderVals(){
+    const s=this.state;
+    const isMobile=(this.props.device||'desktop')==='mobile';
+    const isDesktop=!isMobile;
+    const q=(s.search||'').trim().toLowerCase();
+    const CV=this.CV;
+
+    let list=this.TERMS.filter(t=>{
+      if(s.cat!=='all' && t.cat!==s.cat) return false;
+      if(s.diff!=='all' && t.diff!==s.diff) return false;
+      if(s.status!=='all' && t.status!==s.status) return false;
+      if(s.tag){ const pool=[...(t.tags||[]),...(t.synonyms||[])].map(x=>x.toLowerCase()); if(!pool.includes(s.tag.toLowerCase())) return false; }
+      if(q){ const hay=(t.term+' '+t.short+' '+(t.tags||[]).join(' ')+' '+(t.synonyms||[]).join(' ')).toLowerCase(); if(!hay.includes(q)) return false; }
+      return true;
+    });
+    if(s.sort==='az') list=list.slice().sort((a,b)=>a.term.localeCompare(b.term));
+    else if(s.sort==='views') list=list.slice().sort((a,b)=>b.views-a.views);
+    else if(s.sort==='featured') list=list.slice().sort((a,b)=>(b.featured?1:0)-(a.featured?1:0)||b.views-a.views);
+
+    const fmt=(n)=> n>=1000 ? (n/1000).toFixed(1).replace(/\.0$/,'')+'K' : String(n);
+
+    const cards=list.map((t,i)=>{
+      const c=this.CAT[t.cat], df=this.DIFF[t.diff]; const cc=CV[c.color], dc=CV[df.color];
+      const tagDefs=(t.tags||[]).slice(0,3).map(g=>({ label:g, onPick:(e)=>{ if(e) e.stopPropagation(); this.pickTag(g); } }));
+      return {
+        term:t.term, short:t.short, views:fmt(t.views), featured:t.featured, isDraft:t.status==='draft',
+        catLabel:c.label, catColor:cc.fg, catBadgeColor:c.color,
+        thumbBg:'linear-gradient(135deg,'+cc.bg+' 0%,#ffffff 92%)',
+        hexBg:cc.bg, hexBg2:cc.bg,
+        bigIcon:this.raw(c.icon),
+        diffLabel:df.label, diffBadgeColor:df.color,
+        tags:tagDefs, moreTags:(t.tags||[]).length>3, moreCount:(t.tags||[]).length-3,
+        anim:'animation-delay:'+(i*42)+'ms;',
+        onOpen:()=>this.open(t.id),
+      };
+    });
+
+    const baseForCount=this.TERMS.filter(t=>{
+      if(s.diff!=='all' && t.diff!==s.diff) return false;
+      if(s.status!=='all' && t.status!==s.status) return false;
+      if(s.tag){ const pool=[...(t.tags||[]),...(t.synonyms||[])].map(x=>x.toLowerCase()); if(!pool.includes(s.tag.toLowerCase())) return false; }
+      if(q){ const hay=(t.term+' '+t.short+' '+(t.tags||[]).join(' ')+' '+(t.synonyms||[]).join(' ')).toLowerCase(); if(!hay.includes(q)) return false; }
+      return true;
+    });
+    const catChips=[];
+    const allOn=s.cat==='all';
+    catChips.push({ key:'all', label:'הכל', showDot:false, hasCount:true, count:String(baseForCount.length),
+      onPick:()=>this.setState({cat:'all'}),
+      bg:allOn?'var(--neutral-charcoal)':'var(--white)', fg:allOn?'#fff':'var(--neutral-charcoal)', border:allOn?'var(--neutral-charcoal)':'var(--neutral-silver)',
+      countFg:allOn?'rgba(255,255,255,.7)':'var(--neutral-nickel)' });
+    Object.keys(this.CAT).forEach(k=>{
+      const c=this.CAT[k]; const cc=CV[c.color]; const on=s.cat===k; const n=baseForCount.filter(t=>t.cat===k).length;
+      catChips.push({ key:k, label:c.label, showDot:true, dot:cc.fg, hasCount:n>0, count:String(n),
+        onPick:()=>this.setState({cat:on?'all':k}),
+        bg:on?cc.bg:'var(--white)', fg:on?cc.fg:'var(--neutral-charcoal)', border:on?cc.fg:'var(--neutral-silver)',
+        countFg:on?cc.fg:'var(--neutral-nickel)' });
+    });
+
+    const diffChips=[{k:'all',label:'הכל'},{k:'beginner',label:'מתחילים'},{k:'intermediate',label:'בינוני'},{k:'advanced',label:'מתקדם'}].map(o=>{
+      const on=s.diff===o.k; const cc=o.k!=='all'?CV[this.DIFF[o.k].color]:{fg:'#fff',bg:'var(--neutral-charcoal)'};
+      return { label:o.label, onPick:()=>this.setState({diff:on?'all':o.k}),
+        bg:on?cc.bg:'var(--white)', fg:on?cc.fg:'var(--neutral-lead)', border:on?cc.fg:'var(--neutral-silver)' };
+    });
+
+    const statusChips=[{k:'all',label:'הכל'},{k:'published',label:'פורסם'},{k:'draft',label:'טיוטה'}].map(o=>{
+      const on=s.status===o.k;
+      const cc=o.k==='published'?CV.success:o.k==='draft'?CV.warning:{fg:'#fff',bg:'var(--neutral-charcoal)'};
+      return { label:o.label, onPick:()=>this.setState({status:on?'all':o.k}),
+        bg:on?cc.bg:'var(--white)', fg:on?cc.fg:'var(--neutral-lead)', border:on?cc.fg:'var(--neutral-silver)' };
+    });
+
+    const sortDefs=[
+      {k:'az',label:'א-ב',icon:'<svg viewBox="0 0 24 24" width="14" height="14" style="margin-inline-end:1px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 4-4 4 4"></path><path d="M7 4v16"></path><path d="M20 8h-5"></path><path d="M15 12h4"></path><path d="M15 16h6"></path></svg>'},
+      {k:'views',label:'הכי נצפה',icon:'<svg viewBox="0 0 24 24" width="14" height="14" style="margin-inline-end:1px;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>'},
+      {k:'featured',label:'מומלצים',icon:'<svg viewBox="0 0 24 24" width="14" height="14" style="margin-inline-end:1px;" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'},
+    ];
+    const sortOptions=sortDefs.map(o=>{ const on=s.sort===o.k;
+      return { label:o.label, icon:this.raw(o.icon), onPick:()=>this.setState({sort:o.k}),
+        bg:on?'var(--accent)':'transparent', fg:on?'#fff':'var(--neutral-lead)' }; });
+
+    const node=this.TERMS.find(t=>t.id===s.selectedId)||this.TERMS[0];
+    const c=this.CAT[node.cat], df=this.DIFF[node.diff]; const cc=CV[c.color];
+    const heroIcon=this.raw((this.CAT[node.cat].icon).replace(/width="46" height="46"/,'width="40" height="40"').replace('stroke-width="1.7"','stroke-width="1.8"'));
+    const d={
+      term:node.term, views:fmt(node.views),
+      catLabel:c.label, catBadgeColor:c.color, heroIcon,
+      diffLabel:df.label,
+      fullHtml:this.rawHtml(node.full),
+      hasExamples:(node.examples||[]).length>0,
+      examples:(node.examples||[]).map((x,i)=>({ num:String(i+1), text:x })),
+      hasSynonyms:(node.synonyms||[]).length>0,
+      synonyms:(node.synonyms||[]).map(x=>({ label:x })),
+      hasRelated:(node.related||[]).length>0,
+      related:(node.related||[]).map(rid=>{ const r=this.TERMS.find(t=>t.id===rid); if(!r) return null;
+        return { label:r.term, dot:CV[this.CAT[r.cat].color].fg, onPick:()=>this.open(rid) }; }).filter(Boolean),
+      hasLinks:(node.links||[]).length>0,
+      links:(node.links||[]).map(l=>{ let host=l.url; try{ host=new URL(l.url).hostname; }catch(e){} return { label:l.label, url:l.url, host }; }),
+      appearsCount:String((node.appearsIn||[]).length),
+      appearsIn:(node.appearsIn||[]).map(a=>{ const ct=this.CTYPE[a.type]; const tc=CV[ct.color];
+        return { typeLabel:ct.label, typeColor:tc.fg, typeBg:tc.bg, typeBadgeColor:ct.color, typeIcon:this.raw(ct.icon), title:a.title, meta:a.meta, href:ct.href }; }),
+    };
+
+    return {
+      isDesktop, isMobile,
+      totalCount:String(this.TERMS.length),
+      termsSubtitle:'מאגר הידע · '+this.TERMS.length+' מונחים',
+      gridCols: isMobile ? '1fr' : 'repeat(auto-fill,minmax(258px,1fr))',
+      search:s.search, hasSearch:!!s.search,
+      onSearch:(e)=>this.setState({search:e.target.value}),
+      clearSearch:()=>this.setState({search:''}),
+      catChips, diffChips, statusChips, sortOptions,
+      hasTag:!!s.tag, activeTag:s.tag||'', clearTag:()=>this.setState({tag:null}),
+      cards, hasResults:cards.length>0, noResults:cards.length===0,
+      resultCount:String(cards.length),
+      resetFilters:()=>this.setState({search:'',cat:'all',diff:'all',status:'all',tag:null}),
+      drawerOpen:s.drawerOpen, closeDrawer:()=>this.setState({drawerOpen:false}),
+      drawerW: isMobile ? '100%' : '560px',
+      d,
+      plusIcon:this.raw(this.ICONS.plus), searchIcon:this.raw(this.ICONS.search), resetIcon:this.raw(this.ICONS.reset),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

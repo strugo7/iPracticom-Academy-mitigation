@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@font-face{font-family:"Ploni";src:url("fonts/PloniRegular.otf") format("opentype");font-weight:400;font-display:swap;}
+@font-face{font-family:"Ploni";src:url("fonts/PloniMedium.otf") format("opentype");font-weight:500;font-display:swap;}
+@font-face{font-family:"Ploni";src:url("fonts/PloniDBold.otf") format("opentype");font-weight:600;font-display:swap;}
+@font-face{font-family:"Ploni";src:url("fonts/PloniBold.otf") format("opentype");font-weight:700;font-display:swap;}
+@font-face{font-family:"Ploni";src:url("fonts/PloniUBold.otf") format("opentype");font-weight:800;font-display:swap;}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font-family:"Ploni","Assistant",system-ui,sans-serif;background:#EAF1F8;-webkit-font-smoothing:antialiased;}
+table{border-collapse:collapse;width:100%;}
+code{font-family:"JetBrains Mono",monospace;font-size:12.5px;background:#EEF4FA;color:#0059A8;padding:1px 6px;border-radius:6px;direction:ltr;display:inline-block;}
+@media print{body{background:#fff;}[data-sheet]{box-shadow:none !important;margin:0 !important;}}
+</style>
+</helmet>
+<div dir="rtl" data-screen-label="מסמך מסירה" style="padding:40px 20px;color:#181D24;">
+<div data-sheet style="max-width:880px;margin:0 auto;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 20px 48px rgba(20,60,110,.12);">
+
+  <!-- Header -->
+  <header style="background:linear-gradient(120deg,#181D24 0%,#1d3a55 100%);padding:38px 48px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;">
+    <div>
+      <div style="color:#7CCBFF;font-weight:700;font-size:13.5px;letter-spacing:.02em;margin-bottom:10px;">מסמך מסירה למפתח · Frontend Handoff</div>
+      <h1 style="color:#fff;font-weight:800;font-size:30px;line-height:1.2;margin:0;">דשבורד אישי — מסך הבית של הלומד</h1>
+      <p style="color:#AEB9C6;font-size:14.5px;margin:10px 0 0;">iPracticom Academy · React + Tailwind + shadcn/ui · RTL</p>
+    </div>
+    <img src="assets/logo-white.png" alt="iPracticom" style="height:24px;flex:none;margin-top:4px;"/>
+  </header>
+
+  <div style="padding:40px 48px 48px;">
+
+    <!-- 1. Overview -->
+    <section style="margin-bottom:38px;">
+      <h2 style="color:#0075DB;font-weight:800;font-size:21px;margin:0 0 14px;">1 · סקירה</h2>
+      <p style="font-size:15px;line-height:1.7;color:#3D4753;margin:0;">מסך <code>Dashboard</code> (נתיב ברירת המחדל, נגיש לכל התפקידים). מטרתו: שהלומד יראה במבט אחד היכן הוא עומד ויחזור בקליק ללמידה. כל הנתונים נגזרים מ-<code>User.progress_stats</code> (מחושב ע"י <code>recalculateUserStats</code>), מ-<code>User.assigned_track_id</code>, ומהפונקציות <code>getLeaderboard</code> ו-<code>getActivityFeed</code>. שני מצבים: <strong>מאוכלס</strong> (יש מסלול מוקצה) ו<strong>ריק</strong> (משתמש חדש ללא מסלול).</p>
+    </section>
+
+    <!-- 2. Component tree -->
+    <section style="margin-bottom:38px;">
+      <h2 style="color:#0075DB;font-weight:800;font-size:21px;margin:0 0 14px;">2 · עץ הרכיבים</h2>
+      <pre dir="ltr" style="background:#0F1620;color:#CBD6E2;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.7;border-radius:14px;padding:20px 22px;margin:0;overflow-x:auto;">&lt;DashboardPage&gt;                  // data fetching + state ('populated' | 'empty')
+├─ &lt;DashboardHeader&gt;            // greeting · role tag · NotificationBell · logo
+├─ if populated:
+│   ├─ &lt;ContinueLearningHero&gt;   // assigned track + &lt;ProgressRing&gt; + CTA
+│   ├─ &lt;StatCardGrid&gt;
+│   │   └─ &lt;StatCard&gt; ×5        // XP · lessons · exams · certificates · time
+│   ├─ &lt;WeeklyActivityCard&gt;     // &lt;ScoreDonut&gt; + weekly tiles + &lt;WeeklyBars&gt;
+│   ├─ &lt;Leaderboard&gt;
+│   │   └─ &lt;LeaderboardRow&gt; ×5  // current user highlighted
+│   └─ &lt;ActivityFeed&gt;
+│       └─ &lt;ActivityItem&gt; ×n
+├─ else:
+│   └─ &lt;EmptyState&gt;             // no assigned track → CTA + onboarding steps
+└─ &lt;DashboardFooter&gt;</pre>
+      <p style="font-size:13px;color:#6B7785;margin:12px 0 0;">בנוי על <code>Card</code> מ-shadcn/ui · אייקונים <code>lucide-react</code> (outline, stroke 2) · אנימציות <code>framer-motion</code> (fade+rise עדין, 200–320ms).</p>
+    </section>
+
+    <!-- 3. Components & props -->
+    <section style="margin-bottom:38px;">
+      <h2 style="color:#0075DB;font-weight:800;font-size:21px;margin:0 0 18px;">3 · רכיבים ו-Props</h2>
+
+      <!-- types block -->
+      <p style="font-size:14px;color:#3D4753;margin:0 0 10px;font-weight:600;">טיפוסי הבסיס (בשמות השדות מה-SRS):</p>
+      <pre dir="ltr" style="background:#0F1620;color:#CBD6E2;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.65;border-radius:14px;padding:18px 22px;margin:0 0 24px;overflow-x:auto;">type ProgressStats = {
+  total_xp: number; avg_progress: number;          // 0–100
+  lessons_completed: number; total_lessons_in_track: number;
+  exams_passed: number; total_exams: number;
+  certificates_earned: number;
+  total_time_spent_minutes: number;
+  weekly_lessons: number; weekly_time_spent_minutes: number;
+  avg_score: number;                               // 0–100
+  last_activity: string;                           // ISO date-time
+};
+type LearnerUser = {
+  full_name: string;
+  system_role: 'user'|'instructor'|'manager'|'admin';
+  department: string;
+  assigned_track_id: string | null;
+  progress_stats: ProgressStats;
+};</pre>
+
+      <!-- DashboardPage -->
+      <div style="border:1px solid #E3E9F0;border-radius:14px;padding:20px 22px;margin-bottom:14px;">
+        <h3 style="font-weight:700;font-size:16.5px;margin:0 0 4px;">&lt;DashboardPage&gt;</h3>
+        <p style="font-size:13.5px;color:#6B7785;margin:0 0 12px;">מעטפת. טוען <code>User.me()</code>, גוזר את המצב, ומפזר ל-children.</p>
+        <table style="font-size:13px;">
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;font-weight:700;width:34%;">prop</td><td style="padding:7px 8px;font-weight:700;width:30%;">type</td><td style="padding:7px 8px;font-weight:700;">הערה</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>user</code></td><td style="padding:7px 8px;color:#6B7785;">LearnerUser</td><td style="padding:7px 8px;color:#3D4753;">המשתמש הנוכחי</td></tr>
+          <tr><td style="padding:7px 8px;"><code>mode</code></td><td style="padding:7px 8px;color:#6B7785;">'populated' | 'empty'</td><td style="padding:7px 8px;color:#3D4753;">נגזר: <code>assigned_track_id ? 'populated' : 'empty'</code></td></tr>
+        </table>
+      </div>
+
+      <!-- DashboardHeader -->
+      <div style="border:1px solid #E3E9F0;border-radius:14px;padding:20px 22px;margin-bottom:14px;">
+        <h3 style="font-weight:700;font-size:16.5px;margin:0 0 12px;">&lt;DashboardHeader&gt;</h3>
+        <table style="font-size:13px;">
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;font-weight:700;width:34%;">prop</td><td style="padding:7px 8px;font-weight:700;width:30%;">type</td><td style="padding:7px 8px;font-weight:700;">מקור</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>fullName</code></td><td style="padding:7px 8px;color:#6B7785;">string</td><td style="padding:7px 8px;color:#3D4753;">user.full_name</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>roleLabel</code></td><td style="padding:7px 8px;color:#6B7785;">string</td><td style="padding:7px 8px;color:#3D4753;">system_role + department</td></tr>
+          <tr><td style="padding:7px 8px;"><code>notificationsCount</code></td><td style="padding:7px 8px;color:#6B7785;">number</td><td style="padding:7px 8px;color:#3D4753;">Notification(is_read=false).count</td></tr>
+        </table>
+        <p style="font-size:12.5px;color:#6B7785;margin:12px 0 0;">לוגו בפינה השמאלית-עליונה ב-50% שקיפות (<code>opacity-50</code>). פעמון = <code>Bell</code> עם badge.</p>
+      </div>
+
+      <!-- ContinueLearningHero -->
+      <div style="border:1px solid #E3E9F0;border-radius:14px;padding:20px 22px;margin-bottom:14px;">
+        <h3 style="font-weight:700;font-size:16.5px;margin:0 0 12px;">&lt;ContinueLearningHero&gt;</h3>
+        <table style="font-size:13px;">
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;font-weight:700;width:34%;">prop</td><td style="padding:7px 8px;font-weight:700;width:30%;">type</td><td style="padding:7px 8px;font-weight:700;">מקור</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>trackTitle</code></td><td style="padding:7px 8px;color:#6B7785;">string</td><td style="padding:7px 8px;color:#3D4753;">LearningTrack.title</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>avgProgress</code></td><td style="padding:7px 8px;color:#6B7785;">number</td><td style="padding:7px 8px;color:#3D4753;">progress_stats.avg_progress</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>lessonsRemaining</code></td><td style="padding:7px 8px;color:#6B7785;">number</td><td style="padding:7px 8px;color:#3D4753;">total_lessons_in_track − lessons_completed</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>nextLesson</code></td><td style="padding:7px 8px;color:#6B7785;">{ id, title }</td><td style="padding:7px 8px;color:#3D4753;">getLessonContext → השיעור הבא</td></tr>
+          <tr><td style="padding:7px 8px;"><code>onContinue</code></td><td style="padding:7px 8px;color:#6B7785;">() =&gt; void</td><td style="padding:7px 8px;color:#3D4753;">ניווט ל-LessonPage</td></tr>
+        </table>
+        <p style="font-size:12.5px;color:#6B7785;margin:12px 0 0;">רקע navy (gradient <code>#181D24→#1d3a55</code>), טקסט לבן, CTA ראשי כחול. עוטף <code>&lt;ProgressRing value={avgProgress} /&gt;</code>.</p>
+      </div>
+
+      <!-- StatCard -->
+      <div style="border:1px solid #E3E9F0;border-radius:14px;padding:20px 22px;margin-bottom:14px;">
+        <h3 style="font-weight:700;font-size:16.5px;margin:0 0 6px;">&lt;StatCard&gt; <span style="font-weight:500;color:#6B7785;font-size:13px;">— משומש 5×</span></h3>
+        <table style="font-size:13px;">
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;font-weight:700;width:34%;">prop</td><td style="padding:7px 8px;font-weight:700;width:30%;">type</td><td style="padding:7px 8px;font-weight:700;">הערה</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>icon</code></td><td style="padding:7px 8px;color:#6B7785;">LucideIcon</td><td style="padding:7px 8px;color:#3D4753;">בתוך chip משושה (<code>clip-path</code>)</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>value</code></td><td style="padding:7px 8px;color:#6B7785;">string | ReactNode</td><td style="padding:7px 8px;color:#3D4753;">מספר ב-Assistant 800</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>label</code></td><td style="padding:7px 8px;color:#6B7785;">string</td><td style="padding:7px 8px;color:#3D4753;">—</td></tr>
+          <tr><td style="padding:7px 8px;"><code>sub</code></td><td style="padding:7px 8px;color:#6B7785;">string</td><td style="padding:7px 8px;color:#3D4753;">שורת משנה muted</td></tr>
+        </table>
+        <pre dir="ltr" style="background:#EEF4FA;color:#0F1620;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.6;border-radius:10px;padding:12px 14px;margin:12px 0 0;overflow-x:auto;">// 5 instances:
+&lt;StatCard icon={Zap}    value="1,240" label="נקודות XP"          sub="רמה 4" /&gt;        // total_xp
+&lt;StatCard icon={BookOpen} value="18/25" label="שיעורים שהושלמו" /&gt;                    // lessons_completed / total_lessons_in_track
+&lt;StatCard icon={FileCheck} value="4/6"  label="מבחנים שעברת"     sub="ממוצע 87" /&gt;     // exams_passed / total_exams
+&lt;StatCard icon={Award}  value="2"      label="תעודות" /&gt;                              // certificates_earned
+&lt;StatCard icon={Clock}  value="14.5 שע׳" label="זמן למידה" /&gt;                          // total_time_spent_minutes / 60</pre>
+      </div>
+
+      <!-- WeeklyActivityCard -->
+      <div style="border:1px solid #E3E9F0;border-radius:14px;padding:20px 22px;margin-bottom:14px;">
+        <h3 style="font-weight:700;font-size:16.5px;margin:0 0 12px;">&lt;WeeklyActivityCard&gt;</h3>
+        <table style="font-size:13px;">
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;font-weight:700;width:34%;">prop</td><td style="padding:7px 8px;font-weight:700;width:30%;">type</td><td style="padding:7px 8px;font-weight:700;">מקור</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>weeklyLessons</code></td><td style="padding:7px 8px;color:#6B7785;">number</td><td style="padding:7px 8px;color:#3D4753;">weekly_lessons</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>weeklyMinutes</code></td><td style="padding:7px 8px;color:#6B7785;">number</td><td style="padding:7px 8px;color:#3D4753;">weekly_time_spent_minutes</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>avgScore</code></td><td style="padding:7px 8px;color:#6B7785;">number</td><td style="padding:7px 8px;color:#3D4753;">avg_score → <code>&lt;ScoreDonut&gt;</code></td></tr>
+          <tr><td style="padding:7px 8px;"><code>dailyMinutes</code></td><td style="padding:7px 8px;color:#6B7785;">number[7]</td><td style="padding:7px 8px;color:#3D4753;">מצרף UserProgress של 7 ימים (אופציונלי)</td></tr>
+        </table>
+        <p style="font-size:12.5px;color:#6B7785;margin:12px 0 0;">הדונאט וה-ProgressRing מצוירים כ-SVG (לא <code>recharts</code>) לשליטה מלאה בצבע ו-rounded caps.</p>
+      </div>
+
+      <!-- Leaderboard -->
+      <div style="border:1px solid #E3E9F0;border-radius:14px;padding:20px 22px;margin-bottom:14px;">
+        <h3 style="font-weight:700;font-size:16.5px;margin:0 0 12px;">&lt;Leaderboard&gt; / &lt;LeaderboardRow&gt;</h3>
+        <table style="font-size:13px;">
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;font-weight:700;width:34%;">prop</td><td style="padding:7px 8px;font-weight:700;width:30%;">type</td><td style="padding:7px 8px;font-weight:700;">מקור</td></tr>
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;"><code>rows</code></td><td style="padding:7px 8px;color:#6B7785;">LeaderRow[]</td><td style="padding:7px 8px;color:#3D4753;">getLeaderboard() · top 5</td></tr>
+          <tr><td style="padding:7px 8px;"><code>currentUserId</code></td><td style="padding:7px 8px;color:#6B7785;">string</td><td style="padding:7px 8px;color:#3D4753;">להדגשת השורה ("אתה")</td></tr>
+        </table>
+        <pre dir="ltr" style="background:#EEF4FA;color:#0F1620;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.6;border-radius:10px;padding:12px 14px;margin:12px 0 0;overflow-x:auto;">type LeaderRow = { user_id: string; rank: number; name: string; total_xp: number };</pre>
+      </div>
+
+      <!-- ActivityFeed -->
+      <div style="border:1px solid #E3E9F0;border-radius:14px;padding:20px 22px;margin-bottom:0;">
+        <h3 style="font-weight:700;font-size:16.5px;margin:0 0 12px;">&lt;ActivityFeed&gt; / &lt;ActivityItem&gt;</h3>
+        <table style="font-size:13px;">
+          <tr style="border-bottom:1px solid #E3E9F0;"><td style="padding:7px 8px;font-weight:700;width:34%;">prop</td><td style="padding:7px 8px;font-weight:700;width:30%;">type</td><td style="padding:7px 8px;font-weight:700;">מקור</td></tr>
+          <tr><td style="padding:7px 8px;"><code>items</code></td><td style="padding:7px 8px;color:#6B7785;">ActivityItem[]</td><td style="padding:7px 8px;color:#3D4753;">getActivityFeed() — נגזר מ-UserProgress</td></tr>
+        </table>
+        <pre dir="ltr" style="background:#EEF4FA;color:#0F1620;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.6;border-radius:10px;padding:12px 14px;margin:12px 0 0;overflow-x:auto;">type ActivityItem = {
+  type: 'lesson_completed'|'exam_passed'|'certificate'|'module_started'|'xp';
+  title: string; score?: number; at: string;   // ISO → "לפני שעתיים"
+};</pre>
+      </div>
+    </section>
+
+    <!-- 4. Tokens -->
+    <section style="margin-bottom:38px;">
+      <h2 style="color:#0075DB;font-weight:800;font-size:21px;margin:0 0 14px;">4 · טוקני עיצוב</h2>
+      <p style="font-size:13.5px;color:#3D4753;margin:0 0 14px;">כל הערכים מ-<code>colors_and_type.css</code> של מערכת העיצוב. מיפוי מומלץ ל-<code>tailwind.config</code> תחת <code>theme.extend</code>:</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="border:1px solid #E3E9F0;border-radius:12px;padding:16px 18px;">
+          <div style="font-weight:700;font-size:14px;margin-bottom:10px;">צבעים</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:12.5px;">
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#0075DB;flex:none;"></span><code>blue / primary</code> #0075DB</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#2EB4FF;flex:none;"></span><code>blue-bright</code> #2EB4FF</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#0059A8;flex:none;"></span><code>blue-deep</code> #0059A8 (hover/press)</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#181D24;flex:none;"></span><code>navy / ink</code> #181D24</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#3D4753;flex:none;"></span><code>ink-2</code> #3D4753</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#6B7785;flex:none;"></span><code>ink-3</code> #6B7785</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#F4FBFF;border:1px solid #E3E9F0;flex:none;"></span><code>page bg</code> #F4FBFF</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#E9F3FC;flex:none;"></span><code>surface-3</code> #E9F3FC (chips/hover)</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#E3E9F0;flex:none;"></span><code>line</code> #E3E9F0</div>
+            <div style="display:flex;align-items:center;gap:10px;"><span style="width:18px;height:18px;border-radius:5px;background:#1F9E6B;flex:none;"></span><code>success</code> #1F9E6B · <span style="width:14px;height:14px;border-radius:4px;background:#E5A100;display:inline-block;"></span> warning #E5A100 · <span style="width:14px;height:14px;border-radius:4px;background:#E5484D;display:inline-block;"></span> danger #E5484D</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="border:1px solid #E3E9F0;border-radius:12px;padding:16px 18px;">
+            <div style="font-weight:700;font-size:14px;margin-bottom:10px;">טיפוגרפיה</div>
+            <div style="font-size:12.5px;line-height:1.9;color:#3D4753;">כותרות/ממשק: <strong>Ploni</strong> (700/800)<br/>מספרים ולטינית: <strong>Assistant</strong> (700/800)<br/>גוף: Ploni 400/500 · line-height 1.4–1.6<br/>גדלים: H 19–30 · body 14–16 · caption 12.5–13</div>
+          </div>
+          <div style="border:1px solid #E3E9F0;border-radius:12px;padding:16px 18px;">
+            <div style="font-weight:700;font-size:14px;margin-bottom:10px;">רדיוס · מרווח · צל</div>
+            <div style="font-size:12.5px;line-height:1.9;color:#3D4753;">כרטיס <code>rounded-[18px]</code> · hero <code>rounded-3xl</code> (24)<br/>chip = משושה <code>clip-path</code> · pill 999<br/>מרווח: סקאלת 4px (gap 18–22 בין כרטיסים)<br/>צל: <code>0 6px 18px rgba(20,60,110,.07)</code><br/>CTA glow: <code>0 10px 26px rgba(0,117,219,.30)</code></div>
+          </div>
+        </div>
+      </div>
+      <pre dir="ltr" style="background:#0F1620;color:#CBD6E2;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.65;border-radius:12px;padding:16px 20px;margin:16px 0 0;overflow-x:auto;">// tailwind.config.js → theme.extend
+colors: { ip: { blue:'#0075DB', bright:'#2EB4FF', deep:'#0059A8', navy:'#181D24',
+                ink2:'#3D4753', ink3:'#6B7785', line:'#E3E9F0', surface:'#F4F8FC',
+                tint:'#E9F3FC', page:'#F4FBFF', success:'#1F9E6B', warning:'#E5A100' } },
+fontFamily: { sans:['Ploni','Assistant','sans-serif'], num:['Assistant','sans-serif'] },
+boxShadow: { ipcard:'0 6px 18px rgba(20,60,110,.07)', ipcta:'0 10px 26px rgba(0,117,219,.30)' }</pre>
+    </section>
+
+    <!-- 5. Empty state -->
+    <section style="margin-bottom:34px;">
+      <h2 style="color:#0075DB;font-weight:800;font-size:21px;margin:0 0 14px;">5 · מצב ריק</h2>
+      <p style="font-size:14.5px;line-height:1.7;color:#3D4753;margin:0 0 10px;">תנאי: <code>!user.assigned_track_id</code>. במקום כרטיסים ריקים (XP=0, 0/0) מציגים <code>&lt;EmptyState&gt;</code> — קריאה לפעולה במקום "0" מתסכל:</p>
+      <ul style="font-size:14px;line-height:1.75;color:#3D4753;margin:0;padding-inline-start:22px;">
+        <li>כותרת "עוד לא שובצת למסלול למידה" + איור <code>illus-support.png</code> (spot-art, לא full-bleed).</li>
+        <li>שני CTA: <strong>בחירת מסלול</strong> (ראשי) → <code>Learning</code> · <strong>לספריית הידע</strong> (ghost) → <code>Knowledge</code>.</li>
+        <li>כרטיס "שלושה צעדים להתחלה": השלמת פרופיל · סרטון פתיחה · בחירת מסלול.</li>
+        <li>הכותרת והפוטר נשארים זהים. ה-KPI / מובילים / פיד מוסתרים לחלוטין (לא מוצגים כ-0).</li>
+      </ul>
+    </section>
+
+    <!-- 6. Mobile -->
+    <section style="margin-bottom:10px;">
+      <h2 style="color:#0075DB;font-weight:800;font-size:21px;margin:0 0 14px;">6 · מובייל ורספונסיביות</h2>
+      <ul style="font-size:14px;line-height:1.75;color:#3D4753;margin:0;padding-inline-start:22px;">
+        <li><strong>Hero</strong> נשאר בראש; מתחת <code>md</code> עובר ל-<code>flex-col</code> והטבעת ממורכזת מתחת לטקסט.</li>
+        <li><strong>KPI</strong>: <code>grid-cols-2</code> במובייל, <code>md:grid-cols-3</code>, <code>xl:grid-cols-5</code> (או <code>auto-fit minmax(196px,1fr)</code>).</li>
+        <li><strong>אזור ראשי</strong> (מובילים/פעילות): מ-<code>lg:grid-cols-[1.55fr_1fr]</code> נערם ל-<code>grid-cols-1</code> מתחת ל-<code>lg</code> — הפיד יורד מתחת.</li>
+        <li>כותרת: החיפוש/פרטים מתקפלים; שומרים ברכה + פעמון + לוגו. hit-target ≥ 44px.</li>
+        <li>RTL מלא: <code>dir="rtl"</code>, <code>ps-/pe-</code> במקום left/right, <code>flex-row</code> מתהפך אוטומטית.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <footer style="border-top:1px solid #E3E9F0;padding:18px 48px;text-align:center;color:#6B7785;font-size:12.5px;">© iPracticom Academy — לשימוש פנימי בלבד</footer>
+</div>
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+</helmet>
+<section style="position:relative;overflow:hidden;border-radius:var(--radius-xl);padding:32px;background:linear-gradient(120deg,var(--neutral-charcoal) 0%,#1d3a55 100%);display:flex;align-items:center;justify-content:space-between;gap:32px;box-shadow:0 20px 48px rgba(20,60,110,.18);font-family:var(--font-sans);">
+  <div style="position:relative;max-width:580px;">
+    <div style="display:inline-flex;align-items:center;gap:8px;color:#7CCBFF;font-weight:600;font-size:13.5px;margin-bottom:12px;">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+      מסלול הכשרה
+    </div>
+    <h2 style="color:#fff;font-weight:600;font-size:32px;line-height:1.15;margin:0 0 16px;">{{ trackTitle }}</h2>
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:24px;">
+      <span style="display:inline-flex;align-items:center;gap:8px;color:#AEB9C6;font-size:15px;">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
+        <strong style="color:#fff;font-weight:600;">{{ lessonsDone }} מתוך {{ lessonsTotal }}</strong> שיעורים הושלמו
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:8px;color:#AEB9C6;font-size:15px;">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"></path></svg>
+        <strong style="color:#fff;font-weight:600;">{{ totalXp }}</strong> XP במסלול
+      </span>
+    </div>
+    <a href="{{ continueHref }}" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:16px;border-radius:8px;padding:14px 24px;box-shadow:0 10px 26px rgba(0,117,219,.36);transition:all .2s cubic-bezier(.22,.61,.36,1);" style-hover="background:#0059A8;" style-active="transform:scale(.98);">
+      המשך מהמקום שעצרת
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg>
+    </a>
+  </div>
+  <div style="position:relative;flex:none;width:158px;height:158px;display:flex;align-items:center;justify-content:center;">
+    <svg viewBox="0 0 120 120" width="158" height="158" style="transform:rotate(-90deg);">
+      <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="11"></circle>
+      <circle cx="60" cy="60" r="52" fill="none" stroke="var(--hue-indigo)" stroke-width="11" stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="{{ ringOffset }}"></circle>
+    </svg>
+    <div style="position:absolute;text-align:center;">
+      <div style="font-weight:600;font-size:40px;color:#fff;line-height:1;">{{ percent }}<span style="font-size:19px;">%</span></div>
+      <div style="color:#AEB9C6;font-size:12.5px;font-weight:400;margin-top:4px;">הושלם</div>
+    </div>
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:240},&quot;trackTitle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;הכשרת טכנאי שטח&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;percent&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:58,&quot;min&quot;:0,&quot;max&quot;:100,&quot;tsType&quot;:&quot;number&quot;},&quot;lessonsDone&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:7,&quot;tsType&quot;:&quot;number&quot;},&quot;lessonsTotal&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:12,&quot;tsType&quot;:&quot;number&quot;},&quot;totalXp&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:120,&quot;tsType&quot;:&quot;number&quot;},&quot;continueHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const percent = p.percent ?? 0;
+    const c = 326.73;
+    return {
+      trackTitle: p.trackTitle ?? 'הכשרת טכנאי שטח',
+      percent,
+      lessonsDone: p.lessonsDone ?? 0,
+      lessonsTotal: p.lessonsTotal ?? 0,
+      totalXp: p.totalXp ?? 0,
+      continueHref: p.continueHref || '#',
+      ringOffset: (c * (1 - percent / 100)).toFixed(1),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

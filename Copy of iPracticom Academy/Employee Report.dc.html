@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden;}
+body{margin:0;}
+h1,h2,h3,p,td,th,li{font-family:var(--font-sans);}
+@media print{.er-noprint{display:none !important;}}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0075DB"/><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="34" r="14"/><path d="M22 82c0-15 12-24 28-24s28 9 28 24"/></g></svg></template>
+
+<div dir="rtl" data-screen-label="דוח עובד" style="background:var(--neutral-whisper);min-height:100vh;">
+
+  <!-- screen-only toolbar -->
+  <div class="er-noprint" style="position:sticky;top:0;z-index:10;background:var(--white);border-bottom:1px solid var(--neutral-silver);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a href="ManagerDashboard.dc.html" style="text-decoration:none;"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="outline" size="md" aria-label="חזרה לדשבורד" hint-size="40px,40px"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 18-6-6 6-6"></path></svg></x-import></a>
+      <span style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">דוח עובד — תצוגה לפני הדפסה</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);">
+        <span style="font-size:13px;color:var(--neutral-lead);">עובד:</span>
+        <select onChange="{{ onPickEmployee }}" style="border:0;outline:none;background:transparent;font-family:inherit;font-size:14px;font-weight:600;color:var(--neutral-charcoal);cursor:pointer;">
+          <sc-for list="{{ employeeOptions }}" as="o" hint-placeholder-count="7"><option value="{{ o.id }}" selected="{{ o.selected }}">{{ o.name }}</option></sc-for>
+        </select>
+      </div>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ onPrint }}" leadingIcon="{{ printIcon }}" hint-size="auto,40px">הדפסה / שמירה כ-PDF</x-import>
+    </div>
+  </div>
+
+  <x-import component-from-global-scope="doc-page" from="./doc-page.js" size="a4" margin="0.85in" hint-size="100%,auto">
+
+    <!-- masthead -->
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:2px solid var(--accent);padding-bottom:16px;margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="width:40px;height:40px;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;color:var(--white);flex:none;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+        <div><div style="font-weight:600;font-size:15px;color:var(--neutral-charcoal);">iPracticom Academy</div><div style="font-size:12px;color:var(--neutral-nickel);">מערכת ההכשרות הארגונית</div></div>
+      </div>
+      <div style="text-align:left;font-size:12px;color:var(--neutral-nickel);">
+        <div>הופק בתאריך {{ generatedDate }}</div>
+        <div>על ידי {{ managerName }}</div>
+      </div>
+    </div>
+
+    <!-- employee header -->
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+      <span style="width:56px;height:56px;border-radius:50%;background:var(--gradient-accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:22px;flex:none;">{{ emp.initial }}</span>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;"><h1 style="font-weight:600;font-size:26px;margin:0;color:var(--neutral-charcoal);">{{ emp.name }}</h1><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ emp.statusColor }}" hint-size="auto,24px">{{ emp.statusLabel }}</x-import></div>
+        <p style="font-size:14px;color:var(--neutral-lead);margin:4px 0 0;">{{ emp.role }} · {{ emp.track }}</p>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--neutral-nickel);margin:0 0 24px;">דוח התקדמות אישי · תקופת דיווח: {{ periodLabel }}</p>
+
+    <!-- mini stats -->
+    <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
+      <tbody>
+        <tr>
+          <td style="width:25%;padding:14px 16px;border:1px solid var(--neutral-silver);text-align:center;"><div style="font-weight:600;font-size:22px;color:var(--neutral-charcoal);">{{ emp.time }}</div><div style="font-size:12px;color:var(--neutral-lead);margin-top:4px;">שעות למידה</div></td>
+          <td style="width:25%;padding:14px 16px;border:1px solid var(--neutral-silver);text-align:center;"><div style="font-weight:600;font-size:22px;color:var(--neutral-charcoal);">{{ emp.xp }}</div><div style="font-size:12px;color:var(--neutral-lead);margin-top:4px;">XP</div></td>
+          <td style="width:25%;padding:14px 16px;border:1px solid var(--neutral-silver);text-align:center;"><div style="font-weight:600;font-size:22px;color:{{ emp.scoreColor }};">{{ emp.score }}</div><div style="font-size:12px;color:var(--neutral-lead);margin-top:4px;">ציון ממוצע</div></td>
+          <td style="width:25%;padding:14px 16px;border:1px solid var(--accent);background:var(--hue-sky);text-align:center;"><div style="font-weight:600;font-size:22px;color:var(--accent);">{{ emp.progress }}%</div><div style="font-size:12px;color:var(--neutral-charcoal);margin-top:4px;">התקדמות כוללת</div></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- track progress -->
+    <h2 style="font-weight:600;font-size:19px;margin:0 0 12px;color:var(--neutral-charcoal);">מסלול נוכחי</h2>
+    <div style="border:1px solid var(--neutral-silver);border-radius:8px;padding:16px 20px;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-weight:600;font-size:15px;color:var(--neutral-charcoal);">{{ emp.track }}</span><span style="font-weight:600;font-size:15px;color:var(--accent);">{{ emp.progress }}%</span></div>
+      <div style="font-size:12px;color:var(--neutral-lead);margin-bottom:10px;">{{ emp.lessons }} שיעורים הושלמו</div>
+      <div style="height:8px;border-radius:8px;background:var(--hue-sky);overflow:hidden;"><div style="height:100%;border-radius:8px;background:{{ emp.barFill }};width:{{ emp.progress }}%;"></div></div>
+    </div>
+
+    <!-- exam history -->
+    <h2 style="font-weight:600;font-size:19px;margin:0 0 12px;color:var(--neutral-charcoal);">היסטוריית מבחנים — הצלחות וכישלונות</h2>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
+      <thead>
+        <tr style="background:var(--neutral-whisper);">
+          <th style="text-align:right;padding:10px 12px;border:1px solid var(--neutral-silver);font-size:13px;color:var(--neutral-lead);font-weight:600;">מבחן</th>
+          <th style="text-align:right;padding:10px 12px;border:1px solid var(--neutral-silver);font-size:13px;color:var(--neutral-lead);font-weight:600;">ציון</th>
+          <th style="text-align:right;padding:10px 12px;border:1px solid var(--neutral-silver);font-size:13px;color:var(--neutral-lead);font-weight:600;">תוצאה</th>
+        </tr>
+      </thead>
+      <tbody>
+        <sc-for list="{{ emp.exams }}" as="ex" hint-placeholder-count="3">
+        <tr>
+          <td style="padding:10px 12px;border:1px solid var(--neutral-silver);font-weight:600;font-size:14px;color:var(--neutral-charcoal);">{{ ex.title }}</td>
+          <td style="padding:10px 12px;border:1px solid var(--neutral-silver);font-size:14px;color:{{ ex.color }};font-weight:600;">{{ ex.score }}</td>
+          <td style="padding:10px 12px;border:1px solid var(--neutral-silver);"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ ex.badgeColor }}" hint-size="auto,24px">{{ ex.label }}</x-import></td>
+        </tr>
+        </sc-for>
+      </tbody>
+    </table>
+    <sc-if value="{{ emp.noExams }}"><p style="font-size:13px;color:var(--neutral-nickel);margin:-16px 0 28px;">העובד עדיין לא ניגש למבחנים בתקופה זו.</p></sc-if>
+
+    <!-- certificates -->
+    <h2 style="font-weight:600;font-size:19px;margin:0 0 12px;color:var(--neutral-charcoal);">תעודות שהוענקו</h2>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
+      <thead>
+        <tr style="background:var(--neutral-whisper);">
+          <th style="text-align:right;padding:10px 12px;border:1px solid var(--neutral-silver);font-size:13px;color:var(--neutral-lead);font-weight:600;">תעודה</th>
+          <th style="text-align:right;padding:10px 12px;border:1px solid var(--neutral-silver);font-size:13px;color:var(--neutral-lead);font-weight:600;">תאריך הענקה</th>
+          <th style="text-align:right;padding:10px 12px;border:1px solid var(--neutral-silver);font-size:13px;color:var(--neutral-lead);font-weight:600;">ציון</th>
+        </tr>
+      </thead>
+      <tbody>
+        <sc-for list="{{ emp.certs }}" as="c" hint-placeholder-count="2">
+        <tr>
+          <td style="padding:10px 12px;border:1px solid var(--neutral-silver);font-weight:600;font-size:14px;color:var(--neutral-charcoal);">{{ c.title }}</td>
+          <td style="padding:10px 12px;border:1px solid var(--neutral-silver);font-size:13px;color:var(--neutral-lead);">{{ c.date }}</td>
+          <td style="padding:10px 12px;border:1px solid var(--neutral-silver);font-size:14px;color:var(--success);font-weight:600;">{{ c.score }}</td>
+        </tr>
+        </sc-for>
+      </tbody>
+    </table>
+    <sc-if value="{{ emp.noCerts }}"><p style="font-size:13px;color:var(--neutral-nickel);margin:-16px 0 28px;">טרם הוענקו תעודות לעובד זה.</p></sc-if>
+
+    <!-- activity -->
+    <h2 style="font-weight:600;font-size:19px;margin:0 0 12px;color:var(--neutral-charcoal);">פעילות אחרונה</h2>
+    <ul style="margin:0 0 24px;padding-inline-start:20px;">
+      <sc-for list="{{ emp.activity }}" as="a" hint-placeholder-count="3">
+      <li style="font-size:14px;color:var(--neutral-charcoal);line-height:1.7;">{{ a.text }} <span style="color:var(--neutral-nickel);font-size:12px;">— {{ a.time }}</span></li>
+      </sc-for>
+    </ul>
+
+    <p style="font-size:12px;color:var(--neutral-nickel);border-top:1px solid var(--neutral-silver);padding-top:12px;">מסמך זה נוצר אוטומטית ממערכת iPracticom Academy לשימוש ניהולי פנימי בלבד. הנתונים משקפים את מצב העובד נכון למועד ההפקה.</p>
+
+  </x-import>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.raw=(s)=>React.createElement('span',{dangerouslySetInnerHTML:{__html:s},style:{display:'flex'}});
+    this.printIconSvg='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>';
+    this.EMP=[
+      {id:'roni',name:'רוני כהן',initial:'ר',track:'פתרון תקלות רשת מתקדם',role:'טכנאי שטח',progress:100,score:94,xp:'2,310',time:18.5,status:'done',lessons:'15/15',
+        exams:[{t:'יסודות רשתות',s:96,p:true},{t:'אבחון תקלות חומרה',s:92,p:true},{t:'ניתוב מתקדם',s:94,p:true}],
+        certs:[{t:'יסודות רשתות',s:96,d:'10.05.26'},{t:'אבחון תקלות',s:92,d:'02.06.26'},{t:'ניתוב מתקדם',s:94,d:'20.06.26'},{t:'אבטחת רשת',s:90,d:'24.06.26'}],
+        activity:[{t:'השלים את המסלול במלואו',d:'אתמול'},{t:'קיבל תעודה: אבטחת רשת',d:'לפני 3 ימים'},{t:'עבר מבחן ניתוב מתקדם · 94',d:'לפני 6 ימים'}]},
+      {id:'maya',name:'מאיה אבני',initial:'מ',track:'קליטת נציג תמיכה',role:'נציג תמיכה',progress:80,score:88,xp:'1,980',time:15,status:'active',lessons:'12/15',
+        exams:[{t:'מבוא למוקד התמיכה',s:90,p:true},{t:'תקשורת עם לקוח',s:86,p:true}],
+        certs:[{t:'מבוא למוקד',s:90,d:'08.06.26'},{t:'תקשורת עם לקוח',s:86,d:'19.06.26'}],
+        activity:[{t:'השלימה שיעור: ניהול שיחה קשה',d:'לפני 3 שעות'},{t:'עברה מבחן תקשורת עם לקוח · 86',d:'לפני יומיים'}]},
+      {id:'itai',name:'איתי ברק',initial:'א',track:'מערכת CRM ותמיכה',role:'נציג תמיכה',progress:66,score:79,xp:'1,560',time:12,status:'active',lessons:'10/15',
+        exams:[{t:'יסודות CRM',s:82,p:true},{t:'ניהול פניות',s:76,p:true}],
+        certs:[{t:'יסודות CRM',s:82,d:'12.06.26'},{t:'ניהול פניות',s:76,d:'23.06.26'}],
+        activity:[{t:'התחיל מודול: דוחות ומדדים',d:'היום'},{t:'עבר מבחן ניהול פניות · 76',d:'לפני 3 ימים'}]},
+      {id:'daniel',name:'דניאל לוי',initial:'ד',track:'הכשרת טכנאי שטח',role:'טכנאי שטח',progress:58,score:87,xp:'1,240',time:14.5,status:'active',lessons:'9/15',
+        exams:[{t:'יסודות רשתות',s:85,p:true},{t:'מצלמות אבטחה IP',s:92,p:true},{t:'MikroTik Firewall',s:64,p:false}],
+        certs:[{t:'יסודות רשתות',s:85,d:'12.06.26'},{t:'מצלמות אבטחה IP',s:92,d:'18.06.26'}],
+        activity:[{t:'השלים שיעור: הגדרת Firewall בסיסי',d:'לפני שעתיים'},{t:'קיבל תעודה: מצלמות אבטחה IP',d:'אתמול'}]},
+      {id:'noa',name:'נועה שגב',initial:'נ',track:'קליטת נציג תמיכה',role:'נציג תמיכה',progress:45,score:72,xp:'1,090',time:9,status:'active',lessons:'7/15',
+        exams:[{t:'מבוא למוקד התמיכה',s:74,p:true},{t:'תקשורת עם לקוח',s:70,p:true}],
+        certs:[{t:'מבוא למוקד',s:74,d:'14.06.26'}],
+        activity:[{t:'השלימה שיעור: פתיחת פנייה',d:'לפני יומיים'},{t:'עברה מבחן מבוא למוקד · 74',d:'לפני 5 ימים'}]},
+      {id:'amit',name:'עמית רגב',initial:'ע',track:'הכשרת טכנאי שטח',role:'טכנאי שטח',progress:18,score:61,xp:'420',time:3,status:'risk',lessons:'3/15',
+        exams:[{t:'יסודות רשתות',s:48,p:false},{t:'אבחון תקלות',s:55,p:false},{t:'מבוא לציוד תקשורת',s:72,p:true}],
+        certs:[],
+        activity:[{t:'נכשל במבחן אבחון תקלות · 55',d:'לפני 5 ימים'},{t:'נכשל במבחן יסודות רשתות · 48',d:'לפני 8 ימים'}]},
+      {id:'tal',name:'טל מזרחי',initial:'ט',track:'מערכת CRM ותמיכה',role:'נציג תמיכה',progress:34,score:68,xp:'760',time:5,status:'risk',lessons:'5/15',
+        exams:[{t:'יסודות CRM',s:68,p:true}],
+        certs:[{t:'יסודות CRM',s:68,d:'10.06.26'}],
+        activity:[{t:'השלים שיעור: ניהול פניות בסיסי',d:'לפני 12 ימים'},{t:'עבר מבחן יסודות CRM · 68',d:'לפני 14 ימים'}]},
+    ];
+    let initial = this.EMP[0].id;
+    try{
+      const q = new URLSearchParams(window.location.search).get('emp');
+      if (q && this.EMP.some(e=>e.id===q)) initial = q;
+    }catch(e){}
+    this.state = { empId: initial };
+  }
+  renderVals(){
+    const STAT={done:{label:'הושלם',color:'success'},active:{label:'פעיל',color:'accent'},risk:{label:'בסיכון',color:'caution'}};
+    const e = this.EMP.find(x=>x.id===this.state.empId) || this.EMP[0];
+    const st = STAT[e.status];
+    const barFill = e.status==='done' ? 'linear-gradient(90deg,var(--hue-green),var(--success))' : e.status==='risk' ? 'linear-gradient(90deg,var(--hue-salmon),var(--caution))' : 'var(--gradient-accent)';
+
+    const exams = e.exams.map(x=>({ title:x.t, score:String(x.s), label:x.p?'עבר':'נכשל', badgeColor:x.p?'success':'caution', color:x.p?'var(--success)':'var(--caution)' }));
+    const certs = e.certs.map(c=>({ title:c.t, date:c.d, score:String(c.s) }));
+
+    const now=new Date();
+    const generatedDate=now.toLocaleDateString('he-IL',{ year:'numeric', month:'2-digit', day:'2-digit' });
+
+    const employeeOptions = this.EMP.map(x=>({ id:x.id, name:x.name, selected:x.id===e.id }));
+
+    return {
+      emp:{
+        name:e.name, initial:e.initial, role:e.role, track:e.track, lessons:e.lessons,
+        statusLabel:st.label, statusColor:st.color,
+        time:String(e.time), xp:e.xp, score:String(e.score), scoreColor:e.score>=85?'var(--success)':e.score>=70?'var(--neutral-charcoal)':'var(--caution)',
+        progress:String(e.progress), barFill,
+        exams, noExams:exams.length===0,
+        certs, noCerts:certs.length===0,
+        activity:e.activity.map(a=>({text:a.t,time:a.d})),
+      },
+      periodLabel:'החודש האחרון',
+      generatedDate, managerName:'אבי שטרן — מנהל מחלקה',
+      employeeOptions, onPickEmployee:(ev)=>this.setState({empId:ev.target.value}),
+      onPrint:()=>{ try{ window.print(); }catch(err){} },
+      printIcon:this.raw(this.printIconSvg),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

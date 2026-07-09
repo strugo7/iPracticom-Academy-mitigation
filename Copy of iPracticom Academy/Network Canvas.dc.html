@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+.nc-scroll::-webkit-scrollbar{width:8px;height:8px;}.nc-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:8px;}.nc-scroll{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.14) transparent;}
+.nc-node{transition:transform .16s cubic-bezier(.22,.61,.36,1);}
+.nc-node:hover{transform:translateY(-2px);}
+.nc-node:hover .nc-h{opacity:1;}
+.nc-pchip:hover{border-color:#3A6AA0 !important;background:#222B36 !important;}
+.nc-pchip:hover .nc-pic{color:#7CCBFF !important;}
+.nc-toolbtn:hover{background:rgba(255,255,255,.10) !important;color:#fff !important;}
+.nc-jack:hover{filter:brightness(1.12);}
+.nc-fld:focus{outline:none;border-color:var(--hue-indigo) !important;background:#10151C !important;}
+.nc-prow:hover{background:rgba(255,255,255,.04) !important;}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#181D24"/><g fill="none" stroke="#2EB4FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="50" cy="28" r="9"/><circle cx="26" cy="72" r="9"/><circle cx="74" cy="72" r="9"/><path d="M50 37v14M50 51 30 64M50 51l20 13"/></g></svg></template>
+
+<div dir="rtl" data-screen-label="טופולוגיית רשת" style="height:100vh;display:flex;flex-direction:column;background:var(--surface-app);color:var(--neutral-charcoal);overflow:hidden;font-family:var(--font-sans);">
+
+  <!-- ===== TOP BAR ===== -->
+  <header style="flex:none;height:64px;background:var(--surface-card);border-bottom:1px solid var(--neutral-silver);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:30;">
+    <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+      <a href="Lesson Editor.dc.html" style="text-decoration:none;"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="outline" size="md" aria-label="חזרה לעורך השיעור" hint-size="36px,36px"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></x-import></a>
+      <span style="width:36px;height:36px;border-radius:8px;background:var(--gradient-accent);display:flex;align-items:center;justify-content:center;color:var(--white);flex:none;"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.4"></circle><circle cx="5" cy="19" r="2.4"></circle><circle cx="19" cy="19" r="2.4"></circle><path d="M12 7.4v5M11 13 6.5 17M13 13l4.5 4"></path></svg></span>
+      <div style="min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;"><h1 style="font-weight:600;font-size:var(--text-h4-size);margin:0;white-space:nowrap;color:var(--neutral-charcoal);">טופולוגיית רשת — סניף הדגמה</h1><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="warning" hint-size="auto,24px">בלוק שיעור</x-import></div>
+        <div style="font-size:var(--text-tiny-size);color:var(--neutral-lead);margin-top:2px;">מבוא ל-VLAN · תרשים רשת אינטראקטיבי</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tabs" variant="pill" tabs="{{ modeTabs }}" value="{{ mode }}" onChange="{{ setMode }}" hint-size="auto,40px"></x-import>
+      <span style="width:1px;height:24px;background:var(--neutral-silver);"></span>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" leadingIcon="{{ saveIcon }}" hint-size="auto,40px">שמירה</x-import>
+      <img src="assets/logo-gradient.png" alt="iPracticom" style="height:22px;opacity:.5;margin-inline-start:4px;"/>
+    </div>
+  </header>
+
+  <!-- ===== STAGE ===== -->
+  <div style="position:relative;flex:1;min-height:0;background:var(--neutral-charcoal);">
+
+    <!-- canvas area (left of inspector) -->
+    <div class="nc-scroll" style="position:absolute;top:0;bottom:0;left:0;right:344px;overflow:auto;">
+      <div style="position:relative;width:100%;height:100%;min-width:880px;min-height:560px;background-color:var(--neutral-charcoal);background-image:radial-gradient(rgba(124,170,220,.13) 1.3px, transparent 1.3px);background-size:24px 24px;">
+
+        <!-- VLAN regions (beneath nodes; trunk node shared by several VLANs => overlapping translucent regions) -->
+        <sc-for list="{{ vlanRegions }}" as="v" hint-placeholder-count="3">
+        <div aria-hidden="true" style="position:absolute;left:{{ v.left }}px;top:{{ v.top }}px;width:{{ v.width }}px;height:{{ v.height }}px;border-radius:24px;background:{{ v.fill }};border:1.5px solid {{ v.border }};z-index:1;pointer-events:none;"></div>
+        <div onClick="{{ v.onEdit }}" title="עריכת VLAN" style="position:absolute;left:{{ v.labelLeft }}px;top:{{ v.labelTop }}px;transform:translateX(-50%);z-index:4;display:inline-flex;align-items:center;gap:6px;background:{{ v.chipBg }};border:1px solid {{ v.border }};border-radius:var(--radius-full);padding:4px 12px;cursor:pointer;">
+          <span style="width:8px;height:8px;border-radius:2px;background:{{ v.dot }};flex:none;"></span>
+          <span dir="ltr" style="font-size:11px;font-weight:600;color:#fff;white-space:nowrap;">{{ v.vid }}</span>
+          <span style="font-size:11px;color:#C3CDD8;white-space:nowrap;">{{ v.name }}</span>
+        </div>
+        </sc-for>
+
+        <svg width="100%" height="100%" style="position:absolute;inset:0;z-index:2;pointer-events:none;overflow:visible;">
+          <sc-for list="{{ edges }}" as="e" hint-placeholder-count="6">
+          <path d="{{ e.d }}" fill="none" stroke="{{ e.stroke }}" stroke-width="{{ e.width }}" stroke-linecap="round"></path>
+          <circle cx="{{ e.x1 }}" cy="{{ e.y1 }}" r="4" fill="{{ e.dot }}"></circle>
+          <circle cx="{{ e.x2 }}" cy="{{ e.y2 }}" r="4" fill="{{ e.dot }}"></circle>
+          <text x="{{ e.lx }}" y="{{ e.ly }}" text-anchor="middle" font-family="inherit" font-size="11" font-weight="600" fill="{{ e.labelFg }}" style="paint-order:stroke;stroke:#181D24;stroke-width:5px;stroke-linejoin:round;">{{ e.label }}</text>
+          </sc-for>
+        </svg>
+
+        <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="7">
+        <div class="nc-node" role="button" tabindex="0" aria-label="{{ n.aria }}" onClick="{{ n.onSelect }}" onKeyDown="{{ n.onKey }}" style="position:absolute;left:{{ n.tileLeft }}px;top:{{ n.tileTop }}px;width:64px;z-index:3;cursor:pointer;display:flex;flex-direction:column;align-items:center;">
+          <span class="nc-h" style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--hue-indigo);border:2px solid var(--neutral-charcoal);opacity:{{ n.handleOpacity }};transition:opacity .15s;"></span>
+          <span class="nc-h" style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--hue-indigo);border:2px solid var(--neutral-charcoal);opacity:{{ n.handleOpacity }};transition:opacity .15s;z-index:3;"></span>
+          <span style="width:56px;height:56px;border-radius:16px;background:{{ n.tileBg }};border:1.5px solid {{ n.tileBorder }};box-shadow:{{ n.glow }};outline:{{ n.outline }};outline-offset:4px;color:{{ n.iconFg }};display:flex;align-items:center;justify-content:center;transition:all .18s;">{{ n.icon }}</span>
+          <span style="margin-top:8px;font-weight:600;font-size:12px;color:{{ n.labelFg }};white-space:nowrap;text-align:center;">{{ n.label }}</span>
+          <span dir="ltr" style="font-size:10.5px;color:{{ n.ipFg }};white-space:nowrap;margin-top:2px;">{{ n.ip }}</span>
+          <sc-if value="{{ n.hasVlans }}">
+          <div style="display:flex;gap:4px;margin-top:4px;">
+            <sc-for list="{{ n.vlanDots }}" as="vd" hint-placeholder-count="1"><span style="width:7px;height:7px;border-radius:50%;background:{{ vd }};border:1.5px solid var(--neutral-charcoal);"></span></sc-for>
+          </div>
+          </sc-if>
+        </div>
+        </sc-for>
+
+      </div>
+    </div>
+
+    <!-- learner banner -->
+    <sc-if value="{{ isLearner }}">
+    <div style="position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:18;display:inline-flex;align-items:center;gap:8px;background:rgba(32,38,47,.92);border:1px solid rgba(124,203,255,.3);border-radius:var(--radius-full);padding:8px 16px;color:#CFE0F0;font-size:12.5px;font-weight:600;backdrop-filter:blur(6px);"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"></path><circle cx="12" cy="12" r="3"></circle></svg>תצוגה אינטראקטיבית — לחצו על רכיב לצפייה בהגדרותיו</div>
+    </sc-if>
+
+    <!-- tool rail (edit only) -->
+    <sc-if value="{{ isEdit }}">
+    <div role="toolbar" aria-label="כלים" style="position:absolute;top:16px;left:16px;z-index:18;display:flex;align-items:center;gap:4px;background:rgba(32,38,47,.94);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:4px;box-shadow:0 10px 26px rgba(0,0,0,.4);backdrop-filter:blur(6px);">
+      <button class="nc-toolbtn" title="בחירה" aria-label="בחירה" style="width:36px;height:36px;border-radius:8px;border:0;background:rgba(124,203,255,.16);color:#7CCBFF;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51z"></path></svg></button>
+      <button class="nc-toolbtn" title="חיבור" aria-label="חיבור" style="width:36px;height:36px;border-radius:8px;border:0;background:transparent;color:#AEB9C6;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></button>
+      <span style="width:1px;height:20px;background:rgba(255,255,255,.1);margin:0 4px;"></span>
+      <button class="nc-toolbtn" title="מחיקה" aria-label="מחיקה" style="width:36px;height:36px;border-radius:8px;border:0;background:transparent;color:#AEB9C6;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path></svg></button>
+      <button class="nc-toolbtn" title="התאם לתצוגה" aria-label="התאם לתצוגה" style="width:36px;height:36px;border-radius:8px;border:0;background:transparent;color:#AEB9C6;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg></button>
+    </div>
+    </sc-if>
+
+    <!-- grouping action (multi-select) -->
+    <sc-if value="{{ groupActive }}">
+    <div role="region" aria-label="קיבוץ ל-VLAN" style="position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:24;display:flex;align-items:center;gap:12px;background:rgba(32,38,47,.97);border:1px solid rgba(124,203,255,.35);border-radius:12px;padding:8px 8px 8px 16px;box-shadow:0 14px 36px rgba(0,0,0,.5);backdrop-filter:blur(8px);">
+      <span style="display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:#CFE0F0;font-weight:600;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V6a3 3 0 0 1 6 0v5"></path><rect x="4" y="11" width="16" height="10" rx="2"></rect></svg>{{ groupCount }} רכיבים נבחרו</span>
+      <button onClick="{{ startGroup }}" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 16px;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;box-shadow:0 6px 16px rgba(0,117,219,.4);transition:background .18s;" style-hover="background:#0059A8;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"></path></svg>קבץ ל-VLAN</button>
+      <button onClick="{{ clearMulti }}" aria-label="ביטול בחירה" class="nc-toolbtn" style="width:32px;height:32px;border-radius:8px;border:0;background:transparent;color:#AEB9C6;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+    </div>
+    </sc-if>
+
+    <!-- component palette (bottom center, edit only) -->
+    <sc-if value="{{ isEdit }}">
+    <div aria-label="פלטת רכיבים" style="position:absolute;bottom:16px;left:calc(50% - 172px);transform:translateX(-50%);z-index:18;background:rgba(32,38,47,.96);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:8px 12px;box-shadow:0 14px 36px rgba(0,0,0,.45);backdrop-filter:blur(8px);">
+      <div style="font-size:10.5px;font-weight:600;letter-spacing:.04em;color:#6C7787;text-align:center;margin-bottom:8px;">גרור רכיב אל הקנבס</div>
+      <div style="display:flex;gap:8px;">
+        <sc-for list="{{ palette }}" as="p" hint-placeholder-count="9">
+        <button class="nc-pchip" draggable="true" title="{{ p.label }}" aria-label="{{ p.label }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;width:62px;border:1px solid rgba(255,255,255,.08);background:#1B222B;border-radius:8px;padding:8px 4px;cursor:grab;font-family:inherit;transition:all .15s;">
+          <span class="nc-pic" style="color:#C3CDD8;transition:color .15s;">{{ p.icon }}</span>
+          <span style="font-size:10px;font-weight:400;color:#AEB9C6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:56px;">{{ p.label }}</span>
+        </button>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- minimap -->
+    <div style="position:absolute;bottom:16px;right:16px;width:184px;height:104px;background:rgba(20,25,32,.92);border:1px solid rgba(255,255,255,.1);border-radius:12px;box-shadow:0 10px 26px rgba(0,0,0,.4);z-index:16;overflow:hidden;backdrop-filter:blur(4px);">
+      <div style="position:relative;width:100%;height:100%;">
+        <div style="position:absolute;left:{{ vp.left }}px;top:{{ vp.top }}px;width:{{ vp.w }}px;height:{{ vp.h }}px;border:1px solid rgba(124,203,255,.6);border-radius:4px;background:rgba(124,203,255,.08);"></div>
+        <sc-for list="{{ mini }}" as="m" hint-placeholder-count="7">
+        <div style="position:absolute;left:{{ m.left }}px;top:{{ m.top }}px;width:8px;height:8px;border-radius:2px;background:{{ m.color }};"></div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- zoom -->
+    <div style="position:absolute;top:16px;right:16px;display:flex;flex-direction:column;background:rgba(32,38,47,.96);border:1px solid rgba(255,255,255,.09);border-radius:12px;box-shadow:0 10px 26px rgba(0,0,0,.4);overflow:hidden;z-index:16;backdrop-filter:blur(6px);">
+      <button class="nc-toolbtn" aria-label="הגדל" style="width:40px;height:38px;border:0;background:transparent;color:#C3CDD8;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+      <div style="height:1px;background:rgba(255,255,255,.08);"></div>
+      <div style="height:32px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#8A97A6;">100%</div>
+      <div style="height:1px;background:rgba(255,255,255,.08);"></div>
+      <button class="nc-toolbtn" aria-label="הקטן" style="width:40px;height:38px;border:0;background:transparent;color:#C3CDD8;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+    </div>
+
+    <!-- ===== INSPECTOR / SWITCH PANEL (right) ===== -->
+    <aside class="nc-scroll" aria-label="מאפייני רכיב" style="position:absolute;top:0;bottom:0;right:0;width:344px;background:#20262F;border-inline-start:1px solid rgba(255,255,255,.08);overflow-y:auto;z-index:20;display:flex;flex-direction:column;">
+
+      <!-- header -->
+      <div style="flex:none;display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid rgba(255,255,255,.07);">
+        <span style="flex:none;width:44px;height:44px;border-radius:12px;background:{{ sel.tileBg }};border:1.5px solid {{ sel.tileBorder }};box-shadow:{{ sel.glow }};color:{{ sel.iconFg }};display:flex;align-items:center;justify-content:center;">{{ sel.icon }}</span>
+        <div style="min-width:0;flex:1;">
+          <div style="font-weight:600;font-size:16px;color:#fff;line-height:1.1;">{{ sel.label }}</div>
+          <div style="font-size:12px;color:#AEB9C6;margin-top:4px;">{{ sel.sub }}</div>
+        </div>
+        <span style="flex:none;font-size:10.5px;font-weight:600;color:var(--hue-green);background:rgba(81,213,165,.14);border:1px solid rgba(81,213,165,.3);border-radius:var(--radius-full);padding:4px 10px;">מחובר</span>
+      </div>
+
+      <!-- network settings -->
+      <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,.07);">
+        <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.03em;color:#6C7787;margin-bottom:12px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>הגדרות רשת</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:600;color:#8A97A6;margin-bottom:8px;">שם הרכיב</label>
+            <input class="nc-fld" value="{{ sel.label }}" aria-label="שם הרכיב" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:#161B22;color:#fff;font-family:inherit;font-size:14px;font-weight:400;transition:all .15s;"/>
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:600;color:#8A97A6;margin-bottom:8px;">סוג</label>
+            <div style="display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.03);"><span style="color:#7CCBFF;">{{ sel.iconSm }}</span><span style="font-size:13.5px;font-weight:400;color:#C3CDD8;">{{ sel.typeLabel }}</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#8A97A6;margin-bottom:8px;">כתובת IP</label>
+              <input dir="ltr" class="nc-fld" value="{{ sel.ip }}" aria-label="כתובת IP" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:#161B22;color:#fff;font-size:13.5px;text-align:left;transition:all .15s;"/>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:600;color:#8A97A6;margin-bottom:8px;">פורט</label>
+              <input dir="ltr" class="nc-fld" value="{{ sel.port }}" aria-label="פורט" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:#161B22;color:#fff;font-size:13.5px;text-align:left;transition:all .15s;"/>
+            </div>
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:600;color:#8A97A6;margin-bottom:8px;">Subnet Mask</label>
+            <input dir="ltr" class="nc-fld" value="{{ sel.subnet }}" aria-label="Subnet" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:#161B22;color:#fff;font-size:13.5px;text-align:left;transition:all .15s;"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- VLAN MANAGEMENT -->
+      <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,.07);">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;">
+          <span style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.03em;color:#6C7787;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg>רשתות VLAN · {{ vlanCount }}</span>
+          <sc-if value="{{ isEdit }}">
+          <button onClick="{{ addVlan }}" aria-label="צור VLAN" title="צור VLAN" style="width:28px;height:28px;border-radius:8px;border:1px solid rgba(124,203,255,.3);background:rgba(124,203,255,.1);color:#7CCBFF;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;" style-hover="background:rgba(124,203,255,.2);"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
+          </sc-if>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <sc-for list="{{ vlanList }}" as="v" hint-placeholder-count="3">
+          <div class="nc-prow" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:8px 12px;transition:background .14s;">
+            <span style="flex:none;width:10px;height:10px;border-radius:3px;background:{{ v.color }};"></span>
+            <div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;"><span dir="ltr" style="font-size:12px;font-weight:600;color:#fff;">{{ v.vid }}</span><span style="font-size:12.5px;font-weight:400;color:#C3CDD8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ v.name }}</span></div><div style="font-size:10.5px;color:#6C7787;margin-top:2px;">{{ v.count }}</div></div>
+            <sc-if value="{{ isEdit }}">
+            <button onClick="{{ v.onEdit }}" aria-label="עריכת VLAN" class="nc-toolbtn" style="flex:none;width:28px;height:28px;border-radius:8px;border:0;background:transparent;color:#8A97A6;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"></path></svg></button>
+            <button onClick="{{ v.onDissolve }}" aria-label="פירוק VLAN" style="flex:none;width:28px;height:28px;border-radius:8px;border:0;background:transparent;color:#8A97A6;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .14s;" style-hover="background:rgba(201,66,54,.16);color:var(--caution);"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path></svg></button>
+            </sc-if>
+          </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ isEdit }}">
+        <div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-size:11px;color:#6C7787;line-height:1.5;"><svg viewBox="0 0 24 24" width="13" height="13" style="flex:none;margin-top:1px;" fill="none" stroke="#6C7787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg><span>בחרו רכיבים עם <strong style="color:#9FB4C8;font-weight:600;">Shift+לחיצה</strong> ואז «קבץ ל-VLAN»</span></div>
+        </sc-if>
+      </div>
+
+      <!-- SWITCH MANAGEMENT PANEL -->
+      <sc-if value="{{ sel.isSwitch }}">
+      <div style="padding:16px 16px 24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;">
+          <span style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.03em;color:#6C7787;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7CCBFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="20" height="6" rx="2"></rect><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"></path></svg>ניהול הסוויץ׳</span>
+          <span style="font-size:11px;font-weight:600;color:#7CCBFF;background:rgba(124,203,255,.12);border-radius:var(--radius-full);padding:4px 10px;">5 / 8 פעילים</span>
+        </div>
+
+        <!-- physical faceplate -->
+        <div style="background:#10151C;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px;margin-bottom:16px;">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+            <sc-for list="{{ jacks }}" as="j" hint-placeholder-count="8">
+            <div class="nc-jack" title="{{ j.title }}" style="position:relative;height:32px;border-radius:6px 6px 4px 4px;background:{{ j.bg }};border:1.5px solid {{ j.border }};display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;cursor:pointer;transition:filter .14s;">
+              <span style="position:absolute;top:4px;left:50%;transform:translateX(-50%);width:7px;height:7px;border-radius:50%;background:{{ j.led }};box-shadow:{{ j.ledGlow }};"></span>
+              <span style="font-size:9.5px;font-weight:600;color:{{ j.numFg }};">{{ j.n }}</span>
+            </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <!-- port table -->
+        <div style="border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:38px 1fr 64px 52px;gap:0;background:rgba(255,255,255,.04);padding:8px 12px;font-size:10.5px;font-weight:600;color:#6C7787;">
+            <span>פורט</span><span>מחובר ל</span><span>VLAN</span><span>סטטוס</span>
+          </div>
+          <sc-for list="{{ ports }}" as="p" hint-placeholder-count="8">
+          <div class="nc-prow" style="display:grid;grid-template-columns:38px 1fr 64px 52px;gap:0;align-items:center;padding:8px 12px;border-top:1px solid rgba(255,255,255,.05);transition:background .14s;">
+            <span style="font-weight:600;font-size:12.5px;color:#7CCBFF;">{{ p.n }}</span>
+            <span style="display:flex;align-items:center;gap:8px;min-width:0;"><span style="flex:none;color:{{ p.devIconFg }};">{{ p.devIcon }}</span><span style="font-size:12.5px;font-weight:400;color:{{ p.devFg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ p.dev }}</span></span>
+            <span dir="ltr" style="font-size:12px;font-weight:600;color:{{ p.vlanFg }};">{{ p.vlan }}</span>
+            <span style="font-size:10.5px;font-weight:600;color:{{ p.statusFg }};">{{ p.status }}</span>
+          </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- non-switch footer action -->
+      <sc-if value="{{ sel.notSwitch }}">
+      <div style="padding:16px;">
+        <div style="display:flex;align-items:center;gap:12px;background:rgba(124,203,255,.07);border:1px solid rgba(124,203,255,.18);border-radius:8px;padding:12px;"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:rgba(124,203,255,.14);color:#7CCBFF;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></span><div style="min-width:0;"><div style="font-size:12.5px;font-weight:600;color:#fff;">מחובר לסוויץ׳ הראשי</div><div style="font-size:11px;color:#8A97A6;margin-top:2px;">פורט {{ sel.port }} · {{ sel.sub }}</div></div></div>
+      </div>
+      </sc-if>
+
+    </aside>
+
+    <!-- ===== VLAN CREATE / EDIT PANEL ===== -->
+    <sc-if value="{{ vlanPanelOpen }}">
+    <div style="position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;">
+      <div onClick="{{ closeVlanPanel }}" style="position:absolute;inset:0;background:rgba(8,11,15,.55);backdrop-filter:blur(2px);"></div>
+      <div dir="rtl" role="dialog" aria-label="הגדרת VLAN" onClick="{{ stop }}" style="position:relative;width:368px;max-width:92%;background:#20262F;border:1px solid rgba(255,255,255,.1);border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,.55);overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px;border-bottom:1px solid rgba(255,255,255,.07);">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="width:32px;height:32px;border-radius:8px;background:rgba(124,203,255,.14);color:#7CCBFF;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg></span><div><div style="font-weight:600;font-size:15.5px;color:#fff;">{{ panel.title }}</div><div style="font-size:11.5px;color:#8A97A6;margin-top:2px;">{{ panel.memberCount }} רכיבים בקבוצה</div></div></div>
+          <button onClick="{{ closeVlanPanel }}" aria-label="סגור" style="width:32px;height:32px;border-radius:8px;border:0;background:rgba(255,255,255,.05);color:#AEB9C6;display:flex;align-items:center;justify-content:center;cursor:pointer;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+        </div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:600;color:#8A97A6;margin-bottom:8px;">שם ה-VLAN</label>
+            <input class="nc-fld" value="{{ panel.name }}" onInput="{{ onName }}" placeholder="למשל: רשת אורחים" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:#161B22;color:#fff;font-family:inherit;font-size:14px;font-weight:400;transition:all .15s;"/>
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:600;color:#8A97A6;margin-bottom:8px;">VLAN ID</label>
+            <input dir="ltr" class="nc-fld" value="{{ panel.vid }}" onInput="{{ onVid }}" inputmode="numeric" style="width:100%;height:40px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:#161B22;color:#fff;font-size:14px;font-weight:600;text-align:left;transition:all .15s;"/>
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:600;color:#8A97A6;margin-bottom:8px;">צבע</label>
+            <div style="display:flex;gap:8px;">
+              <sc-for list="{{ panel.swatches }}" as="sw" hint-placeholder-count="6">
+              <button onClick="{{ sw.onPick }}" aria-label="צבע VLAN" style="width:32px;height:32px;border-radius:8px;background:{{ sw.c }};border:2px solid {{ sw.ring }};cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;transition:transform .14s;" style-hover="transform:scale(1.08);"><sc-if value="{{ sw.active }}"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></sc-if></button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px;border-top:1px solid rgba(255,255,255,.07);">
+          <sc-if value="{{ panel.isEditMode }}">
+          <button onClick="{{ dissolveCur }}" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#E5777B;border:1px solid rgba(201,66,54,.35);border-radius:8px;padding:8px 16px;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;transition:all .15s;" style-hover="background:rgba(201,66,54,.12);"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path></svg>פירוק</button>
+          </sc-if>
+          <sc-if value="{{ panel.notEditMode }}"><span></span></sc-if>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button onClick="{{ closeVlanPanel }}" style="background:transparent;color:#AEB9C6;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 16px;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;transition:all .15s;" style-hover="background:rgba(255,255,255,.05);">ביטול</button>
+            <button onClick="{{ saveVlan }}" style="display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 16px;font-family:inherit;font-weight:600;font-size:13px;cursor:pointer;box-shadow:0 6px 16px rgba(0,117,219,.4);transition:background .18s;" style-hover="background:#0059A8;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>{{ panel.saveLabel }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="flex:none;height:32px;background:var(--neutral-charcoal);display:flex;align-items:center;justify-content:space-between;padding:0 24px;">
+    <span style="color:#AEB9C6;font-size:12px;">© iPracticom Academy — בלוק טופולוגיית רשת</span>
+    <span style="color:#6C7787;font-size:12px;">7 רכיבים · 6 חיבורים</span>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820},&quot;mode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;edit&quot;,&quot;learner&quot;],&quot;default&quot;:&quot;edit&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;מצב התצוגה&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.raw=(s)=>React.createElement('span',{dangerouslySetInnerHTML:{__html:s},style:{display:'flex'}});
+    this.IC={
+      modem:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="6.5" cy="12" r="1.1"></circle><path d="M10 12h8"></path></svg>',
+      router:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="14" width="20" height="8" rx="2"></rect><path d="M6.5 18h.01M11 18h.01"></path><path d="M15 12V8"></path><path d="M17.8 6.2a4 4 0 0 0-5.6 0"></path><path d="M20.6 3.4a8 8 0 0 0-11.3 0"></path></svg>',
+      switch:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="8" rx="2"></rect><path d="M6 12h.01M10 12h.01M14 12h.01M18 12h.01"></path></svg>',
+      ap:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a8 8 0 0 1 14 0"></path><path d="M8.5 16.05a4 4 0 0 1 7 0"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>',
+      ipad:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>',
+      voip:'<svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>',
+      printer:'<svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>',
+      register:'<svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"></path><path d="M8 7h8M8 11h8M8 15h5"></path></svg>',
+      credit:'<svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line><line x1="6" y1="15" x2="9" y2="15"></line></svg>',
+      save:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>',
+    };
+    this.NODES={
+      modem:{x:445,y:80,type:'modem',label:'מודם הספק',ip:'WAN · DHCP',typeLabel:'מודם DOCSIS',port:'WAN',subnet:'מהספק'},
+      router:{x:445,y:204,type:'router',label:'ראוטר ראשי',ip:'192.168.1.1',typeLabel:'ראוטר / שער רשת',port:'WAN → מודם',subnet:'255.255.255.0 (/24)'},
+      sw:{x:445,y:328,type:'switch',label:'סוויץ׳ ראשי',ip:'192.168.1.2',typeLabel:'Switch מנוהל · 8 פורטים',port:'1 (Uplink)',subnet:'255.255.255.0 (/24)',sub:'Switch מנוהל · 8 פורטים'},
+      ap:{x:150,y:490,type:'ap',label:'אקסס פוינט',ip:'192.168.1.10',typeLabel:'נקודת גישה Wi-Fi',port:'2',subnet:'255.255.255.0 (/24)',sub:'Wi-Fi · VLAN 10'},
+      voip:{x:345,y:490,type:'voip',label:'טלפון VoIP',ip:'192.168.20.21',typeLabel:'טלפון IP',port:'3',subnet:'255.255.255.0 (/24)',sub:'VoIP · VLAN 20'},
+      reg:{x:540,y:490,type:'register',label:'קופה רושמת',ip:'192.168.30.31',typeLabel:'עמדת קופה POS',port:'4',subnet:'255.255.255.0 (/24)',sub:'POS · VLAN 30'},
+      cc:{x:735,y:490,type:'credit',label:'בולק אשראי',ip:'192.168.30.32',typeLabel:'מסוף סליקת אשראי',port:'5',subnet:'255.255.255.0 (/24)',sub:'סליקה · VLAN 30'},
+    };
+    this.ORDER=['modem','router','sw','ap','voip','reg','cc'];
+    this.EDGES=[
+      {s:'modem',t:'router',label:'WAN'},
+      {s:'router',t:'sw',label:'P1'},
+      {s:'sw',t:'ap',label:'P2'},
+      {s:'sw',t:'voip',label:'P3'},
+      {s:'sw',t:'reg',label:'P4'},
+      {s:'sw',t:'cc',label:'P5'},
+    ];
+    this.PORTS=[
+      {n:1,key:'router',dev:'ראוטר ראשי',vlan:'1',role:'Uplink',up:true},
+      {n:2,key:'ap',dev:'אקסס פוינט',vlan:'10',role:'Access',up:true},
+      {n:3,key:'voip',dev:'טלפון VoIP',vlan:'20',role:'Voice',up:true},
+      {n:4,key:'reg',dev:'קופה רושמת',vlan:'30',role:'Access',up:true},
+      {n:5,key:'cc',dev:'בולק אשראי',vlan:'30',role:'Access',up:true},
+      {n:6,dev:null,up:false},{n:7,dev:null,up:false},{n:8,dev:null,up:false},
+    ];
+    // device colors: real DS hues (no invented hex) — cobalt/accent/indigo/green/nickel/bronze/latte
+    this.COL={modem:'#004E9B',router:'#0075DB',switch:'#2EB4FF',ap:'#51D5A5',ipad:'#9EA5AD',voip:'#8E7057',register:'#BCA28D',credit:'#51D5A5'};
+    this.VCOL=['#2EB4FF','#0075DB','#8E7057','#004E9B','#51D5A5','#C94236'];
+    this.hexA=(h,a)=>{ const n=parseInt(h.slice(1),16); return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')'; };
+    this.state={
+      mode: this.props.mode==='learner'?'learner':'edit',
+      selectedId:'sw',
+      vlans:[
+        {id:'vl10',name:'רשת אלחוטית',vlan_id:10,color:'#2EB4FF',member_node_ids:['sw','ap']},
+        {id:'vl20',name:'טלפוניה',vlan_id:20,color:'#8E7057',member_node_ids:['sw','voip']},
+        {id:'vl30',name:'קופות ותשלום',vlan_id:30,color:'#004E9B',member_node_ids:['sw','reg','cc']},
+      ],
+      multi:[],
+      vlanPanelOpen:false, vlanEditId:null,
+      draft:{name:'',vlan_id:40,color:'#2EB4FF'},
+    };
+  }
+  ic(type,w){ const s=this.IC[type]||this.IC.switch; return this.raw(w?s.replace(/width="2[0-9]" height="2[0-9]"/,'width="'+w+'" height="'+w+'"'):s); }
+  select(id,e){ if(e&&e.shiftKey){ this.toggleMulti(id); } else { this.setState({selectedId:id, multi:[]}); } }
+  toggleMulti(id){ const m=this.state.multi.slice(); const i=m.indexOf(id); if(i>=0)m.splice(i,1); else m.push(id); this.setState({multi:m, selectedId:id}); }
+  clearMulti(){ this.setState({multi:[]}); }
+  startGroup(){ const ex=this.state.vlans.map(v=>v.vlan_id); let nid=10; while(ex.indexOf(nid)>=0)nid+=10; this.setState({vlanPanelOpen:true, vlanEditId:null, draft:{name:'',vlan_id:nid,color:this.VCOL[this.state.vlans.length%this.VCOL.length]}}); }
+  openVlanEdit(id){ const v=(this.state.vlans||[]).find(x=>x.id===id); if(!v)return; this.setState({vlanPanelOpen:true, vlanEditId:id, draft:{name:v.name,vlan_id:v.vlan_id,color:v.color}}); }
+  closeVlanPanel(){ this.setState({vlanPanelOpen:false, vlanEditId:null}); }
+  setDraft(p){ this.setState(st=>({draft:{...st.draft,...p}})); }
+  saveVlan(){ const st=this.state; const d=st.draft; const name=(d.name||'').trim()||('VLAN '+d.vlan_id);
+    if(st.vlanEditId){ this.setState({vlans:st.vlans.map(v=>v.id===st.vlanEditId?{...v,name,vlan_id:Number(d.vlan_id),color:d.color}:v), vlanPanelOpen:false, vlanEditId:null}); }
+    else { const nv={id:'vl'+Date.now(), name, vlan_id:Number(d.vlan_id), color:d.color, member_node_ids:st.multi.slice()}; this.setState({vlans:[...st.vlans,nv], vlanPanelOpen:false, multi:[]}); } }
+  dissolveVlan(id){ this.setState(st=>({vlans:(st.vlans||[]).filter(v=>v.id!==id), vlanPanelOpen:false, vlanEditId:null})); }
+
+  renderVals(){
+    const s=this.state;
+    const isEdit=s.mode==='edit', isLearner=s.mode==='learner';
+    const N=this.NODES, COL=this.COL;
+
+    const VL=s.vlans||[];
+    const vlansOf=(id)=>VL.filter(v=>(v.member_node_ids||[]).indexOf(id)>=0);
+
+    const nodes=this.ORDER.map(id=>{
+      const d=N[id]; const on=id===s.selectedId; const inMulti=s.multi.indexOf(id)>=0;
+      const mv=vlansOf(id);
+      return {
+        tileLeft:d.x-32, tileTop:d.y-28, label:d.label, ip:d.ip, aria:d.label+' — '+d.typeLabel+(mv.length?(' — חבר ב-'+mv.length+' VLAN'):''),
+        icon:this.ic(d.type),
+        tileBg: on?'var(--gradient-accent)':'#232A33',
+        tileBorder: on?'var(--hue-indigo)':'#313A45',
+        glow: on?'0 10px 30px rgba(0,117,219,.45), 0 0 0 4px rgba(46,180,255,.18)':'0 4px 14px rgba(0,0,0,.3)',
+        iconFg: on?'#fff':'#C3CDD8',
+        labelFg: on?'#fff':'#D2DAE3', ipFg: on?'#9FD4FF':'#7E8B9A',
+        outline: inMulti?'2px dashed #7CCBFF':'none',
+        handleOpacity: '0',
+        hasVlans: mv.length>0, isTrunk: mv.length>1, vlanDots: mv.map(v=>v.color),
+        onSelect:(e)=>this.select(id,e),
+        onKey:(e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();this.select(id);} },
+      };
+    });
+
+    const vlanRegions=VL.map(v=>{
+      const pts=(v.member_node_ids||[]).map(id=>N[id]).filter(Boolean);
+      if(!pts.length) return null;
+      const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y), pad=46;
+      const left=Math.min.apply(0,xs)-pad, top=Math.min.apply(0,ys)-pad;
+      const width=(Math.max.apply(0,xs)-Math.min.apply(0,xs))+pad*2;
+      const height=(Math.max.apply(0,ys)-Math.min.apply(0,ys))+pad*2;
+      const anchor=pts.filter(p=>p.type!=='switch')[0]||pts[0];
+      return { left, top, width, height,
+        fill:this.hexA(v.color,0.08), border:this.hexA(v.color,0.55), dot:v.color,
+        name:v.name, vid:'VLAN '+v.vlan_id, labelLeft:anchor.x, labelTop:top+9,
+        chipBg:this.hexA('#10151C',0.92), canEdit:isEdit, onEdit:isEdit?()=>this.openVlanEdit(v.id):()=>{},
+      };
+    }).filter(Boolean);
+
+    const vlanList=VL.map(v=>({
+      color:v.color, vid:'VLAN '+v.vlan_id, name:v.name, count:(v.member_node_ids||[]).length+' רכיבים',
+      onEdit:()=>this.openVlanEdit(v.id), onDissolve:()=>this.dissolveVlan(v.id),
+    }));
+
+    const groupActive=isEdit && s.multi.length>0;
+
+    const dr=s.draft;
+    const swatches=this.VCOL.map(c=>({ c, active:dr.color===c, ring:dr.color===c?'#fff':'rgba(255,255,255,.12)', onPick:()=>this.setDraft({color:c}) }));
+    const panel={
+      title: s.vlanEditId?'עריכת VLAN':'יצירת VLAN חדש',
+      isEditMode: !!s.vlanEditId, notEditMode: !s.vlanEditId,
+      saveLabel: s.vlanEditId?'שמירה':'צור VLAN',
+      name:dr.name, vid:dr.vlan_id, color:dr.color, swatches,
+      memberCount: s.vlanEditId ? ((VL.find(x=>x.id===s.vlanEditId)||{}).member_node_ids||[]).length : s.multi.length,
+    };
+
+    const edges=this.EDGES.map(e=>{
+      const a=N[e.s], b=N[e.t];
+      const x1=a.x, y1=a.y+28, x2=b.x, y2=b.y-28;
+      const my=(y1+y2)/2;
+      const active=(e.s===s.selectedId||e.t===s.selectedId);
+      return {
+        d:`M ${x1} ${y1} C ${x1} ${my}, ${x2} ${my}, ${x2} ${y2}`,
+        x1,y1,x2,y2,
+        stroke: active?'#2EB4FF':'#39434F', width: active?'2.6':'2',
+        dot: active?'#2EB4FF':'#4A5563',
+        label:e.label, lx:x1+(x2-x1)*0.34, ly:y1+(y2-y1)*0.34-4,
+        labelFg: active?'#9FD4FF':'#8A97A6',
+      };
+    });
+
+    const sx=184/900, sy=104/560;
+    const mini=this.ORDER.map(id=>({ left:(N[id].x*sx-4).toFixed(1), top:(N[id].y*sy-4).toFixed(1), color:COL[N[id].type] }));
+    const vp={ left:'3', top:'3', w:(184-6).toFixed(0), h:(104-6).toFixed(0) };
+
+    const palette=[
+      {type:'router',label:'ראוטר'},{type:'modem',label:'מודם'},{type:'switch',label:'סוויץ׳'},
+      {type:'ap',label:'אקסס פוינט'},{type:'ipad',label:'iPad'},{type:'voip',label:'טלפון VoIP'},
+      {type:'printer',label:'מדפסת'},{type:'register',label:'קופה רושמת'},{type:'credit',label:'בולק אשראי'},
+    ].map(p=>({ label:p.label, icon:this.ic(p.type,22) }));
+
+    const d=N[s.selectedId]||N.sw; const isSwitch=d.type==='switch';
+    const sel={
+      label:d.label, sub:d.sub||d.typeLabel, typeLabel:d.typeLabel, ip:d.ip, port:d.port, subnet:d.subnet,
+      icon:this.ic(d.type,24), iconSm:this.ic(d.type,16),
+      tileBg:'var(--gradient-accent)', tileBorder:'var(--hue-indigo)',
+      glow:'0 8px 22px rgba(0,117,219,.4), 0 0 0 3px rgba(46,180,255,.16)', iconFg:'#fff',
+      isSwitch, notSwitch:!isSwitch,
+    };
+
+    const jacks=this.PORTS.map(p=>({
+      n:p.n, title:p.up?('פורט '+p.n+' — '+p.dev):('פורט '+p.n+' — פנוי'),
+      bg: p.up?'#0E2730':'#1A212A', border:p.up?'#2EB4FF':'#2C333D',
+      led:p.up?'#51D5A5':'#3A434E', ledGlow:p.up?'0 0 6px rgba(81,213,165,.8)':'none',
+      numFg:p.up?'#9FD4FF':'#5C6675',
+    }));
+    const ports=this.PORTS.map(p=>({
+      n:p.n, dev:p.dev||'פורט פנוי', vlan:p.up?p.vlan:'—',
+      devIcon: p.up?this.ic(N[p.key].type,15):this.raw('<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"></circle></svg>'),
+      devIconFg: p.up?'#7CCBFF':'#4A5563', devFg:p.up?'#D2DAE3':'#5C6675',
+      vlanFg:p.up?'#C3CDD8':'#5C6675',
+      status:p.up?'פעיל':'כבוי', statusFg:p.up?'#51D5A5':'#6C7787',
+    }));
+
+    return {
+      isEdit, isLearner,
+      modeTabs:[{id:'edit',label:'עריכה'},{id:'learner',label:'תצוגת לומד'}], mode:s.mode, setMode:(k)=>this.setState({mode:k}),
+      nodes, edges, mini, vp, palette, sel, jacks, ports,
+      vlanRegions, vlanList, vlanCount:String(VL.length),
+      groupActive, groupCount:String(s.multi.length),
+      startGroup:()=>this.startGroup(), clearMulti:()=>this.clearMulti(),
+      addVlan:()=>this.startGroup(),
+      vlanPanelOpen:s.vlanPanelOpen, panel,
+      onName:(e)=>this.setDraft({name:e.target.value}),
+      onVid:(e)=>this.setDraft({vlan_id:e.target.value}),
+      saveVlan:()=>this.saveVlan(), closeVlanPanel:()=>this.closeVlanPanel(),
+      dissolveCur:()=>this.dissolveVlan(s.vlanEditId),
+      stop:(e)=>{ if(e)e.stopPropagation(); },
+      saveIcon:this.raw(this.IC.save),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/effects.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/tokens/base.css">
+<link rel="stylesheet" href="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/styles.css">
+<script src="_ds/ipracticom-design-system-shira-c23dff89-c66d-4d91-9f65-f9241623cc71/_ds_bundle.js"></script>
+<style>
+*{box-sizing:border-box;}html,body{margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--surface-app);-webkit-font-smoothing:antialiased;}
+input,textarea,select,button{font-family:inherit;}
+@keyframes umFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+@keyframes umDrawer{from{transform:translateX(-28px);opacity:0;}to{transform:none;opacity:1;}}
+@keyframes umBack{from{opacity:0;}to{opacity:1;}}
+@keyframes umToastIn{from{opacity:0;transform:translateY(10px) scale(.98);}to{opacity:1;transform:none;}}
+.um-scroll{scrollbar-width:thin;scrollbar-color:var(--neutral-silver) transparent;}
+.um-scroll::-webkit-scrollbar{width:8px;height:8px;}.um-scroll::-webkit-scrollbar-thumb{background:var(--neutral-silver);border-radius:8px;}
+.um-tree:hover{background:var(--neutral-whisper) !important;}
+.um-tree:hover .um-treeact{opacity:1 !important;}
+.um-urow:hover{background:var(--neutral-whisper) !important;}
+.um-in:focus{outline:none;border-color:var(--accent) !important;box-shadow:var(--shadow-focus-ring) !important;}
+.um-mgr:hover{border-color:var(--neutral-palladium) !important;}
+.um-cand:hover{background:var(--neutral-whisper) !important;}
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0075DB"/><g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="34" cy="34" r="11"/><path d="M16 74c0-11 8-18 18-18s18 7 18 18"/><path d="M64 30h20M64 46h20M64 62h12"/></g></svg></template>
+
+<div dir="rtl" data-screen-label="ניהול משתמשים" style="height:100vh;background:var(--surface-app);color:var(--neutral-charcoal);display:flex;flex-direction:row;overflow:hidden;font-family:var(--font-sans);">
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <dc-import name="SideNav" active="settings" role="admin" hint-size="248px,100vh"></dc-import>
+  </sc-if>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column;">
+
+    <!-- ===== HEADER ===== -->
+    <dc-import name="TopBar" title="ניהול משתמשים ומבנה ארגוני" subtitle="הגדרות מערכת · ניהול הרשאות ומחלקות" hint-size="100%,76px" style="position:sticky;top:0;z-index:20;">
+      <sc-if value="{{ isMobile }}">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="outline" size="md" onClick="{{ openTree }}" aria-label="מחלקות" hint-size="40px,40px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><rect x="7" y="6" width="10" height="4" rx="1"></rect><rect x="11" y="14" width="10" height="4" rx="1"></rect></svg></x-import>
+      </sc-if>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ openInvite }}" leadingIcon="{{ inviteIcon }}" hint-size="auto,40px">הזמן משתמש</x-import>
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" onClick="{{ addRootDept }}" leadingIcon="{{ plusIcon }}" hint-size="auto,40px">מחלקה חדשה</x-import>
+    </dc-import>
+
+    <!-- ===== BODY ===== -->
+    <div style="flex:1;min-height:0;display:flex;flex-direction:row;">
+
+      <!-- ORG TREE (right) -->
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <aside class="um-scroll" aria-label="עץ מחלקות" style="flex:none;width:312px;background:var(--surface-card);border-inline-start:1px solid var(--neutral-silver);overflow-y:auto;display:flex;flex-direction:column;">
+        <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px 16px 12px;">
+          <h2 style="font-weight:600;font-size:var(--text-small-size);margin:0;display:flex;align-items:center;gap:8px;color:var(--neutral-charcoal);"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><rect x="7" y="6" width="10" height="4" rx="1"></rect><rect x="11" y="14" width="10" height="4" rx="1"></rect></svg>מבנה ארגוני</h2>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="accent" hint-size="auto,24px">{{ deptCount }} מחלקות</x-import>
+        </div>
+        <div style="flex:1;padding:0 8px 16px;">
+          <sc-for list="{{ tree }}" as="t" hint-placeholder-count="6">
+          <div class="um-tree" onClick="{{ t.onSelect }}" role="treeitem" aria-selected="{{ t.selected }}" tabindex="0" onKeyDown="{{ t.onKey }}" style="display:flex;align-items:center;gap:8px;border-radius:8px;padding:8px;margin:2px 0;cursor:pointer;background:{{ t.bg }};margin-inline-start:{{ t.indent }};transition:background .14s;">
+            <sc-if value="{{ t.hasChildren }}"><button onClick="{{ t.onToggle }}" aria-label="הרחב" style="flex:none;width:20px;height:20px;border:0;background:transparent;color:var(--neutral-nickel);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;"><svg viewBox="0 0 24 24" width="15" height="15" style="transition:transform .2s;transform:{{ t.chev }};" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button></sc-if>
+            <sc-if value="{{ t.leaf }}"><span style="flex:none;width:20px;"></span></sc-if>
+            <span style="flex:none;width:32px;height:32px;border-radius:8px;background:{{ t.iconBg }};color:{{ t.iconFg }};display:flex;align-items:center;justify-content:center;">{{ t.icon }}</span>
+            <span style="flex:1;min-width:0;font-weight:{{ t.weight }};font-size:var(--text-small-size);color:{{ t.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ t.name }}</span>
+            <span class="um-treeact" style="flex:none;display:flex;align-items:center;gap:4px;opacity:0;transition:opacity .14s;">
+              <button onClick="{{ t.onAddSub }}" title="תת-מחלקה" aria-label="הוסף תת-מחלקה" style="width:24px;height:24px;border-radius:6px;border:0;background:transparent;color:var(--neutral-lead);display:flex;align-items:center;justify-content:center;cursor:pointer;" style-hover="background:var(--hue-sky);color:var(--accent);"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"></path></svg></button>
+              <span title="גרור לסידור" style="width:20px;height:24px;color:var(--neutral-palladium);display:flex;align-items:center;justify-content:center;cursor:grab;"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.4"></circle><circle cx="15" cy="6" r="1.4"></circle><circle cx="9" cy="12" r="1.4"></circle><circle cx="15" cy="12" r="1.4"></circle><circle cx="9" cy="18" r="1.4"></circle><circle cx="15" cy="18" r="1.4"></circle></svg></span>
+            </span>
+            <span style="flex:none;font-size:var(--text-tiny-size);font-weight:600;color:{{ t.countFg }};background:{{ t.countBg }};border-radius:var(--radius-full);padding:2px 8px;min-width:24px;text-align:center;">{{ t.count }}</span>
+          </div>
+          </sc-for>
+        </div>
+      </aside>
+      </sc-if>
+
+      <!-- USERS + DEPT SETTINGS (left) -->
+      <main class="um-scroll" style="flex:1;min-width:0;overflow-y:auto;">
+        <div style="max-width:980px;margin:0 auto;padding:24px 24px 48px;">
+
+          <!-- DEPT SETTINGS CARD -->
+          <section style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);overflow:hidden;margin-bottom:16px;">
+            <div style="display:flex;align-items:flex-start;gap:16px;padding:20px;border-bottom:1px solid var(--neutral-silver);">
+              <span style="flex:none;width:48px;height:48px;border-radius:8px;background:var(--gradient-accent);color:var(--white);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"></path><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"></path></svg></span>
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><h2 style="font-weight:600;font-size:var(--text-h4-size);margin:0;color:var(--neutral-charcoal);">{{ sel.name }}</h2><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="accent" hint-size="auto,24px">{{ sel.count }} חברים</x-import></div>
+                <div style="font-size:var(--text-small-size);color:var(--neutral-nickel);margin-top:4px;display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>{{ sel.path }}</div>
+              </div>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" onClick="{{ editDept }}" leadingIcon="{{ editIcon }}" hint-size="auto,40px">ערוך</x-import>
+            </div>
+
+            <div style="padding:20px;">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+                <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" label="שם המחלקה" value="{{ sel.name }}" hint-size="100%,64px"></x-import>
+                <div>
+                  <label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-lead);margin-bottom:8px;">מחלקת אב</label>
+                  <div style="display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);cursor:pointer;"><svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;color:var(--neutral-nickel);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18"></path></svg><span style="flex:1;min-width:0;font-size:var(--text-body-size);font-weight:400;color:var(--neutral-charcoal);">{{ sel.parentName }}</span><svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;color:var(--neutral-nickel);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                </div>
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-lead);margin-bottom:8px;">תיאור</label>
+                <div class="um-in" aria-label="תיאור" style="width:100%;min-height:64px;padding:12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);font-size:var(--text-small-size);line-height:1.6;color:var(--neutral-charcoal);">{{ sel.desc }}</div>
+              </div>
+
+              <!-- MANAGER ASSIGNMENT (highlight) -->
+              <div style="position:relative;">
+                <label style="display:flex;align-items:center;gap:8px;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-lead);margin-bottom:8px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5M17 21a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM7 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path></svg>מנהל המחלקה</label>
+                <button onClick="{{ toggleMgrPicker }}" class="um-mgr" aria-haspopup="listbox" aria-expanded="{{ mgrPickerOpen }}" style="display:flex;align-items:center;gap:12px;width:100%;border:1px solid {{ sel.mgrBorder }};background:{{ sel.mgrBg }};border-radius:8px;padding:12px;cursor:pointer;text-align:start;font-family:inherit;transition:var(--transition-fast);">
+                  <sc-if value="{{ sel.hasMgr }}">
+                  <span style="flex:none;width:40px;height:40px;border-radius:50%;background:{{ sel.mgrColor }};color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;">{{ sel.mgrInitials }}</span>
+                  <span style="flex:1;min-width:0;"><span style="display:flex;align-items:center;gap:8px;"><span style="font-weight:600;font-size:var(--text-body-size);color:var(--neutral-charcoal);">{{ sel.mgrName }}</span><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="success" hint-size="auto,20px">מנהל</x-import></span><span style="display:block;font-size:var(--text-tiny-size);color:var(--neutral-nickel);direction:ltr;text-align:right;margin-top:2px;">{{ sel.mgrEmail }}</span></span>
+                  </sc-if>
+                  <sc-if value="{{ sel.noMgr }}">
+                  <span style="flex:none;width:40px;height:40px;border-radius:50%;background:var(--neutral-whisper);color:var(--neutral-nickel);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20a8 8 0 0 1 16 0"></path></svg></span>
+                  <span style="flex:1;min-width:0;"><span style="display:block;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-lead);">לא הוגדר מנהל מחלקה</span><span style="display:block;font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:2px;">בחרו משתמש שינהל את המחלקה</span></span>
+                  </sc-if>
+                  <span style="flex:none;display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:600;font-size:var(--text-small-size);">החלף<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                </button>
+
+                <sc-if value="{{ mgrPickerOpen }}">
+                <div role="listbox" style="position:absolute;inset-inline:0;top:calc(100% + 8px);z-index:30;background:var(--white);border:1px solid var(--neutral-silver);border-radius:8px;box-shadow:var(--shadow-menu);overflow:hidden;animation:umFade .16s ease;">
+                  <div style="padding:12px;border-bottom:1px solid var(--neutral-silver);font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);">בחרו מנהל מבין חברי המחלקה</div>
+                  <div class="um-scroll" style="max-height:232px;overflow-y:auto;padding:8px;">
+                    <sc-for list="{{ mgrCandidates }}" as="c" hint-placeholder-count="4">
+                    <button onClick="{{ c.onPick }}" class="um-cand" role="option" aria-selected="{{ c.active }}" style="display:flex;align-items:center;gap:12px;width:100%;border:0;background:{{ c.bg }};border-radius:8px;padding:8px;cursor:pointer;text-align:start;font-family:inherit;transition:background .14s;">
+                      <span style="flex:none;width:32px;height:32px;border-radius:50%;background:{{ c.color }};color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;">{{ c.initials }}</span>
+                      <span style="flex:1;min-width:0;"><span style="display:block;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">{{ c.name }}</span><span style="display:block;font-size:var(--text-tiny-size);color:var(--neutral-nickel);">{{ c.roleLabel }}</span></span>
+                      <sc-if value="{{ c.active }}"><svg viewBox="0 0 24 24" width="17" height="17" style="flex:none;color:var(--success);" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></sc-if>
+                    </button>
+                    </sc-for>
+                  </div>
+                  <button onClick="{{ clearMgr }}" style="display:flex;align-items:center;gap:8px;width:100%;border:0;border-top:1px solid var(--neutral-silver);background:var(--white);padding:12px;cursor:pointer;font-family:inherit;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-nickel);transition:background .14s;" style-hover="background:var(--hue-salmon);color:var(--caution);"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>ללא מנהל מחלקה</button>
+                </div>
+                </sc-if>
+
+                <!-- access-grant callout -->
+                <sc-if value="{{ sel.hasMgr }}">
+                <div style="display:flex;align-items:flex-start;gap:12px;margin-top:12px;background:var(--hue-mint);border-radius:8px;padding:16px;">
+                  <span style="flex:none;width:32px;height:32px;border-radius:8px;background:var(--success);color:var(--white);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+                  <div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:var(--text-small-size);color:var(--hue-teal);">גישת ניהול הופעלה</div><div style="font-size:var(--text-tiny-size);line-height:1.55;color:var(--hue-teal);margin-top:4px;">כמנהל המחלקה, <strong>{{ sel.mgrName }}</strong> מקבל גישה לדשבורד ניהול המחלקה ולנתוני {{ sel.count }} העובדים — התקדמות, ציונים והשלמת הכשרות.</div></div>
+                </div>
+                </sc-if>
+              </div>
+            </div>
+          </section>
+
+          <!-- USERS TABLE -->
+          <section style="background:var(--white);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);overflow:hidden;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--neutral-silver);">
+              <h3 style="font-weight:600;font-size:var(--text-small-size);margin:0;display:flex;align-items:center;gap:8px;color:var(--neutral-charcoal);"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg>חברי המחלקה</h3>
+              <div style="min-width:180px;"><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" placeholder="חיפוש משתמש…" leadingIcon="{{ searchIcon }}" hint-size="180px,40px"></x-import></div>
+            </div>
+
+            <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:1fr 1.2fr 110px 100px 130px 28px;gap:0;padding:12px 20px;background:var(--neutral-whisper);border-bottom:1px solid var(--neutral-silver);font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);">
+              <span>שם</span><span>אימייל</span><span>תפקיד</span><span>סטטוס</span><span>פעילות אחרונה</span><span></span>
+            </div>
+            </sc-if>
+            <div>
+              <sc-for list="{{ users }}" as="u" hint-placeholder-count="4">
+              <div class="um-urow" onClick="{{ u.onOpen }}" role="button" tabindex="0" onKeyDown="{{ u.onKey }}" style="display:grid;grid-template-columns:{{ gridCols }};gap:{{ gridGap }};align-items:center;padding:16px 20px;border-bottom:1px solid var(--neutral-silver);cursor:pointer;transition:background .14s;">
+                <span style="display:flex;align-items:center;gap:12px;min-width:0;"><span style="flex:none;width:36px;height:36px;border-radius:50%;background:{{ u.color }};color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;position:relative;">{{ u.initials }}<sc-if value="{{ u.isMgr }}"><span style="position:absolute;bottom:-2px;inset-inline-start:-2px;width:16px;height:16px;border-radius:50%;background:var(--success);border:2px solid var(--white);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span></sc-if></span><span style="min-width:0;"><span style="display:block;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ u.name }}</span><sc-if value="{{ isMobile }}"><span dir="ltr" style="display:block;font-size:var(--text-tiny-size);color:var(--neutral-nickel);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ u.email }}</span></sc-if></span></span>
+                <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}"><span dir="ltr" style="font-size:var(--text-small-size);color:var(--neutral-lead);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ u.email }}</span></sc-if>
+                <span><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ u.roleColor }}" hint-size="auto,24px">{{ u.roleLabel }}</x-import></span>
+                <span style="font-size:var(--text-small-size);font-weight:600;color:{{ u.statusFg }};">{{ u.statusLabel }}</span>
+                <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}"><span style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);">{{ u.last }}</span></sc-if>
+                <span style="display:flex;justify-content:flex-end;color:var(--neutral-palladium);"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></span>
+              </div>
+              </sc-for>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===== MOBILE TREE DRAWER ===== -->
+  <sc-if value="{{ treeDrawerOpen }}">
+  <div style="position:fixed;inset:0;z-index:70;display:flex;justify-content:flex-end;">
+    <div onClick="{{ closeTree }}" style="position:absolute;inset:0;background:rgba(24,29,36,.4);backdrop-filter:blur(4px);animation:umBack .2s ease;"></div>
+    <aside class="um-scroll" dir="rtl" aria-label="עץ מחלקות" style="position:relative;width:300px;max-width:85%;height:100%;background:var(--white);box-shadow:var(--shadow-menu);overflow-y:auto;animation:umDrawer .26s cubic-bezier(.22,.61,.36,1);">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:16px;border-bottom:1px solid var(--neutral-silver);"><h2 style="font-weight:600;font-size:var(--text-small-size);margin:0;color:var(--neutral-charcoal);">מבנה ארגוני</h2><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="ghost" size="md" onClick="{{ closeTree }}" aria-label="סגור" hint-size="34px,34px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></x-import></div>
+      <div style="padding:8px;">
+        <sc-for list="{{ tree }}" as="t" hint-placeholder-count="6">
+        <div class="um-tree" onClick="{{ t.onSelectMobile }}" style="display:flex;align-items:center;gap:8px;border-radius:8px;padding:8px;margin:2px 0;cursor:pointer;background:{{ t.bg }};margin-inline-start:{{ t.indent }};">
+          <span style="flex:none;width:32px;height:32px;border-radius:8px;background:{{ t.iconBg }};color:{{ t.iconFg }};display:flex;align-items:center;justify-content:center;">{{ t.icon }}</span>
+          <span style="flex:1;min-width:0;font-weight:{{ t.weight }};font-size:var(--text-small-size);color:{{ t.fg }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ t.name }}</span>
+          <span style="flex:none;font-size:var(--text-tiny-size);font-weight:600;color:{{ t.countFg }};background:{{ t.countBg }};border-radius:var(--radius-full);padding:2px 8px;">{{ t.count }}</span>
+        </div>
+        </sc-for>
+      </div>
+    </aside>
+  </div>
+  </sc-if>
+
+  <!-- ===== USER DETAIL DRAWER ===== -->
+  <sc-if value="{{ userDrawerOpen }}">
+  <div style="position:fixed;inset:0;z-index:80;display:flex;justify-content:flex-start;">
+    <div onClick="{{ closeUser }}" style="position:absolute;inset:0;background:rgba(24,29,36,.4);backdrop-filter:blur(4px);animation:umBack .2s ease;"></div>
+    <aside class="um-scroll" dir="rtl" aria-label="פרטי משתמש" style="position:relative;width:440px;max-width:100%;height:100%;background:var(--white);box-shadow:var(--shadow-menu);overflow-y:auto;display:flex;flex-direction:column;animation:umDrawer .28s cubic-bezier(.22,.61,.36,1);">
+      <div style="flex:none;position:relative;background:var(--gradient-accent);padding:24px;color:var(--white);">
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="ghost" size="md" onClick="{{ closeUser }}" aria-label="סגור" hint-size="34px,34px" style="position:absolute;top:16px;inset-inline-start:16px;background:rgba(255,255,255,.18);color:#fff;"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></x-import>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span style="flex:none;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:22px;">{{ du.initials }}</span>
+          <div style="min-width:0;"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-weight:600;font-size:var(--text-h4-size);">{{ du.name }}</span><sc-if value="{{ du.isMgr }}"><span style="font-size:var(--text-tiny-size);font-weight:600;background:rgba(255,255,255,.22);border-radius:6px;padding:3px 9px;">מנהל מחלקה</span></sc-if></div><div dir="ltr" style="font-size:var(--text-small-size);color:#DCEEFF;text-align:right;margin-top:4px;">{{ du.email }}</div></div>
+        </div>
+      </div>
+      <div style="flex:1;padding:24px;display:flex;flex-direction:column;gap:16px;">
+        <!-- settings -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" label="שם מלא" value="{{ du.name }}" hint-size="100%,64px"></x-import>
+            <div><label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);margin-bottom:8px;">מחלקה</label><div style="display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);cursor:pointer;"><span style="flex:1;min-width:0;font-size:var(--text-small-size);font-weight:400;color:var(--neutral-charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ du.deptName }}</span><svg viewBox="0 0 24 24" width="15" height="15" style="flex:none;color:var(--neutral-nickel);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div>
+          </div>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" label="אימייל" value="{{ du.email }}" dir="ltr" hint-size="100%,64px"></x-import>
+        </div>
+        <div>
+          <label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);margin-bottom:8px;">תפקיד</label>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tabs" variant="pill" tabs="{{ du.roleTabs }}" value="{{ du.roleValue }}" onChange="{{ du.onRoleChange }}" hint-size="100%,32px" style="width:100%;justify-content:space-between;"></x-import>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--neutral-whisper);border-radius:8px;padding:16px;">
+          <div style="min-width:0;"><div style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">חשבון פעיל</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:2px;">{{ du.statusHint }}</div></div>
+          <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Toggle" checked="{{ du.active }}" onChange="{{ du.onToggleActive }}" hint-size="44px,24px"></x-import>
+        </div>
+
+        <!-- quick view -->
+        <div>
+          <label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);margin-bottom:8px;">מבט מהיר</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+            <div style="background:var(--neutral-whisper);border-radius:8px;padding:12px;text-align:center;"><div style="font-weight:600;font-size:19px;color:var(--accent);">{{ du.statDone }}</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:2px;">הכשרות</div></div>
+            <div style="background:var(--neutral-whisper);border-radius:8px;padding:12px;text-align:center;"><div style="font-weight:600;font-size:19px;color:var(--success);">{{ du.statCerts }}</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:2px;">תעודות</div></div>
+            <div style="background:var(--neutral-whisper);border-radius:8px;padding:12px;text-align:center;"><div style="font-weight:600;font-size:19px;color:var(--hue-bronze);">{{ du.statXp }}</div><div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:2px;">XP</div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <sc-for list="{{ du.progress }}" as="p" hint-placeholder-count="2">
+            <div><div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;"><span style="font-size:var(--text-small-size);font-weight:400;color:var(--neutral-charcoal);">{{ p.name }}</span><span style="font-size:var(--text-tiny-size);font-weight:600;color:{{ p.fg }};">{{ p.pct }}%</span></div><div style="height:8px;border-radius:var(--radius-full);background:var(--neutral-whisper);overflow:hidden;"><span style="display:block;height:100%;width:{{ p.pct }}%;border-radius:var(--radius-full);background:{{ p.bar }};"></span></div></div>
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:12px;font-size:var(--text-tiny-size);color:var(--neutral-nickel);"><svg viewBox="0 0 24 24" width="14" height="14" style="flex:none;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>פעילות אחרונה: <strong style="color:var(--neutral-charcoal);font-weight:600;">{{ du.last }}</strong></div>
+        </div>
+
+        <!-- actions -->
+        <div>
+          <label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);margin-bottom:8px;">פעולות</label>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button onClick="{{ du.onActExam }}" class="um-mgr" style="display:flex;align-items:center;gap:12px;width:100%;border:1px solid var(--neutral-silver);background:var(--white);border-radius:8px;padding:12px;cursor:pointer;text-align:start;font-family:inherit;transition:var(--transition-fast);"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></span><span style="flex:1;min-width:0;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">שלח מבחן כניסה</span><svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;color:var(--neutral-nickel);transition:transform .2s;transform:{{ du.actExam ? 'rotate(180deg)' : 'none' }};" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+            <sc-if value="{{ du.actExam }}">
+            <div style="border:1px solid var(--neutral-silver);border-radius:8px;padding:12px;background:var(--neutral-whisper);animation:umFade .18s ease;">
+              <div style="font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);margin-bottom:8px;">בחרו מבחן כניסה</div>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+                <sc-for list="{{ du.examList }}" as="ex" hint-placeholder-count="3">
+                <button onClick="{{ ex.onPick }}" class="um-cand" style="display:flex;align-items:center;gap:8px;width:100%;border:1px solid {{ ex.border }};background:{{ ex.bg }};border-radius:8px;padding:8px;cursor:pointer;text-align:start;font-family:inherit;transition:var(--transition-fast);"><span style="flex:none;width:18px;height:18px;border-radius:50%;border:2px solid {{ ex.dotBorder }};display:flex;align-items:center;justify-content:center;"><sc-if value="{{ ex.dotOn }}"><span style="width:9px;height:9px;border-radius:50%;background:var(--accent);"></span></sc-if></span><span style="flex:1;min-width:0;"><span style="display:block;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">{{ ex.name }}</span><span style="display:block;font-size:var(--text-tiny-size);color:var(--neutral-nickel);">{{ ex.meta }}</span></span></button>
+                </sc-for>
+              </div>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ du.onSendExam }}" leadingIcon="{{ sendIcon }}" hint-size="100%,40px" style="width:100%;">שלח מבחן + התראה</x-import>
+            </div>
+            </sc-if>
+
+            <button onClick="{{ du.onActMsg }}" class="um-mgr" style="display:flex;align-items:center;gap:12px;width:100%;border:1px solid var(--neutral-silver);background:var(--white);border-radius:8px;padding:12px;cursor:pointer;text-align:start;font-family:inherit;transition:var(--transition-fast);"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:rgba(188,162,141,0.3);color:var(--hue-bronze);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></span><span style="flex:1;min-width:0;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">שלח הודעה</span><svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;color:var(--neutral-nickel);transition:transform .2s;transform:{{ du.actMsg ? 'rotate(180deg)' : 'none' }};" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+            <sc-if value="{{ du.actMsg }}">
+            <div style="border:1px solid var(--neutral-silver);border-radius:8px;padding:12px;background:var(--neutral-whisper);animation:umFade .18s ease;">
+              <textarea class="um-in" value="{{ du.msgText }}" onInput="{{ du.onMsg }}" placeholder="כתבו הודעה קצרה שתישלח כהתראה במערכת…" style="width:100%;min-height:72px;resize:vertical;padding:12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);font-family:inherit;font-size:var(--text-small-size);line-height:1.6;color:var(--neutral-charcoal);outline:none;transition:var(--transition-fast);"></textarea>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ du.onSendMsg }}" leadingIcon="{{ sendIcon }}" hint-size="100%,40px" style="width:100%;margin-top:8px;background:var(--hue-bronze);">שלח כהתראה</x-import>
+            </div>
+            </sc-if>
+
+            <button onClick="{{ du.onResendInvite }}" class="um-mgr" style="display:flex;align-items:center;gap:12px;width:100%;border:1px solid var(--neutral-silver);background:var(--white);border-radius:8px;padding:12px;cursor:pointer;text-align:start;font-family:inherit;transition:var(--transition-fast);"><span style="flex:none;width:32px;height:32px;border-radius:8px;background:var(--hue-mint);color:var(--success);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-10 5L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></span><span style="flex:1;min-width:0;font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">שלח שוב הזמנה</span></button>
+          </div>
+        </div>
+      </div>
+      <div style="flex:none;display:flex;gap:8px;padding:16px 24px;border-top:1px solid var(--neutral-silver);">
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="outlined" leadingIcon="{{ resetIcon }}" hint-size="auto,40px" style="flex:1;">איפוס סיסמה</x-import>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="red" leadingIcon="{{ blockIcon }}" hint-size="auto,40px">השבת</x-import>
+      </div>
+    </aside>
+  </div>
+  </sc-if>
+
+  <!-- ===== INVITE MODAL ===== -->
+  <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Dialog" open="{{ inviteOpen }}" on-close="{{ closeInvite }}" title="הזמן משתמש" size="md" hint-size="512px,auto">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <p style="margin:0;font-size:var(--text-small-size);color:var(--neutral-lead);">המשתמש יקבל קישור הצטרפות למייל.</p>
+
+      <sc-if value="{{ invCreated }}">
+      <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 0 16px;animation:umFade .2s ease;">
+        <span style="width:56px;height:56px;border-radius:50%;background:var(--hue-mint);color:var(--success);display:flex;align-items:center;justify-content:center;margin-bottom:12px;"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+        <div style="font-weight:600;font-size:var(--text-h4-size);color:var(--neutral-charcoal);">ההזמנה נוצרה</div>
+        <div style="display:inline-flex;align-items:center;gap:8px;font-size:var(--text-small-size);color:var(--success);font-weight:600;margin-top:8px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 5L2 7"></path></svg>נשלח למייל {{ invEmail }}</div>
+      </div>
+      <label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);margin-bottom:8px;">קישור הצטרפות (Magic Link)</label>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:-8px;">
+        <div dir="ltr" style="flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--neutral-whisper);"><svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;" fill="none" stroke="var(--neutral-nickel)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><span style="flex:1;min-width:0;font-size:var(--text-small-size);color:var(--neutral-charcoal);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ invLink }}</span></div>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ copyLink }}" leadingIcon="{{ copyIcon }}" hint-size="auto,40px">העתק</x-import>
+      </div>
+      <p style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin:0;">הקישור תקף ל-7 ימים. ניתן לשלוח שוב או לבטל מרשימת ההזמנות הממתינות.</p>
+      </sc-if>
+
+      <sc-if value="{{ invFormShown }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" label="אימייל" value="{{ invEmail }}" onInput="{{ onInvEmail }}" placeholder="name@company.co.il" dir="ltr" hint-size="100%,64px"></x-import>
+        <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Input" label="שם מלא" value="{{ invName }}" onInput="{{ onInvName }}" placeholder="שם המשתמש" hint-size="100%,64px"></x-import>
+      </div>
+      <div><label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);margin-bottom:8px;">מחלקה</label><div style="display:flex;align-items:center;gap:8px;height:40px;padding:0 12px;border-radius:8px;border:1px solid var(--neutral-silver);background:var(--white);"><span style="flex:none;width:28px;height:28px;border-radius:8px;background:var(--hue-sky);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18"></path></svg></span><span style="flex:1;min-width:0;font-size:var(--text-body-size);font-weight:400;color:var(--neutral-charcoal);">{{ invDeptName }}</span><svg viewBox="0 0 24 24" width="16" height="16" style="flex:none;color:var(--neutral-nickel);" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div></div>
+      <div><label style="display:block;font-size:var(--text-tiny-size);font-weight:600;color:var(--neutral-nickel);margin-bottom:8px;">תפקיד</label><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Tabs" variant="pill" tabs="{{ invRoleTabs }}" value="{{ invRole }}" onChange="{{ setInvRole }}" hint-size="100%,32px" style="width:100%;justify-content:space-between;"></x-import></div>
+      </sc-if>
+
+      <!-- pending invites -->
+      <div style="padding-top:16px;border-top:1px solid var(--neutral-silver);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="font-size:var(--text-small-size);font-weight:600;color:var(--neutral-charcoal);">הזמנות ממתינות</span><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="accent" hint-size="auto,24px">{{ pendingCount }}</x-import></div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <sc-for list="{{ pending }}" as="p" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:12px;border:1px solid var(--neutral-silver);background:var(--white);border-radius:8px;padding:12px;">
+            <span style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--neutral-whisper);color:var(--neutral-lead);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;">{{ p.initials }}</span>
+            <div style="flex:1;min-width:0;"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="font-weight:600;font-size:var(--text-small-size);color:var(--neutral-charcoal);">{{ p.name }}</span><x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ p.roleColor }}" hint-size="auto,20px">{{ p.roleLabel }}</x-import></div><div style="font-size:var(--text-tiny-size);color:var(--neutral-nickel);margin-top:4px;">הוזמן ע״י {{ p.inviter }} · {{ p.expires }}</div></div>
+            <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Badge" color="{{ p.statusColor }}" hint-size="auto,24px">{{ p.statusLabel }}</x-import>
+            <sc-if value="{{ p.isOpen }}">
+            <div style="flex:none;display:flex;gap:4px;">
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="ghost" size="sm" onClick="{{ p.onResend }}" title="שלח שוב" hint-size="30px,30px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"></path><path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path></svg></x-import>
+              <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.IconButton" variant="ghost" size="sm" onClick="{{ p.onCancel }}" title="בטל" hint-size="30px,30px"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></x-import>
+            </div>
+            </sc-if>
+          </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;padding-top:24px;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="white" onClick="{{ closeInvite }}" hint-size="auto,40px">{{ invCloseLabel }}</x-import>
+      <sc-if value="{{ invFormShown }}">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Button" variant="primary" onClick="{{ createInvite }}" disabled="{{ invDisabled }}" leadingIcon="{{ plusIcon }}" hint-size="auto,40px">צור הזמנה</x-import>
+      </sc-if>
+    </div>
+  </x-import>
+
+  <!-- ===== TOAST ===== -->
+  <div aria-live="polite" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:120;display:flex;flex-direction:column-reverse;align-items:center;gap:10px;">
+    <sc-if value="{{ hasToast }}">
+    <div style="animation:umToastIn .22s ease-out;">
+      <x-import component-from-global-scope="IPracticomDesignSystem_c23dff.Toast" kind="success" state="end" hint-size="auto,auto">{{ toast }}</x-import>
+    </div>
+    </sc-if>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.raw=(s)=>React.createElement('span',{dangerouslySetInnerHTML:{__html:s},style:{display:'flex'}});
+    this.folder='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>';
+    this.team='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>';
+    this.ICONS = {
+      invite:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>',
+      plus:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>',
+      edit:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"></path></svg>',
+      search:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>',
+      send:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"></path><path d="M22 2 15 22l-4-9-9-4 20-7z"></path></svg>',
+      reset:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"></path><path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path><path d="M3 22v-6h6"></path><path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path></svg>',
+      block:'<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64A9 9 0 1 1 5.64 6.64"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>',
+      copy:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>',
+    };
+    this.ROLE={
+      user:{label:'משתמש',color:'neutral'},
+      instructor:{label:'מדריך',color:'accent'},
+      manager:{label:'מנהל',color:'success'},
+      admin:{label:'אדמין',color:'bronze'},
+    };
+    this.AVATAR_HUES=['var(--hue-denim)','var(--hue-teal)','var(--hue-bronze)','var(--hue-cobalt)'];
+    this.DEPTS={
+      d1:{name:'הנהלה',parent:null,count:3,desc:'הנהלת החברה והמטה'},
+      d2:{name:'תפעול',parent:'d1',count:8,desc:'ניהול התפעול השוטף וההתקנות'},
+      d3:{name:'תמיכה טכנית',parent:'d1',count:14,desc:'מערך התמיכה הטכנית ללקוחות'},
+      d4:{name:'טכנאי שטח',parent:'d3',count:4,desc:'טכנאים המבצעים התקנות, תחזוקה ופתרון תקלות באתר הלקוח'},
+      d5:{name:'מוקד תמיכה',parent:'d3',count:6,desc:'מענה טלפוני ותמיכה מרחוק'},
+      d6:{name:'מכירות',parent:'d1',count:9,desc:'צוות המכירות ופיתוח עסקי'},
+    };
+    this.CHILDREN={ d1:['d2','d3','d6'], d3:['d4','d5'] };
+    this.ROOTS=['d1'];
+    this.DEPT_MGR={ d1:'mceo', d3:'msup', d4:'u1', d2:null, d5:null, d6:null };
+    this.USERS={
+      u1:{name:'אבי שטרן',email:'avi@ipracticom.co.il',role:'manager',active:true,last:'היום · 09:42',initials:'אש',color:this.AVATAR_HUES[0]},
+      u2:{name:'דנה כהן',email:'dana@ipracticom.co.il',role:'instructor',active:true,last:'היום · 08:15',initials:'דכ',color:this.AVATAR_HUES[1]},
+      u3:{name:'יוסי מזרחי',email:'yossi@ipracticom.co.il',role:'user',active:true,last:'אתמול · 17:30',initials:'ימ',color:this.AVATAR_HUES[2]},
+      u4:{name:'מאיה ברק',email:'maya@ipracticom.co.il',role:'user',active:false,last:'לפני 12 ימים',initials:'מב',color:this.AVATAR_HUES[3]},
+      msup:{name:'רונן אבידן',email:'ronen@ipracticom.co.il',role:'manager',active:true,last:'היום · 07:55',initials:'רא',color:this.AVATAR_HUES[0]},
+      mceo:{name:'תמר גולן',email:'tamar@ipracticom.co.il',role:'admin',active:true,last:'היום · 10:10',initials:'תג',color:this.AVATAR_HUES[3]},
+    };
+    this.MEMBERS={ d4:['u1','u2','u3','u4'] };
+    this.POOL=[
+      {name:'גיא לוי',role:'user'},{name:'שירה דהן',role:'instructor'},
+      {name:'עומר בן-דוד',role:'user'},{name:'ליאת רז',role:'user'},
+      {name:'אורי נחום',role:'user'},{name:'הדס פלד',role:'instructor'},
+      {name:'רועי שגב',role:'user'},{name:'נטע אבני',role:'manager'},
+      {name:'איתי כץ',role:'user'},{name:'מורן גל',role:'user'},
+      {name:'דביר עוז',role:'user'},{name:'יעל ברק',role:'user'},
+      {name:'תום הראל',role:'user'},{name:'אלון מור',role:'instructor'},
+    ];
+    this.LASTS=['היום · 09:12','היום · 08:40','אתמול · 16:20','אתמול · 11:05','לפני 3 ימים','היום · 07:30','אתמול · 19:44','לפני 5 ימים','לפני יומיים'];
+    this.PROG=[{name:'מבוא לרשתות',pct:80,bar:'var(--accent)',fg:'var(--accent)'},{name:'אבטחת מידע בסיסית',pct:45,bar:'var(--hue-bronze)',fg:'var(--hue-bronze)'}];
+    this.ENTRANCE_EXAMS=[
+      {id:'ex1',name:'מבחן כניסה — יסודות רשתות',q:18,min:25},
+      {id:'ex2',name:'מבחן סיווג טכנאי שטח',q:24,min:35},
+      {id:'ex3',name:'הערכת ידע — אבטחת מידע',q:15,min:20},
+    ];
+    this.PENDING=[
+      {id:'p1',name:'איתי כהן',email:'itai@ipracticom.co.il',role:'user',inviter:'דנה לוי',expires:'בעוד 5 ימים',status:'pending'},
+      {id:'p2',name:'שירה לוי',email:'shira@ipracticom.co.il',role:'instructor',inviter:'תמר גולן',expires:'בעוד יומיים',status:'pending'},
+      {id:'p3',name:'רן אבידן',email:'ran@ipracticom.co.il',role:'user',inviter:'דנה לוי',expires:'פג ב-22/06',status:'expired'},
+      {id:'p4',name:'נועה פז',email:'noa@ipracticom.co.il',role:'manager',inviter:'תמר גולן',expires:'הושלמה 24/06',status:'done'},
+    ];
+
+    this.state={
+      selectedDept:'d4',
+      expanded:{ d1:true, d3:true },
+      mgrPickerOpen:false,
+      treeDrawerOpen:false,
+      userDrawerOpen:false, selectedUser:null,
+      mgrOverride:{}, roleOverride:{}, activeOverride:{},
+      drawerAction:null, examPick:'ex1', msgText:'', toast:'',
+      inviteOpen:false, invName:'', invEmail:'', invRole:'user', invCreated:false,
+      pending:this.PENDING.slice(),
+    };
+  }
+  toast(t){ this.setState({toast:t}); clearTimeout(this._tt); this._tt=setTimeout(()=>{try{this.setState({toast:''});}catch(e){}},2600); }
+  setAction(a){ this.setState(s=>({drawerAction:s.drawerAction===a?null:a})); }
+  sendExam(){ const ex=this.ENTRANCE_EXAMS.find(x=>x.id===this.state.examPick); this.setState({drawerAction:null}); this.toast('מבחן הכניסה נשלח · '+(ex?ex.name:'')); }
+  sendMsg(){ if(!(this.state.msgText||'').trim()){return;} this.setState({drawerAction:null,msgText:''}); this.toast('ההודעה נשלחה כהתראה במערכת'); }
+  resendUserInvite(){ this.toast('ההזמנה נשלחה שוב למייל'); }
+  openInvite(){ this.setState({inviteOpen:true,invCreated:false,invName:'',invEmail:'',invRole:'user'}); }
+  closeInvite(){ this.setState({inviteOpen:false}); }
+  createInvite(){ this.setState({invCreated:true}); }
+  copyLink(){ this.toast('הקישור הועתק'); }
+  resendPending(id){ this.toast('ההזמנה נשלחה שוב'); }
+  cancelPending(id){ this.setState(s=>({pending:s.pending.filter(p=>p.id!==id)})); this.toast('ההזמנה בוטלה'); }
+  initials(name){ const p=name.trim().split(/\s+/); return ((p[0]||'')[0]||'')+((p[1]||'')[0]||''); }
+  selDept(id){ this.setState({selectedDept:id, mgrPickerOpen:false}); }
+  toggleExp(id,e){ if(e)e.stopPropagation(); this.setState(s=>({expanded:{...s.expanded,[id]:!s.expanded[id]}})); }
+  mgrOf(id){ const s=this.state; return (id in s.mgrOverride)? s.mgrOverride[id] : this.DEPT_MGR[id]; }
+  setMgr(deptId,uid){ this.setState(s=>({mgrOverride:{...s.mgrOverride,[deptId]:uid}, mgrPickerOpen:false})); }
+  roleOf(uid){ const s=this.state; return s.roleOverride[uid] || (this.USERS[uid]? this.USERS[uid].role : 'user'); }
+  membersOf(deptId){
+    if(this.MEMBERS[deptId]) return this.MEMBERS[deptId].map(uid=>({uid, ...this.USERS[uid]}));
+    const n=this.DEPTS[deptId].count;
+    return this.POOL.slice(0,n).map((p,i)=>({ uid:deptId+'_'+i, name:p.name, role:p.role, color:this.AVATAR_HUES[i%this.AVATAR_HUES.length],
+      email:'user'+i+'@ipracticom.co.il', active:i%5!==3, last:this.LASTS[i%this.LASTS.length], initials:this.initials(p.name) }));
+  }
+
+  renderVals(){
+    const s=this.state;
+    const isMobile=(this.props.device||'desktop')==='mobile';
+    const isDesktop=!isMobile;
+    const D=this.DEPTS, sd=s.selectedDept;
+
+    const rows=[];
+    const walk=(id,depth)=>{
+      const d=D[id]; const kids=this.CHILDREN[id]||[];
+      const has=kids.length>0; const exp=!!s.expanded[id]; const on=id===sd;
+      rows.push({ id, name:d.name, depth, hasChildren:has, leaf:!has, expanded:exp, selected:on, count:String(d.count) });
+      if(has&&exp) kids.forEach(k=>walk(k,depth+1));
+    };
+    this.ROOTS.forEach(r=>walk(r,0));
+    const tree=rows.map(r=>({
+      name:r.name, count:r.count, hasChildren:r.hasChildren, leaf:r.leaf, selected:r.selected,
+      indent:(r.depth*24)+'px', chev:r.expanded?'rotate(90deg)':'rotate(0deg)',
+      icon:this.raw(r.hasChildren?this.folder:this.team),
+      iconBg:r.selected?'var(--accent)':(r.depth===0?'var(--hue-sky)':'var(--neutral-whisper)'), iconFg:r.selected?'var(--white)':(r.depth===0?'var(--accent)':'var(--neutral-lead)'),
+      bg:r.selected?'var(--hue-sky)':'transparent',
+      fg:r.selected?'var(--accent)':'var(--neutral-charcoal)', weight:r.selected?600:400,
+      countBg:r.selected?'var(--accent)':'var(--neutral-whisper)', countFg:r.selected?'var(--white)':'var(--neutral-nickel)',
+      onSelect:()=>this.selDept(r.id),
+      onSelectMobile:()=>this.setState({selectedDept:r.id, treeDrawerOpen:false}),
+      onToggle:(e)=>this.toggleExp(r.id,e),
+      onAddSub:(e)=>{ if(e)e.stopPropagation(); },
+      onKey:(e)=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();this.selDept(r.id);} },
+    }));
+
+    const d=D[sd];
+    const parentName=d.parent? D[d.parent].name : '— מחלקת שורש —';
+    const pathArr=[]; let p=sd; while(p){ pathArr.unshift(D[p].name); p=D[p].parent; }
+    const mgrId=this.mgrOf(sd); const mgr=mgrId?this.USERS[mgrId]:null;
+    const members=this.membersOf(sd);
+    const sel={
+      name:d.name, count:String(d.count), desc:d.desc, parentName, path:pathArr.join('  ›  '),
+      hasMgr:!!mgr, noMgr:!mgr,
+      mgrBorder: mgr ? 'var(--success)' : 'var(--neutral-silver)', mgrBg: mgr ? 'var(--hue-mint)' : 'var(--white)',
+      mgrName:mgr?mgr.name:'', mgrEmail:mgr?mgr.email:'', mgrInitials:mgr?(mgr.initials||this.initials(mgr.name)):'', mgrColor:mgr?mgr.color:'var(--neutral-nickel)',
+    };
+    const candIds=[]; members.forEach(m=>candIds.push(m.uid));
+    if(mgrId && candIds.indexOf(mgrId)<0) candIds.unshift(mgrId);
+    const mgrCandidates=candIds.map(uid=>{
+      const u=this.USERS[uid]||members.find(m=>m.uid===uid)||{};
+      const on=uid===mgrId; const role=this.ROLE[u.role]||this.ROLE.user;
+      return { name:u.name, initials:u.initials||this.initials(u.name||''), color:u.color||'var(--accent)',
+        roleLabel:role.label, active:on, bg:on?'var(--hue-mint)':'transparent', onPick:()=>this.setMgr(sd,uid) };
+    });
+
+    const users=members.map(m=>{
+      const role=this.ROLE[this.roleOf(m.uid)]||this.ROLE.user;
+      const active=(m.uid in s.activeOverride)? s.activeOverride[m.uid] : m.active;
+      const isMgr=m.uid===mgrId;
+      return { name:m.name, email:m.email, initials:m.initials||this.initials(m.name), color:m.color,
+        roleLabel:role.label, roleColor:role.color, isMgr,
+        statusLabel:active?'פעיל':'לא פעיל', statusFg:active?'var(--success)':'var(--neutral-nickel)',
+        last:m.last, onOpen:()=>this.setState({userDrawerOpen:true,selectedUser:m.uid}),
+        onKey:(e)=>{ if(e.key==='Enter'){e.preventDefault();this.setState({userDrawerOpen:true,selectedUser:m.uid});} } };
+    });
+
+    let du=null;
+    if(s.userDrawerOpen && s.selectedUser){
+      const m=members.find(x=>x.uid===s.selectedUser)||{name:'',email:'',color:'var(--accent)',last:''};
+      const curRole=this.roleOf(s.selectedUser);
+      const active=(s.selectedUser in s.activeOverride)? s.activeOverride[s.selectedUser] : m.active;
+      du={
+        name:m.name, email:m.email, initials:m.initials||this.initials(m.name||''),
+        isMgr:s.selectedUser===mgrId, deptName:d.name, last:m.last,
+        active, statusHint:active?'המשתמש יכול להתחבר ולגשת לתוכן':'המשתמש חסום מהתחברות',
+        onToggleActive:()=>this.setState(st=>({activeOverride:{...st.activeOverride,[s.selectedUser]:!active}})),
+        roleTabs:['user','instructor','manager','admin'].map(rk=>({ id:rk, label:this.ROLE[rk].label })),
+        roleValue:curRole, onRoleChange:(rk)=>this.setState(st=>({roleOverride:{...st.roleOverride,[s.selectedUser]:rk}})),
+        progress:this.PROG,
+        statCerts:'2', statXp:'340', statDone:'5',
+        actExam: s.drawerAction==='exam', actMsg: s.drawerAction==='message',
+        onActExam:()=>this.setAction('exam'), onActMsg:()=>this.setAction('message'),
+        onResendInvite:()=>this.resendUserInvite(),
+        examList:this.ENTRANCE_EXAMS.map(ex=>{ const on=s.examPick===ex.id; return {
+          name:ex.name, meta:ex.q+' שאלות · '+ex.min+' דק׳', active:on,
+          bg:on?'var(--hue-sky)':'var(--white)', border:on?'var(--accent)':'var(--neutral-silver)', dotBorder:on?'var(--accent)':'var(--neutral-palladium)', dotOn:on,
+          onPick:()=>this.setState({examPick:ex.id}) }; }),
+        onSendExam:()=>this.sendExam(),
+        msgText:s.msgText, onMsg:(e)=>this.setState({msgText:e.target.value}), onSendMsg:()=>this.sendMsg(),
+      };
+    }
+    if(!du) du={name:'',email:'',initials:'',isMgr:false,deptName:'',last:'',active:true,statusHint:'',onToggleActive:()=>{},roleTabs:[],roleValue:'user',onRoleChange:()=>{},progress:[],statCerts:'0',statXp:'0',statDone:'0',actExam:false,actMsg:false,onActExam:()=>{},onActMsg:()=>{},onResendInvite:()=>{},examList:[],onSendExam:()=>{},msgText:'',onMsg:()=>{},onSendMsg:()=>{}};
+
+    const invDept=D[sd];
+    const invRoleTabs=['user','instructor','manager','admin'].map(rk=>({ id:rk, label:this.ROLE[rk].label }));
+    const invCanCreate=(s.invEmail||'').includes('@');
+    const stMap={pending:{label:'ממתינה',color:'warning'},expired:{label:'פגה',color:'caution'},done:{label:'הושלמה',color:'success'}};
+    const pending=s.pending.map(p=>{ const st=stMap[p.status]; const r=this.ROLE[p.role]||this.ROLE.user;
+      return { name:p.name, email:p.email, initials:this.initials(p.name), roleLabel:r.label, roleColor:r.color,
+        inviter:p.inviter, expires:p.expires, statusLabel:st.label, statusColor:st.color,
+        isOpen:p.status==='pending'||p.status==='expired',
+        onResend:()=>this.resendPending(p.id), onCancel:()=>this.cancelPending(p.id) }; });
+
+    return {
+      isDesktop, isMobile,
+      deptCount:String(Object.keys(D).length),
+      tree,
+      sel, mgrCandidates,
+      mgrPickerOpen:s.mgrPickerOpen, toggleMgrPicker:()=>this.setState(x=>({mgrPickerOpen:!x.mgrPickerOpen})),
+      clearMgr:()=>this.setMgr(sd,null),
+      users,
+      gridCols: isDesktop?'1fr 1.2fr 110px 100px 130px 28px':'1fr auto auto',
+      gridGap: isDesktop?'0':'10px',
+      editDept:()=>{}, addRootDept:()=>{}, openInvite:()=>this.openInvite(),
+      openTree:()=>this.setState({treeDrawerOpen:true}), closeTree:()=>this.setState({treeDrawerOpen:false}),
+      treeDrawerOpen:s.treeDrawerOpen,
+      userDrawerOpen:s.userDrawerOpen, closeUser:()=>this.setState({userDrawerOpen:false,drawerAction:null}), du,
+      toast:s.toast, hasToast:!!s.toast,
+      inviteOpen:s.inviteOpen, closeInvite:()=>this.closeInvite(),
+      invName:s.invName, onInvName:(e)=>this.setState({invName:e.target.value}),
+      invEmail:s.invEmail, onInvEmail:(e)=>this.setState({invEmail:e.target.value}),
+      invRole:s.invRole, setInvRole:(rk)=>this.setState({invRole:rk}),
+      invDeptName:invDept.name, invRoleTabs, invCanCreate,
+      invCreated:s.invCreated, createInvite:()=>this.createInvite(), copyLink:()=>this.copyLink(),
+      invFormShown:!s.invCreated, invCloseLabel:s.invCreated?'סגור':'ביטול',
+      invDisabled:!invCanCreate,
+      invLink:'academy.ipracticom.co.il/join/'+(s.invEmail? s.invEmail.split('@')[0] : 'new')+'-7fa3c9',
+      pending, pendingCount:String(s.pending.length),
+      inviteIcon:this.raw(this.ICONS.invite), plusIcon:this.raw(this.ICONS.plus), editIcon:this.raw(this.ICONS.edit),
+      searchIcon:this.raw(this.ICONS.search), sendIcon:this.raw(this.ICONS.send), resetIcon:this.raw(this.ICONS.reset),
+      blockIcon:this.raw(this.ICONS.block), copyIcon:this.raw(this.ICONS.copy),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
