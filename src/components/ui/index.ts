@@ -26,3 +26,6 @@ export type {
   ServiceQualityLevel,
   ServiceQualityProps,
 } from './icons'
+export { RingProgress } from './dashboard/RingPie'
+export type { RingColor } from './dashboard/RingPie'
+export { ZeroStates } from './compounded/ZeroStates'

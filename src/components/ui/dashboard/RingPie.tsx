@@ -32,6 +32,14 @@ interface RingProgressProps {
   showPercent?: boolean
   color?: RingColor
   size?: number
+  /**
+   * Color class for the center number. Defaults to the original DS port's
+   * value, which assumes a light card background. Pass 'text-white' (or
+   * similar) when placing the ring on a dark background — added for
+   * TrackProgressHeader (learning catalog, Phase 3.1); every other call
+   * site keeps the original default unchanged.
+   */
+  textClassName?: string
 }
 
 let _uid = 0
@@ -45,6 +53,7 @@ export function RingProgress({
   showPercent = true,
   color = 'blue',
   size = 164,
+  textClassName = 'text-neutrals-charcoal',
 }: RingProgressProps) {
   const gid = nextId('ring')
   const sid = nextId('ringshadow')
@@ -119,7 +128,7 @@ export function RingProgress({
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="flex items-baseline" dir="ltr">
           <span
-            className="text-neutrals-charcoal"
+            className={textClassName}
             style={{ fontSize: numFont, lineHeight: 1 }}
           >
             {label ?? String(value)}
