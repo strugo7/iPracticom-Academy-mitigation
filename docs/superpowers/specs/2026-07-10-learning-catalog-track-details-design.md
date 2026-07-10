@@ -3,6 +3,15 @@
 > Status: approved (2026-07-10). Scope: both `/trainings` (catalog) and `/trainings/:trackId`
 > (track content) per doc 36 §3.1. Consumes the Phase 1 progress engine (`useProgress`)
 > as-is — no new progress computation, only view-model assembly on top of it.
+>
+> **Post-implementation amendment (Task 17, manual verification):** the catalog and details
+> pages initially showed different progress percentages for the same track (the catalog reused
+> Phase 1's all-time `progress_stats.lessons_completed`, which counts completions of lessons
+> since deleted from the catalog; the details page only counts lessons still present). Fixed by
+> having the catalog reuse `trackDetailsService`'s own catalog-scoped computation directly, so
+> both pages agree by construction — see `docs/PROGRESS_ENGINE.md` §14 for the full picture,
+> including the now-open question of how this reconciles with Phase 1's `avg_progress` once a
+> real Dashboard surfaces it.
 
 ## Goal
 
