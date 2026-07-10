@@ -127,3 +127,11 @@ export const QUESTION_TYPES = [
   'order_sequence',
 ] as const
 export type QuestionType = (typeof QUESTION_TYPES)[number]
+
+// רמת קושי (LearningTrack.difficulty_level) — SRS §1.2, def 'beginner'.
+export const DIFFICULTY_LEVELS = [
+  'beginner',
+  'intermediate',
+  'advanced',
+] as const
+export type DifficultyLevel = (typeof DIFFICULTY_LEVELS)[number]

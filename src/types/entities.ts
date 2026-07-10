@@ -6,6 +6,7 @@
  */
 import type {
   ContentStatus,
+  DifficultyLevel,
   EvaluationDecision,
   ExamContextType,
   ProgressType,
@@ -52,32 +53,59 @@ export interface User extends BaseEntity {
   progress_stats?: ProgressStatsCache | null
 }
 
-// ── היררכיית הלמידה — שדות מנוע-ההתקדמות בלבד (PROGRESS_ENGINE.md §4);
-//    יושלמו לסכמה המלאה בשלב ה-feature של הלמידה (SRS §1.2) ────────────────
+// ── היררכיית הלמידה (SRS §1.2) — הורחב בשלב 3.1 (learning catalog + track
+//    details) מעבר לשדות מנוע-ההתקדמות של Phase 1 ─────────────────────────
 export interface LearningTrack extends BaseEntity {
   title?: string | null
-  status?: ContentStatus | null
   /** קבוצת-היעד — המכנה נקבע לפי category == user.department */
   category?: string | null
+  description?: string | null
+  difficulty_level?: DifficultyLevel | null
+  estimated_hours?: number | null
+  image_url?: string | null
+  /** צבע-מבטא להתאמת הכרטיס למחלקה (TrackCard) */
+  color?: string | null
+  status?: ContentStatus | null
 }
 
-export type SharedModule = BaseEntity
+export interface SharedModule extends BaseEntity {
+  title?: string | null
+  description?: string | null
+  estimated_duration?: number | null
+  status?: ContentStatus | null
+}
 
 export interface TrackModule extends BaseEntity {
   track_id: string
-  shared_module_id: string
+  /**
+   * SRS §1.2 מסמן חובה, אך רשומה אחת בגיבוי האמיתי (id=689c9b9431a6c2c373ad390a)
+   * חסרה את השדה לגמרי ובמקומו נושאת שדות של SharedModule (title/description/
+   * estimated_duration/status) — כפילות-נתונים ב-Base44, לא תקלת-ייבוא.
+   * נשאר nullish כאן כדי לשקף את המציאות; רשומות כאלה מסוננות בשכבת
+   * ה-assembly (trackDetailsService), לא ב-type/schema.
+   */
+  shared_module_id?: string | null
   order_index?: number | null
 }
 
 export interface Topic extends BaseEntity {
   shared_module_id: string
   title?: string | null
+  description?: string | null
+  order_index?: number | null
   status?: ContentStatus | null
 }
 
 export interface ModuleLesson extends BaseEntity {
-  topic_id: string
+  /** 9 רשומות בגיבוי האמיתי חסרות topic_id (שיעורים יתומים) — ראו הערה ב-TrackModule */
+  topic_id?: string | null
   title?: string | null
+  duration_minutes?: number | null
+  order_index?: number | null
+  /** אכיפת-רצף — doc 04 */
+  require_previous_lesson?: boolean | null
+  xp_reward?: number | null
+  linked_exam_id?: string | null
   /** רק 'published' נספר במכנה של avg_progress */
   status?: ContentStatus | null
 }

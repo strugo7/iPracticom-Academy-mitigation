@@ -102,7 +102,14 @@ function collectTrackContent(
   )
   const lessonIds = new Set(
     catalog.lessons
-      .filter((l) => topicIds.has(l.topic_id) && l.status === 'published')
+      // l.topic_id יכול להיות null (9 שיעורים יתומים בגיבוי — ראו entities.ts);
+      // כאלה לעולם לא נמצאים ב-topicIds ומסוננים ממילא, השומר רק מספק ל-TS.
+      .filter(
+        (l) =>
+          l.topic_id != null &&
+          topicIds.has(l.topic_id) &&
+          l.status === 'published',
+      )
       .map((l) => l.id),
   )
   return { topicIds, lessonIds }

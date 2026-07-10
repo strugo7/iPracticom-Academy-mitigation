@@ -8,7 +8,14 @@ export {
   ApiNotConnectedError,
   type ApiErrorCode,
 } from '@/lib/api/errors'
-export { userSchema } from '@/lib/api/schemas'
+export {
+  learningTrackSchema,
+  moduleLessonSchema,
+  sharedModuleSchema,
+  topicSchema,
+  trackModuleSchema,
+  userSchema,
+} from '@/lib/api/schemas'
 export type {
   CreateInput,
   EntityName,

@@ -6,7 +6,14 @@
 import type { z } from 'zod'
 import { createMockResource } from '@/lib/api/mock/mockApi'
 import { createRealResource } from '@/lib/api/real/realApi'
-import { userSchema } from '@/lib/api/schemas'
+import {
+  learningTrackSchema,
+  moduleLessonSchema,
+  sharedModuleSchema,
+  topicSchema,
+  trackModuleSchema,
+  userSchema,
+} from '@/lib/api/schemas'
 import type { EntityName, IApiClient, IResource } from '@/lib/api/types'
 import type { BaseEntity, User } from '@/types/entities'
 
@@ -24,11 +31,11 @@ function resource<T extends BaseEntity>(
 
 export const apiClient: IApiClient = {
   users: resource<User>('User', userSchema),
-  learningTracks: resource('LearningTrack'),
-  trackModules: resource('TrackModule'),
-  sharedModules: resource('SharedModule'),
-  topics: resource('Topic'),
-  moduleLessons: resource('ModuleLesson'),
+  learningTracks: resource('LearningTrack', learningTrackSchema),
+  trackModules: resource('TrackModule', trackModuleSchema),
+  sharedModules: resource('SharedModule', sharedModuleSchema),
+  topics: resource('Topic', topicSchema),
+  moduleLessons: resource('ModuleLesson', moduleLessonSchema),
   moduleExams: resource('ModuleExam'),
   userProgress: resource('UserProgress'),
   exams: resource('Exam'),
