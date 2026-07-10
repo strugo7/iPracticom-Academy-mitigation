@@ -6,9 +6,11 @@
  */
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Icon } from '@/components/ui'
 import { useAuth } from '@/lib/auth'
 import { BellIcon, SearchIcon } from './icons'
 import { getPageMeta } from './navConfig'
+import { usePageHeaderOverride } from './PageHeaderContext'
 
 /** מונה לא-נקראו — אין עדיין ישות התראות (מסמך 11: "לאמת/לבנות"); 0 = ללא badge. */
 const UNREAD_NOTIFICATIONS_COUNT = 0
@@ -59,7 +61,12 @@ function NotificationsButton({ unread }: { unread: number }) {
 export function TopBar() {
   const { user } = useAuth()
   const { pathname } = useLocation()
-  const { title, subtitle } = getPageMeta(pathname, user)
+  const override = usePageHeaderOverride()
+  const fallback = getPageMeta(pathname, user)
+  const title = override?.title ?? fallback.title
+  const subtitle = override?.subtitle ?? fallback.subtitle
+  const backTo = override?.backTo
+  const backLabel = override?.backLabel
 
   if (!user) return null
 
@@ -68,6 +75,15 @@ export function TopBar() {
       <div className="flex items-center gap-[22px] px-8 py-3.5">
         {/* כותרת העמוד — צד ההתחלה (ימין ב-RTL) */}
         <div className="min-w-0 flex-none">
+          {backTo && backLabel && (
+            <Link
+              to={backTo}
+              className="mb-1 inline-flex items-center gap-1.5 text-[14px] font-semibold text-neutrals-charcoal transition-colors hover:text-accent"
+            >
+              <Icon name="ChevronRight" size={17} />
+              {backLabel}
+            </Link>
+          )}
           <h1 className="m-0 text-2xl font-semibold leading-[1.1] text-neutrals-charcoal">
             {title}
           </h1>

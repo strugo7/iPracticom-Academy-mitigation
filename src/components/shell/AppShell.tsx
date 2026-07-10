@@ -5,6 +5,7 @@
  */
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { PageHeaderProvider } from './PageHeaderContext'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
 
@@ -41,14 +42,16 @@ export function AppShell() {
   }
 
   return (
-    <div className="flex min-h-svh flex-row bg-neutrals-whisper text-neutrals-charcoal">
-      <Sidebar collapsed={collapsed} onToggleCollapsed={toggleCollapsed} />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <TopBar />
-        <main className="min-w-0 flex-1">
-          <Outlet />
-        </main>
+    <PageHeaderProvider>
+      <div className="flex min-h-svh flex-row bg-neutrals-whisper text-neutrals-charcoal">
+        <Sidebar collapsed={collapsed} onToggleCollapsed={toggleCollapsed} />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <TopBar />
+          <main className="min-w-0 flex-1">
+            <Outlet />
+          </main>
+        </div>
       </div>
-    </div>
+    </PageHeaderProvider>
   )
 }
