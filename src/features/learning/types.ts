@@ -1,7 +1,9 @@
 /**
  * טיפוסי ה-view-model של feature הלמידה — הצורה שהקומפוננטות מצפות לה,
- * נגזרת ע"י services/ מהקטלוג הגולמי + progress_stats (Phase 1). לא ישויות
- * גולמיות מה-API ולא מבנה שמור — נבנה מחדש בכל render.
+ * נגזרת ע"י services/ מהקטלוג הגולמי. לא ישויות גולמיות מה-API ולא מבנה
+ * שמור — נבנה מחדש בכל render. TrackCatalogItem נגזר מאותו trackDetailsService
+ * שמרכיב TrackDetailsViewModel (לא מ-progress_stats של Phase 1) — כדי
+ * שהמונה/האחוז יהיו זהים בין הקטלוג לדף התוכן של אותו מסלול.
  */
 import type {
   Exam,
@@ -18,7 +20,7 @@ export interface TrackCatalogItem {
   status: TrackCatalogStatus
   lessonsCompleted: number
   lessonsTotal: number
-  /** 0–100, מ-stats.avg_progress (Phase 1) — לא מחושב כאן */
+  /** 0–100, מ-TrackDetailsViewModel.percent (trackDetailsService) — לא מחושב כאן */
   percent: number
 }
 
