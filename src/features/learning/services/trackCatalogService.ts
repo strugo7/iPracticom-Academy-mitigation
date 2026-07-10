@@ -1,40 +1,40 @@
 /**
- * הרכבת כרטיסי-הקטלוג (TracksCatalog, doc 03) — ממפה מסלולים + progress_stats
- * שכבר חושבו ב-Phase 1 (recalculateUserStats) לכרטיס. אין כאן שום חישוב
- * התקדמות חדש. מקבל מערך מסלולים (לא מסלול יחיד) כך שתצוגת-הריבוי העתידית
- * של מנהל/אדמין (doc 03, נדחתה במפורש) תהיה תוספת, לא שכתוב.
+ * הרכבת כרטיס-הקטלוג (TracksCatalog, doc 03) — עוטף את ה-view-model שכבר
+ * חושב ע"י trackDetailsService עבור המסלול המוקצה, ומקטלג את הסטטוס.
+ *
+ * שינוי (אימות ידני בדפדפן, אחרי Task 16): בעבר מיפה ישירות מ-progress_stats
+ * (Phase 1) — אך זה כלל היסטוריית-השלמות של שיעורים שנמחקו מהקטלוג (9 מתוך 24
+ * אצל tallevi), ויצר אי-התאמה גלויה מול TrackDetails לאותו מסלול (62% מול 38%).
+ * כעת שני הדפים חולקים בדיוק את אותו חישוב (assembleTrackDetails) — עקביות
+ * מובטחת by construction, לא רק בכוונה.
  */
-import type { ProgressStats } from '@/lib/services/progressService'
-import type { LearningTrack, User } from '@/types/entities'
-import type { TrackCatalogItem, TrackCatalogStatus } from '../types'
+import type {
+  TrackCatalogItem,
+  TrackCatalogStatus,
+  TrackDetailsViewModel,
+} from '../types'
 
 export function assembleTrackCatalog(
-  tracks: LearningTrack[],
-  user: Pick<User, 'assigned_track_id'>,
-  stats: Pick<
-    ProgressStats,
-    'lessons_completed' | 'total_lessons_in_track' | 'avg_progress'
-  >,
+  assignedTrackDetails: TrackDetailsViewModel | null,
 ): TrackCatalogItem[] {
-  const assigned = tracks.find((t) => t.id === user.assigned_track_id)
-  if (!assigned || assigned.status !== 'published') return []
+  if (!assignedTrackDetails) return []
+  const { track, lessonsDone, lessonsTotal, percent } = assignedTrackDetails
+  if (track.status !== 'published') return []
 
-  const lessonsTotal = stats.total_lessons_in_track
-  const lessonsCompleted = stats.lessons_completed
   const status: TrackCatalogStatus =
-    lessonsTotal > 0 && lessonsCompleted >= lessonsTotal
+    lessonsTotal > 0 && lessonsDone >= lessonsTotal
       ? 'completed'
-      : lessonsCompleted > 0
+      : lessonsDone > 0
         ? 'in_progress'
         : 'not_started'
 
   return [
     {
-      track: assigned,
+      track,
       status,
-      lessonsCompleted,
+      lessonsCompleted: lessonsDone,
       lessonsTotal,
-      percent: stats.avg_progress,
+      percent,
     },
   ]
 }

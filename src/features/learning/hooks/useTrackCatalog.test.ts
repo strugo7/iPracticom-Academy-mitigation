@@ -1,11 +1,11 @@
 /**
- * בדיקת הרכבת הקלט של useTrackCatalog — fetchTrackCatalogTracks בלבד
+ * בדיקת הרכבת הקלט של useTrackCatalog — fetchTrackCatalogInput בלבד
  * (בלי React/react-query), באותו דפוס כמו useProgress.test.ts.
  */
 import { describe, expect, it } from 'vitest'
 import type { IApiClient } from '@/lib/api'
 import type { LearningTrack, User } from '@/types/entities'
-import { fetchTrackCatalogTracks } from './useTrackCatalog'
+import { fetchTrackCatalogInput } from './useTrackCatalog'
 
 const USER_ID = 'u1'
 const user: User = {
@@ -20,42 +20,50 @@ const user: User = {
 const track: LearningTrack = {
   id: 't1',
   title: 'מסלול',
-  status: 'published',
   created_date: '',
   updated_date: '',
 }
 
 function fakeApi(
-  overrides: { user?: User | null; tracks?: LearningTrack[] } = {},
+  overrides: { user?: User | null; track?: LearningTrack | null } = {},
 ): IApiClient {
+  const empty = { findMany: async () => [] }
   return {
     users: {
       findById: async () =>
         overrides.user === undefined ? user : overrides.user,
     },
-    learningTracks: { findMany: async () => overrides.tracks ?? [track] },
+    learningTracks: {
+      findById: async () =>
+        overrides.track === undefined ? track : overrides.track,
+    },
+    trackModules: empty,
+    sharedModules: empty,
+    topics: empty,
+    moduleLessons: empty,
+    exams: empty,
+    userProgress: empty,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any
 }
 
-describe('fetchTrackCatalogTracks', () => {
-  it('מחזיר את assigned_track_id של המשתמש + כל המסלולים', async () => {
-    const result = await fetchTrackCatalogTracks(fakeApi(), USER_ID)
-    expect(result.assignedTrackId).toBe('t1')
-    expect(result.tracks).toEqual([track])
+describe('fetchTrackCatalogInput', () => {
+  it('מחזיר את קלט המסלול המוקצה', async () => {
+    const result = await fetchTrackCatalogInput(fakeApi(), USER_ID)
+    expect(result?.track).toEqual(track)
   })
 
   it('null כשאין assigned_track_id', async () => {
-    const result = await fetchTrackCatalogTracks(
+    const result = await fetchTrackCatalogInput(
       fakeApi({ user: { ...user, assigned_track_id: null } }),
       USER_ID,
     )
-    expect(result.assignedTrackId).toBeNull()
+    expect(result).toBeNull()
   })
 
   it('זורק כשהמשתמש לא קיים', async () => {
     await expect(
-      fetchTrackCatalogTracks(fakeApi({ user: null }), USER_ID),
+      fetchTrackCatalogInput(fakeApi({ user: null }), USER_ID),
     ).rejects.toThrow()
   })
 })
