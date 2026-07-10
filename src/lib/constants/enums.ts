@@ -71,6 +71,21 @@ export const PLAYBOOK_NODE_COLORS: Record<PlaybookNodeType, string> = {
   linked_flow: '#8B5CF6', // סגול
 }
 
+// ── סוגי אירועי התקדמות (UserProgress.progress_type) ──────────────────────
+// SRS §1.5 + הדאטה האמיתי. lesson_quiz_attempt הוא legacy שקיים בדאטה (4 רשומות)
+// ואינו נספר באף מדד (PROGRESS_ENGINE.md §8-ג).
+export const PROGRESS_TYPES = [
+  'lesson_started',
+  'lesson_completed',
+  'exam_attempt',
+  'exam_passed',
+  'module_completed',
+  'topic_completed',
+  'track_completed',
+  'lesson_quiz_attempt',
+] as const
+export type ProgressType = (typeof PROGRESS_TYPES)[number]
+
 // ── ערכי status אמיתיים (data/app-backup) ─────────────────────────────────
 // מחזור-חיים של תוכן (LearningTrack/SharedModule/Topic/ModuleLesson/Question/...).
 export const CONTENT_STATUS = [
@@ -91,6 +106,19 @@ export const INVITE_STATUS = [
   'expired',
 ] as const
 export type InviteStatus = (typeof INVITE_STATUS)[number]
+
+// עוגן-ההקשר של מבחן (Exam.context_type) — data: lesson(11)/topic(2)/none(4).
+export const EXAM_CONTEXT_TYPES = ['lesson', 'topic', 'none'] as const
+export type ExamContextType = (typeof EXAM_CONTEXT_TYPES)[number]
+
+// החלטת הערכה על מועמד (CandidateAssessment.evaluation_decision) — SRS §1.4.
+export const EVALUATION_DECISIONS = [
+  'pending_review',
+  'approved',
+  'rejected',
+  'requires_interview',
+] as const
+export type EvaluationDecision = (typeof EVALUATION_DECISIONS)[number]
 
 // סוגי שאלה (Question.question_type) — data.
 export const QUESTION_TYPES = [
