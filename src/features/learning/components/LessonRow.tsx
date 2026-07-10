@@ -45,7 +45,7 @@ export function LessonRow(props: LessonRowProps) {
         title={LESSON_PLAYER_UNAVAILABLE_MESSAGE}
         className="flex cursor-not-allowed items-center gap-4 rounded-lg border border-dashed border-[#E8CF8E] bg-[rgba(241,194,27,0.12)] p-4 opacity-90"
       >
-        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-[rgba(241,194,27,0.3)] text-[#8A6E00]">
+        <div className="flex h-10 w-10 flex-none items-center justify-center [clip-path:polygon(50%_0,93%_25%,93%_75%,50%_100%,7%_75%,7%_25%)] bg-[rgba(241,194,27,0.3)] text-[#8A6E00]">
           <Icon name="File" size={19} />
         </div>
         <div className="min-w-0 flex-1">
