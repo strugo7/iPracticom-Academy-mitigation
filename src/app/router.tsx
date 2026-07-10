@@ -8,6 +8,7 @@ import type { ReactNode } from 'react'
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 import { LoginPage } from '@/app/(auth)/login/LoginPage'
 import { PagePlaceholder } from '@/app/(app)/PagePlaceholder'
+import { TrackDetailsPage, TrainingsPage } from '@/features/learning'
 import { DemoPage } from '@/app/dev/DemoPage'
 import { AppShell } from '@/components/shell'
 import {
@@ -72,7 +73,8 @@ export const router = createBrowserRouter([
         children: [
           // זמין לכל התפקידים (מסמך 11 §3)
           { path: '/dashboard', element: <PagePlaceholder /> },
-          { path: '/trainings', element: <PagePlaceholder /> },
+          { path: '/trainings', element: <TrainingsPage /> },
+          { path: '/trainings/:trackId', element: <TrackDetailsPage /> },
           { path: '/troubleshooting', element: <PagePlaceholder /> },
           { path: '/help', element: <PagePlaceholder /> },
           { path: '/settings', element: <PagePlaceholder /> },
