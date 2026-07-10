@@ -15,6 +15,9 @@ import type { TrackDetailsViewModel } from '../types'
 export const trackDetailsQueryKey = (trackId: string, userId: string) =>
   ['track-details', trackId, userId] as const
 
+/** ערך ה-category של מסלולים גלויים לכל המחלקות (SRS §מחלקות, שורה 17). */
+const COMPANY_WIDE_CATEGORY = 'כלל החברה'
+
 export async function fetchTrackDetailsInput(
   api: IApiClient,
   trackId: string,
@@ -24,17 +27,37 @@ export async function fetchTrackDetailsInput(
   catalog: TrackDetailsCatalog
   events: UserProgress[]
 }> {
-  const [track, trackModules, sharedModules, topics, lessons, exams, events] =
-    await Promise.all([
-      api.learningTracks.findById(trackId),
-      api.trackModules.findMany({ filter: { track_id: trackId } }),
-      api.sharedModules.findMany(),
-      api.topics.findMany(),
-      api.moduleLessons.findMany(),
-      api.exams.findMany(),
-      api.userProgress.findMany({ filter: { user_id: userId } }),
-    ])
+  const [
+    track,
+    trackModules,
+    sharedModules,
+    topics,
+    lessons,
+    exams,
+    events,
+    user,
+  ] = await Promise.all([
+    api.learningTracks.findById(trackId),
+    api.trackModules.findMany({ filter: { track_id: trackId } }),
+    api.sharedModules.findMany(),
+    api.topics.findMany(),
+    api.moduleLessons.findMany(),
+    api.exams.findMany(),
+    api.userProgress.findMany({ filter: { user_id: userId } }),
+    api.users.findById(userId),
+  ])
   if (!track) {
+    throw new ApiError('not_found', `מסלול ${trackId} לא נמצא`)
+  }
+  if (!user) {
+    throw new ApiError('not_found', `משתמש ${userId} לא נמצא`)
+  }
+  if (
+    track.category !== user.department &&
+    track.category !== COMPANY_WIDE_CATEGORY
+  ) {
+    // התאמת מחלקה כושלת מתייחסת כאילו המסלול לא קיים — לא חושפים
+    // שהמסלול קיים אך שייך למחלקה אחרת (ראו PRD "not-found state").
     throw new ApiError('not_found', `מסלול ${trackId} לא נמצא`)
   }
   return {
