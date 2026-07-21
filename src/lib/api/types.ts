@@ -8,14 +8,20 @@ import type {
   CandidateAssessment,
   Concept,
   Course,
+  Department,
   Exam,
+  ExamAttempt,
   Invite,
   KnowledgeArticle,
   LearningTrack,
+  LessonVersion,
+  MediaAsset,
   ModuleExam,
   ModuleLesson,
+  Notification,
   Question,
   RoleUpgradeRequest,
+  SecurityLog,
   SharedModule,
   Topic,
   TrackModule,
@@ -54,10 +60,12 @@ export interface IResource<T extends BaseEntity> {
 export type IUserApi = IResource<User>
 export type ITrackApi = IResource<LearningTrack>
 export type ILessonApi = IResource<ModuleLesson>
+export type ILessonVersionApi = IResource<LessonVersion>
 export type IExamApi = IResource<Exam>
+export type IExamAttemptApi = IResource<ExamAttempt>
 export type IProgressApi = IResource<UserProgress>
 
-/** המשטח המלא — משאב לכל אחת מ-19 ישויות הגיבוי. */
+/** המשטח המלא — משאב לכל אחת מ-20 ישויות הגיבוי (19 + ExamAttempt, נכתב רק ב-runtime). */
 export interface IApiClient {
   users: IUserApi
   learningTracks: ITrackApi
@@ -65,9 +73,11 @@ export interface IApiClient {
   sharedModules: IResource<SharedModule>
   topics: IResource<Topic>
   moduleLessons: ILessonApi
+  lessonVersions: ILessonVersionApi
   moduleExams: IResource<ModuleExam>
   userProgress: IProgressApi
   exams: IExamApi
+  examAttempts: IExamAttemptApi
   questions: IResource<Question>
   concepts: IResource<Concept>
   troubleshootingFlows: IResource<TroubleshootingFlow>
@@ -78,9 +88,17 @@ export interface IApiClient {
   wizardConfigs: IResource<WizardConfig>
   courses: IResource<Course>
   knowledgeArticles: IResource<KnowledgeArticle>
+  mediaAssets: IResource<MediaAsset>
+  /** מבנה ארגוני (userManagement, מסמך 26) — אין בגיבוי, נזרע ב-split-backup.mjs. */
+  departments: IResource<Department>
+  /** התראות (userManagement, מסמך 26) — נכתבת רק ב-runtime, ראו entities.ts. */
+  notifications: IResource<Notification>
+  /** לוגי-אבטחה (systemSettings, מסמך 16) — נכתבת רק ב-runtime, ראו entities.ts. */
+  securityLogs: IResource<SecurityLog>
 }
 
-/** שמות הישויות כפי שהם בגיבוי (וקבצי ה-fixtures). */
+/** שמות הישויות כפי שהם בגיבוי (וקבצי ה-fixtures). ExamAttempt אינה חלק מהגיבוי
+ *  המיובא (נוצרת רק ב-runtime) אך חייבת fixture ([]) כדי ש-createMockResource יעבוד. */
 export const ENTITY_NAMES = [
   'User',
   'LearningTrack',
@@ -88,9 +106,11 @@ export const ENTITY_NAMES = [
   'SharedModule',
   'Topic',
   'ModuleLesson',
+  'LessonVersion',
   'ModuleExam',
   'UserProgress',
   'Exam',
+  'ExamAttempt',
   'Question',
   'Concept',
   'TroubleshootingFlow',
@@ -101,5 +121,9 @@ export const ENTITY_NAMES = [
   'WizardConfig',
   'Course',
   'KnowledgeArticle',
+  'MediaAsset',
+  'Department',
+  'Notification',
+  'SecurityLog',
 ] as const
 export type EntityName = (typeof ENTITY_NAMES)[number]

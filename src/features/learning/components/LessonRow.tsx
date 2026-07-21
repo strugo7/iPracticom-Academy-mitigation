@@ -1,9 +1,11 @@
 /**
  * 1:1 עם design-export/LessonRow.dc.html — הרכיב הקריטי (doc 04), 4 מצבים +
- * וריאנט מבחן. כל ה-CTAs מושבתים: נגן-השיעורים בפועל הוא Phase 4.
+ * וריאנט מבחן. CTA השיעור מנווט לנגן האמיתי (שלב 3.2); וריאנט המבחן נשאר
+ * מושבת — נגן-המבחנים הוא שלב נפרד.
  */
-import { Icon } from '@/components/ui'
-import { LESSON_PLAYER_UNAVAILABLE_MESSAGE } from '../constants'
+import { Link } from 'react-router-dom'
+import { Icon, ProgressBar } from '@/components/ui'
+import { EXAM_PLAYER_UNAVAILABLE_MESSAGE } from '../constants'
 import type { Exam } from '@/types/entities'
 import type { LessonViewModel } from '../types'
 
@@ -33,7 +35,7 @@ function LockIcon() {
 }
 
 type LessonRowProps =
-  | { kind: 'lesson'; item: LessonViewModel }
+  | { kind: 'lesson'; item: LessonViewModel; trackId: string }
   | { kind: 'exam'; exam: Pick<Exam, 'id' | 'title'> }
 
 export function LessonRow(props: LessonRowProps) {
@@ -42,7 +44,7 @@ export function LessonRow(props: LessonRowProps) {
       <div
         role="button"
         aria-disabled="true"
-        title={LESSON_PLAYER_UNAVAILABLE_MESSAGE}
+        title={EXAM_PLAYER_UNAVAILABLE_MESSAGE}
         className="flex cursor-not-allowed items-center gap-4 rounded-lg border border-dashed border-[#E8CF8E] bg-[rgba(241,194,27,0.12)] p-4 opacity-90"
       >
         <div className="flex h-10 w-10 flex-none items-center justify-center [clip-path:polygon(50%_0,93%_25%,93%_75%,50%_100%,7%_75%,7%_25%)] bg-[rgba(241,194,27,0.3)] text-[#8A6E00]">
@@ -99,11 +101,9 @@ export function LessonRow(props: LessonRowProps) {
   }
 
   return (
-    <div
-      role="button"
-      aria-disabled="true"
-      title={LESSON_PLAYER_UNAVAILABLE_MESSAGE}
-      className="flex cursor-not-allowed items-center gap-4 rounded-lg bg-white p-4"
+    <Link
+      to={`/trainings/${props.trackId}/lessons/${lesson.id}`}
+      className="flex items-center gap-4 rounded-lg bg-white p-4 transition-colors hover:bg-neutrals-whisper"
     >
       {status === 'completed' && (
         <div className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-hues-mint text-success">
@@ -127,12 +127,7 @@ export function LessonRow(props: LessonRowProps) {
         </div>
         {status === 'in_progress' && (
           <div className="mt-2 flex items-center gap-2">
-            <div className="h-1.5 max-w-[200px] flex-1 overflow-hidden rounded-full bg-hues-sky">
-              <div
-                className="h-full rounded-full bg-accent-gradient transition-[width] duration-500"
-                style={{ width: `${percent ?? 0}%` }}
-              />
-            </div>
+            <ProgressBar percent={percent ?? 0} className="max-w-[200px] flex-1" />
             <span className="text-[12px] font-semibold text-accent">
               {percent ?? 0}%
             </span>
@@ -163,10 +158,13 @@ export function LessonRow(props: LessonRowProps) {
         </span>
       )}
       {status === 'completed' && (
-        <span className="flex-none rounded-full bg-hues-mint px-3 py-1.5 text-[13px] font-semibold text-success">
+        <span
+          dir="ltr"
+          className="flex-none rounded-full bg-hues-mint px-3 py-1.5 text-[13px] font-semibold text-success"
+        >
           +{lesson.xp_reward ?? 10} XP
         </span>
       )}
-    </div>
+    </Link>
   )
 }

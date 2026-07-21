@@ -65,7 +65,7 @@ describe('buildMainNav — מבנה הסרגל לפי תפקיד', () => {
     ])
   })
 
-  it('אדמין: המבנה המלא', () => {
+  it('אדמין: המבנה המלא (ניהול-משתמשים עבר לתוך ההגדרות, שלב 9.3)', () => {
     expect(labels(makeUser('admin'))).toEqual([
       'לוח הבית',
       'ההכשרות שלי',
@@ -73,6 +73,17 @@ describe('buildMainNav — מבנה הסרגל לפי תפקיד', () => {
       'ניהול תוכן',
       'פתרון בעיות',
     ])
+  })
+
+  it('ניהול משתמשים אינו פריט-סרגל לאף תפקיד — יושב בהגדרות (/settings/users)', () => {
+    for (const user of [
+      makeUser('user'),
+      makeUser('instructor'),
+      makeUser('user', 'תמיכה טכנית'),
+      makeUser('admin'),
+    ]) {
+      expect(labels(user)).not.toContain('ניהול משתמשים')
+    }
   })
 })
 

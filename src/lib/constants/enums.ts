@@ -97,6 +97,8 @@ export const CONTENT_STATUS = [
 export type ContentStatus = (typeof CONTENT_STATUS)[number]
 
 // מחזור-חיים של הזמנה/מועמד (Invite/CandidateAssessment) — אשכול הגיוס.
+// 'canceled' מתועד ב-SRS §1.7/PRD §3.3 אך לא הופיע ב-56 הרשומות האמיתיות
+// (מדגם קטן) — נדרש בפועל לפעולת "בטל הזמנה" (מסמך 26, userManagement).
 export const INVITE_STATUS = [
   'pending',
   'started',
@@ -104,12 +106,84 @@ export const INVITE_STATUS = [
   'completed',
   'hired',
   'expired',
+  'canceled',
 ] as const
 export type InviteStatus = (typeof INVITE_STATUS)[number]
+
+// סוג הזמנה (Invite.type) — data: user/candidate (מסמך 26).
+export const INVITE_TYPES = ['user', 'candidate'] as const
+export type InviteType = (typeof INVITE_TYPES)[number]
+
+// תפקיד מבוקש (Invite.requested_role) — SRS §1.7.
+export const REQUESTED_ROLES = ['candidate', 'employee'] as const
+export type RequestedRole = (typeof REQUESTED_ROLES)[number]
+
+// סוג התראה (Notification.type) — SRS §1.11. חדשות (userManagement, מסמך 26):
+// new_user_created (מבחן-כניסה נשלח), system_alert (הודעת-אדמין חופשית).
+export const NOTIFICATION_TYPES = [
+  'candidate_assessed',
+  'candidate_hired',
+  'candidate_rejected',
+  'invite_expiring',
+  'new_user_created',
+  'new_invite_sent',
+  'system_alert',
+  'lesson_created',
+  'course_completed',
+  'ai_lesson_ready',
+  'ai_lesson_failed',
+  'exam_failed',
+  'track_deadline_approaching',
+  'new_learning_content',
+] as const
+export type NotificationType = (typeof NOTIFICATION_TYPES)[number]
+
+// עדיפות התראה (Notification.priority) — SRS §1.11, def medium.
+export const NOTIFICATION_PRIORITIES = ['low', 'medium', 'high'] as const
+export type NotificationPriority = (typeof NOTIFICATION_PRIORITIES)[number]
+
+// סוג-ניסיון של SecurityLog — SRS §1.11 (systemSettings, מסמך 16).
+export const SECURITY_ATTEMPT_TYPES = [
+  'unauthorized_domain_login',
+  'two_factor_failed',
+  'whitelist_denied',
+  'user_login',
+  'rate_limit_exceeded',
+  'other',
+] as const
+export type SecurityAttemptType = (typeof SECURITY_ATTEMPT_TYPES)[number]
+
+// סטטוס SecurityLog — SRS §1.11, def blocked.
+export const SECURITY_LOG_STATUSES = ['blocked', 'success', 'error'] as const
+export type SecurityLogStatus = (typeof SECURITY_LOG_STATUSES)[number]
 
 // עוגן-ההקשר של מבחן (Exam.context_type) — data: lesson(11)/topic(2)/none(4).
 export const EXAM_CONTEXT_TYPES = ['lesson', 'topic', 'none'] as const
 export type ExamContextType = (typeof EXAM_CONTEXT_TYPES)[number]
+
+// סוג מבחן (Exam.exam_type) — SRS §1.4 + data (lesson_exam/standalone_exam/topic_exam).
+export const EXAM_TYPES = [
+  'track_exam',
+  'module_exam',
+  'topic_exam',
+  'lesson_exam',
+  'standalone_exam',
+] as const
+export type ExamType = (typeof EXAM_TYPES)[number]
+
+// מדיניות משוב (Exam.feedback_policy) — SRS §1.4; null בחלק מהדאטה האמיתי.
+export const FEEDBACK_POLICIES = ['immediate', 'none'] as const
+export type FeedbackPolicy = (typeof FEEDBACK_POLICIES)[number]
+
+// מחזור-חיים של ניסיון-מבחן (ExamAttempt.status) — SRS §1.4. אין ערך 'submitted'
+// (פישוט של מסמך 14 בלבד) — auto-submit בתפוגת הטיימר הוא 'timed_out', לא 'completed'.
+export const EXAM_ATTEMPT_STATUSES = [
+  'in_progress',
+  'completed',
+  'abandoned',
+  'timed_out',
+] as const
+export type ExamAttemptStatus = (typeof EXAM_ATTEMPT_STATUSES)[number]
 
 // החלטת הערכה על מועמד (CandidateAssessment.evaluation_decision) — SRS §1.4.
 export const EVALUATION_DECISIONS = [
@@ -119,6 +193,10 @@ export const EVALUATION_DECISIONS = [
   'requires_interview',
 ] as const
 export type EvaluationDecision = (typeof EVALUATION_DECISIONS)[number]
+
+// מצב בקשת שדרוג-תפקיד (RoleUpgradeRequest.status) — SRS §1.11, def pending.
+export const ROLE_UPGRADE_STATUSES = ['pending', 'approved', 'rejected'] as const
+export type RoleUpgradeStatus = (typeof ROLE_UPGRADE_STATUSES)[number]
 
 // סוגי שאלה (Question.question_type) — data.
 export const QUESTION_TYPES = [
@@ -135,3 +213,29 @@ export const DIFFICULTY_LEVELS = [
   'advanced',
 ] as const
 export type DifficultyLevel = (typeof DIFFICULTY_LEVELS)[number]
+
+// סוגי נכסי מדיה (MediaAsset.file_type) — ספריית המדיה, מסמך 15.
+export const MEDIA_FILE_TYPES = ['image', 'gif', 'video', 'pdf'] as const
+export type MediaFileTypeEnum = (typeof MEDIA_FILE_TYPES)[number]
+
+/**
+ * קטגוריות מונח (Concept.category) — 8 הקטגוריות הקנוניות של SRS §1.9, והיחידות
+ * שיש להן אייקון וצבע ב-design-export/Concepts.dc.html.
+ *
+ * זו **רשימת-ההיצע של העורך, לא חוזה סגור**: ב-DDL העמודה היא `VARCHAR(100)`
+ * ללא CHECK, ובדאטה האמיתי יש גם קטגוריות-ציוד ("מצלמות אבטחה",
+ * "מרכזיות ענן (PBX)") — ה-SRS מתיר אותן ("+ קטגוריות-ציוד"). הגלריה מציגה
+ * ומסננת כל ערך שמגיע מה-API, עם מטא ניטרלי לקטגוריה שאינה ברשימה הזו,
+ * כדי שאף מונח לא ייעלם. אין להמציא אייקון לקטגוריה שהעיצוב לא הגדיר.
+ */
+export const CONCEPT_CATEGORIES = [
+  'רשתות',
+  'אבטחה',
+  'חומרה',
+  'תוכנה',
+  'פרוטוקולים',
+  'שירותים',
+  'כללי',
+  'ארגוני',
+] as const
+export type ConceptCategory = (typeof CONCEPT_CATEGORIES)[number]

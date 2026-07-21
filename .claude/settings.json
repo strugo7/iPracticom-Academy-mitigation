@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(lsof -ti:5173)",
+      "Bash(grep -iE \"close|x$|cross\")"
+    ]
+  }
+}

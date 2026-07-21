@@ -1,0 +1,225 @@
+{
+  "main": {
+    "id": "c7282e718f03d7dd",
+    "type": "split",
+    "children": [
+      {
+        "id": "9a02f54fd8ca0ddc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "061715ab4ef7a65f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "תסריטים לשיעורים/1. מבוא להכשרה/מבוא להכשרה.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "מבוא להכשרה"
+            }
+          },
+          {
+            "id": "385731127bbd0137",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "_raw-sources/הגדרת מתג מנוהל HP 1820.pptx.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "הגדרת מתג מנוהל HP 1820.pptx"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4e1bc59d0887496d",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "24feda597c9da9a1",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {
+            "sortOrder": "byCreatedTime",
+            "autoReveal": true
+          },
+          "icon": "lucide-folder-closed",
+          "title": "Files"
+        }
+      },
+      {
+        "id": "1c4bd8a5c6ad737b",
+        "type": "leaf",
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
+          },
+          "icon": "lucide-search",
+          "title": "Search"
+        }
+      },
+      {
+        "id": "5b87e7ffa443d4ec",
+        "type": "leaf",
+        "state": {
+          "type": "tag",
+          "state": {
+            "sortOrder": "frequency",
+            "useHierarchy": true,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-tags",
+          "title": "Tags"
+        }
+      },
+      {
+        "id": "ca2eb01020442214",
+        "type": "leaf",
+        "state": {
+          "type": "all-properties",
+          "state": {
+            "sortOrder": "frequency",
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-archive",
+          "title": "All properties"
+        }
+      },
+      {
+        "id": "58cdef789b3a382f",
+        "type": "leaf",
+        "state": {
+          "type": "bookmarks",
+          "state": {},
+          "icon": "lucide-bookmark",
+          "title": "Bookmarks"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "right": {
+    "id": "8b78760dbbbfb74c",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "e806a6e04efc05c5",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "file": "_raw-sources/הגדרת מתג מנוהל HP 1820.pptx.pdf",
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-coming-in",
+          "title": "Backlinks"
+        }
+      },
+      {
+        "id": "5dd7004c6956e7a2",
+        "type": "leaf",
+        "state": {
+          "type": "outgoing-link",
+          "state": {
+            "file": "פתרון בעיות מערכות סאונד.md",
+            "linksCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-going-out",
+          "title": "Outgoing links"
+        }
+      },
+      {
+        "id": "07260159bbec3fe2",
+        "type": "leaf",
+        "state": {
+          "type": "outline",
+          "state": {
+            "file": "פתרון בעיות מערכות סאונד.md",
+            "followCursor": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-list",
+          "title": "Outline"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "templater-obsidian:Templater": false,
+      "karpathywiki:Ingest current file": false,
+      "karpathywiki:Query wiki": false
+    }
+  },
+  "active": "385731127bbd0137",
+  "lastOpenFiles": [
+    "_raw-sources/הוראות הגבלת מהירות רוחב פס - טאביט.pdf",
+    "templates/ממשק ספק חדש.md",
+    "_raw-sources/מערכת תשתית - עמית.נט (1).pdf",
+    "_raw-sources/הגדרת מתג מנוהל HP 1820.pptx.pdf",
+    "_raw-sources/עותק של __חיבור אינטרנט משולב קופות - ביקום - לעריכה - TP-LINK.pptx.pdf",
+    "_raw-sources/ציוד רשתות תקשורת מתקדם.pptx (1).pdf",
+    "_raw-sources/מדריך תפעולי GRANDSTREAM.pdf",
+    "_raw-sources/תפעול אפליקציות וחוקים במרכזייה.pdf",
+    "_raw-sources/איפוס + שדרוג - Ruiji NBS3100.pdf",
+    "_raw-sources/מבוא לרשתות תקשורת חלק ב - IPracticom.pptx.pdf",
+    "_raw-sources/מבוא לרשתות תקשורת חלק א - IPracticom.pdf",
+    "templates/תקלה חדשה.md",
+    "templates/מושג חדש.md",
+    "03-Procedures/הגדרת סוויץ חדש בסניף - שלבים משותפים.md",
+    "templates/נוהל חדש.md",
+    "templates/טופולוגיה חדשה.md",
+    "templates/MOC חדש לדומיין.md",
+    "02-Vendors/Ruijie/Ruijie eWeb - הגדרת סוויץ חדש.md",
+    "04-Issues/החיבור נותק אחרי הגדרת IP קבוע.md",
+    "04-Issues/לא ניתן להתחבר לכתובת הניהול של הסוויץ.md",
+    "00-MOCs/שיעור - הגדרת סוויץ Ruijie.md",
+    "2026-07-21.md",
+    "04-Issues/נקודת גישה אלחוטית לא משדרת רשת אורחים-קופות.md",
+    "04-Issues/מכשירים לא מתקשרים אחרי הגדרת פורטים.md",
+    "04-Issues/לא ניתן להפעיל STP בדגם מסוים.md",
+    "01-Concepts/VPN - מושג כללי.md",
+    "01-Concepts/VLAN Trunk-Access-Native - מונחים.md",
+    "01-Concepts/STP-RSTP - מושג כללי.md",
+    "wiki/Welcome to Karpathy LLM Wiki.md",
+    "02-Vendors/Mikrotik/MikroTik - תפריט Interfaces.md",
+    "04-Issues/אין אינטרנט - עץ אבחון.md",
+    "00-MOCs/MOC - אינטרנט.md",
+    "CLAUDE.md",
+    "CLAUDE.md.md",
+    "CLAUDE-lms-pipeline.md"
+  ]
+}

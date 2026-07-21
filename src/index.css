@@ -148,6 +148,30 @@
   }
 }
 
+/* ── ConceptMark (PRD §Concept) — סימון-מונח בתוך תוכן שיעורים ─────────────────
+   הסגנון גלובלי (לא Tailwind) כי הוא חל על <span class="concept-term"> שמוזרק
+   דרך dangerouslySetInnerHTML ולכן לא נגיש ל-utility-classes. מודגש + קו-תחתון
+   מנוקד בצבע ה-accent — הסימן הוויזואלי שמדובר במונח לחיץ (כמו wiki-link). */
+@layer components {
+  .concept-term {
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition:
+      background-color 0.15s,
+      color 0.15s;
+  }
+  .concept-term:hover {
+    background: var(--color-hues-sky);
+    text-decoration-style: solid;
+  }
+}
+
 /* ── App-shell utility (1:1 with design-export/SideNav.dc.html @keyframes navSub) ── */
 @keyframes nav-sub {
   from {
@@ -162,5 +186,49 @@
 @layer components {
   .animate-nav-sub {
     animation: nav-sub 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+}
+
+/* ── Welcome-Invite floating dots (1:1 with Welcome Invite.dc.html @keyframes wiFloat) ── */
+@keyframes wiFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* ── ContentManager tree rows (1:1 with design-export/ContentManager.dc.html) ──
+ * שכבת הפעולות (hover) צפה בקצה השורה (שמאל ב-RTL) עם דהיית-גרדיאנט. */
+@layer components {
+  .ctm-row .ctm-actions {
+    position: absolute;
+    inset-inline-end: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+    padding-inline-start: 30px;
+    padding-inline-end: 2px;
+    background: linear-gradient(to left, #f2f5f8 74%, rgba(242, 245, 248, 0));
+  }
+  .ctm-row.ctm-sel .ctm-actions {
+    background: linear-gradient(to left, #c9edff 74%, rgba(201, 237, 255, 0));
+  }
+  .ctm-row:hover .ctm-actions,
+  .ctm-row:focus-within .ctm-actions {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .ctm-row:hover {
+    background: #f2f5f8 !important;
+  }
+  .ctm-row.ctm-sel:hover {
+    background: #c9edff !important;
   }
 }

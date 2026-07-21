@@ -4,8 +4,8 @@
  * הושמטו (לא הומצאו/הוחלפו באייקון לא-קשור); ה-V ליד "שיעורים הושלמו" כן קיים
  * (Check) ונשאר.
  */
+import { Link } from 'react-router-dom'
 import { Icon, RingProgress } from '@/components/ui'
-import { LESSON_PLAYER_UNAVAILABLE_MESSAGE } from '../constants'
 import type { TrackDetailsViewModel } from '../types'
 
 export function TrackProgressHeader({
@@ -34,19 +34,30 @@ export function TrackProgressHeader({
             שיעורים הושלמו
           </span>
           <span className="text-[15px] text-[#AEB9C6]">
-            <strong className="font-semibold text-white">{totalXp}</strong> XP
+            <span dir="ltr">
+              <strong className="font-semibold text-white">{totalXp}</strong> XP
+            </span>{' '}
             במסלול
           </span>
         </div>
-        <button
-          type="button"
-          disabled={!resumeLessonId}
-          title={LESSON_PLAYER_UNAVAILABLE_MESSAGE}
-          className="inline-flex cursor-not-allowed items-center gap-2 rounded-lg bg-accent px-6 py-3.5 font-semibold text-white opacity-90 shadow-[0_10px_26px_rgba(0,117,219,0.36)]"
-        >
-          המשך מהמקום שעצרת
-          <Icon name="ArrowWest" size={19} />
-        </button>
+        {resumeLessonId ? (
+          <Link
+            to={`/trainings/${track.id}/lessons/${resumeLessonId}`}
+            className="inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3.5 font-semibold text-white shadow-[0_10px_26px_rgba(0,117,219,0.36)]"
+          >
+            המשך מהמקום שעצרת
+            <Icon name="ArrowWest" size={19} />
+          </Link>
+        ) : (
+          <button
+            type="button"
+            disabled
+            className="inline-flex cursor-not-allowed items-center gap-2 rounded-lg bg-accent px-6 py-3.5 font-semibold text-white opacity-90 shadow-[0_10px_26px_rgba(0,117,219,0.36)]"
+          >
+            המשך מהמקום שעצרת
+            <Icon name="ArrowWest" size={19} />
+          </button>
+        )}
       </div>
       <RingProgress
         value={percent}

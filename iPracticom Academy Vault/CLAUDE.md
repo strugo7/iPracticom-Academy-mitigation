@@ -1,0 +1,118 @@
+# CLAUDE.md — iPracticom Knowledge Vault Schema
+
+זהו קובץ ה"סכימה" של ה-Vault — הוא לא תוכן, הוא **חוקי המשחק** שכל סוכן (Claude Code, או כל LLM אחר) קורא לפני שהוא נוגע ב-Vault. בהשראת [Karpathy's LLM-Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): שלוש שכבות נפרדות, כל אחת עם בעלים אחר.
+
+## שלוש השכבות
+
+1. **מקורות גולמיים (immutable)** — קבצי ה-JSON מהמערכת הישנה, PDF-ים, צילומי מסך מקוריים. נשמרים ב-`_raw-sources/` (לא בתוך ה-Vault עצמו, כדי שלא יתערבבו עם התוכן המתוחזק). **הסוכן קורא מהם, אף פעם לא כותב לתוכם.**
+2. **ה-Wiki** — כל מה שתחת `00-MOCs/`, `01-Concepts/`, `02-Vendors/`, `03-Procedures/`, `04-Issues/`, `05-Topologies/`. זו השכבה שהסוכן **כותב ומתחזק**. אתה (המשתמש) קורא; הסוכן כותב.
+3. **הסכימה** — הקובץ הזה. אתה והסוכן מעדכנים אותו יחד ככל שמתגלים מקרי-קצה חדשים.
+
+## מבנה תיקיות (כבר קיים)
+
+```
+iPracticom-Vault/
+├── CLAUDE.md                    # קובץ זה — סכימה פעילה
+├── CLAUDE-lms-pipeline.md        # סכימה עתידית — pipeline + רינדור LMS (לא פעיל עדיין)
+├── index.md                      # קטלוג שטוח: שורה אחת לכל note
+├── log.md                        # יומן כרונולוגי append-only של כל ingest
+│
+├── _raw-sources/                 # מקורות גולמיים, immutable — JSON/PDF מקוריים. הסוכן קורא, אף פעם לא כותב
+├── _needs-review/                # staging לתוכן שממתין לאישור אנושי (ראה CLAUDE-lms-pipeline.md — עדיין ריקה עד שה-pipeline פעיל)
+│
+├── 00-MOCs/                       # דף-בית לכל domain (12 בסה"כ), מכיל שאילתת Dataview
+├── 01-Concepts/                   # מושגים עצמאי-ספק (VLAN, מודל אבחון שכבתי...)
+├── 02-Vendors/<Vendor>/           # ממשקי ספק ספציפיים, אטומיים
+├── 03-Procedures/                 # נהלים צעד-אחר-צעד
+├── 04-Issues/                     # תקלות → מקשרות למושג + ממשק, לא מכילות תוכן עצמאי
+├── 05-Topologies/                 # שילובי ציוד אצל לקוח אמיתי
+│
+├── attachments/                   # תמונות, שם: <vendor-or-slug>-<hash>.<ext>
+├── templates/                     # תבניות Templater
+└── .claude/skills/ipracticom-vault-maintainer/  # הסקיל (SKILL.md + convert_vault.py) — לא "תוכן" הvault, קונפיגורציית סוכן
+```
+
+`_raw-sources/` ו-`_needs-review/` מתחילות ב-underscore בכוונה — כך הן מסודרות ראשונות אלפביתית ב-Obsidian, ומיד ברור שהן staging/immutable ולא תוכן לצריכה.
+
+## Domains (מה-PDF של החברה)
+
+אינטרנט, תקלות קופה, סאונד, מרכזייה/טלפוניה, מצלמות, אזעקה, גילוי אש, אל פסק, חיישני טמפרטורה, IT, חשמל חכם, מסכי פרסום.
+
+## סכימת Frontmatter (חובה בכל note)
+
+```yaml
+---
+domain: "<אחד מ-12 הדומיינים למעלה>"
+vendor: "<שם ספק, או השמט לגמרי אם type: concept>"
+model: "<דגם ספציפי, אופציונלי>"
+type: concept | interface | procedure | issue | topology | moc
+status: needs-review | needs-classification | image-check-needed | reviewed
+source_lesson: "<שם קובץ המקור, לצורך מעקב>"
+---
+```
+
+**status חייב להתעדכן ל-`reviewed` רק ע"י אדם**, לא ע"י הסוכן — הסוכן לא מאשר את עצמו.
+
+## עקרון האטומיות
+
+Note אחד = מושג/ממשק/נוהל/תקלה/טופולוגיה **אחד**. אל תיצור note ש"מכיל הכל על X" — פרק אותו. לדוגמה: JSON של שיעור עם 10 בלוקים → 10 notes נפרדים, לא note אחד ארוך (ראה `convert_vault.py`).
+
+## קונבנציית קישורים
+
+- `[[Vendor - שם ממשק]]` לממשקי ספק (למשל `[[MikroTik - תפריט Interfaces]]`)
+- `[[שם מושג - מושג כללי]]` למושגים
+- כל note בסוג `issue` **חייב** לקשר החוצה למושג + לפחות ממשק ספק אחד — הוא לא מכיל אבחון עצמאי
+- קישור ל-note שעדיין לא קיים זה תקין ורצוי (מופיע אדום/מקווקו ב-Obsidian) — זו רשימת "מה חסר" חיה, לא באג
+
+## index.md — פורמט
+
+שורה אחת לכל note: `- [[שם note]] — <domain> | <type> | <תיאור חד-משפטי>`. מתעדכן ב**כל** ingest, לא רק בבקשה.
+
+## log.md — פורמט
+
+Append-only, שורה ראשונה של כל entry בפורמט קבוע כדי שיהיה grep-able:
+```
+## [YYYY-MM-DD] ingest | <שם המקור>
+- נוצרו: X notes, עודכנו: Y notes
+- דורש בדיקה ידנית: <רשימת status != reviewed, אם יש>
+```
+
+## תהליכי עבודה (workflows)
+
+### Ingest — קליטת מקור חדש
+1. זהה סוג מקור: JSON (שיעור ישן), PDF, או טקסט/HTML חדש
+2. אם JSON בפורמט הידוע (`blocks` array) → הרץ `scripts/convert_vault.py` (ראה `/mnt/user-data/outputs/convert_vault.py` שכבר נבנה, או עותק מקומי ב-vault)
+3. אם מקור אחר — פרק ידנית לפי עקרון האטומיות, קבע `domain`/`vendor`/`type` ע"פ התוכן, סמן `status: needs-review`
+4. עדכן/צור MOC של ה-domain הרלוונטי אם note חדש נוסף
+5. הוסף שורה ל-`index.md`
+6. הוסף entry ל-`log.md`
+7. **דווח למשתמש** מה נוצר/עודכן ואילו notes מסומנים ל-status לא-reviewed — אל תניח שהוא יבדוק לבד
+
+### Query — שאלה על תוכן קיים
+1. קרא את `index.md` תחילה כדי לאתר notes רלוונטיים (לא לסרוק את כל ה-Vault)
+2. קרא את ה-notes הרלוונטיים בפועל (לא להסתמך על ה-summary ב-index)
+3. תן תשובה עם `[[wiki-links]]` לכל note ששימש כמקור
+4. אם התשובה חדשה ובעלת ערך (השוואה, ניתוח) — הצע למשתמש לשמור אותה כ-note חדש, אל תשמור אוטומטית
+
+### Lint — בדיקת בריאות
+הרץ תקופתית (או לפי בקשה מפורשת), חפש:
+- notes עם `status: needs-classification` או `needs-review` שנשארו כך יותר מ-X ימים
+- notes יתומים (אף note לא מקשר אליהם) — למעט MOCs עצמם
+- קישורים שבורים (`[[X]]` שלא קיים ולא נראה כמו "טרם נכתב" מכוון)
+- תמונות עם ה-caption placeholder שלא מולא ("יש להוסיף כאן caption")
+- סתירות: שני notes שמתארים את אותו ממשק/תפריט אצל אותו ספק בצורה שונה
+
+## תמונות
+
+תמונות מוטמעות (base64 או URL) מחולצות אוטומטית ע"י `convert_vault.py` ל-`attachments/`. **כל תמונה חייבת caption טקסטואלי** מתחת ל-`![[filename]]` שמתאר במילים מה מסומן בה — RAG וסוכנים עתידיים לא "רואים" את התמונה עצמה.
+
+## חיבור עתידי ל-RAG
+
+שדות ה-frontmatter (`domain`/`vendor`/`type`) מיועדים לשמש כ-metadata filters ב-Pinecone, באותו מבנה שכבר קיים ב-pipeline הפעיל (n8n + Pinecone + Powerlink CRM). כשמגיע הזמן לחבר בוט, ה-Vault הזה יכול להיות מקור ingestion נוסף לאותו pipeline, לא מערכת נפרדת.
+
+## מה הסוכן לעולם לא עושה
+
+- לא כותב ל-`_raw-sources/`
+- לא משנה `status: reviewed` בעצמו
+- לא ממציא vendor/domain שלא ברשימה למעלה בלי לשאול
+- לא מוחק notes — רק מסמן כ-deprecated אם מתבקש

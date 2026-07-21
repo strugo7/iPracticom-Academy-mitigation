@@ -173,7 +173,7 @@ export const PAGE_META: Record<string, { title: string; subtitle?: string }> = {
   '/admin': { title: 'ניהול המערכת' },
   '/help': { title: 'מרכז עזרה' },
   '/settings': { title: 'הגדרות' },
-  '/profile': { title: 'הפרופיל שלי' },
+  '/profile': { title: 'הפרופיל שלי', subtitle: 'סיכום ההתקדמות וההישגים שלך' },
 }
 
 export function getPageMeta(

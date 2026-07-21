@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import { Badge, Icon } from '@/components/ui'
 import type { DifficultyLevel } from '@/lib/constants/enums'
-import { LESSON_PLAYER_UNAVAILABLE_MESSAGE } from '../constants'
+import { CERTIFICATE_VIEWER_UNAVAILABLE_MESSAGE } from '../constants'
 import type { TrackCatalogItem } from '../types'
 
 const DIFFICULTY_LABELS: Record<DifficultyLevel, string> = {
@@ -103,7 +103,7 @@ export function TrackCard({ item }: { item: TrackCatalogItem }) {
             <button
               type="button"
               disabled
-              title={LESSON_PLAYER_UNAVAILABLE_MESSAGE}
+              title={CERTIFICATE_VIEWER_UNAVAILABLE_MESSAGE}
               className="inline-flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-full bg-hues-mint px-6 py-2 font-semibold text-success opacity-70"
             >
               <Icon name="SuccessV" size={17} />

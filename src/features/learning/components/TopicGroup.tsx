@@ -10,7 +10,13 @@ function topicDurationMinutes(topic: TopicViewModel): number {
   )
 }
 
-export function TopicGroup({ topic: topicVm }: { topic: TopicViewModel }) {
+export function TopicGroup({
+  topic: topicVm,
+  trackId,
+}: {
+  topic: TopicViewModel
+  trackId: string
+}) {
   const { topic, lessons, exam } = topicVm
   const minutes = topicDurationMinutes(topicVm)
 
@@ -31,7 +37,12 @@ export function TopicGroup({ topic: topicVm }: { topic: TopicViewModel }) {
 
       <div className="flex flex-col gap-1">
         {lessons.map((lessonVm) => (
-          <LessonRow key={lessonVm.lesson.id} kind="lesson" item={lessonVm} />
+          <LessonRow
+            key={lessonVm.lesson.id}
+            kind="lesson"
+            item={lessonVm}
+            trackId={trackId}
+          />
         ))}
         {exam && <LessonRow key={exam.id} kind="exam" exam={exam} />}
       </div>

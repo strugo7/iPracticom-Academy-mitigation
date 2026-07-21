@@ -29,7 +29,9 @@ dist-ssr
 *.sw?
 
 # מערכת העיצוב הנפרדת (repo/plugin עצמאי — לא חלק מהאפליקציה)
-DesignSystem
+/DesignSystem/
+/design-export/
+/.claude/
 
 # fixtures של ה-MockApi — נוצרים מהגיבוי ע"י `npm run fixtures`, לא נכנסים ל-git
 src/lib/api/mock/fixtures/
@@ -37,3 +39,6 @@ src/lib/api/mock/fixtures/
 # גיבוי Base44 הגולמי — דאטה אמיתי של משתמשים (PII), נשאר מקומי בלבד
 data/
 app-backup-*.json
+
+# פלט סקריפט המיגרציה (שלב 2.3) — דאטה מותמר עם PII, נשאר מקומי בלבד
+migration/output/

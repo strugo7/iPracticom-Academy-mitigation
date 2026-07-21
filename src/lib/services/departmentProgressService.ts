@@ -5,7 +5,7 @@
  * פר-חבר-מחלקה (אותו מנוע של הדשבורד האישי — אותם מספרים בהגדרה) ומסכמת.
  * טהורה: אותו קלט ⇒ אותו פלט; שליפת הקלט באחריות useDepartmentProgress.
  */
-import type { User, UserProgress } from '@/types/entities'
+import type { LearningTrack, User, UserProgress } from '@/types/entities'
 import {
   deriveProgressInsights,
   type InsightsInput,
@@ -30,9 +30,14 @@ export interface DepartmentProgressInput {
 }
 
 export interface DepartmentMemberProgress {
-  user: Pick<User, 'id' | 'full_name' | 'email' | 'department'>
+  user: Pick<
+    User,
+    'id' | 'full_name' | 'email' | 'department' | 'assigned_track_id'
+  >
   stats: ProgressStats
   insights: ProgressInsights
+  /** יש אירוע exam_attempt עם score — מבחין "avg_score=0" אמיתי מ"לא ניגש" */
+  attemptedExam: boolean
 }
 
 export interface LeaderboardEntry {
@@ -60,6 +65,8 @@ export interface DepartmentProgress {
   /** ממוין לפי XP יורד; שוויון נשבר לפי שם (דטרמיניזם) */
   leaderboard: LeaderboardEntry[]
   summary: DepartmentSummary
+  /** מסלולי הקטלוג הרלוונטיים למחלקה — לצורך פענוח assigned_track_id לכותרת */
+  tracks: LearningTrack[]
 }
 
 export function aggregateDepartmentProgress(
@@ -110,9 +117,11 @@ export function aggregateDepartmentProgress(
         full_name: user.full_name,
         email: user.email,
         department: user.department ?? null,
+        assigned_track_id: user.assigned_track_id ?? null,
       },
       stats,
       insights,
+      attemptedExam: attempted,
     }
   })
 
@@ -132,6 +141,7 @@ export function aggregateDepartmentProgress(
     department,
     members: memberProgress,
     leaderboard,
+    tracks: catalog.tracks,
     summary: {
       member_count: members.length,
       avg_progress:

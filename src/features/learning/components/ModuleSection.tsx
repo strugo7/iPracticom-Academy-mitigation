@@ -1,13 +1,15 @@
 /** 1:1 עם design-export/ModuleSection.dc.html — accordion, פתוח כברירת-מחדל כשזה המודול הנוכחי. */
 import { useState } from 'react'
-import { Icon } from '@/components/ui'
+import { Icon, ProgressBar } from '@/components/ui'
 import { TopicGroup } from './TopicGroup'
 import type { ModuleViewModel } from '../types'
 
 export function ModuleSection({
   module: moduleVm,
+  trackId,
 }: {
   module: ModuleViewModel
+  trackId: string
 }) {
   const { module, moduleNumber, topics, lessonsDone, lessonsTotal, isCurrent } =
     moduleVm
@@ -52,12 +54,7 @@ export function ModuleSection({
               {topics.length} נושאים · {lessonsTotal} שיעורים
             </span>
             <div className="flex min-w-[160px] max-w-[280px] flex-1 items-center gap-2">
-              <div className="h-2 flex-1 overflow-hidden rounded-full bg-hues-sky">
-                <div
-                  className={`h-full rounded-full transition-[width] duration-500 ${done ? 'bg-success' : 'bg-accent-gradient'}`}
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
+              <ProgressBar percent={percent} done={done} className="h-2 flex-1" />
               <span
                 className={`whitespace-nowrap text-[12.5px] font-semibold ${done ? 'text-success' : 'text-accent'}`}
               >
@@ -77,7 +74,11 @@ export function ModuleSection({
       {open && (
         <div className="flex flex-col gap-6 border-t border-neutrals-silver px-6 pb-6 pt-2">
           {topics.map((topicVm) => (
-            <TopicGroup key={topicVm.topic.id} topic={topicVm} />
+            <TopicGroup
+              key={topicVm.topic.id}
+              topic={topicVm}
+              trackId={trackId}
+            />
           ))}
         </div>
       )}

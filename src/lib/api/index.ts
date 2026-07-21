@@ -9,11 +9,17 @@ export {
   type ApiErrorCode,
 } from '@/lib/api/errors'
 export {
+  conceptSchema,
+  examAttemptSchema,
+  examSchema,
   learningTrackSchema,
+  lessonVersionSchema,
   moduleLessonSchema,
+  questionSchema,
   sharedModuleSchema,
   topicSchema,
   trackModuleSchema,
+  userProgressSchema,
   userSchema,
 } from '@/lib/api/schemas'
 export type {
@@ -21,7 +27,9 @@ export type {
   EntityName,
   IApiClient,
   IExamApi,
+  IExamAttemptApi,
   ILessonApi,
+  ILessonVersionApi,
   IProgressApi,
   IResource,
   ITrackApi,

@@ -63,7 +63,11 @@ export function TrackDetailsPage() {
         </h3>
         <div className="flex flex-col gap-4">
           {data.modules.map((m) => (
-            <ModuleSection key={m.module.id} module={m} />
+            <ModuleSection
+              key={m.module.id}
+              module={m}
+              trackId={trackId as string}
+            />
           ))}
         </div>
       </div>

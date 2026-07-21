@@ -18,6 +18,7 @@ export { Pagination } from './Pagination'
 export { Comment } from './Comment'
 export { Alert } from './Alert'
 export { Toast } from './Toast'
+export { ToastStack } from './ToastStack'
 export { Dialog } from './Dialog'
 export { Icon, iconNames, ServiceQuality } from './icons'
 export type {
@@ -26,6 +27,15 @@ export type {
   ServiceQualityLevel,
   ServiceQualityProps,
 } from './icons'
+export {
+  FieldLabel,
+  FilterSelect,
+  NumberStepper,
+  SelectField,
+  TagEditor,
+  Textarea,
+} from './form'
+export { ProgressBar } from './ProgressBar'
 export { RingProgress } from './dashboard/RingPie'
 export type { RingColor } from './dashboard/RingPie'
 export { ZeroStates } from './compounded/ZeroStates'

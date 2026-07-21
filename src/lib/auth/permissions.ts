@@ -13,3 +13,9 @@ export const isManager = (user: User): boolean =>
 /** ניהול תוכן — instructor ומעלה (מסמך 11 §3); מנהל-בפועל כלול גם בלי role מתאים. */
 export const canManageContent = (user: User): boolean =>
   user.role === 'instructor' || user.role === 'manager' || isManager(user)
+
+/** ניהול משתמשים ומבנה ארגוני (מסמך 26/16) — admin בלבד, לא מנהל-בפועל. */
+export const canManageUsers = (user: User): boolean => isAdmin(user)
+
+/** הגדרות מערכת (מסמך 16) — admin בלבד. פרדיקט נפרד מ-canManageUsers לפי המשמעות העסקית, גם אם זהה היום. */
+export const canManageSettings = (user: User): boolean => isAdmin(user)

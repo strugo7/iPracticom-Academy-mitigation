@@ -116,6 +116,7 @@
 6. **אל תשנה החלטות ארכיטקטורה** (סכמות, מזהים, ספריות, דפוסי integration) בלי לשאול. אם אתה מזהה בעיה בהחלטה קיימת — הצף אותה, אל תעקוף אותה.
 7. **פונקציות מיובאות מ-Base44** — אל תעתיק עיוורת. חלקן ייכתבו מחדש וחלקן יימחקו; כל פונקציה עוברת הערכה מול ה-SRS לפני מימוש.
 8. בסיום כל משימה — checklist קצר: מה מומש, מה נבדק, מה נשאר פתוח.
+9. **בכל משימת UI/DS — סקיל יחיד, בלעדי: `shira-ux-ui-ds`.** אין להפעיל סקיל אחר (כולל סקילי-על כלליים) עבור בניית/תיקון/audit של מסך או קומפוננטה. ראו נוהל הפערים המעודכן ב-6.1 — הוא **מחליף** את הסדר הישן (שקפץ ישר לבקשת-שירה מ-Figma).
 
 ### 6.1 Design System — שימוש חובה, מבנה ומקורות אמת
 
@@ -124,7 +125,7 @@
 **היכן ה-DS יושב ומקורות האמת בתוכו:**
 - `DesignSystem/components/ui/**` — **קוד המקור המלא של 78 הקומפוננטות** (React + TypeScript + Tailwind, RTL, Ploni ML). זהו המקור שממנו מְפֹרְטים/מעתיקים AS-IS אל `src/components/ui/` של האפליקציה.
 - `DesignSystem/tailwind.config.ts` + `DesignSystem/index.css` — **טוקני העיצוב הרצים** (neutrals, functional, hues, gradients, shadows, טיפוגרפיה). כל סגנון נגזר מהם, אף פעם לא מ-hex מומצא.
-- `DesignSystem/components/ui/icons/Icon.tsx` — **רגיסטר האייקונים (109 שמות, `fill="currentColor"`)**, בתוספת `IconName` type. זהו מקור האייקונים היחיד (ראו סעיף 2). אייקון חסר → בקשה לשירה דרך Figma, לא המצאה.
+- `DesignSystem/components/ui/icons/Icon.tsx` — **רגיסטר האייקונים (109 שמות, `fill="currentColor"`)**, בתוספת `IconName` type. זהו מקור האייקונים היחיד (ראו סעיף 2). אייקון חסר → אותו נוהל-פער דו-שלבי (למטה): קודם לבדוק אם ה-SVG המדויק קיים inline בקובץ ה-`.dc.html` הרלוונטי ב-`design-export/`, ורק אם לא — בקשה לשירה דרך Figma.
 - `DesignSystem/.claude/DESIGN_FEEDBACK_RULES.md` + `DesignSystem/CHANGELOG.md` — **רשימת חוקי הנאמנות המחייבת** (REST-API-only, hidden-layer checks, RTL, גדלים/צללים/opacity מדויקים, no-dot status tags) ותיעוד כל תיקון מול node ב-Figma. אין `COMPONENT_MAPPING.md` נפרד — הרשימה כאן והעץ עצמו הם המיפוי.
 
 > **הערה על גרסאות/אריזה:** ה-repo של ה-DS הוא showcase על React 18 (`@ip-com/design-system`), בעוד האפליקציה שלנו על React 19. הקומפוננטות ניתנות להעברה 1:1; מיישרים ל-React 19 ולכללי הפרויקט (logical properties, גבולות feature) בעת ההעתקה — בלי לשנות מראה, סגנון או התנהגות.
@@ -148,13 +149,17 @@
 **19 מהן מיוצאות דרך המשטח הציבורי** `DesignSystem/components/ui/index.ts` — ה-API היציב: `Logo, Button, Badge, Input, Card, IconButton, Tabs, Toggle, Checkbox, Radio, Tooltip, Tag, Loader, Status, Pagination, Comment, Alert, Toast, Dialog`. **59 הנותרות קיימות כקבצים ומותרות לשימוש AS-IS** — כשמפרטים אחת מהן לאפליקציה מוסיפים לה export במשטח הציבורי המקומי (`src/components/ui/index.ts`); לא בונים אותה מחדש.
 
 **כלל השימוש (מחייב בכל משימת UI — מסך, קומפוננטה, תיקון, audit):**
-- מפעילים את הסקיל `shira-ux-ui-ds` (מגיע עם ה-repo תחת `DesignSystem/.claude/skills/shira-ux-ui-ds/SKILL.md`) ועובדים לפיו, כולל ה-**Gate Table החוסם** (אין "בוצע" ואין commit לפני שכל שורה מולאה עם הוכחה).
+- **סקיל יחיד ובלעדי: `shira-ux-ui-ds`** (מגיע עם ה-repo תחת `DesignSystem/.claude/skills/shira-ux-ui-ds/SKILL.md`). עובדים אך ורק לפיו — לא משלבים סקיל אחר למשימת UI/DS כלשהי — כולל ה-**Gate Table החוסם** (אין "בוצע" ואין commit לפני שכל שורה מולאה עם הוכחה).
 - **פרימיטיב הקיים ב-78 — משתמשים בו AS-IS. אסור לבנות מחדש ואסור חיקוי Tailwind** (Gate #11). הלגנדה: ✅ קיים ומיוצא (19) · 🟨 קיים כקובץ (59 — לפרט ולייצא, לא לבנות) · 🕳️ פער אמיתי (לא קיים ב-78).
-- **פערים אמיתיים (🕳️) → בקשה לשירה דרך Figma, באישור בלבד.** לא ממציאים. הפער הדחוף ביותר: **רכיב Progress** (מופיע ב-39 מתוך 44 מסכים, אין לו מקבילה ב-78) — חוסם את כל שכבת הלמידה. לצדו, פערים מאומתים (אינם קיימים ב-repo): `Select`, `Textarea`, `Avatar`, `FileUpload`, `Stepper`, `Skeleton`, `Popover`.
+- **סדר טיפול בפער (🕳️) — שני שלבים, בסדר הזה:**
+  1. **`design-export/` קודם.** לפני כל בקשת-שירה מ-Figma: לפתוח את קובץ ה-`.dc.html` הרלוונטי למסך שעליו עובדים (למשל נגן-שיעורים → `design-export/Lesson Editor.dc.html`, שהוא גם מקור-האמת למצב preview/renderer) ולבחון שם את מבנה/סגנון/מידות הקומפוננטה החסרה — טוקנים, מרווחים, יחסי-רוחב. מממשים/מתאימים ממנו ישירות אל `src/components/ui` (או אל ה-feature הרלוונטי אם זה לא פרימיטיב משותף), ומתעדים בקוד מאיזה קובץ `.dc.html` הגיע העיצוב.
+  2. **רק אם גם `design-export/` לא מכיל התאמה** → בקשת-שירה מ-Figma, באישור בלבד. לא ממציאים בשום שלב.
+  - הפער הדחוף ביותר: **רכיב Progress** (מופיע ב-39 מתוך 44 מסכים, אין לו מקבילה ב-78) — חוסם את כל שכבת הלמידה. לצדו, פערים מאומתים (אינם קיימים ב-repo): `Select`, `Textarea`, `Avatar`, `FileUpload`, `Stepper`, `Skeleton`, `Popover`.
 - ההמרה מ-HTML מייצרת **עמודים ופריסות** המורכבים מקומפוננטות ה-DS — לא פרימיטיבים לצד ה-DS. הניתוב אינו קיים בפרוטוטייפ ויש לעצב אותו.
 - נגישות: כאשר משחזרים קומפוננטה אינטראקטיבית (Dialog/Tabs/Tooltip/Toast) — מוסיפים את ההתנהגות החסרה דרך Radix (focus-trap, roving tabindex, live-region), כי ה-showcase לא כולל אותה במלואה.
 
 > **הערה תפעולית:** `DesignSystem/` הוא clone עם `.git` משלו (embedded repo). כדי שלא ייכנס כ-submodule/gitlink ל-repo של הפרויקט — או שמוסיפים אותו ל-`.gitignore`, או שמסירים את `DesignSystem/.git` ומתייחסים אליו כאל תיקיית vendor-ed source. לעדכון ה-DS: `git -C DesignSystem pull`.
+> **`design-export/`** — קבצי `.dc.html` (Claude Design export) של כל המסכים המקוריים, כולל `design-export/CLAUDE.md` הפנימי שמחיל את אותו רעיון (Shira's skill) בסביבת ה-DC. משמש כמקור-השראה משלים ל-DS כשקומפוננטה חסרה בשניהם (ראו נוהל הפער למעלה) — לא מקור-אמת ראשי (זה ה-DS, סעיף זה).
 
 ---
 
@@ -206,4 +211,4 @@ src/
 
 ---
 
-*גרסה 1.4 — ה-DS נמשך במלואו: `strugo7/DesignSystem` cloned ל-`DesignSystem/` (78 קומפוננטות, 19 מיוצאות, רגיסטר 109 אייקונים, טוקנים ב-`tailwind.config.ts`). סעיף 6.1 נכתב מחדש מול הקוד האמיתי — הוסרה "הערת הגישה הקריטית" והתיקון של `COMPONENT_MAPPING.md`/`packages/ds/src/tokens` שלא קיימים. נותרו נסגורים קודמים: React 19, Biome, DS+Radix (לא shadcn), Ploni ML, אייקוני DS (לא lucide), backend MySQL-מאחורי-REST. ה-router ננעל: react-router-dom v7 (שלב 0.4). ה-spec ב-`docs/superpowers/specs/` מיושן בשורות אלה — יש ליישר אותו ל-CLAUDE.md, לא ההפך. ממתינים להוספה: מתודולוגיות ניהול context וייעול טוקנים.*
+*גרסה 1.5 — נוסף סעיף 6.9: לכל משימת UI/DS מפעילים אך ורק את הסקיל `shira-ux-ui-ds`, לא סקיל אחר. נוהל הפער עודכן לשני שלבים: (1) `design-export/*.dc.html` של המסך הרלוונטי, (2) רק אם לא נמצא שם — בקשת-שירה מ-Figma. זה מחליף את ההפניה הישירה-ל-Figma הקודמת בכל מקום שהיא הופיעה בסעיף 6.1 (כולל פער אייקונים). גרסה 1.4: ה-DS נמשך במלואו: `strugo7/DesignSystem` cloned ל-`DesignSystem/` (78 קומפוננטות, 19 מיוצאות, רגיסטר 109 אייקונים, טוקנים ב-`tailwind.config.ts`). סעיף 6.1 נכתב מחדש מול הקוד האמיתי — הוסרה "הערת הגישה הקריטית" והתיקון של `COMPONENT_MAPPING.md`/`packages/ds/src/tokens` שלא קיימים. נותרו נסגורים קודמים: React 19, Biome, DS+Radix (לא shadcn), Ploni ML, אייקוני DS (לא lucide), backend MySQL-מאחורי-REST. ה-router ננעל: react-router-dom v7 (שלב 0.4). ה-spec ב-`docs/superpowers/specs/` מיושן בשורות אלה — יש ליישר אותו ל-CLAUDE.md, לא ההפך. ממתינים להוספה: מתודולוגיות ניהול context וייעול טוקנים.*
