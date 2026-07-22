@@ -1,6 +1,7 @@
 import { Icon } from '@/components/ui'
 import { HELP_CATEGORIES, CATEGORY_ORDER } from '../constants'
 import type { CategoryKey } from '../types'
+import { CategoryIcon } from './CategoryIcon'
 
 interface HelpCategoryTreeProps {
   activeCatKey: CategoryKey
@@ -70,13 +71,13 @@ export function HelpCategoryTree({
                   }`}
                 >
                   <span
-                    className={`flex-none w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
+                    className={`flex-none w-7.5 h-7.5 rounded-lg flex items-center justify-center transition-colors ${
                       isCatActive
                         ? 'bg-hues-sky text-accent'
                         : 'bg-neutrals-silver/40 text-neutrals-lead'
                     }`}
                   >
-                    <Icon name="File" size={15} />
+                    <CategoryIcon categoryKey={key} size={16} />
                   </span>
                   <span className="flex-1 text-[14.5px] truncate">
                     {cat.label}

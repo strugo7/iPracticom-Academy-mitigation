@@ -1,6 +1,6 @@
-import { Icon } from '@/components/ui'
 import { HELP_CATEGORIES, CATEGORY_ORDER } from '../../constants'
 import type { CategoryKey } from '../../types'
+import { CategoryIcon } from '../CategoryIcon'
 
 interface HelpArticleEditorStep1Props {
   title: string
@@ -128,7 +128,7 @@ export function HelpArticleEditorStep1({
                       : 'bg-neutrals-silver/40 text-neutrals-lead'
                   }`}
                 >
-                  <Icon name="File" size={16} />
+                  <CategoryIcon categoryKey={key} size={16} />
                 </span>
                 <span
                   className={`font-semibold text-xs ${
