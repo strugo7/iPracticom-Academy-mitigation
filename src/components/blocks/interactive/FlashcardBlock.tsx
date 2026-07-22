@@ -24,7 +24,7 @@ export function FlashcardBlock({
       >
         <div
           className="text-[16px] text-neutrals-charcoal"
-          // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+          // מסונן דרך sanitizeRichText (DOMPurify)
           dangerouslySetInnerHTML={{
             __html: sanitizeRichText(flipped ? card.back : card.front),
           }}

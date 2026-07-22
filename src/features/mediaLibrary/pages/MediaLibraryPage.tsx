@@ -74,7 +74,8 @@ export function MediaLibraryPage() {
     onReplace: () => startReplace(selected.asset.id),
     onDelete: () => setDeleteTarget(selected),
     onSetTags: (tags: string[]) => actions.setTags(selected.asset, tags),
-    onSetTopic: (topic: string | null) => actions.setTopic(selected.asset, topic),
+    onSetTopic: (topic: string | null) =>
+      actions.setTopic(selected.asset, topic),
   }
 
   return (
@@ -96,7 +97,10 @@ export function MediaLibraryPage() {
         <span className="text-small text-neutrals-nickel">
           {library.total} נכסים
         </span>
-        <UploadButton onFiles={actions.uploadFiles} isBusy={actions.isPending} />
+        <UploadButton
+          onFiles={actions.uploadFiles}
+          isBusy={actions.isPending}
+        />
       </div>
 
       <div className="flex min-h-0 flex-1">
@@ -133,6 +137,9 @@ export function MediaLibraryPage() {
         </div>
 
         {/* פאנל-פרטים — מופע יחיד: מגירה צפה במובייל, aside בזרימה מ-lg ומעלה */}
+        {/* panelProps לוכד handler (startReplace) שניגש ל-input החבוי דרך ref —
+            הגישה מתרחשת ב-handler בלבד, לא ב-render. */}
+        {/* eslint-disable-next-line react-hooks/refs */}
         {panelProps && (
           <>
             <button

@@ -6,9 +6,7 @@
  */
 import { Icon, Input, Tabs, Toggle } from '@/components/ui'
 import {
-  DIFFICULTY_LEVELS,
   type DifficultyLevel,
-  EXAM_TYPES,
   type ExamType,
   USER_ROLES,
   type UserRole,
@@ -18,13 +16,15 @@ import { ExamIcon } from '../icons'
 import type { ExamDraft } from '../types'
 import { FieldLabel, NumberStepper, SelectField, TagEditor } from './fields'
 
-const EXAM_TYPE_TABS = (Object.keys(EXAM_TYPE_META) as ExamType[]).map((id) => ({
-  id,
-  label: EXAM_TYPE_META[id].short,
-}))
-const DIFFICULTY_TABS = (
-  Object.keys(DIFFICULTY_META) as DifficultyLevel[]
-).map((id) => ({ id, label: DIFFICULTY_META[id].label }))
+const EXAM_TYPE_TABS = (Object.keys(EXAM_TYPE_META) as ExamType[]).map(
+  (id) => ({
+    id,
+    label: EXAM_TYPE_META[id].short,
+  }),
+)
+const DIFFICULTY_TABS = (Object.keys(DIFFICULTY_META) as DifficultyLevel[]).map(
+  (id) => ({ id, label: DIFFICULTY_META[id].label }),
+)
 
 const ROLE_LABELS: Record<UserRole, string> = {
   user: 'עובד',
@@ -77,7 +77,9 @@ export function ExamDetailsCard({
     <section className="overflow-hidden rounded-2xl bg-white shadow-card">
       <div className="flex items-center gap-2 border-b border-neutrals-silver bg-neutrals-whisper px-5 py-4">
         <Icon name="Settings" size={18} className="text-accent" />
-        <h2 className="text-small font-semibold text-neutrals-charcoal">פרטי המבחן</h2>
+        <h2 className="text-small font-semibold text-neutrals-charcoal">
+          פרטי המבחן
+        </h2>
       </div>
 
       <div className="flex flex-col gap-4 p-5">
@@ -147,7 +149,10 @@ export function ExamDetailsCard({
 
         <div>
           <FieldLabel>תגיות</FieldLabel>
-          <TagEditor tags={draft.topicTags} onChange={(topicTags) => onChange({ topicTags })} />
+          <TagEditor
+            tags={draft.topicTags}
+            onChange={(topicTags) => onChange({ topicTags })}
+          />
         </div>
 
         {/* entrance exam */}
@@ -158,8 +163,12 @@ export function ExamDetailsCard({
                 <ExamIcon name="entrance" size={18} />
               </span>
               <div>
-                <div className="text-small font-semibold text-neutrals-charcoal">מבחן כניסה</div>
-                <div className="text-[12px] text-neutrals-lead">סינון מועמדים לפי תפקיד ומחלקה</div>
+                <div className="text-small font-semibold text-neutrals-charcoal">
+                  מבחן כניסה
+                </div>
+                <div className="text-[12px] text-neutrals-lead">
+                  סינון מועמדים לפי תפקיד ומחלקה
+                </div>
               </div>
             </div>
             <Toggle
@@ -179,7 +188,9 @@ export function ExamDetailsCard({
                       label={ROLE_LABELS[role]}
                       selected={draft.targetRoles.includes(role)}
                       onToggle={() =>
-                        onChange({ targetRoles: toggle(draft.targetRoles, role) })
+                        onChange({
+                          targetRoles: toggle(draft.targetRoles, role),
+                        })
                       }
                     />
                   ))}
@@ -195,7 +206,10 @@ export function ExamDetailsCard({
                       selected={draft.targetDepartments.includes(dept)}
                       onToggle={() =>
                         onChange({
-                          targetDepartments: toggle(draft.targetDepartments, dept),
+                          targetDepartments: toggle(
+                            draft.targetDepartments,
+                            dept,
+                          ),
                         })
                       }
                     />

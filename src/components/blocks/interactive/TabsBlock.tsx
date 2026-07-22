@@ -27,7 +27,7 @@ export function TabsBlock({ data }: { data: ParsedBlockDataMap['tabs'] }) {
         )}
         <div
           className="text-[15px] text-neutrals-charcoal"
-          // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+          // מסונן דרך sanitizeRichText (DOMPurify)
           dangerouslySetInnerHTML={{ __html: sanitizeRichText(active.content) }}
         />
       </div>

@@ -76,7 +76,7 @@ function CurriculumStep({ item }: { item: CurriculumItem }) {
       {content && (
         <div
           className="text-[14.5px] text-neutrals-charcoal"
-          // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+          // מסונן דרך sanitizeRichText (DOMPurify)
           dangerouslySetInnerHTML={{ __html: sanitizeRichText(content) }}
         />
       )}

@@ -2,7 +2,7 @@
  * Domain B — learning content hierarchy: LearningTrack ← TrackModule →
  * SharedModule → Topic → ModuleLesson. Orphan triage per RELATIONSHIPS ג׳.
  */
-import type { JunctionSpec, Row, TableConfig } from '../types.ts'
+import type { JunctionSpec, TableConfig } from '../types.ts'
 import { asArray } from '../helpers.ts'
 
 export const learningTracksConfig: TableConfig = {
@@ -20,7 +20,10 @@ export const trackModulesConfig: TableConfig = {
   target: 'track_modules',
   transform: (row, ctx) => {
     // 1 malformed backup row carries module fields but no shared_module_id.
-    if (typeof row.track_id !== 'string' || typeof row.shared_module_id !== 'string') {
+    if (
+      typeof row.track_id !== 'string' ||
+      typeof row.shared_module_id !== 'string'
+    ) {
       ctx.bump('track_modules_dropped_malformed')
       return null
     }
@@ -71,7 +74,8 @@ export const moduleLessonsConfig: TableConfig = {
     // DDL CHECK requires a parent: topic_id OR (legacy) shared_module_id. A
     // lesson left with neither is part of an orphaned subtree — drop it so the
     // output loads (its user_progress events keep their dangling lesson_id).
-    const hasLegacyParent = typeof row.shared_module_id === 'string' && row.shared_module_id !== ''
+    const hasLegacyParent =
+      typeof row.shared_module_id === 'string' && row.shared_module_id !== ''
     if (row.topic_id == null && !hasLegacyParent) {
       ctx.bump('module_lessons_dropped_orphan_subtree')
       return null

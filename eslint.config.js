@@ -6,7 +6,16 @@ import tseslint from 'typescript-eslint'
 import prettier from 'eslint-config-prettier'
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules', 'DesignSystem', 'design-export'] },
+  {
+    ignores: [
+      'dist',
+      'node_modules',
+      'DesignSystem',
+      'design-export',
+      // תוכן ידע (Obsidian) — לא קוד-מקור; כולל bundles של תוספים צד-שלישי.
+      'iPracticom Academy Vault',
+    ],
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],

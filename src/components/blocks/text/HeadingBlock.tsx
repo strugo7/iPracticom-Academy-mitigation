@@ -12,12 +12,16 @@ const SIZE_CLASS_BY_LEVEL: Record<number, string> = {
 }
 
 /** text ו-content מופיעים יחד בפועל (כפילות בעורך) — text עדיף כשקיים. */
-export function HeadingBlock({ data }: { data: ParsedBlockDataMap['heading'] }) {
+export function HeadingBlock({
+  data,
+}: {
+  data: ParsedBlockDataMap['heading']
+}) {
   const html = data.text ?? data.content ?? ''
   const level = Math.min(Math.max(Math.round(data.level) || 2, 1), 6)
   return createElement(`h${level}`, {
     className: `m-0 text-neutrals-charcoal ${SIZE_CLASS_BY_LEVEL[level]}`,
-    // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+    // מסונן דרך sanitizeRichText (DOMPurify)
     dangerouslySetInnerHTML: { __html: sanitizeRichText(html) },
   })
 }

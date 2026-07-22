@@ -3,7 +3,7 @@
  * מבודד מהלוגיקה הטהורה (csv.ts/questionCsv.ts) כדי שאלה יישארו נבדקים.
  */
 export function downloadCsv(filename: string, csvText: string): void {
-  const blob = new Blob([`﻿${csvText}`], {
+  const blob = new Blob([`\uFEFF${csvText}`], {
     type: 'text/csv;charset=utf-8;',
   })
   const url = URL.createObjectURL(blob)

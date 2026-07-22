@@ -1,0 +1,2298 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>לומדת מודל OSI - שכבות הרשת</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --layer7-color: #e74c3c;
+        --layer6-color: #e67e22;
+        --layer5-color: #f1c40f;
+        --layer4-color: #2ecc71;
+        --layer3-color: #3498db;
+        --layer2-color: #9b59b6;
+        --layer1-color: #1abc9c;
+        --dark-bg: #1a1a2e;
+        --card-bg: #16213e;
+        --text-light: #eaeaea;
+        --text-muted: #a0a0a0;
+        --accent: #0f3460;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Heebo', sans-serif;
+        background: linear-gradient(135deg, var(--dark-bg) 0%, #0f0f23 100%);
+        color: var(--text-light);
+        min-height: 100vh;
+        line-height: 1.8;
+      }
+
+      /* Navigation */
+      .nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        background: rgba(22, 33, 62, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem 2rem;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .nav-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #3498db, #2ecc71);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: var(--accent);
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 8rem 2rem 4rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233498db' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.5;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #e74c3c, #3498db, #2ecc71);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientMove 3s ease infinite;
+        background-size: 200% 200%;
+      }
+
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        color: var(--text-muted);
+        max-width: 700px;
+        margin: 0 auto 2rem;
+      }
+
+      /* OSI Tower Animation */
+      .osi-tower {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 3rem auto;
+        max-width: 500px;
+      }
+
+      .tower-layer {
+        width: 100%;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tower-layer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .tower-layer:hover::before {
+        left: 100%;
+      }
+
+      .tower-layer:hover {
+        transform: scale(1.05) translateX(-10px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .layer-7 {
+        background: linear-gradient(135deg, var(--layer7-color), #c0392b);
+      }
+      .layer-6 {
+        background: linear-gradient(135deg, var(--layer6-color), #d35400);
+      }
+      .layer-5 {
+        background: linear-gradient(135deg, var(--layer5-color), #f39c12);
+      }
+      .layer-4 {
+        background: linear-gradient(135deg, var(--layer4-color), #27ae60);
+      }
+      .layer-3 {
+        background: linear-gradient(135deg, var(--layer3-color), #2980b9);
+      }
+      .layer-2 {
+        background: linear-gradient(135deg, var(--layer2-color), #8e44ad);
+      }
+      .layer-1 {
+        background: linear-gradient(135deg, var(--layer1-color), #16a085);
+      }
+
+      .tower-layer .layer-num {
+        font-size: 1.5rem;
+        font-weight: 800;
+        opacity: 0.8;
+      }
+
+      .tower-layer .layer-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      /* Sections */
+      .section {
+        padding: 4rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+        border-radius: 2px;
+      }
+
+      /* Layer Cards */
+      .layer-section {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 3rem;
+        margin-bottom: 3rem;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .layer-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 8px;
+        height: 100%;
+      }
+
+      .layer-section.l7::before {
+        background: var(--layer7-color);
+      }
+      .layer-section.l4::before {
+        background: var(--layer4-color);
+      }
+      .layer-section.l3::before {
+        background: var(--layer3-color);
+      }
+      .layer-section.l2::before {
+        background: var(--layer2-color);
+      }
+      .layer-section.l1::before {
+        background: var(--layer1-color);
+      }
+
+      .layer-header {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .layer-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+      }
+
+      .l7 .layer-icon {
+        background: linear-gradient(135deg, var(--layer7-color), #c0392b);
+      }
+      .l4 .layer-icon {
+        background: linear-gradient(135deg, var(--layer4-color), #27ae60);
+      }
+      .l3 .layer-icon {
+        background: linear-gradient(135deg, var(--layer3-color), #2980b9);
+      }
+      .l2 .layer-icon {
+        background: linear-gradient(135deg, var(--layer2-color), #8e44ad);
+      }
+      .l1 .layer-icon {
+        background: linear-gradient(135deg, var(--layer1-color), #16a085);
+      }
+
+      .layer-title h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .layer-title span {
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+
+      .layer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .info-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .info-card:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-5px);
+      }
+
+      .info-card h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .info-card h3 i {
+        color: #3498db;
+      }
+
+      .info-card ul {
+        list-style: none;
+      }
+
+      .info-card li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .info-card li:last-child {
+        border-bottom: none;
+      }
+
+      .info-card li::before {
+        content: '▸';
+        color: #2ecc71;
+        font-weight: bold;
+      }
+
+      /* Problem Cards */
+      .problem-card {
+        background: rgba(231, 76, 60, 0.1);
+        border: 1px solid rgba(231, 76, 60, 0.3);
+      }
+
+      .problem-card h3 i {
+        color: #e74c3c;
+      }
+
+      .problem-card li::before {
+        content: '⚠';
+        color: #e74c3c;
+      }
+
+      /* Port Table */
+      .port-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+
+      .port-table th,
+      .port-table td {
+        padding: 0.8rem;
+        text-align: right;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .port-table th {
+        background: rgba(255, 255, 255, 0.1);
+        font-weight: 600;
+      }
+
+      .port-table tr:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      /* Interactive Animation */
+      .packet-journey {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 3rem;
+        margin: 3rem 0;
+        text-align: center;
+      }
+
+      .journey-container {
+        position: relative;
+        height: 500px;
+        margin: 2rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .computer-icon {
+        font-size: 4rem;
+        color: #3498db;
+      }
+
+      .journey-layers {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        width: 200px;
+      }
+
+      .journey-layer {
+        padding: 0.8rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        opacity: 0.5;
+      }
+
+      .journey-layer.active {
+        opacity: 1;
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+
+      .packet {
+        position: absolute;
+        width: 60px;
+        height: 40px;
+        background: linear-gradient(135deg, #f1c40f, #e67e22);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: all 0.5s ease;
+        box-shadow: 0 5px 20px rgba(241, 196, 15, 0.4);
+      }
+
+      .journey-controls {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Heebo', sans-serif;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(52, 152, 219, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Quiz Section */
+      .quiz-section {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 3rem;
+        margin: 3rem 0;
+      }
+
+      .quiz-progress {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .progress-bar {
+        flex: 1;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        margin: 0 1rem;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+        border-radius: 5px;
+        transition: width 0.5s ease;
+      }
+
+      .question-container {
+        text-align: center;
+        min-height: 400px;
+      }
+
+      .question-text {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .answers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .answer-btn {
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Heebo', sans-serif;
+      }
+
+      .answer-btn:hover:not(.disabled) {
+        background: rgba(52, 152, 219, 0.2);
+        border-color: #3498db;
+        transform: translateY(-3px);
+      }
+
+      .answer-btn.correct {
+        background: rgba(46, 204, 113, 0.3);
+        border-color: #2ecc71;
+      }
+
+      .answer-btn.wrong {
+        background: rgba(231, 76, 60, 0.3);
+        border-color: #e74c3c;
+      }
+
+      .answer-btn.disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      .feedback {
+        padding: 1.5rem;
+        border-radius: 15px;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      .feedback.show {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      .feedback.correct {
+        background: rgba(46, 204, 113, 0.2);
+        border: 1px solid #2ecc71;
+      }
+
+      .feedback.wrong {
+        background: rgba(231, 76, 60, 0.2);
+        border: 1px solid #e74c3c;
+      }
+
+      .quiz-results {
+        text-align: center;
+        padding: 3rem;
+      }
+
+      .score-circle {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: conic-gradient(#2ecc71 0deg, rgba(255, 255, 255, 0.1) 0deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2rem auto;
+        position: relative;
+      }
+
+      .score-inner {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: var(--card-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .score-number {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(45deg, #2ecc71, #3498db);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Tabs */
+      .tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .tab-btn {
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: none;
+        border-radius: 10px;
+        color: var(--text-muted);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Heebo', sans-serif;
+      }
+
+      .tab-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .tab-btn.active {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Encapsulation Animation */
+      .encapsulation-demo {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 3rem;
+        margin: 3rem 0;
+      }
+
+      .data-packet {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+      }
+
+      .packet-segment {
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.5s ease;
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      .packet-segment.show {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .segment-data {
+        background: var(--layer7-color);
+      }
+      .segment-tcp {
+        background: var(--layer4-color);
+      }
+      .segment-ip {
+        background: var(--layer3-color);
+      }
+      .segment-frame {
+        background: var(--layer2-color);
+      }
+      .segment-bits {
+        background: var(--layer1-color);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .nav {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .nav-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .layer-header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .journey-container {
+          flex-direction: column;
+          height: auto;
+          gap: 2rem;
+        }
+
+        .section {
+          padding: 2rem 1rem;
+        }
+
+        .layer-section {
+          padding: 1.5rem;
+        }
+      }
+
+      /* Scroll animations */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Tooltip */
+      .tooltip {
+        position: relative;
+        cursor: help;
+        border-bottom: 1px dashed var(--text-muted);
+      }
+
+      .tooltip:hover::after {
+        content: attr(data-tip);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--dark-bg);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        z-index: 100;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Footer */
+      footer {
+        background: var(--card-bg);
+        padding: 2rem;
+        text-align: center;
+        color: var(--text-muted);
+        margin-top: 4rem;
+      }
+
+      /* Mnemonic Card */
+      .mnemonic-card {
+        background: linear-gradient(
+          135deg,
+          rgba(52, 152, 219, 0.2),
+          rgba(46, 204, 113, 0.2)
+        );
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        text-align: center;
+      }
+
+      .mnemonic-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .mnemonic-letters {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin: 1.5rem 0;
+      }
+
+      .mnemonic-letter {
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: white;
+      }
+
+      /* Protocol Badge */
+      .protocol-badge {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        background: rgba(52, 152, 219, 0.3);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        margin: 0.2rem;
+      }
+
+      /* Interactive Layer Click */
+      .layer-detail-popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+
+      .layer-detail-popup.show {
+        display: flex;
+      }
+
+      .popup-content {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 2rem;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .popup-close {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav-logo">
+        <i class="fas fa-network-wired"></i> OSI Learning
+      </div>
+      <ul class="nav-links">
+        <li><a href="#intro" class="active">מבוא</a></li>
+        <li><a href="#layers">השכבות</a></li>
+        <li><a href="#animation">אנימציה</a></li>
+        <li><a href="#quiz">מבחן</a></li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="intro">
+      <h1>מודל OSI - שבע שכבות הרשת</h1>
+      <p>
+        למד את עקרונות התקשורת ברשתות מחשבים, הכר את השכבות השונות, הבן תקלות
+        נפוצות ואת הכלים לפתרונן
+      </p>
+
+      <!-- Interactive OSI Tower -->
+      <div class="osi-tower">
+        <div class="tower-layer layer-7" onclick="showLayerDetail(7)">
+          <span class="layer-num">7</span>
+          <span class="layer-name">Application - שכבת היישום</span>
+          <i class="fas fa-globe"></i>
+        </div>
+        <div class="tower-layer layer-6" onclick="showLayerDetail(6)">
+          <span class="layer-num">6</span>
+          <span class="layer-name">Presentation - שכבת הייצוג</span>
+          <i class="fas fa-file-code"></i>
+        </div>
+        <div class="tower-layer layer-5" onclick="showLayerDetail(5)">
+          <span class="layer-num">5</span>
+          <span class="layer-name">Session - שכבת הפגישה</span>
+          <i class="fas fa-handshake"></i>
+        </div>
+        <div class="tower-layer layer-4" onclick="showLayerDetail(4)">
+          <span class="layer-num">4</span>
+          <span class="layer-name">Transport - שכבת התעבורה</span>
+          <i class="fas fa-truck"></i>
+        </div>
+        <div class="tower-layer layer-3" onclick="showLayerDetail(3)">
+          <span class="layer-num">3</span>
+          <span class="layer-name">Network - שכבת הרשת</span>
+          <i class="fas fa-route"></i>
+        </div>
+        <div class="tower-layer layer-2" onclick="showLayerDetail(2)">
+          <span class="layer-num">2</span>
+          <span class="layer-name">Data Link - שכבת קישור הנתונים</span>
+          <i class="fas fa-link"></i>
+        </div>
+        <div class="tower-layer layer-1" onclick="showLayerDetail(1)">
+          <span class="layer-num">1</span>
+          <span class="layer-name">Physical - השכבה הפיזית</span>
+          <i class="fas fa-plug"></i>
+        </div>
+      </div>
+
+      <!-- Mnemonic -->
+      <div class="mnemonic-card">
+        <h3><i class="fas fa-lightbulb"></i> טיפ לזכירה</h3>
+        <p>זכור את השכבות בעזרת המשפט:</p>
+        <div class="mnemonic-letters">
+          <div class="mnemonic-letter" style="background: var(--layer7-color)">
+            A
+          </div>
+          <div class="mnemonic-letter" style="background: var(--layer6-color)">
+            P
+          </div>
+          <div class="mnemonic-letter" style="background: var(--layer5-color)">
+            S
+          </div>
+          <div class="mnemonic-letter" style="background: var(--layer4-color)">
+            T
+          </div>
+          <div class="mnemonic-letter" style="background: var(--layer3-color)">
+            N
+          </div>
+          <div class="mnemonic-letter" style="background: var(--layer2-color)">
+            D
+          </div>
+          <div class="mnemonic-letter" style="background: var(--layer1-color)">
+            P
+          </div>
+        </div>
+        <p style="font-size: 1.2rem; font-weight: 600">
+          "<span style="color: var(--layer7-color)">A</span>ll
+          <span style="color: var(--layer6-color)">P</span>eople
+          <span style="color: var(--layer5-color)">S</span>eem
+          <span style="color: var(--layer4-color)">T</span>o
+          <span style="color: var(--layer3-color)">N</span>eed
+          <span style="color: var(--layer2-color)">D</span>ata
+          <span style="color: var(--layer1-color)">P</span>rocessing"
+        </p>
+      </div>
+    </section>
+
+    <!-- Layers Detail Section -->
+    <section class="section" id="layers">
+      <h2 class="section-title">השכבות בפירוט</h2>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('layer7-tab')">
+          שכבה 7 - יישום
+        </button>
+        <button class="tab-btn" onclick="showTab('layer4-tab')">
+          שכבה 4 - תעבורה
+        </button>
+        <button class="tab-btn" onclick="showTab('layer3-tab')">
+          שכבה 3 - רשת
+        </button>
+        <button class="tab-btn" onclick="showTab('layer2-tab')">
+          שכבה 2 - קישור נתונים
+        </button>
+        <button class="tab-btn" onclick="showTab('layer1-tab')">
+          שכבה 1 - פיזית
+        </button>
+      </div>
+
+      <!-- Layer 7 -->
+      <div id="layer7-tab" class="tab-content active">
+        <div class="layer-section l7 fade-in">
+          <div class="layer-header">
+            <div class="layer-icon">
+              <i class="fas fa-globe"></i>
+            </div>
+            <div class="layer-title">
+              <h2>שכבה 7 - Application Layer</h2>
+              <span>שכבת היישום - הממשק עם המשתמש</span>
+            </div>
+          </div>
+
+          <div class="layer-content">
+            <div class="info-card">
+              <h3><i class="fas fa-info-circle"></i> מה זה?</h3>
+              <p>
+                שכבת היישום היא השכבה הקרובה ביותר למשתמש הקצה. היא מספקת את
+                הממשק שבאמצעותו יישומים מתקשרים עם הרשת. שכבה זו אחראית על
+                פרוטוקולים שמאפשרים תקשורת בין תוכנות.
+              </p>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-cogs"></i> פרוטוקולים ושירותים</h3>
+              <ul>
+                <li>
+                  <strong>HTTP/HTTPS</strong> - גלישה באינטרנט (פורט 80/443)
+                </li>
+                <li><strong>FTP</strong> - העברת קבצים (פורט 20/21)</li>
+                <li><strong>SMTP</strong> - שליחת דואר (פורט 25/587)</li>
+                <li><strong>POP3/IMAP</strong> - קבלת דואר (פורט 110/143)</li>
+                <li><strong>DNS</strong> - תרגום שמות (פורט 53)</li>
+                <li><strong>SSH</strong> - גישה מאובטחת מרחוק (פורט 22)</li>
+                <li><strong>Telnet</strong> - גישה מרחוק (פורט 23)</li>
+                <li><strong>DHCP</strong> - הקצאת כתובות IP (פורט 67/68)</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-server"></i> התקנים ותוכנות</h3>
+              <ul>
+                <li>דפדפנים (Chrome, Firefox, Edge)</li>
+                <li>תוכנות דואר (Outlook, Gmail)</li>
+                <li>תוכנות FTP (FileZilla)</li>
+                <li>שרתי Web (Apache, Nginx, IIS)</li>
+                <li>שרתי DNS</li>
+                <li>Firewalls ברמת Application (WAF)</li>
+              </ul>
+            </div>
+
+            <div class="info-card problem-card">
+              <h3><i class="fas fa-exclamation-triangle"></i> תקלות נפוצות</h3>
+              <ul>
+                <li>
+                  <strong>DNS Resolution Failed</strong> - בעיה בתרגום שם לכתובת
+                  IP
+                </li>
+                <li>
+                  <strong>HTTP 404/500</strong> - שגיאות שרת או דף לא נמצא
+                </li>
+                <li>
+                  <strong>SSL Certificate Error</strong> - בעיה באישור אבטחה
+                </li>
+                <li>
+                  <strong>Authentication Failed</strong> - כשל באימות משתמש
+                </li>
+                <li><strong>Timeout</strong> - זמן התגובה חרג</li>
+                <li>
+                  <strong>CORS Errors</strong> - בעיות הרשאות Cross-Origin
+                </li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-tools"></i> כלי אבחון</h3>
+              <ul>
+                <li><code>nslookup</code> - בדיקת DNS</li>
+                <li><code>curl / wget</code> - בדיקת HTTP</li>
+                <li>Developer Tools בדפדפן</li>
+                <li><code>telnet [host] [port]</code> - בדיקת חיבור</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-table"></i> פורטים נפוצים</h3>
+              <table class="port-table">
+                <tr>
+                  <th>פורט</th>
+                  <th>שירות</th>
+                  <th>תיאור</th>
+                </tr>
+                <tr>
+                  <td>80</td>
+                  <td>HTTP</td>
+                  <td>אתרי אינטרנט</td>
+                </tr>
+                <tr>
+                  <td>443</td>
+                  <td>HTTPS</td>
+                  <td>אתרים מאובטחים</td>
+                </tr>
+                <tr>
+                  <td>53</td>
+                  <td>DNS</td>
+                  <td>תרגום שמות</td>
+                </tr>
+                <tr>
+                  <td>22</td>
+                  <td>SSH</td>
+                  <td>גישה מאובטחת</td>
+                </tr>
+                <tr>
+                  <td>25</td>
+                  <td>SMTP</td>
+                  <td>שליחת דואר</td>
+                </tr>
+                <tr>
+                  <td>3389</td>
+                  <td>RDP</td>
+                  <td>Remote Desktop</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 4 -->
+      <div id="layer4-tab" class="tab-content">
+        <div class="layer-section l4 fade-in">
+          <div class="layer-header">
+            <div class="layer-icon">
+              <i class="fas fa-truck"></i>
+            </div>
+            <div class="layer-title">
+              <h2>שכבה 4 - Transport Layer</h2>
+              <span>שכבת התעבורה - אמינות וזרימת נתונים</span>
+            </div>
+          </div>
+
+          <div class="layer-content">
+            <div class="info-card">
+              <h3><i class="fas fa-info-circle"></i> מה זה?</h3>
+              <p>
+                שכבת התעבורה אחראית על העברת נתונים מקצה לקצה (End-to-End). היא
+                מבטיחה שהנתונים יגיעו בשלמותם, בסדר הנכון, ומנהלת בקרת זרימה
+                ותיקון שגיאות.
+              </p>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-exchange-alt"></i> TCP vs UDP</h3>
+              <ul>
+                <li>
+                  <strong>TCP (Transmission Control Protocol)</strong> <br />•
+                  מבוסס חיבור (Connection-oriented) <br />• אמין - מבטיח קבלת כל
+                  הנתונים <br />• Three-Way Handshake (SYN, SYN-ACK, ACK)
+                  <br />• שימושים: HTTP, FTP, Email
+                </li>
+                <li>
+                  <strong>UDP (User Datagram Protocol)</strong> <br />• ללא
+                  חיבור (Connectionless) <br />• מהיר יותר, פחות אמין <br />•
+                  שימושים: DNS, VoIP, Streaming, Gaming
+                </li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-puzzle-piece"></i> מושגי מפתח</h3>
+              <ul>
+                <li><strong>Segments</strong> - יחידת הנתונים בשכבה זו</li>
+                <li>
+                  <strong>Port Numbers</strong> - מזהים של יישומים (0-65535)
+                </li>
+                <li><strong>Flow Control</strong> - בקרת קצב העברה</li>
+                <li>
+                  <strong>Windowing</strong> - כמות נתונים לשליחה לפני ACK
+                </li>
+                <li><strong>Sequence Numbers</strong> - סדר הסגמנטים</li>
+              </ul>
+            </div>
+
+            <div class="info-card problem-card">
+              <h3><i class="fas fa-exclamation-triangle"></i> תקלות נפוצות</h3>
+              <ul>
+                <li>
+                  <strong>Port Already in Use</strong> - פורט תפוס ע"י תהליך אחר
+                </li>
+                <li>
+                  <strong>Connection Refused</strong> - השרת לא מקשיב על הפורט
+                </li>
+                <li>
+                  <strong>Connection Timeout</strong> - לא נוצר חיבור בזמן
+                </li>
+                <li><strong>RST Packets</strong> - חיבור נקטע באופן פתאומי</li>
+                <li>
+                  <strong>Retransmissions</strong> - שליחות חוזרות (עומס/אובדן)
+                </li>
+                <li><strong>Port Exhaustion</strong> - מיצוי פורטים זמינים</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-tools"></i> כלי אבחון</h3>
+              <ul>
+                <li><code>netstat -an</code> - צפייה בחיבורים פעילים</li>
+                <li><code>ss -tuln</code> - חיבורים (Linux)</li>
+                <li><code>tcpdump</code> - לכידת מנות</li>
+                <li><code>Wireshark</code> - ניתוח תעבורה מתקדם</li>
+                <li><code>telnet [ip] [port]</code> - בדיקת פורט פתוח</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-th-list"></i> סוגי פורטים</h3>
+              <ul>
+                <li>
+                  <strong>Well-Known (0-1023)</strong> - פורטים שמורים לשירותים
+                  סטנדרטיים
+                </li>
+                <li>
+                  <strong>Registered (1024-49151)</strong> - רשומים ל-IANA
+                </li>
+                <li>
+                  <strong>Dynamic/Private (49152-65535)</strong> - פורטים זמניים
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 3 -->
+      <div id="layer3-tab" class="tab-content">
+        <div class="layer-section l3 fade-in">
+          <div class="layer-header">
+            <div class="layer-icon">
+              <i class="fas fa-route"></i>
+            </div>
+            <div class="layer-title">
+              <h2>שכבה 3 - Network Layer</h2>
+              <span>שכבת הרשת - ניתוב וכתובות לוגיות</span>
+            </div>
+          </div>
+
+          <div class="layer-content">
+            <div class="info-card">
+              <h3><i class="fas fa-info-circle"></i> מה זה?</h3>
+              <p>
+                שכבת הרשת אחראית על ניתוב (Routing) של מנות נתונים בין רשתות
+                שונות. היא משתמשת בכתובות לוגיות (IP Addresses) כדי לקבוע את
+                הנתיב הטוב ביותר להעברת הנתונים.
+              </p>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-network-wired"></i> פרוטוקולים עיקריים</h3>
+              <ul>
+                <li>
+                  <strong>IP (Internet Protocol)</strong> - פרוטוקול הכתובות
+                  הבסיסי
+                </li>
+                <li><strong>ICMP</strong> - בקרה והודעות שגיאה (Ping)</li>
+                <li><strong>ARP</strong> - תרגום IP ל-MAC</li>
+                <li><strong>OSPF</strong> - פרוטוקול ניתוב פנימי</li>
+                <li><strong>BGP</strong> - ניתוב בין ארגונים</li>
+                <li><strong>RIP</strong> - פרוטוקול ניתוב פשוט</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-server"></i> התקנים</h3>
+              <ul>
+                <li><strong>Router (נתב)</strong> - מנתב תעבורה בין רשתות</li>
+                <li><strong>Layer 3 Switch</strong> - מתג עם יכולות ניתוב</li>
+                <li><strong>Firewall</strong> - סינון תעבורה לפי IP</li>
+                <li><strong>Load Balancer</strong> - איזון עומסים</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-map-marker-alt"></i> כתובות IP</h3>
+              <ul>
+                <li><strong>IPv4</strong> - 32 ביט (192.168.1.1)</li>
+                <li><strong>IPv6</strong> - 128 ביט (2001:db8::1)</li>
+                <li><strong>Subnet Mask</strong> - הפרדה בין רשת למחשב</li>
+                <li><strong>Default Gateway</strong> - הנתב ליציאה מהרשת</li>
+                <li>
+                  <strong>Private IPs</strong> - 10.x.x.x, 172.16-31.x.x,
+                  192.168.x.x
+                </li>
+              </ul>
+            </div>
+
+            <div class="info-card problem-card">
+              <h3><i class="fas fa-exclamation-triangle"></i> תקלות נפוצות</h3>
+              <ul>
+                <li>
+                  <strong>Destination Unreachable</strong> - אין נתיב ליעד
+                </li>
+                <li><strong>TTL Expired</strong> - המנה "מתה" בדרך</li>
+                <li><strong>IP Conflict</strong> - שני מכשירים עם אותו IP</li>
+                <li><strong>Wrong Subnet</strong> - הגדרת רשת שגויה</li>
+                <li>
+                  <strong>No Default Gateway</strong> - אין יציאה מהרשת המקומית
+                </li>
+                <li><strong>Routing Loop</strong> - מנות סובבות במעגל</li>
+                <li><strong>MTU Issues</strong> - גודל מנה לא מתאים</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-tools"></i> כלי אבחון</h3>
+              <ul>
+                <li><code>ping [ip/host]</code> - בדיקת קישוריות</li>
+                <li><code>tracert / traceroute</code> - מעקב נתיב</li>
+                <li><code>ipconfig / ifconfig</code> - הגדרות IP</li>
+                <li><code>route print</code> - טבלת ניתוב</li>
+                <li><code>arp -a</code> - טבלת ARP</li>
+                <li><code>pathping</code> - שילוב ping ו-tracert</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 2 -->
+      <div id="layer2-tab" class="tab-content">
+        <div class="layer-section l2 fade-in">
+          <div class="layer-header">
+            <div class="layer-icon">
+              <i class="fas fa-link"></i>
+            </div>
+            <div class="layer-title">
+              <h2>שכבה 2 - Data Link Layer</h2>
+              <span>שכבת קישור הנתונים - תקשורת מקומית</span>
+            </div>
+          </div>
+
+          <div class="layer-content">
+            <div class="info-card">
+              <h3><i class="fas fa-info-circle"></i> מה זה?</h3>
+              <p>
+                שכבת קישור הנתונים אחראית על העברת נתונים בין שני התקנים באותה
+                רשת מקומית (LAN). היא משתמשת בכתובות פיזיות (MAC Addresses)
+                ומטפלת בזיהוי ותיקון שגיאות.
+              </p>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-layer-group"></i> תתי-שכבות</h3>
+              <ul>
+                <li>
+                  <strong>LLC (Logical Link Control)</strong> <br />• בקרת זרימה
+                  <br />• זיהוי שגיאות <br />• ממשק לשכבה 3
+                </li>
+                <li>
+                  <strong>MAC (Media Access Control)</strong> <br />• כתובות
+                  פיזיות <br />• גישה למדיה (CSMA/CD) <br />• מסגור (Framing)
+                </li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-server"></i> התקנים</h3>
+              <ul>
+                <li><strong>Switch (מתג)</strong> - מחבר התקנים ברשת מקומית</li>
+                <li><strong>Bridge</strong> - מחבר סגמנטים של רשת</li>
+                <li>
+                  <strong>NIC (Network Interface Card)</strong> - כרטיס רשת
+                </li>
+                <li><strong>Access Point</strong> - נקודת גישה אלחוטית</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-barcode"></i> כתובת MAC</h3>
+              <ul>
+                <li>48 ביט (6 בתים)</li>
+                <li>פורמט: <code>AA:BB:CC:DD:EE:FF</code></li>
+                <li>3 בתים ראשונים - יצרן (OUI)</li>
+                <li>3 בתים אחרונים - מזהה ייחודי</li>
+                <li>כתובת שידור: <code>FF:FF:FF:FF:FF:FF</code></li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-cogs"></i> פרוטוקולים וטכנולוגיות</h3>
+              <ul>
+                <li><strong>Ethernet (802.3)</strong> - רשת קווית</li>
+                <li><strong>Wi-Fi (802.11)</strong> - רשת אלחוטית</li>
+                <li><strong>STP (Spanning Tree)</strong> - מניעת לולאות</li>
+                <li><strong>VLAN</strong> - רשתות וירטואליות</li>
+                <li><strong>PPP</strong> - Point-to-Point Protocol</li>
+              </ul>
+            </div>
+
+            <div class="info-card problem-card">
+              <h3><i class="fas fa-exclamation-triangle"></i> תקלות נפוצות</h3>
+              <ul>
+                <li><strong>Duplicate MAC</strong> - כתובות MAC כפולות</li>
+                <li>
+                  <strong>Switching Loops</strong> - לולאות ברשת (STP Issue)
+                </li>
+                <li><strong>VLAN Mismatch</strong> - אי התאמת VLANs</li>
+                <li><strong>Broadcast Storm</strong> - הצפת שידורים</li>
+                <li>
+                  <strong>Port Security Violation</strong> - הפרת אבטחת פורט
+                </li>
+                <li><strong>Duplex Mismatch</strong> - אי התאמת Full/Half</li>
+                <li><strong>Native VLAN Mismatch</strong> - בעיית Trunk</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-tools"></i> כלי אבחון</h3>
+              <ul>
+                <li><code>arp -a</code> - טבלת MAC-IP</li>
+                <li><code>getmac</code> - כתובת MAC מקומית</li>
+                <li><code>show mac address-table</code> - בSwitch</li>
+                <li><code>show spanning-tree</code> - מצב STP</li>
+                <li><code>Wireshark</code> - ניתוח מסגרות</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Layer 1 -->
+      <div id="layer1-tab" class="tab-content">
+        <div class="layer-section l1 fade-in">
+          <div class="layer-header">
+            <div class="layer-icon">
+              <i class="fas fa-plug"></i>
+            </div>
+            <div class="layer-title">
+              <h2>שכבה 1 - Physical Layer</h2>
+              <span>השכבה הפיזית - חומרה ואותות</span>
+            </div>
+          </div>
+
+          <div class="layer-content">
+            <div class="info-card">
+              <h3><i class="fas fa-info-circle"></i> מה זה?</h3>
+              <p>
+                השכבה הפיזית היא הבסיס של מודל OSI. היא עוסקת בהעברת ביטים
+                גולמיים דרך מדיה פיזית - כבלים, סיבים אופטיים או גלי רדיו. שכבה
+                זו מגדירה מאפיינים חשמליים, מכניים ופונקציונליים.
+              </p>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-ethernet"></i> סוגי כבלים</h3>
+              <ul>
+                <li>
+                  <strong>UTP (Unshielded Twisted Pair)</strong> <br />• Cat5e -
+                  עד 1Gbps <br />• Cat6 - עד 10Gbps (קצר) <br />• Cat6a - עד
+                  10Gbps (100m)
+                </li>
+                <li><strong>STP (Shielded)</strong> - מוגן מהפרעות</li>
+                <li>
+                  <strong>Fiber Optic</strong> <br />• Single-mode - מרחקים
+                  ארוכים <br />• Multi-mode - מרחקים קצרים
+                </li>
+                <li><strong>Coaxial</strong> - כבל קואקסיאלי</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-server"></i> התקנים</h3>
+              <ul>
+                <li><strong>Hub</strong> - מרכז שמשדר לכל הפורטים</li>
+                <li><strong>Repeater</strong> - מגבר אותות</li>
+                <li><strong>Media Converter</strong> - המרת סוגי מדיה</li>
+                <li><strong>Modem</strong> - מודולציה/דמודולציה</li>
+                <li><strong>Patch Panel</strong> - לוח חיבורים</li>
+                <li><strong>Network Cables</strong> - כבלי רשת</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-wifi"></i> מדיה אלחוטית</h3>
+              <ul>
+                <li><strong>Wi-Fi</strong> - 2.4GHz / 5GHz / 6GHz</li>
+                <li><strong>Bluetooth</strong> - טווח קצר</li>
+                <li><strong>Infrared</strong> - אינפרא-אדום</li>
+                <li><strong>Cellular</strong> - 4G/5G</li>
+                <li><strong>Satellite</strong> - תקשורת לווין</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-tachometer-alt"></i> מושגים חשובים</h3>
+              <ul>
+                <li><strong>Bandwidth</strong> - רוחב פס (Mbps/Gbps)</li>
+                <li><strong>Throughput</strong> - תפוקה בפועל</li>
+                <li><strong>Latency</strong> - השהייה</li>
+                <li><strong>Attenuation</strong> - דעיכת אות</li>
+                <li><strong>Crosstalk</strong> - הפרעות בין כבלים</li>
+                <li><strong>EMI</strong> - הפרעות אלקטרומגנטיות</li>
+              </ul>
+            </div>
+
+            <div class="info-card problem-card">
+              <h3><i class="fas fa-exclamation-triangle"></i> תקלות נפוצות</h3>
+              <ul>
+                <li><strong>כבל פגום</strong> - קרע, קיפול, לחיצה</li>
+                <li><strong>חיבור רופף</strong> - RJ45 לא מחובר היטב</li>
+                <li><strong>Attenuation</strong> - כבל ארוך מדי</li>
+                <li><strong>EMI/RFI</strong> - הפרעות חשמליות</li>
+                <li><strong>Crosstalk</strong> - הפרעות בין זוגות</li>
+                <li><strong>אות Wi-Fi חלש</strong> - מרחק/מכשולים</li>
+                <li><strong>Port מת</strong> - פורט פיזי לא עובד</li>
+                <li><strong>LED לא דולק</strong> - אין חיבור פיזי</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3><i class="fas fa-tools"></i> כלי אבחון</h3>
+              <ul>
+                <li><strong>Cable Tester</strong> - בודק כבלים</li>
+                <li><strong>Tone Generator</strong> - מעקב כבלים</li>
+                <li><strong>Multimeter</strong> - מודד מתח</li>
+                <li><strong>OTDR</strong> - בדיקת סיב אופטי</li>
+                <li><strong>Spectrum Analyzer</strong> - ניתוח אלחוטי</li>
+                <li>בדיקת LEDs על ציוד</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Encapsulation Animation -->
+    <section class="encapsulation-demo section" id="animation">
+      <h2 class="section-title">אנימציית Encapsulation</h2>
+      <p
+        style="
+          text-align: center;
+          color: var(--text-muted);
+          margin-bottom: 2rem;
+        "
+      >
+        צפה כיצד נתונים עוטפים בכותרות בכל שכבה בדרך למטה (Encapsulation)
+        ונפתחים בדרך למעלה (Decapsulation)
+      </p>
+
+      <div class="data-packet" id="encap-visual">
+        <div class="packet-segment segment-frame" id="seg-frame">
+          Frame Header
+        </div>
+        <div class="packet-segment segment-ip" id="seg-ip">IP Header</div>
+        <div class="packet-segment segment-tcp" id="seg-tcp">TCP Header</div>
+        <div class="packet-segment segment-data" id="seg-data">📦 DATA</div>
+        <div class="packet-segment segment-tcp" id="seg-tcp2">TCP</div>
+        <div class="packet-segment segment-ip" id="seg-ip2">IP</div>
+        <div class="packet-segment segment-frame" id="seg-frame2">
+          Frame Trailer
+        </div>
+      </div>
+
+      <div class="journey-controls">
+        <button class="btn btn-primary" onclick="startEncapsulation()">
+          <i class="fas fa-play"></i> הפעל אנימציה
+        </button>
+        <button class="btn btn-secondary" onclick="resetEncapsulation()">
+          <i class="fas fa-redo"></i> איפוס
+        </button>
+      </div>
+
+      <div
+        id="encap-explanation"
+        style="
+          text-align: center;
+          margin-top: 2rem;
+          font-size: 1.2rem;
+          min-height: 60px;
+        "
+      ></div>
+    </section>
+
+    <!-- Packet Journey Animation -->
+    <section class="packet-journey">
+      <h2 class="section-title">מסע המנה ברשת</h2>
+      <p style="color: var(--text-muted); margin-bottom: 2rem">
+        צפה כיצד מנת נתונים עוברת דרך שכבות ה-OSI
+      </p>
+
+      <div class="journey-container">
+        <div style="text-align: center">
+          <div class="computer-icon"><i class="fas fa-laptop"></i></div>
+          <p>מחשב שולח</p>
+        </div>
+
+        <div class="journey-layers" id="sender-layers">
+          <div class="journey-layer" style="background: var(--layer7-color)">
+            7. Application
+          </div>
+          <div class="journey-layer" style="background: var(--layer6-color)">
+            6. Presentation
+          </div>
+          <div class="journey-layer" style="background: var(--layer5-color)">
+            5. Session
+          </div>
+          <div class="journey-layer" style="background: var(--layer4-color)">
+            4. Transport
+          </div>
+          <div class="journey-layer" style="background: var(--layer3-color)">
+            3. Network
+          </div>
+          <div class="journey-layer" style="background: var(--layer2-color)">
+            2. Data Link
+          </div>
+          <div class="journey-layer" style="background: var(--layer1-color)">
+            1. Physical
+          </div>
+        </div>
+
+        <div style="text-align: center">
+          <i
+            class="fas fa-network-wired"
+            style="font-size: 3rem; color: #f1c40f"
+          ></i>
+          <p>הרשת</p>
+        </div>
+
+        <div class="journey-layers" id="receiver-layers">
+          <div class="journey-layer" style="background: var(--layer7-color)">
+            7. Application
+          </div>
+          <div class="journey-layer" style="background: var(--layer6-color)">
+            6. Presentation
+          </div>
+          <div class="journey-layer" style="background: var(--layer5-color)">
+            5. Session
+          </div>
+          <div class="journey-layer" style="background: var(--layer4-color)">
+            4. Transport
+          </div>
+          <div class="journey-layer" style="background: var(--layer3-color)">
+            3. Network
+          </div>
+          <div class="journey-layer" style="background: var(--layer2-color)">
+            2. Data Link
+          </div>
+          <div class="journey-layer" style="background: var(--layer1-color)">
+            1. Physical
+          </div>
+        </div>
+
+        <div style="text-align: center">
+          <div class="computer-icon"><i class="fas fa-server"></i></div>
+          <p>שרת מקבל</p>
+        </div>
+      </div>
+
+      <div class="journey-controls">
+        <button class="btn btn-primary" onclick="startJourney()">
+          <i class="fas fa-play"></i> הפעל מסע
+        </button>
+        <button class="btn btn-secondary" onclick="resetJourney()">
+          <i class="fas fa-redo"></i> איפוס
+        </button>
+      </div>
+
+      <div
+        id="journey-explanation"
+        style="text-align: center; margin-top: 2rem; font-size: 1.2rem"
+      ></div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="quiz-section section" id="quiz">
+      <h2 class="section-title">מבחן הבנה</h2>
+
+      <div class="quiz-progress">
+        <span id="quiz-current">שאלה 1</span>
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            id="quiz-progress-fill"
+            style="width: 0%"
+          ></div>
+        </div>
+        <span id="quiz-total">מתוך 15</span>
+      </div>
+
+      <div class="question-container" id="question-container">
+        <!-- Questions will be loaded here -->
+      </div>
+
+      <div class="quiz-results" id="quiz-results" style="display: none">
+        <h3 style="font-size: 2rem; margin-bottom: 1rem">סיימת את המבחן! 🎉</h3>
+        <div class="score-circle" id="score-circle">
+          <div class="score-inner">
+            <div class="score-number" id="final-score">0%</div>
+            <div>ציון</div>
+          </div>
+        </div>
+        <p id="result-message" style="font-size: 1.3rem; margin: 1rem 0"></p>
+        <button class="btn btn-primary" onclick="restartQuiz()">
+          <i class="fas fa-redo"></i> נסה שוב
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>לומדת מודל OSI | נבנה לצורכי לימוד</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem">
+        <i class="fas fa-heart" style="color: #e74c3c"></i> למידה מהנה!
+      </p>
+    </footer>
+
+    <!-- Layer Detail Popup -->
+    <div class="layer-detail-popup" id="layer-popup">
+      <div class="popup-content" id="popup-content">
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+        <div id="popup-body"></div>
+      </div>
+    </div>
+
+    <script>
+      // Quiz Questions
+      const questions = [
+        {
+          question: 'באיזו שכבה עובד Router?',
+          answers: [
+            'שכבה 1 - Physical',
+            'שכבה 2 - Data Link',
+            'שכבה 3 - Network',
+            'שכבה 4 - Transport',
+          ],
+          correct: 2,
+          explanation:
+            'Router עובד בשכבה 3 (Network) ומשתמש בכתובות IP לניתוב מנות בין רשתות.',
+        },
+        {
+          question: 'מהו הפורט הסטנדרטי של HTTPS?',
+          answers: ['80', '443', '22', '21'],
+          correct: 1,
+          explanation:
+            'HTTPS משתמש בפורט 443 כברירת מחדל, בעוד HTTP משתמש בפורט 80.',
+        },
+        {
+          question: 'מהי כתובת MAC?',
+          answers: [
+            'כתובת לוגית של 32 ביט',
+            'כתובת פיזית של 48 ביט',
+            'כתובת IP של נתב',
+            'מספר פורט',
+          ],
+          correct: 1,
+          explanation:
+            'כתובת MAC היא כתובת פיזית בת 48 ביט הייחודית לכרטיס הרשת, בשימוש בשכבה 2.',
+        },
+        {
+          question: 'מה ההבדל העיקרי בין TCP ל-UDP?',
+          answers: [
+            'TCP מהיר יותר',
+            'UDP מבוסס חיבור',
+            'TCP אמין יותר ומבוסס חיבור',
+            'אין הבדל',
+          ],
+          correct: 2,
+          explanation:
+            'TCP מספק חיבור אמין עם אישורי קבלה, בעוד UDP מהיר יותר אך לא מבטיח אספקה.',
+        },
+        {
+          question: 'באיזו שכבה עובד Switch?',
+          answers: [
+            'שכבה 1 - Physical',
+            'שכבה 2 - Data Link',
+            'שכבה 3 - Network',
+            'שכבה 7 - Application',
+          ],
+          correct: 1,
+          explanation:
+            'Switch סטנדרטי עובד בשכבה 2 ומשתמש בכתובות MAC להעברת מסגרות.',
+        },
+        {
+          question: 'מהו פרוטוקול DNS?',
+          answers: [
+            'פרוטוקול להעברת קבצים',
+            'פרוטוקול לתרגום שמות לכתובות IP',
+            'פרוטוקול לאבטחה',
+            'פרוטוקול לניתוב',
+          ],
+          correct: 1,
+          explanation:
+            'DNS (Domain Name System) מתרגם שמות דומיין (כמו google.com) לכתובות IP.',
+        },
+        {
+          question: 'איזו תקלה אופיינית לשכבה 1?',
+          answers: [
+            'DNS Resolution Failed',
+            'IP Conflict',
+            'כבל פגום או מנותק',
+            'Port Already in Use',
+          ],
+          correct: 2,
+          explanation:
+            'שכבה 1 עוסקת בחומרה פיזית, לכן תקלות כמו כבל פגום הן אופייניות לשכבה זו.',
+        },
+        {
+          question: 'מהו Three-Way Handshake?',
+          answers: [
+            'תהליך ניתוב',
+            'תהליך יצירת חיבור TCP',
+            'תהליך הצפנה',
+            'תהליך אימות משתמש',
+          ],
+          correct: 1,
+          explanation:
+            'Three-Way Handshake (SYN, SYN-ACK, ACK) הוא תהליך יצירת חיבור TCP בשכבה 4.',
+        },
+        {
+          question: 'מהו VLAN?',
+          answers: [
+            'סוג של כבל',
+            'רשת וירטואלית בשכבה 2',
+            'פרוטוקול ניתוב',
+            'כתובת IP מיוחדת',
+          ],
+          correct: 1,
+          explanation:
+            'VLAN (Virtual LAN) מאפשר ליצור רשתות לוגיות נפרדות על אותה תשתית פיזית בשכבה 2.',
+        },
+        {
+          question: 'איזו פקודה משמשת לבדיקת קישוריות רשת בסיסית?',
+          answers: ['ipconfig', 'netstat', 'ping', 'tracert'],
+          correct: 2,
+          explanation:
+            'ping שולח הודעות ICMP ובודק אם יש קישוריות בסיסית ליעד.',
+        },
+        {
+          question: 'מה תפקידו של ARP?',
+          answers: [
+            'תרגום IP ל-MAC',
+            'הקצאת כתובות IP',
+            'ניתוב מנות',
+            'הצפנת נתונים',
+          ],
+          correct: 0,
+          explanation:
+            'ARP (Address Resolution Protocol) מתרגם כתובות IP לכתובות MAC בשכבה 2-3.',
+        },
+        {
+          question: 'מהו טווח הפורטים Well-Known?',
+          answers: ['0-65535', '1024-49151', '0-1023', '49152-65535'],
+          correct: 2,
+          explanation:
+            'פורטים 0-1023 הם Well-Known Ports השמורים לשירותים סטנדרטיים כמו HTTP (80) ו-SSH (22).',
+        },
+        {
+          question: 'איזה פרוטוקול משמש לשליחת דואר אלקטרוני?',
+          answers: ['POP3', 'IMAP', 'SMTP', 'FTP'],
+          correct: 2,
+          explanation:
+            'SMTP (Simple Mail Transfer Protocol) משמש לשליחת דואר, בעוד POP3/IMAP לקבלה.',
+        },
+        {
+          question: 'מהי Broadcast Storm?',
+          answers: [
+            'הצפת הרשת בהודעות שידור',
+            'תקלה בשרת',
+            'בעיית DNS',
+            'קונפליקט IP',
+          ],
+          correct: 0,
+          explanation:
+            'Broadcast Storm היא הצפת הרשת בהודעות שידור, בדרך כלל כתוצאה מלולאות בשכבה 2.',
+        },
+        {
+          question: 'מה מספק פרוטוקול DHCP?',
+          answers: [
+            'אבטחת רשת',
+            'תרגום שמות',
+            'הקצאת כתובות IP אוטומטית',
+            'ניתוב מנות',
+          ],
+          correct: 2,
+          explanation:
+            'DHCP (Dynamic Host Configuration Protocol) מקצה אוטומטית כתובות IP והגדרות רשת.',
+        },
+      ]
+
+      let currentQuestion = 0
+      let score = 0
+      let answered = false
+
+      // Initialize Quiz
+      function loadQuestion() {
+        if (currentQuestion >= questions.length) {
+          showResults()
+          return
+        }
+
+        answered = false
+        const q = questions[currentQuestion]
+
+        document.getElementById('quiz-current').textContent =
+          `שאלה ${currentQuestion + 1}`
+        document.getElementById('quiz-total').textContent =
+          `מתוך ${questions.length}`
+        document.getElementById('quiz-progress-fill').style.width =
+          `${(currentQuestion / questions.length) * 100}%`
+
+        let html = `
+                <div class="question-text">${q.question}</div>
+                <div class="answers-grid">
+            `
+
+        q.answers.forEach((answer, index) => {
+          html += `<button class="answer-btn" onclick="checkAnswer(${index})">${answer}</button>`
+        })
+
+        html += `</div><div class="feedback" id="feedback"></div>`
+        html += `<button class="btn btn-primary" id="next-btn" style="display: none; margin-top: 1rem;" onclick="nextQuestion()">
+                        שאלה הבאה <i class="fas fa-arrow-left"></i>
+                     </button>`
+
+        document.getElementById('question-container').innerHTML = html
+      }
+
+      function checkAnswer(selected) {
+        if (answered) return
+        answered = true
+
+        const q = questions[currentQuestion]
+        const buttons = document.querySelectorAll('.answer-btn')
+        const feedback = document.getElementById('feedback')
+
+        buttons.forEach((btn, index) => {
+          btn.classList.add('disabled')
+          if (index === q.correct) {
+            btn.classList.add('correct')
+          }
+          if (index === selected && selected !== q.correct) {
+            btn.classList.add('wrong')
+          }
+        })
+
+        if (selected === q.correct) {
+          score++
+          feedback.className = 'feedback show correct'
+          feedback.innerHTML = `<i class="fas fa-check-circle"></i> נכון! ${q.explanation}`
+        } else {
+          feedback.className = 'feedback show wrong'
+          feedback.innerHTML = `<i class="fas fa-times-circle"></i> לא נכון. ${q.explanation}`
+        }
+
+        document.getElementById('next-btn').style.display = 'inline-block'
+      }
+
+      function nextQuestion() {
+        currentQuestion++
+        loadQuestion()
+      }
+
+      function showResults() {
+        document.getElementById('question-container').style.display = 'none'
+        document.getElementById('quiz-results').style.display = 'block'
+
+        const percentage = Math.round((score / questions.length) * 100)
+        document.getElementById('final-score').textContent = percentage + '%'
+        document.getElementById('score-circle').style.background =
+          `conic-gradient(#2ecc71 ${percentage * 3.6}deg, rgba(255,255,255,0.1) ${percentage * 3.6}deg)`
+
+        let message = ''
+        if (percentage >= 90) {
+          message = '🌟 מצוין! שליטה מרשימה במודל OSI!'
+        } else if (percentage >= 70) {
+          message = '👍 טוב מאוד! יש לך הבנה טובה של החומר.'
+        } else if (percentage >= 50) {
+          message = '📚 לא רע, אבל כדאי לחזור על החומר.'
+        } else {
+          message = '💪 יש מקום לשיפור. נסה לקרוא שוב את החומר ולחזור על המבחן.'
+        }
+        document.getElementById('result-message').textContent = message
+      }
+
+      function restartQuiz() {
+        currentQuestion = 0
+        score = 0
+        document.getElementById('question-container').style.display = 'block'
+        document.getElementById('quiz-results').style.display = 'none'
+        loadQuestion()
+      }
+
+      // Tabs functionality
+      function showTab(tabId) {
+        document
+          .querySelectorAll('.tab-content')
+          .forEach((tab) => tab.classList.remove('active'))
+        document
+          .querySelectorAll('.tab-btn')
+          .forEach((btn) => btn.classList.remove('active'))
+        document.getElementById(tabId).classList.add('active')
+        event.target.classList.add('active')
+      }
+
+      // Encapsulation Animation
+      let encapStep = 0
+      const encapSteps = [
+        {
+          segments: ['seg-data'],
+          text: '📦 נתונים מקוריים נוצרים בשכבת היישום (Layer 7)',
+        },
+        {
+          segments: ['seg-data', 'seg-tcp', 'seg-tcp2'],
+          text: '🚛 שכבת התעבורה (Layer 4) מוסיפה TCP Header עם פורטים ומספרי רצף',
+        },
+        {
+          segments: ['seg-data', 'seg-tcp', 'seg-tcp2', 'seg-ip', 'seg-ip2'],
+          text: '🌐 שכבת הרשת (Layer 3) מוסיפה IP Header עם כתובות מקור ויעד',
+        },
+        {
+          segments: [
+            'seg-data',
+            'seg-tcp',
+            'seg-tcp2',
+            'seg-ip',
+            'seg-ip2',
+            'seg-frame',
+            'seg-frame2',
+          ],
+          text: '🔗 שכבת קישור הנתונים (Layer 2) מוסיפה Frame Header/Trailer עם MAC',
+        },
+        {
+          segments: [
+            'seg-data',
+            'seg-tcp',
+            'seg-tcp2',
+            'seg-ip',
+            'seg-ip2',
+            'seg-frame',
+            'seg-frame2',
+          ],
+          text: '⚡ שכבה 1 הופכת הכל לביטים ושולחת דרך המדיה הפיזית!',
+        },
+      ]
+
+      function startEncapsulation() {
+        resetEncapsulation()
+        animateEncap()
+      }
+
+      function animateEncap() {
+        if (encapStep >= encapSteps.length) return
+
+        const step = encapSteps[encapStep]
+        step.segments.forEach((id) => {
+          document.getElementById(id).classList.add('show')
+        })
+        document.getElementById('encap-explanation').textContent = step.text
+
+        encapStep++
+        if (encapStep < encapSteps.length) {
+          setTimeout(animateEncap, 2000)
+        }
+      }
+
+      function resetEncapsulation() {
+        encapStep = 0
+        document
+          .querySelectorAll('.packet-segment')
+          .forEach((seg) => seg.classList.remove('show'))
+        document.getElementById('encap-explanation').textContent =
+          'לחץ על "הפעל אנימציה" לצפייה בתהליך'
+      }
+
+      // Journey Animation
+      let journeyStep = 0
+
+      function startJourney() {
+        resetJourney()
+        animateJourney()
+      }
+
+      function animateJourney() {
+        const senderLayers = document.querySelectorAll(
+          '#sender-layers .journey-layer',
+        )
+        const receiverLayers = document.querySelectorAll(
+          '#receiver-layers .journey-layer',
+        )
+        const explanation = document.getElementById('journey-explanation')
+
+        const explanations = [
+          'שכבה 7: היישום יוצר את הנתונים (למשל: בקשת HTTP)',
+          'שכבה 6: הנתונים מקודדים ומוצפנים',
+          'שכבה 5: נפתח Session לתקשורת',
+          'שכבה 4: הנתונים מחולקים לסגמנטים עם TCP/UDP',
+          'שכבה 3: נוספות כתובות IP ונקבע הניתוב',
+          'שכבה 2: נוספות כתובות MAC ונוצרת מסגרת',
+          'שכבה 1: הביטים נשלחים דרך הכבל/אוויר',
+          '🌐 הנתונים עוברים ברשת...',
+          'שכבה 1 מקבל: האותות מתקבלים ומומרים לביטים',
+          'שכבה 2 מקבל: המסגרת נבדקת והכותרות מוסרות',
+          'שכבה 3 מקבל: כתובות IP נבדקות',
+          'שכבה 4 מקבל: הסגמנטים מורכבים מחדש',
+          'שכבה 5 מקבל: ה-Session מזוהה',
+          'שכבה 6 מקבל: הנתונים מפוענחים',
+          'שכבה 7 מקבל: היישום מקבל את הנתונים! ✅',
+        ]
+
+        if (journeyStep < 7) {
+          senderLayers[journeyStep].classList.add('active')
+          explanation.textContent = explanations[journeyStep]
+        } else if (journeyStep === 7) {
+          explanation.textContent = explanations[7]
+        } else if (journeyStep < 15) {
+          receiverLayers[14 - journeyStep].classList.add('active')
+          explanation.textContent = explanations[journeyStep]
+        }
+
+        journeyStep++
+        if (journeyStep <= 15) {
+          setTimeout(animateJourney, 1500)
+        }
+      }
+
+      function resetJourney() {
+        journeyStep = 0
+        document
+          .querySelectorAll('.journey-layer')
+          .forEach((layer) => layer.classList.remove('active'))
+        document.getElementById('journey-explanation').textContent =
+          'לחץ על "הפעל מסע" לצפייה באנימציה'
+      }
+
+      // Layer popup
+      const layerDetails = {
+        7: {
+          name: 'Application',
+          hebrew: 'יישום',
+          icon: 'fa-globe',
+          color: '#e74c3c',
+        },
+        6: {
+          name: 'Presentation',
+          hebrew: 'ייצוג',
+          icon: 'fa-file-code',
+          color: '#e67e22',
+        },
+        5: {
+          name: 'Session',
+          hebrew: 'פגישה',
+          icon: 'fa-handshake',
+          color: '#f1c40f',
+        },
+        4: {
+          name: 'Transport',
+          hebrew: 'תעבורה',
+          icon: 'fa-truck',
+          color: '#2ecc71',
+        },
+        3: {
+          name: 'Network',
+          hebrew: 'רשת',
+          icon: 'fa-route',
+          color: '#3498db',
+        },
+        2: {
+          name: 'Data Link',
+          hebrew: 'קישור נתונים',
+          icon: 'fa-link',
+          color: '#9b59b6',
+        },
+        1: {
+          name: 'Physical',
+          hebrew: 'פיזית',
+          icon: 'fa-plug',
+          color: '#1abc9c',
+        },
+      }
+
+      function showLayerDetail(layer) {
+        const detail = layerDetails[layer]
+        const popup = document.getElementById('layer-popup')
+        const body = document.getElementById('popup-body')
+
+        let content = `
+                <div style="text-align: center; padding: 1rem;">
+                    <i class="fas ${detail.icon}" style="font-size: 3rem; color: ${detail.color};"></i>
+                    <h2 style="margin: 1rem 0;">שכבה ${layer} - ${detail.name}</h2>
+                    <p style="font-size: 1.2rem; color: var(--text-muted);">שכבת ה${detail.hebrew}</p>
+                </div>
+            `
+
+        if ([7, 4, 3, 2, 1].includes(layer)) {
+          content += `<p style="text-align: center; margin-top: 1rem;">
+                    <a href="#layers" onclick="closePopup(); showTab('layer${layer}-tab');" 
+                       style="color: ${detail.color}; text-decoration: none; font-weight: bold;">
+                        <i class="fas fa-arrow-left"></i> לפרטים מלאים לחץ כאן
+                    </a>
+                </p>`
+        } else {
+          content += `<p style="text-align: center; margin-top: 1rem; color: var(--text-muted);">
+                    הלומדה מתמקדת בשכבות 1, 2, 3, 4 ו-7
+                </p>`
+        }
+
+        body.innerHTML = content
+        popup.classList.add('show')
+      }
+
+      function closePopup() {
+        document.getElementById('layer-popup').classList.remove('show')
+      }
+
+      // Close popup on outside click
+      document
+        .getElementById('layer-popup')
+        .addEventListener('click', function (e) {
+          if (e.target === this) closePopup()
+        })
+
+      // Scroll animations
+      function checkFadeIn() {
+        document.querySelectorAll('.fade-in').forEach((el) => {
+          const rect = el.getBoundingClientRect()
+          if (rect.top < window.innerHeight - 100) {
+            el.classList.add('visible')
+          }
+        })
+      }
+
+      window.addEventListener('scroll', checkFadeIn)
+
+      // Smooth scroll for nav links
+      document.querySelectorAll('.nav-links a').forEach((link) => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault()
+          const target = document.querySelector(this.getAttribute('href'))
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' })
+          }
+          document
+            .querySelectorAll('.nav-links a')
+            .forEach((l) => l.classList.remove('active'))
+          this.classList.add('active')
+        })
+      })
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function () {
+        loadQuestion()
+        checkFadeIn()
+        resetEncapsulation()
+        resetJourney()
+      })
+    </script>
+  </body>
+</html>

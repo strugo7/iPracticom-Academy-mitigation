@@ -5,48 +5,99 @@
  */
 import { Badge, Button, Icon } from '@/components/ui'
 import type { WelcomeInviteView } from '../types'
+import { InviteTagIcon } from './InviteTagIcon'
+import { WelcomeInviteTicket } from './WelcomeInviteTicket'
 
-interface Props {
+export interface WelcomeInviteProps {
   view: WelcomeInviteView
   accepted: boolean
   isAccepting: boolean
   onAccept: () => void
+  /** hero (ברירת-מחדל) או ticket — שני הווריאנטים של Welcome Invite.dc.html. */
+  variant?: 'hero' | 'ticket'
 }
 
 /** נקודות מרחפות ברקע ההירו (מיקום/גודל/עיכוב 1:1 עם Welcome Invite.dc.html). */
 const HERO_DOTS = [
-  { top: '14%', right: '10%', size: 16, cls: 'bg-hues-mint', op: 0.85, dur: '4s', delay: '0s' },
-  { top: '24%', left: '14%', size: 12, cls: 'bg-hues-yellow', op: 0.9, dur: '3.2s', delay: '.3s' },
-  { top: '60%', right: '20%', size: 10, cls: 'bg-hues-salmon', op: 0.85, dur: '3.6s', delay: '.6s' },
-  { top: '12%', left: '32%', size: 9, cls: 'bg-white', op: 0.7, dur: '3.8s', delay: '.2s' },
-  { top: '70%', left: '24%', size: 14, cls: 'bg-hues-sky', op: 0.8, dur: '4.4s', delay: '.5s' },
-  { top: '38%', right: '32%', size: 8, cls: 'bg-white', op: 0.6, dur: '3s', delay: '.8s' },
+  {
+    top: '14%',
+    right: '10%',
+    size: 16,
+    cls: 'bg-hues-mint',
+    op: 0.85,
+    dur: '4s',
+    delay: '0s',
+  },
+  {
+    top: '24%',
+    left: '14%',
+    size: 12,
+    cls: 'bg-hues-yellow',
+    op: 0.9,
+    dur: '3.2s',
+    delay: '.3s',
+  },
+  {
+    top: '60%',
+    right: '20%',
+    size: 10,
+    cls: 'bg-hues-salmon',
+    op: 0.85,
+    dur: '3.6s',
+    delay: '.6s',
+  },
+  {
+    top: '12%',
+    left: '32%',
+    size: 9,
+    cls: 'bg-white',
+    op: 0.7,
+    dur: '3.8s',
+    delay: '.2s',
+  },
+  {
+    top: '70%',
+    left: '24%',
+    size: 14,
+    cls: 'bg-hues-sky',
+    op: 0.8,
+    dur: '4.4s',
+    delay: '.5s',
+  },
+  {
+    top: '38%',
+    right: '32%',
+    size: 8,
+    cls: 'bg-white',
+    op: 0.6,
+    dur: '3s',
+    delay: '.8s',
+  },
 ]
 
-/** אייקון-ההזמנה בתגית ההירו — SVG מדויק מ-Welcome Invite.dc.html (אין מקבילה ברגיסטר). */
-function InviteTagIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width="15"
-      height="15"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
-      <path d="m16 8 2 2" />
-      <path d="M2 22 12.5 11.5" />
-    </svg>
-  )
-}
+export function WelcomeInvite({
+  view,
+  accepted,
+  isAccepting,
+  onAccept,
+  variant = 'hero',
+}: WelcomeInviteProps) {
+  if (variant === 'ticket') {
+    return (
+      <WelcomeInviteTicket
+        view={view}
+        accepted={accepted}
+        isAccepting={isAccepting}
+        onAccept={onAccept}
+      />
+    )
+  }
 
-export function WelcomeInvite({ view, accepted, isAccepting, onAccept }: Props) {
   return (
-    <div className="min-h-screen bg-neutrals-whisper text-neutrals-charcoal" dir="rtl">
+    <div
+      className="min-h-screen bg-neutrals-whisper text-neutrals-charcoal"
+      dir="rtl"
+    >
       {/* HERO */}
       <div className="relative overflow-hidden bg-accent-gradient px-6 pt-16 pb-[88px] text-center">
         {HERO_DOTS.map((d, i) => (
@@ -68,7 +119,10 @@ export function WelcomeInvite({ view, accepted, isAccepting, onAccept }: Props) 
 
         <span
           className="relative mb-6 inline-flex items-center gap-2 rounded-full px-4 py-[7px] text-[13px] font-semibold text-white"
-          style={{ background: 'rgba(255,255,255,.16)', border: '1px solid rgba(255,255,255,.3)' }}
+          style={{
+            background: 'rgba(255,255,255,.16)',
+            border: '1px solid rgba(255,255,255,.3)',
+          }}
         >
           <InviteTagIcon />
           הזמנה אישית · iPracticom Academy
@@ -90,7 +144,9 @@ export function WelcomeInvite({ view, accepted, isAccepting, onAccept }: Props) 
                 {view.inviterInitials}
               </span>
               <div>
-                <div className="text-[12.5px] text-neutrals-lead">ההזמנה נשלחה על ידי</div>
+                <div className="text-[12.5px] text-neutrals-lead">
+                  ההזמנה נשלחה על ידי
+                </div>
                 <div className="text-[15px] font-semibold text-neutrals-charcoal">
                   {view.inviterName}
                 </div>
@@ -104,7 +160,8 @@ export function WelcomeInvite({ view, accepted, isAccepting, onAccept }: Props) 
           <div className="mb-7 flex items-center gap-2 rounded-xl bg-hues-mint px-4 py-[11px]">
             <Icon name="Clock" size={16} className="shrink-0 text-success" />
             <span className="text-[13.5px] text-neutrals-charcoal">
-              הקישור בתוקף עד <strong className="font-semibold">{view.expiryDate}</strong> — אל
+              הקישור בתוקף עד{' '}
+              <strong className="font-semibold">{view.expiryDate}</strong> — אל
               תפספסו!
             </span>
           </div>
@@ -122,7 +179,9 @@ export function WelcomeInvite({ view, accepted, isAccepting, onAccept }: Props) 
                   <div className="mb-0.5 text-[14.5px] font-semibold text-neutrals-charcoal">
                     {st.title}
                   </div>
-                  <div className="text-[13.5px] leading-[1.5] text-neutrals-lead">{st.text}</div>
+                  <div className="text-[13.5px] leading-[1.5] text-neutrals-lead">
+                    {st.text}
+                  </div>
                 </div>
               </div>
             ))}
@@ -131,10 +190,17 @@ export function WelcomeInvite({ view, accepted, isAccepting, onAccept }: Props) 
           {accepted ? (
             <div className="flex items-center justify-center gap-2 rounded-[20px] bg-hues-mint px-6 py-3.5 text-center">
               <Icon name="Check" size={20} className="text-success" />
-              <span className="font-semibold text-success">ההצטרפות אושרה — ברוכים הבאים!</span>
+              <span className="font-semibold text-success">
+                ההצטרפות אושרה — ברוכים הבאים!
+              </span>
             </div>
           ) : (
-            <Button variant="primary" className="w-full" disabled={isAccepting} onClick={onAccept}>
+            <Button
+              variant="primary"
+              className="w-full"
+              disabled={isAccepting}
+              onClick={onAccept}
+            >
               <span className="inline-flex w-full items-center justify-center gap-2 text-[17px]">
                 {isAccepting ? 'מאשר…' : 'אשרו הצטרפות והתחילו'}
                 <Icon name="ArrowWest" size={19} />

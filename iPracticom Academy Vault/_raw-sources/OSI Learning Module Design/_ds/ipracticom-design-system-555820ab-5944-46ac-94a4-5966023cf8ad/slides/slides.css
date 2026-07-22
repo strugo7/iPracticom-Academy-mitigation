@@ -1,0 +1,270 @@
+/* iPracticom — slide styles. Design canvas 1280×720. Loaded with colors_and_type.css */
+.slide {
+  width: 1280px;
+  height: 720px;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--ip-font);
+  direction: rtl;
+  color: var(--ip-ink);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.slide * {
+  box-sizing: border-box;
+}
+/* logo always top-right */
+.slide .logo {
+  position: absolute;
+  top: 44px;
+  right: 56px;
+  height: 30px;
+  z-index: 5;
+}
+.slide .pageno {
+  position: absolute;
+  bottom: 38px;
+  left: 56px;
+  font-family: var(--ip-font-latin);
+  font-size: 16px;
+  color: var(--ip-ink-3);
+  z-index: 5;
+}
+.slide.on-dark .pageno {
+  color: #6c7787;
+}
+
+.slide .pad {
+  padding: 96px 56px 72px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  font-weight: 700;
+  font-size: 22px;
+  color: #0075db;
+  margin: 0 0 18px;
+}
+.on-dark .eyebrow {
+  color: #7ccbff;
+}
+
+/* ---- TITLE (navy) ---- */
+.s-title {
+  background: #181d24;
+  color: #fff;
+}
+.s-title .hexbg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.13;
+  mix-blend-mode: screen;
+}
+.s-title h1 {
+  font-weight: 800;
+  font-size: 84px;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0 0 22px;
+}
+.s-title .grad {
+  background: linear-gradient(120deg, #2eb4ff, #69c6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.s-title p {
+  font-size: 30px;
+  line-height: 1.5;
+  color: #aeb9c6;
+  margin: 0;
+  max-width: 760px;
+}
+
+/* ---- SECTION (gradient) ---- */
+.s-section {
+  background: linear-gradient(135deg, #2eb4ff, #0075db);
+  color: #fff;
+}
+.s-section .num {
+  font-family: var(--ip-font-latin);
+  font-weight: 800;
+  font-size: 160px;
+  line-height: 0.9;
+  opacity: 0.35;
+}
+.s-section h2 {
+  font-weight: 800;
+  font-size: 72px;
+  line-height: 1.1;
+  margin: 8px 0 0;
+}
+
+/* ---- CONTENT (white + illustration) ---- */
+.s-content .row {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 48px;
+  align-items: center;
+  flex: 1;
+}
+.s-content h2 {
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 1.12;
+  margin: 0 0 28px;
+  letter-spacing: -0.01em;
+}
+.s-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.s-content li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  font-size: 28px;
+  line-height: 1.45;
+  color: var(--ip-ink-2);
+}
+.s-content .hex {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  clip-path: polygon(50% 0, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  background: #e9f3fc;
+  color: #0075db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+.s-content .hex svg {
+  width: 20px;
+  height: 20px;
+}
+.s-content .illus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s-content .illus img {
+  width: 100%;
+  max-width: 330px;
+}
+
+/* ---- STATS (white) ---- */
+.s-stats h2 {
+  font-weight: 800;
+  font-size: 52px;
+  margin: 0 0 50px;
+}
+.s-stats .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  flex: 1;
+  align-content: center;
+}
+.s-stats .stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.s-stats .fig {
+  font-family: var(--ip-font-latin);
+  font-weight: 800;
+  font-size: 88px;
+  line-height: 1;
+  background: linear-gradient(120deg, #2eb4ff, #0075db);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.s-stats .lab {
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--ip-ink);
+}
+.s-stats .sub {
+  font-size: 20px;
+  color: var(--ip-ink-3);
+}
+
+/* ---- QUOTE (navy) ---- */
+.s-quote {
+  background: #181d24;
+  color: #fff;
+  justify-content: center;
+}
+.s-quote .mark {
+  font-family: var(--ip-font-latin);
+  font-weight: 800;
+  font-size: 120px;
+  color: #2eb4ff;
+  line-height: 0.7;
+  height: 60px;
+}
+.s-quote blockquote {
+  font-weight: 700;
+  font-size: 54px;
+  line-height: 1.3;
+  margin: 18px 0 30px;
+  max-width: 980px;
+}
+.s-quote .by {
+  font-size: 24px;
+  color: #aeb9c6;
+}
+.s-quote .by b {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ---- CLOSING (gradient) ---- */
+.s-closing {
+  background: linear-gradient(135deg, #2eb4ff, #0075db);
+  color: #fff;
+  align-items: flex-start;
+}
+.s-closing .pad {
+  justify-content: center;
+}
+.s-closing h2 {
+  font-weight: 800;
+  font-size: 72px;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+.s-closing p {
+  font-size: 28px;
+  line-height: 1.5;
+  margin: 0 0 40px;
+  max-width: 680px;
+  opacity: 0.95;
+}
+.s-closing .contact {
+  display: flex;
+  gap: 40px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.s-closing .contact span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.s-closing .contact svg {
+  width: 24px;
+  height: 24px;
+}

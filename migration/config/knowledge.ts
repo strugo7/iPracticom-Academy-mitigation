@@ -2,7 +2,7 @@
  * Domain E — knowledge: Concept (related_lessons[] -> concept_lessons junction)
  * and TroubleshootingFlow (flow_data and friends stay as JSON).
  */
-import type { JunctionSpec, Row, TableConfig } from '../types.ts'
+import type { JunctionSpec, TableConfig } from '../types.ts'
 import { asArray } from '../helpers.ts'
 
 const conceptLessons: JunctionSpec = {

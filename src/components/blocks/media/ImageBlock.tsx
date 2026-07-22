@@ -11,7 +11,14 @@ export function ImageBlock({ data }: { data: ParsedBlockDataMap['image'] }) {
     data.images?.length
       ? data.images
       : data.url
-        ? [{ url: data.url, alt: data.alt, caption: data.caption, richText: null }]
+        ? [
+            {
+              url: data.url,
+              alt: data.alt,
+              caption: data.caption,
+              richText: null,
+            },
+          ]
         : []
   ).filter((image) => image.url)
 
@@ -40,8 +47,10 @@ export function ImageBlock({ data }: { data: ParsedBlockDataMap['image'] }) {
           {image.richText && (
             <div
               className="mt-1.5 text-[13.5px] text-neutrals-charcoal"
-              // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
-              dangerouslySetInnerHTML={{ __html: sanitizeRichText(image.richText) }}
+              // מסונן דרך sanitizeRichText (DOMPurify)
+              dangerouslySetInnerHTML={{
+                __html: sanitizeRichText(image.richText),
+              }}
             />
           )}
         </figure>
@@ -56,7 +65,7 @@ export function ImageBlock({ data }: { data: ParsedBlockDataMap['image'] }) {
           {data.textContent && (
             <div
               className="text-[14.5px] text-neutrals-charcoal"
-              // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+              // מסונן דרך sanitizeRichText (DOMPurify)
               dangerouslySetInnerHTML={{
                 __html: sanitizeRichText(data.textContent),
               }}

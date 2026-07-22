@@ -32,6 +32,7 @@ dist-ssr
 /DesignSystem/
 /design-export/
 /.claude/
+/docs/*
 
 # fixtures של ה-MockApi — נוצרים מהגיבוי ע"י `npm run fixtures`, לא נכנסים ל-git
 src/lib/api/mock/fixtures/

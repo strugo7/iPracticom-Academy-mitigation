@@ -20,7 +20,7 @@ export function NoteBlock({ data }: { data: ParsedBlockDataMap['note'] }) {
   return (
     <Alert kind={kind} title={data.title ?? undefined}>
       <div
-        // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+        // מסונן דרך sanitizeRichText (DOMPurify)
         dangerouslySetInnerHTML={{ __html: sanitizeRichText(html) }}
       />
     </Alert>

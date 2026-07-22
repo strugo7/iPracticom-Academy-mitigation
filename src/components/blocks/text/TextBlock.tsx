@@ -7,7 +7,7 @@ export function TextBlock({ data }: { data: ParsedBlockDataMap['text'] }) {
   return (
     <div
       className="text-[15px] leading-relaxed text-neutrals-charcoal [&_a]:text-accent [&_a]:underline [&_strong]:font-semibold"
-      // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+      // מסונן דרך sanitizeRichText (DOMPurify)
       dangerouslySetInnerHTML={{ __html: sanitizeRichText(html) }}
     />
   )

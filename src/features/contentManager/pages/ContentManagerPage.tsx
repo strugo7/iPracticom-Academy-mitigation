@@ -6,9 +6,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Alert, Loader } from '@/components/ui'
-import {
-  filterContentTree,
-} from '../services/contentTreeService'
+import { filterContentTree } from '../services/contentTreeService'
 import {
   breadcrumbOf,
   childCountOf,
@@ -64,7 +62,10 @@ export function ContentManagerPage() {
   useEffect(() => {
     if (!selectedRowId && fullTracks.length > 0) {
       const first = fullTracks[0].rowId
+      // בחירה+הרחבה אוטומטית של המסלול הראשון בטעינה — אתחול מדאטה אסינכרוני.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedRowId(first)
+
       setExpanded((prev) => new Set(prev).add(first))
     }
   }, [fullTracks, selectedRowId])
@@ -86,8 +87,7 @@ export function ContentManagerPage() {
     [query, filteredTracks, expanded],
   )
 
-  const nextChildOrder = (parent: ParentNode) =>
-    childCountOf(parent) + 1
+  const nextChildOrder = (parent: ParentNode) => childCountOf(parent) + 1
   const nextSiblingOrder = (rowId: string) => {
     const path = findNodePath(fullTracks, rowId)
     const parent = path && path.length >= 2 ? path[path.length - 2] : null

@@ -5,7 +5,7 @@
  * כניסה מנותב לביצוע המבחן; עובד מקבל אישור-הצטרפות. הרכבה בלבד (CLAUDE.md §4).
  */
 import { useMemo, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Loader } from '@/components/ui'
 import { InviteStatusScreen } from '../components/InviteStatusScreen'
 import { WelcomeInvite } from '../components/WelcomeInvite'
@@ -15,12 +15,18 @@ import { inviteToWelcomeView } from '../services/inviteTokenService'
 export function InviteLandingPage() {
   const { token } = useParams()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  // וריאנט התצוגה: ?style=ticket → כרטיס מנוקב; ברירת-מחדל hero (שקוף למוזמן).
+  const variant = searchParams.get('style') === 'ticket' ? 'ticket' : 'hero'
   const query = useInviteByToken(token)
   const consume = useConsumeInvite()
   const [acceptedOverride, setAcceptedOverride] = useState(false)
 
   const invite = query.data ?? null
-  const view = useMemo(() => (invite ? inviteToWelcomeView(invite) : null), [invite])
+  const view = useMemo(
+    () => (invite ? inviteToWelcomeView(invite) : null),
+    [invite],
+  )
 
   if (query.isLoading) {
     return (
@@ -59,7 +65,8 @@ export function InviteLandingPage() {
   }
 
   const goesToExam = view.audience === 'candidate' && Boolean(invite.exam_id)
-  const accepted = acceptedOverride || (!goesToExam && Boolean(invite.token_used_at))
+  const accepted =
+    acceptedOverride || (!goesToExam && Boolean(invite.token_used_at))
 
   const handleAccept = () => {
     consume
@@ -78,6 +85,7 @@ export function InviteLandingPage() {
       accepted={accepted}
       isAccepting={consume.isPending}
       onAccept={handleAccept}
+      variant={variant}
     />
   )
 }

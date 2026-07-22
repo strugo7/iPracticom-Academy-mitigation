@@ -19,7 +19,7 @@ export function ListBlock({ data }: { data: ParsedBlockDataMap['list'] }) {
       {data.items.map((item, i) => (
         <li
           key={i}
-          // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+          // מסונן דרך sanitizeRichText (DOMPurify)
           dangerouslySetInnerHTML={{ __html: sanitizeRichText(itemHtml(item)) }}
         />
       ))}

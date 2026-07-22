@@ -25,7 +25,9 @@ export function useLessonProgressEvents(
   const queryClient = useQueryClient()
   const { user } = useAuth()
   const startedForLessonId = useRef<string | null>(null)
-  const mountedAtRef = useRef<number>(Date.now())
+  // אתחול ב-0; הערך האמיתי נקבע באפקט (mountedAtRef.current = Date.now()) בטעינת
+  // השיעור — הימנעות מקריאה לא-טהורה ב-render (react-hooks/purity).
+  const mountedAtRef = useRef<number>(0)
 
   useEffect(() => {
     if (!user || !lesson) return

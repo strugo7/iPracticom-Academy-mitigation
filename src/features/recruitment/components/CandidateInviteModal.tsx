@@ -36,7 +36,10 @@ interface Props {
   notify: (message: string) => void
 }
 
-const ROLE_TABS: TabItem[] = USER_ROLES.map((r) => ({ id: r, label: ROLE_META[r].label }))
+const ROLE_TABS: TabItem[] = USER_ROLES.map((r) => ({
+  id: r,
+  label: ROLE_META[r].label,
+}))
 
 /** ההורה מרכיב את המודאל רק כשהוא פתוח (unmount מלא בסגירה). */
 export function CandidateInviteModal({
@@ -49,7 +52,9 @@ export function CandidateInviteModal({
   onClose,
   notify,
 }: Props) {
-  const [draft, setDraft] = useState<CandidateInviteDraft>(EMPTY_CANDIDATE_INVITE_DRAFT)
+  const [draft, setDraft] = useState<CandidateInviteDraft>(
+    EMPTY_CANDIDATE_INVITE_DRAFT,
+  )
 
   const canCreate =
     draft.email.includes('@') &&
@@ -91,7 +96,9 @@ export function CandidateInviteModal({
               <span className="flex size-14 items-center justify-center rounded-full bg-hues-mint text-success">
                 <Icon name="Check" size={28} />
               </span>
-              <div className="text-h4 font-semibold text-neutrals-charcoal">ההזמנה נוצרה</div>
+              <div className="text-h4 font-semibold text-neutrals-charcoal">
+                ההזמנה נוצרה
+              </div>
               <div className="inline-flex items-center gap-2 font-semibold text-small text-success">
                 <Icon name="MailLine" size={15} />
                 נשלח למייל {createdInvite.invite.email}
@@ -104,7 +111,11 @@ export function CandidateInviteModal({
                   dir="ltr"
                   className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-lg border border-neutrals-silver bg-neutrals-whisper px-3"
                 >
-                  <Icon name="Link" size={16} className="shrink-0 text-neutrals-nickel" />
+                  <Icon
+                    name="Link"
+                    size={16}
+                    className="shrink-0 text-neutrals-nickel"
+                  />
                   <span className="min-w-0 flex-1 truncate text-small text-neutrals-charcoal">
                     {createdInvite.magicLink}
                   </span>
@@ -126,13 +137,22 @@ export function CandidateInviteModal({
             </p>
             {/* ניווט client-side (Link) ולא <a>/טאב-חדש: MockApi שומר את ההזמנה
                 בזיכרון בלבד — רענון/טאב-חדש היו מאבדים אותה (mockApi.ts §4). */}
-            <Link
-              to={`/join/${createdInvite.magicLink.split('/').pop() ?? ''}`}
-              className="inline-flex items-center gap-1.5 text-small font-semibold text-accent hover:underline"
-            >
-              <Icon name="View" size={15} />
-              פתח את דף ההזמנה (תצוגה מקדימה)
-            </Link>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <Link
+                to={`/join/${createdInvite.magicLink.split('/').pop() ?? ''}`}
+                className="inline-flex items-center gap-1.5 text-small font-semibold text-accent hover:underline"
+              >
+                <Icon name="View" size={15} />
+                תצוגה מקדימה (hero)
+              </Link>
+              <Link
+                to={`/join/${createdInvite.magicLink.split('/').pop() ?? ''}?style=ticket`}
+                className="inline-flex items-center gap-1.5 text-small font-semibold text-accent hover:underline"
+              >
+                <Icon name="View" size={15} />
+                תצוגת כרטיס
+              </Link>
+            </div>
           </>
         ) : (
           <>
@@ -142,13 +162,17 @@ export function CandidateInviteModal({
                 dir="ltr"
                 placeholder="name@company.co.il"
                 value={draft.email}
-                onChange={(e) => setDraft((d) => ({ ...d, email: e.target.value }))}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, email: e.target.value }))
+                }
               />
               <Input
                 label="שם מלא"
                 placeholder="שם המועמד"
                 value={draft.fullName}
-                onChange={(e) => setDraft((d) => ({ ...d, fullName: e.target.value }))}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, fullName: e.target.value }))
+                }
               />
             </div>
 
@@ -156,7 +180,9 @@ export function CandidateInviteModal({
               <FieldLabel>מחלקה</FieldLabel>
               <SelectField
                 value={draft.department}
-                onChange={(e) => setDraft((d) => ({ ...d, department: e.target.value }))}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, department: e.target.value }))
+                }
               >
                 <option value="">בחר מחלקה</option>
                 {departmentOptions.map((o) => (
@@ -174,14 +200,19 @@ export function CandidateInviteModal({
                 tabs={ROLE_TABS}
                 value={draft.targetRole}
                 onChange={(id) =>
-                  setDraft((d) => ({ ...d, targetRole: id as CandidateInviteDraft['targetRole'] }))
+                  setDraft((d) => ({
+                    ...d,
+                    targetRole: id as CandidateInviteDraft['targetRole'],
+                  }))
                 }
               />
             </div>
 
             <Toggle
               checked={draft.requireAssessment}
-              onChange={(v) => setDraft((d) => ({ ...d, requireAssessment: v }))}
+              onChange={(v) =>
+                setDraft((d) => ({ ...d, requireAssessment: v }))
+              }
               label="דרוש מבחן-כניסה לפני החלטה"
             />
 
@@ -190,7 +221,9 @@ export function CandidateInviteModal({
                 <FieldLabel>מבחן-כניסה</FieldLabel>
                 <SelectField
                   value={draft.examId}
-                  onChange={(e) => setDraft((d) => ({ ...d, examId: e.target.value }))}
+                  onChange={(e) =>
+                    setDraft((d) => ({ ...d, examId: e.target.value }))
+                  }
                 >
                   <option value="">בחר מבחן-כניסה</option>
                   {examOptions.map((o) => (
@@ -206,7 +239,9 @@ export function CandidateInviteModal({
               <FieldLabel>מסלול משויך (אופציונלי)</FieldLabel>
               <SelectField
                 value={draft.assignedTrackId}
-                onChange={(e) => setDraft((d) => ({ ...d, assignedTrackId: e.target.value }))}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, assignedTrackId: e.target.value }))
+                }
               >
                 <option value="">ללא מסלול</option>
                 {trackOptions.map((o) => (

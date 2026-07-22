@@ -44,7 +44,10 @@ interface Props {
   notify: (message: string) => void
 }
 
-const ROLE_TABS: TabItem[] = USER_ROLES.map((r) => ({ id: r, label: ROLE_META[r].label }))
+const ROLE_TABS: TabItem[] = USER_ROLES.map((r) => ({
+  id: r,
+  label: ROLE_META[r].label,
+}))
 
 /** ההורה מרכיב את המודאל הזה רק כש-inviteOpen===true (unmount מלא בסגירה). */
 export function InviteModal({
@@ -77,7 +80,9 @@ export function InviteModal({
             <Button
               variant="primary"
               disabled={!canCreate || isCreating}
-              onClick={() => onCreate({ ...draft, role: draft.role as UserRole })}
+              onClick={() =>
+                onCreate({ ...draft, role: draft.role as UserRole })
+              }
               leadingIcon={<Icon name="Plus" size={16} />}
             >
               {isCreating ? 'יוצר…' : 'צור הזמנה'}
@@ -97,7 +102,9 @@ export function InviteModal({
               <span className="flex size-14 items-center justify-center rounded-full bg-hues-mint text-success">
                 <Icon name="Check" size={28} />
               </span>
-              <div className="text-h4 font-semibold text-neutrals-charcoal">ההזמנה נוצרה</div>
+              <div className="text-h4 font-semibold text-neutrals-charcoal">
+                ההזמנה נוצרה
+              </div>
               <div className="inline-flex items-center gap-2 font-semibold text-small text-success">
                 <Icon name="MailLine" size={15} />
                 נשלח למייל {createdInvite.invite.email}
@@ -110,7 +117,11 @@ export function InviteModal({
                   dir="ltr"
                   className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-lg border border-neutrals-silver bg-neutrals-whisper px-3"
                 >
-                  <Icon name="Link" size={16} className="shrink-0 text-neutrals-nickel" />
+                  <Icon
+                    name="Link"
+                    size={16}
+                    className="shrink-0 text-neutrals-nickel"
+                  />
                   <span className="min-w-0 flex-1 truncate text-small text-neutrals-charcoal">
                     {createdInvite.magicLink}
                   </span>
@@ -128,17 +139,27 @@ export function InviteModal({
               </div>
             </div>
             <p className="m-0 text-tiny text-neutrals-nickel">
-              הקישור תקף ל-7 ימים. ניתן לשלוח שוב או לבטל מרשימת ההזמנות הממתינות.
+              הקישור תקף ל-7 ימים. ניתן לשלוח שוב או לבטל מרשימת ההזמנות
+              הממתינות.
             </p>
             {/* Link (client-side) ולא <a>/טאב-חדש: MockApi שומר את ההזמנה בזיכרון
                 בלבד — רענון/טאב-חדש היו מאבדים אותה (mockApi.ts §4). */}
-            <Link
-              to={`/join/${createdInvite.magicLink.split('/').pop() ?? ''}`}
-              className="inline-flex items-center gap-1.5 text-small font-semibold text-accent hover:underline"
-            >
-              <Icon name="View" size={15} />
-              פתח את דף ההזמנה (תצוגה מקדימה)
-            </Link>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <Link
+                to={`/join/${createdInvite.magicLink.split('/').pop() ?? ''}`}
+                className="inline-flex items-center gap-1.5 text-small font-semibold text-accent hover:underline"
+              >
+                <Icon name="View" size={15} />
+                תצוגה מקדימה (hero)
+              </Link>
+              <Link
+                to={`/join/${createdInvite.magicLink.split('/').pop() ?? ''}?style=ticket`}
+                className="inline-flex items-center gap-1.5 text-small font-semibold text-accent hover:underline"
+              >
+                <Icon name="View" size={15} />
+                תצוגת כרטיס
+              </Link>
+            </div>
           </>
         ) : (
           <>
@@ -148,13 +169,17 @@ export function InviteModal({
                 dir="ltr"
                 placeholder="name@company.co.il"
                 value={draft.email}
-                onChange={(e) => setDraft((d) => ({ ...d, email: e.target.value }))}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, email: e.target.value }))
+                }
               />
               <Input
                 label="שם מלא"
                 placeholder="שם המשתמש"
                 value={draft.fullName}
-                onChange={(e) => setDraft((d) => ({ ...d, fullName: e.target.value }))}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, fullName: e.target.value }))
+                }
               />
             </div>
             <div>
@@ -169,7 +194,9 @@ export function InviteModal({
                 variant="pill"
                 tabs={ROLE_TABS}
                 value={draft.role}
-                onChange={(id) => setDraft((d) => ({ ...d, role: id as UserRole }))}
+                onChange={(id) =>
+                  setDraft((d) => ({ ...d, role: id as UserRole }))
+                }
               />
             </div>
           </>
@@ -184,11 +211,17 @@ export function InviteModal({
           </div>
           <div className="flex flex-col gap-2">
             {pendingInvites.length === 0 && (
-              <p className="m-0 text-small text-neutrals-nickel">אין הזמנות עבור מחלקה זו.</p>
+              <p className="m-0 text-small text-neutrals-nickel">
+                אין הזמנות עבור מחלקה זו.
+              </p>
             )}
             {pendingInvites.map((invite) => {
-              const meta = invite.status ? INVITE_STATUS_META[invite.status] : null
-              const isOpen = invite.status ? OPEN_INVITE_STATUSES.includes(invite.status) : false
+              const meta = invite.status
+                ? INVITE_STATUS_META[invite.status]
+                : null
+              const isOpen = invite.status
+                ? OPEN_INVITE_STATUSES.includes(invite.status)
+                : false
               const name = invite.candidate_full_name || invite.email
               return (
                 <div
@@ -206,7 +239,11 @@ export function InviteModal({
                         {name}
                       </span>
                       {invite.target_system_role && (
-                        <Badge color={ROLE_META[invite.target_system_role].badgeColor}>
+                        <Badge
+                          color={
+                            ROLE_META[invite.target_system_role].badgeColor
+                          }
+                        >
                           {ROLE_META[invite.target_system_role].label}
                         </Badge>
                       )}

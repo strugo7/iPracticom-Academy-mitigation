@@ -1,0 +1,156 @@
+{
+  "plugins": ["react", "import"],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "slides/**",
+              "ui_kits/**",
+              "ui_kits/app/**",
+              "ui_kits/website/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Ploni|Assistant))/i]",
+        "message": "Font not provided by the design system. Available: Ploni, Assistant."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/index.js"],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--ip-blue",
+      "--ip-blue-bright",
+      "--ip-blue-deep",
+      "--ip-danger",
+      "--ip-font",
+      "--ip-font-latin",
+      "--ip-gradient",
+      "--ip-gradient-text",
+      "--ip-gradient-vert",
+      "--ip-info",
+      "--ip-ink",
+      "--ip-ink-2",
+      "--ip-ink-3",
+      "--ip-lh",
+      "--ip-lh-tight",
+      "--ip-line",
+      "--ip-line-2",
+      "--ip-navy",
+      "--ip-navy-2",
+      "--ip-navy-line",
+      "--ip-on-navy",
+      "--ip-on-navy-2",
+      "--ip-on-navy-3",
+      "--ip-r-lg",
+      "--ip-r-md",
+      "--ip-r-pill",
+      "--ip-r-sm",
+      "--ip-r-xl",
+      "--ip-s-1",
+      "--ip-s-10",
+      "--ip-s-12",
+      "--ip-s-16",
+      "--ip-s-2",
+      "--ip-s-20",
+      "--ip-s-3",
+      "--ip-s-4",
+      "--ip-s-5",
+      "--ip-s-6",
+      "--ip-s-8",
+      "--ip-shadow-blue",
+      "--ip-shadow-lg",
+      "--ip-shadow-md",
+      "--ip-shadow-sm",
+      "--ip-success",
+      "--ip-surface",
+      "--ip-surface-2",
+      "--ip-surface-3",
+      "--ip-warning",
+      "--ip-white"
+    ],
+    "tokenKinds": {
+      "--ip-blue": "color",
+      "--ip-blue-bright": "color",
+      "--ip-blue-deep": "color",
+      "--ip-navy": "color",
+      "--ip-white": "color",
+      "--ip-gradient": "other",
+      "--ip-gradient-vert": "other",
+      "--ip-gradient-text": "font",
+      "--ip-ink": "color",
+      "--ip-ink-2": "color",
+      "--ip-ink-3": "color",
+      "--ip-line": "color",
+      "--ip-line-2": "color",
+      "--ip-surface": "color",
+      "--ip-surface-2": "color",
+      "--ip-surface-3": "color",
+      "--ip-on-navy": "color",
+      "--ip-on-navy-2": "color",
+      "--ip-on-navy-3": "color",
+      "--ip-navy-line": "color",
+      "--ip-navy-2": "color",
+      "--ip-success": "color",
+      "--ip-warning": "color",
+      "--ip-danger": "color",
+      "--ip-info": "color",
+      "--ip-r-sm": "spacing",
+      "--ip-r-md": "spacing",
+      "--ip-r-lg": "spacing",
+      "--ip-r-xl": "spacing",
+      "--ip-r-pill": "spacing",
+      "--ip-s-1": "spacing",
+      "--ip-s-2": "spacing",
+      "--ip-s-3": "spacing",
+      "--ip-s-4": "spacing",
+      "--ip-s-5": "spacing",
+      "--ip-s-6": "spacing",
+      "--ip-s-8": "spacing",
+      "--ip-s-10": "spacing",
+      "--ip-s-12": "spacing",
+      "--ip-s-16": "spacing",
+      "--ip-s-20": "spacing",
+      "--ip-shadow-sm": "shadow",
+      "--ip-shadow-md": "shadow",
+      "--ip-shadow-lg": "shadow",
+      "--ip-shadow-blue": "shadow",
+      "--ip-font": "font",
+      "--ip-font-latin": "font",
+      "--ip-lh": "other",
+      "--ip-lh-tight": "other"
+    },
+    "fontFamilies": ["Assistant", "Ploni"]
+  }
+}

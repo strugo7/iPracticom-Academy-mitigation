@@ -5,7 +5,7 @@
  * usage_count של כל שאלה מושפעת (many-to-many, "אובייקט משותף" — מסמך 13).
  */
 import type { IApiClient } from '@/lib/api/types'
-import type { Exam, ExamQuestionRef, Question } from '@/types/entities'
+import type { Exam, ExamQuestionRef } from '@/types/entities'
 import { DEFAULT_PASSING_SCORE } from '../constants'
 import type { ExamQuestionRow } from '../types'
 
@@ -41,7 +41,8 @@ export async function loadExamRows(
   const rows: ExamQuestionRow[] = []
   ordered.forEach((ref, i) => {
     const question = questions[i]
-    if (question) rows.push({ question, points: ref.points ?? question.points ?? 1 })
+    if (question)
+      rows.push({ question, points: ref.points ?? question.points ?? 1 })
   })
   return rows
 }

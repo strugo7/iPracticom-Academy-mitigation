@@ -75,7 +75,11 @@ export function NodeSettingsPanel({
 
   // איפוס ה-draft כשמחליפים node נבחר (או כשהעץ נטען-מחדש אחרי שמירה)
   useEffect(() => {
+    // איפוס מכוון של הטופס כשמחליפים node נבחר (או ריענון-עץ אחרי שמירה) —
+    // סנכרון state-חיצוני, לא cascade מיותר.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDraft(initial)
+
     setValidationError(null)
   }, [initial])
 
@@ -156,8 +160,8 @@ export function NodeSettingsPanel({
             <div className="flex-1">
               <div className="text-tiny-bold text-hues-cobalt">מודול משותף</div>
               <div className="text-[13px] text-neutrals-lead">
-                עריכה תשפיע על <strong>{node.sharedCount} מסלולים</strong> שמשתמשים
-                במודול זה.
+                עריכה תשפיע על <strong>{node.sharedCount} מסלולים</strong>{' '}
+                שמשתמשים במודול זה.
               </div>
             </div>
           </div>
@@ -189,7 +193,11 @@ export function NodeSettingsPanel({
           </div>
         )}
 
-        {saveError && <Alert kind="error" title="שמירה נכשלה">{saveError}</Alert>}
+        {saveError && (
+          <Alert kind="error" title="שמירה נכשלה">
+            {saveError}
+          </Alert>
+        )}
         {validationError && (
           <Alert kind="warning" title="קלט לא תקין">
             {validationError}

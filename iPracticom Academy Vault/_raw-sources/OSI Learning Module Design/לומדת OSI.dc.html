@@ -1,0 +1,1604 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link
+          rel="stylesheet"
+          href="_ds/ipracticom-design-system-555820ab-5944-46ac-94a4-5966023cf8ad/colors_and_type.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/ipracticom-design-system-555820ab-5944-46ac-94a4-5966023cf8ad/ui_kits/app/kit.css"
+        />
+        <style>
+          html {
+            scroll-behavior: smooth;
+          }
+          a {
+            color: var(--ip-blue);
+            text-decoration: none;
+          }
+          a:hover {
+            color: var(--ip-blue-deep);
+          }
+          ::selection {
+            background: var(--ip-surface-3);
+          }
+        </style>
+      </helmet>
+      <svg
+        style="position: absolute; width: 0; height: 0; overflow: hidden"
+        aria-hidden="true"
+      >
+        <defs>
+          <symbol id="i-info" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"></circle>
+            <line x1="12" y1="11" x2="12" y2="16"></line>
+            <circle
+              cx="12"
+              cy="7.5"
+              r="1"
+              fill="currentColor"
+              stroke="none"
+            ></circle>
+          </symbol>
+          <symbol id="i-list" viewBox="0 0 24 24">
+            <line x1="9" y1="6" x2="20" y2="6"></line>
+            <line x1="9" y1="12" x2="20" y2="12"></line>
+            <line x1="9" y1="18" x2="20" y2="18"></line>
+            <circle
+              cx="4.5"
+              cy="6"
+              r="1.2"
+              fill="currentColor"
+              stroke="none"
+            ></circle>
+            <circle
+              cx="4.5"
+              cy="12"
+              r="1.2"
+              fill="currentColor"
+              stroke="none"
+            ></circle>
+            <circle
+              cx="4.5"
+              cy="18"
+              r="1.2"
+              fill="currentColor"
+              stroke="none"
+            ></circle>
+          </symbol>
+          <symbol id="i-server" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="7" rx="2"></rect>
+            <rect x="3" y="13" width="18" height="7" rx="2"></rect>
+            <line x1="7" y1="7.5" x2="7.01" y2="7.5"></line>
+            <line x1="7" y1="16.5" x2="7.01" y2="16.5"></line>
+          </symbol>
+          <symbol id="i-alert-triangle" viewBox="0 0 24 24">
+            <path d="M12 3.3 21.6 20H2.4z" stroke-linejoin="round"></path>
+            <line x1="12" y1="9" x2="12" y2="14"></line>
+            <circle
+              cx="12"
+              cy="17.3"
+              r="1"
+              fill="currentColor"
+              stroke="none"
+            ></circle>
+          </symbol>
+          <symbol id="i-wrench" viewBox="0 0 24 24">
+            <path
+              d="M14.7 6.3a4 4 0 1 1-5.66 5.66L4 17l3 3 5.04-5.04a4 4 0 0 0 5.66-5.66l-2.15 2.15-2.83-2.83z"
+              stroke-linejoin="round"
+            ></path>
+          </symbol>
+          <symbol id="i-table" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <line x1="9" y1="4" x2="9" y2="20"></line>
+          </symbol>
+          <symbol id="i-globe" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"></circle>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <path
+              d="M12 3c2.6 2.5 2.6 15.5 0 18M12 3c-2.6 2.5-2.6 15.5 0 18"
+            ></path>
+          </symbol>
+          <symbol id="i-truck" viewBox="0 0 24 24">
+            <path d="M2 7h11v8H2z"></path>
+            <path d="M13 11h4l3 3v1h-7z"></path>
+            <circle cx="6.5" cy="18" r="1.7"></circle>
+            <circle cx="17" cy="18" r="1.7"></circle>
+          </symbol>
+          <symbol id="i-route" viewBox="0 0 24 24">
+            <circle cx="6" cy="18" r="2.3"></circle>
+            <circle cx="18" cy="6" r="2.3"></circle>
+            <path d="M8.2 18h4.8a4 4 0 0 0 4-4V9.8"></path>
+          </symbol>
+          <symbol id="i-link" viewBox="0 0 24 24">
+            <rect
+              x="2.3"
+              y="9.3"
+              width="8"
+              height="5.4"
+              rx="2.7"
+              transform="rotate(-45 6.3 12)"
+            ></rect>
+            <rect
+              x="13.7"
+              y="9.3"
+              width="8"
+              height="5.4"
+              rx="2.7"
+              transform="rotate(-45 17.7 12)"
+            ></rect>
+          </symbol>
+          <symbol id="i-plug" viewBox="0 0 24 24">
+            <path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0z"></path>
+            <line x1="12" y1="18" x2="12" y2="22"></line>
+          </symbol>
+          <symbol id="i-network" viewBox="0 0 24 24">
+            <circle cx="12" cy="5" r="2.1"></circle>
+            <circle cx="5" cy="18" r="2.1"></circle>
+            <circle cx="19" cy="18" r="2.1"></circle>
+            <line x1="12" y1="7.1" x2="6.4" y2="16.2"></line>
+            <line x1="12" y1="7.1" x2="17.6" y2="16.2"></line>
+            <line x1="7.1" y1="18" x2="16.9" y2="18"></line>
+          </symbol>
+          <symbol id="i-laptop" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="11" rx="1.5"></rect>
+            <path d="M2 19h20"></path>
+          </symbol>
+          <symbol id="i-lightbulb" viewBox="0 0 24 24">
+            <path d="M9.5 18h5M10.2 21h3.6"></path>
+            <path
+              d="M12 3a6 6 0 0 0-3.4 10.9c.5.4.8 1 .8 1.6v.5h5.2v-.5c0-.6.3-1.2.8-1.6A6 6 0 0 0 12 3z"
+            ></path>
+          </symbol>
+          <symbol id="i-play" viewBox="0 0 24 24">
+            <path
+              d="M7 5.2 20 12 7 18.8z"
+              fill="currentColor"
+              stroke="none"
+            ></path>
+          </symbol>
+          <symbol id="i-rotate-ccw" viewBox="0 0 24 24">
+            <path d="M3.5 12a8.5 8.5 0 1 0 2.8-6.3"></path>
+            <path d="M3 4.5v5h5"></path>
+          </symbol>
+          <symbol id="i-x" viewBox="0 0 24 24">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </symbol>
+          <symbol id="i-arrow-left" viewBox="0 0 24 24">
+            <path d="M14.5 6 8.5 12l6 6"></path>
+          </symbol>
+          <symbol id="i-file" viewBox="0 0 24 24">
+            <path d="M6.5 3h7l4 4v14h-11z"></path>
+            <path d="M13.5 3v4h4"></path>
+          </symbol>
+        </defs>
+      </svg>
+      <div
+        dir="rtl"
+        lang="he"
+        style="
+          font-family: var(--ip-font);
+          background: var(--ip-surface);
+          color: var(--ip-ink);
+          width: 100%;
+          overflow-x: hidden;
+        "
+      >
+        <nav
+          style="
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: var(--ip-navy);
+            padding: 12px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--ip-shadow-md);
+          "
+        >
+          <div style="display: flex; align-items: center; gap: 14px">
+            <img
+              src="assets/logo-white.png"
+              alt="iPracticom"
+              style="height: 24px; display: block"
+            />
+            <span
+              style="width: 1px; height: 20px; background: var(--ip-navy-line)"
+            ></span>
+            <span
+              style="
+                font-weight: 700;
+                font-size: 15px;
+                color: var(--ip-on-navy);
+              "
+              >לומדת רשתות · מודל OSI</span
+            >
+          </div>
+          <div style="display: flex; gap: 4px">
+            <a
+              href="#intro"
+              style="
+                padding: 8px 16px;
+                border-radius: var(--ip-r-sm);
+                color: var(--ip-on-navy-2);
+                font-weight: 600;
+                font-size: 14px;
+              "
+              style-hover="background:var(--ip-navy-line);color:var(--ip-on-navy)"
+              >מבוא</a
+            >
+            <a
+              href="#layers"
+              style="
+                padding: 8px 16px;
+                border-radius: var(--ip-r-sm);
+                color: var(--ip-on-navy-2);
+                font-weight: 600;
+                font-size: 14px;
+              "
+              style-hover="background:var(--ip-navy-line);color:var(--ip-on-navy)"
+              >השכבות</a
+            >
+            <a
+              href="#animation"
+              style="
+                padding: 8px 16px;
+                border-radius: var(--ip-r-sm);
+                color: var(--ip-on-navy-2);
+                font-weight: 600;
+                font-size: 14px;
+              "
+              style-hover="background:var(--ip-navy-line);color:var(--ip-on-navy)"
+              >אנימציות</a
+            >
+          </div>
+        </nav>
+
+        <section
+          id="intro"
+          style="
+            position: relative;
+            overflow: hidden;
+            background: var(--ip-navy);
+            padding: 72px 24px 88px;
+            text-align: center;
+          "
+        >
+          <sc-if value="{{heroIsHex}}" hint-placeholder-val="{{false}}">
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                background-image: url(assets/hero-hexagons.png);
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div
+              style="
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                  180deg,
+                  rgba(24, 29, 36, 0.55),
+                  rgba(24, 29, 36, 0.9)
+                );
+              "
+            ></div>
+          </sc-if>
+          <div
+            style="
+              position: relative;
+              z-index: 1;
+              max-width: 820px;
+              margin: 0 auto;
+            "
+          >
+            <h1
+              class="ip-display"
+              style="color: var(--ip-on-navy); margin: 0 0 16px"
+            >
+              מודל OSI<br />שבע שכבות התקשורת
+            </h1>
+            <p
+              class="ip-lead"
+              style="
+                color: var(--ip-on-navy-2);
+                margin: 0 auto 40px;
+                max-width: 640px;
+              "
+            >
+              הכירו את שכבות התקשורת ברשת, את הפרוטוקולים והתקנים שפועלים בכל
+              שכבה, ואת התקלות הנפוצות וכלי האבחון לפתרונן.
+            </p>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                max-width: 520px;
+                margin: 0 auto 48px;
+              "
+            >
+              <sc-for list="{{layers}}" as="l" hint-placeholder-count="7">
+                <div
+                  onClick="{{l.onOpen}}"
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 14px 22px;
+                    border-radius: var(--ip-r-md);
+                    cursor: pointer;
+                    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+                  "
+                  style-hover="transform:translateX(-4px)"
+                >
+                  <div style="display: flex; align-items: center; gap: 14px">
+                    <span
+                      style="
+                        font-size: 22px;
+                        font-weight: 800;
+                        color: rgba(255, 255, 255, 0.55);
+                      "
+                      >{{l.num}}</span
+                    >
+                    <span style="font-weight: 700; color: #fff; font-size: 15px"
+                      >{{l.name}} — {{l.hebrew}}</span
+                    >
+                  </div>
+                  <svg
+                    viewBox="0 0 24 24"
+                    style="width: 20px; height: 20px; flex: none"
+                    fill="none"
+                    stroke="#fff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="{{l.iconId}}"></use>
+                  </svg>
+                </div>
+              </sc-for>
+            </div>
+
+            <div
+              style="
+                background: rgba(255, 255, 255, 0.07);
+                border: 1px solid var(--ip-navy-line);
+                border-radius: var(--ip-r-lg);
+                padding: 28px;
+                max-width: 640px;
+                margin: 0 auto;
+              "
+            >
+              <h3
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 8px;
+                  color: #fff;
+                  font-size: 18px;
+                  margin: 0 0 8px;
+                "
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  style="width: 20px; height: 20px"
+                  fill="none"
+                  stroke="var(--ip-blue-bright)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-lightbulb"></use>
+                </svg>
+                טיפ לזכירה
+              </h3>
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  gap: 10px;
+                  flex-wrap: wrap;
+                  margin: 18px 0;
+                "
+              >
+                <sc-for list="{{layers}}" as="l" hint-placeholder-count="7">
+                  <div
+                    class="ipa-hex"
+                    style="
+                      width: 44px;
+                      height: 44px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-weight: 800;
+                      color: #fff;
+                      font-size: 16px;
+                    "
+                  >
+                    <div
+                      class="ipa-hex"
+                      style="position:absolute;width:44px;height:44px;background:{{l.color}}"
+                    ></div>
+                    <span style="position: relative">{{l.letter}}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <p style="color: var(--ip-on-navy-2); font-size: 15px; margin: 0">
+                "All People Seem To Need Data Processing" — האות הראשונה של כל
+                מילה מציינת שכבה, מ-Application ועד Physical.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="layers"
+          style="
+            scroll-margin-top: 80px;
+            padding: 80px 24px;
+            max-width: 1180px;
+            margin: 0 auto;
+          "
+        >
+          <h2
+            class="ip-h2"
+            style="text-align: center; position: relative; margin: 0 0 12px"
+          >
+            השכבות בפירוט
+          </h2>
+          <div
+            style="
+              width: 64px;
+              height: 4px;
+              background: var(--ip-gradient);
+              border-radius: 2px;
+              margin: 0 auto 48px;
+            "
+          ></div>
+
+          <div
+            style="
+              display: flex;
+              gap: 8px;
+              flex-wrap: wrap;
+              justify-content: center;
+              margin-bottom: 40px;
+            "
+          >
+            <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+              <button
+                onClick="{{t.onSelect}}"
+                style="display:flex;align-items:center;gap:8px;padding:12px 22px;border:0;border-radius:var(--ip-r-pill);font-family:var(--ip-font);font-weight:700;font-size:14px;cursor:pointer;transition:all .2s ease;background:{{t.tabBg}};color:{{t.tabColor}}"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  style="width: 17px; height: 17px"
+                  fill="none"
+                  stroke="{{t.tabColor}}"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="{{t.iconId}}"></use>
+                </svg>
+                שכבה {{t.num}} · {{t.hebrew}}
+              </button>
+            </sc-for>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 20px;
+              margin-bottom: 32px;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              style="width:72px;height:72px;border-radius:var(--ip-r-lg);background:{{activeLayer.color}};display:flex;align-items:center;justify-content:center;flex:none"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                style="width: 32px; height: 32px"
+                fill="none"
+                stroke="#fff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <use href="{{activeLayer.iconId}}"></use>
+              </svg>
+            </div>
+            <div>
+              <h3
+                style="
+                  margin: 0 0 4px;
+                  font-size: 26px;
+                  font-weight: 800;
+                  color: var(--ip-ink);
+                "
+              >
+                שכבה {{activeLayer.num}} — {{activeLayer.name}}
+              </h3>
+              <span style="color: var(--ip-ink-3); font-size: 15px"
+                >{{activeLayer.hebrew}}</span
+              >
+            </div>
+          </div>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+              gap: 20px;
+            "
+          >
+            <sc-for
+              list="{{activeLayer.cards}}"
+              as="card"
+              hint-placeholder-count="5"
+            >
+              <div
+                style="background:{{card.cardBg}};border:1px solid {{card.cardBorder}};border-radius:var(--ip-r-md);padding:24px"
+              >
+                <h4
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin: 0 0 16px;
+                    font-size: 17px;
+                    font-weight: 700;
+                    color: var(--ip-ink);
+                  "
+                >
+                  <span
+                    style="width:34px;height:34px;border-radius:var(--ip-r-sm);background:{{card.badgeBg}};display:flex;align-items:center;justify-content:center;flex:none"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      style="width: 18px; height: 18px"
+                      fill="none"
+                      stroke="{{card.badgeColor}}"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <use href="{{card.iconId}}"></use>
+                    </svg>
+                  </span>
+                  {{card.title}}
+                </h4>
+
+                <sc-if value="{{card.isText}}" hint-placeholder-val="{{false}}">
+                  <p class="ip-body" style="margin: 0">{{card.text}}</p>
+                </sc-if>
+
+                <sc-if
+                  value="{{card.isPairs}}"
+                  hint-placeholder-val="{{false}}"
+                >
+                  <ul
+                    style="
+                      list-style: none;
+                      margin: 0;
+                      padding: 0;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 10px;
+                    "
+                  >
+                    <sc-for
+                      list="{{card.items}}"
+                      as="it"
+                      hint-placeholder-count="4"
+                    >
+                      <li
+                        style="
+                          font-size: 15px;
+                          color: var(--ip-ink-2);
+                          line-height: 1.5;
+                        "
+                      >
+                        <strong style="color: var(--ip-ink)"
+                          >{{it.term}}</strong
+                        >
+                        — {{it.desc}}
+                      </li>
+                    </sc-for>
+                  </ul>
+                </sc-if>
+
+                <sc-if value="{{card.isList}}" hint-placeholder-val="{{false}}">
+                  <ul
+                    style="
+                      list-style: none;
+                      margin: 0;
+                      padding: 0;
+                      display: flex;
+                      flex-direction: column;
+                      gap: 8px;
+                    "
+                  >
+                    <sc-for
+                      list="{{card.items}}"
+                      as="it"
+                      hint-placeholder-count="4"
+                    >
+                      <li style="font-size: 15px; color: var(--ip-ink-2)">
+                        {{it}}
+                      </li>
+                    </sc-for>
+                  </ul>
+                </sc-if>
+
+                <sc-if
+                  value="{{card.isGroups}}"
+                  hint-placeholder-val="{{false}}"
+                >
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(
+                        auto-fit,
+                        minmax(140px, 1fr)
+                      );
+                      gap: 16px;
+                    "
+                  >
+                    <sc-for
+                      list="{{card.groups}}"
+                      as="g"
+                      hint-placeholder-count="2"
+                    >
+                      <div>
+                        <div
+                          style="
+                            font-weight: 700;
+                            color: var(--ip-blue);
+                            font-size: 14px;
+                            margin-bottom: 8px;
+                          "
+                        >
+                          {{g.heading}}
+                        </div>
+                        <ul
+                          style="
+                            list-style: none;
+                            margin: 0;
+                            padding: 0;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 6px;
+                          "
+                        >
+                          <sc-for
+                            list="{{g.bullets}}"
+                            as="b"
+                            hint-placeholder-count="3"
+                          >
+                            <li style="font-size: 14px; color: var(--ip-ink-2)">
+                              {{b}}
+                            </li>
+                          </sc-for>
+                        </ul>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+
+                <sc-if
+                  value="{{card.isTable}}"
+                  hint-placeholder-val="{{false}}"
+                >
+                  <table style="width: 100%; border-collapse: collapse">
+                    <tr>
+                      <th
+                        style="
+                          text-align: right;
+                          padding: 8px;
+                          background: var(--ip-surface-2);
+                          font-size: 13px;
+                          color: var(--ip-ink-3);
+                          border-bottom: 1px solid var(--ip-line);
+                        "
+                      >
+                        פורט
+                      </th>
+                      <th
+                        style="
+                          text-align: right;
+                          padding: 8px;
+                          background: var(--ip-surface-2);
+                          font-size: 13px;
+                          color: var(--ip-ink-3);
+                          border-bottom: 1px solid var(--ip-line);
+                        "
+                      >
+                        שירות
+                      </th>
+                      <th
+                        style="
+                          text-align: right;
+                          padding: 8px;
+                          background: var(--ip-surface-2);
+                          font-size: 13px;
+                          color: var(--ip-ink-3);
+                          border-bottom: 1px solid var(--ip-line);
+                        "
+                      >
+                        תיאור
+                      </th>
+                    </tr>
+                    <sc-for
+                      list="{{card.rows}}"
+                      as="r"
+                      hint-placeholder-count="6"
+                    >
+                      <tr>
+                        <td
+                          style="
+                            padding: 8px;
+                            font-size: 14px;
+                            border-bottom: 1px solid var(--ip-line);
+                          "
+                        >
+                          {{r.port}}
+                        </td>
+                        <td
+                          style="
+                            padding: 8px;
+                            font-size: 14px;
+                            border-bottom: 1px solid var(--ip-line);
+                            font-weight: 600;
+                          "
+                        >
+                          {{r.service}}
+                        </td>
+                        <td
+                          style="
+                            padding: 8px;
+                            font-size: 14px;
+                            border-bottom: 1px solid var(--ip-line);
+                            color: var(--ip-ink-2);
+                          "
+                        >
+                          {{r.desc}}
+                        </td>
+                      </tr>
+                    </sc-for>
+                  </table>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <section
+          id="animation"
+          style="
+            scroll-margin-top: 80px;
+            background: var(--ip-surface-2);
+            padding: 80px 24px;
+          "
+        >
+          <div style="max-width: 900px; margin: 0 auto; text-align: center">
+            <h2 class="ip-h2" style="margin: 0 0 12px">
+              אנימציית Encapsulation
+            </h2>
+            <div
+              style="
+                width: 64px;
+                height: 4px;
+                background: var(--ip-gradient);
+                border-radius: 2px;
+                margin: 0 auto 20px;
+              "
+            ></div>
+            <p class="ip-body" style="margin: 0 0 32px">
+              צפו כיצד הנתונים נעטפים בכותרות בכל שכבה בדרך למטה, ונפתחים בחזרה
+              בדרך למעלה.
+            </p>
+
+            <div
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 6px;
+                flex-wrap: wrap;
+                min-height: 64px;
+                margin-bottom: 32px;
+              "
+            >
+              <sc-if value="{{frameShown}}" hint-placeholder-val="{{false}}"
+                ><div
+                  style="
+                    padding: 14px 18px;
+                    border-radius: var(--ip-r-sm);
+                    font-weight: 700;
+                    color: #fff;
+                    font-size: 14px;
+                    background: var(--ip-blue-deep);
+                  "
+                >
+                  Frame Header
+                </div></sc-if
+              >
+              <sc-if value="{{ipShown}}" hint-placeholder-val="{{false}}"
+                ><div
+                  style="
+                    padding: 14px 18px;
+                    border-radius: var(--ip-r-sm);
+                    font-weight: 700;
+                    color: #fff;
+                    font-size: 14px;
+                    background: #0064c4;
+                  "
+                >
+                  IP Header
+                </div></sc-if
+              >
+              <sc-if value="{{tcpShown}}" hint-placeholder-val="{{false}}"
+                ><div
+                  style="
+                    padding: 14px 18px;
+                    border-radius: var(--ip-r-sm);
+                    font-weight: 700;
+                    color: #fff;
+                    font-size: 14px;
+                    background: var(--ip-blue);
+                  "
+                >
+                  TCP Header
+                </div></sc-if
+              >
+              <sc-if value="{{dataShown}}" hint-placeholder-val="{{false}}"
+                ><div
+                  style="
+                    padding: 14px 22px;
+                    border-radius: var(--ip-r-sm);
+                    font-weight: 800;
+                    color: var(--ip-navy);
+                    font-size: 14px;
+                    background: var(--ip-blue-bright);
+                  "
+                >
+                  DATA
+                </div></sc-if
+              >
+              <sc-if value="{{tcpShown}}" hint-placeholder-val="{{false}}"
+                ><div
+                  style="
+                    padding: 14px 18px;
+                    border-radius: var(--ip-r-sm);
+                    font-weight: 700;
+                    color: #fff;
+                    font-size: 14px;
+                    background: var(--ip-blue);
+                  "
+                >
+                  TCP
+                </div></sc-if
+              >
+              <sc-if value="{{ipShown}}" hint-placeholder-val="{{false}}"
+                ><div
+                  style="
+                    padding: 14px 18px;
+                    border-radius: var(--ip-r-sm);
+                    font-weight: 700;
+                    color: #fff;
+                    font-size: 14px;
+                    background: #0064c4;
+                  "
+                >
+                  IP
+                </div></sc-if
+              >
+              <sc-if value="{{frameShown}}" hint-placeholder-val="{{false}}"
+                ><div
+                  style="
+                    padding: 14px 18px;
+                    border-radius: var(--ip-r-sm);
+                    font-weight: 700;
+                    color: #fff;
+                    font-size: 14px;
+                    background: var(--ip-blue-deep);
+                  "
+                >
+                  Frame Trailer
+                </div></sc-if
+              >
+            </div>
+
+            <div
+              style="
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+                flex-wrap: wrap;
+                margin-bottom: 24px;
+              "
+            >
+              <button
+                onClick="{{startEncap}}"
+                class="ipa-btn ipa-btn--primary"
+                style="border: 0"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  style="width: 16px; height: 16px"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-play"></use>
+                </svg>
+                הפעל אנימציה
+              </button>
+              <button onClick="{{resetEncap}}" class="ipa-btn ipa-btn--quiet">
+                <svg
+                  viewBox="0 0 24 24"
+                  style="width: 16px; height: 16px"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-rotate-ccw"></use>
+                </svg>
+                איפוס
+              </button>
+            </div>
+            <p
+              style="
+                min-height: 28px;
+                font-size: 16px;
+                color: var(--ip-ink-2);
+                margin: 0;
+              "
+            >
+              {{encapText}}
+            </p>
+          </div>
+        </section>
+
+        <sc-if value="{{showPacketJourney}}" hint-placeholder-val="{{true}}">
+          <section style="background: var(--ip-surface); padding: 80px 24px">
+            <div style="max-width: 1100px; margin: 0 auto; text-align: center">
+              <h2 class="ip-h2" style="margin: 0 0 12px">מסע המנה ברשת</h2>
+              <div
+                style="
+                  width: 64px;
+                  height: 4px;
+                  background: var(--ip-gradient);
+                  border-radius: 2px;
+                  margin: 0 auto 20px;
+                "
+              ></div>
+              <p class="ip-body" style="margin: 0 0 32px">
+                צפו כיצד מנת נתונים עוברת דרך שכבות ה-OSI ממחשב שולח לשרת מקבל.
+              </p>
+
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  gap: 16px;
+                  flex-wrap: wrap;
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 10px;
+                    min-width: 180px;
+                  "
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    style="width: 40px; height: 40px"
+                    fill="none"
+                    stroke="var(--ip-blue)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="#i-laptop"></use>
+                  </svg>
+                  <span class="ip-small" style="font-weight: 600"
+                    >מחשב שולח</span
+                  >
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      gap: 5px;
+                      width: 180px;
+                    "
+                  >
+                    <sc-for
+                      list="{{senderLayers}}"
+                      as="l"
+                      hint-placeholder-count="7"
+                    >
+                      <div
+                        style="padding:9px;border-radius:var(--ip-r-sm);font-size:13px;font-weight:700;color:#fff;background:{{l.color}};opacity:{{l.opacity}};transform:{{l.scale}};transition:all .3s ease"
+                      >
+                        {{l.num}}. {{l.name}}
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 8px;
+                  "
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    style="width: 44px; height: 44px"
+                    fill="none"
+                    stroke="var(--ip-blue-bright)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="#i-network"></use>
+                  </svg>
+                  <span class="ip-small" style="font-weight: 600">הרשת</span>
+                </div>
+
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 10px;
+                    min-width: 180px;
+                  "
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    style="width: 40px; height: 40px"
+                    fill="none"
+                    stroke="var(--ip-blue)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="#i-server"></use>
+                  </svg>
+                  <span class="ip-small" style="font-weight: 600"
+                    >שרת מקבל</span
+                  >
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      gap: 5px;
+                      width: 180px;
+                    "
+                  >
+                    <sc-for
+                      list="{{receiverLayers}}"
+                      as="l"
+                      hint-placeholder-count="7"
+                    >
+                      <div
+                        style="padding:9px;border-radius:var(--ip-r-sm);font-size:13px;font-weight:700;color:#fff;background:{{l.color}};opacity:{{l.opacity}};transform:{{l.scale}};transition:all .3s ease"
+                      >
+                        {{l.num}}. {{l.name}}
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  gap: 12px;
+                  justify-content: center;
+                  flex-wrap: wrap;
+                  margin: 32px 0 24px;
+                "
+              >
+                <button
+                  onClick="{{startJourney}}"
+                  class="ipa-btn ipa-btn--primary"
+                  style="border: 0"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    style="width: 16px; height: 16px"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="#i-play"></use>
+                  </svg>
+                  הפעל מסע
+                </button>
+                <button
+                  onClick="{{resetJourney}}"
+                  class="ipa-btn ipa-btn--quiet"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    style="width: 16px; height: 16px"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="#i-rotate-ccw"></use>
+                  </svg>
+                  איפוס
+                </button>
+              </div>
+              <p
+                style="
+                  min-height: 28px;
+                  font-size: 16px;
+                  color: var(--ip-ink-2);
+                  margin: 0;
+                "
+              >
+                {{journeyText}}
+              </p>
+            </div>
+          </section>
+        </sc-if>
+
+        <footer
+          style="
+            position: relative;
+            overflow: hidden;
+            background: var(--ip-navy);
+            padding: 40px 24px;
+            text-align: center;
+          "
+        >
+          <img
+            src="assets/watermark.png"
+            alt=""
+            style="
+              position: absolute;
+              left: -20px;
+              bottom: -20px;
+              width: 180px;
+              opacity: 0.08;
+              pointer-events: none;
+            "
+          />
+          <p
+            style="
+              position: relative;
+              color: var(--ip-on-navy-2);
+              font-size: 14px;
+              margin: 0;
+            "
+          >
+            לומדת מודל OSI · שכבות התקשורת
+          </p>
+        </footer>
+
+        <sc-if value="{{popupOpen}}" hint-placeholder-val="{{false}}">
+          <div
+            onClick="{{closePopup}}"
+            style="
+              position: fixed;
+              inset: 0;
+              background: rgba(9, 12, 17, 0.6);
+              z-index: 200;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 24px;
+            "
+          >
+            <div
+              onClick="{{stopClick}}"
+              style="
+                position: relative;
+                background: var(--ip-surface);
+                border-radius: var(--ip-r-lg);
+                padding: 36px 32px;
+                max-width: 440px;
+                width: 100%;
+                box-shadow: var(--ip-shadow-lg);
+                text-align: center;
+              "
+            >
+              <button
+                onClick="{{closePopup}}"
+                style="
+                  position: absolute;
+                  top: 14px;
+                  left: 14px;
+                  background: none;
+                  border: 0;
+                  cursor: pointer;
+                  color: var(--ip-ink-3);
+                  padding: 4px;
+                "
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  style="width: 20px; height: 20px"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="#i-x"></use>
+                </svg>
+              </button>
+              <div
+                style="width:64px;height:64px;border-radius:var(--ip-r-lg);background:{{popupLayer.color}};display:flex;align-items:center;justify-content:center;margin:0 auto 18px"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  style="width: 28px; height: 28px"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="{{popupLayer.iconId}}"></use>
+                </svg>
+              </div>
+              <h3 style="margin: 0 0 6px; font-size: 22px; font-weight: 800">
+                שכבה {{popupLayer.num}} — {{popupLayer.name}}
+              </h3>
+              <p
+                style="
+                  color: var(--ip-ink-3);
+                  font-size: 15px;
+                  margin: 0 0 16px;
+                "
+              >
+                {{popupLayer.hebrew}}
+              </p>
+              <p class="ip-body" style="margin: 0 0 20px">
+                {{popupLayer.popupText}}
+              </p>
+              <sc-if value="{{popupHasTab}}" hint-placeholder-val="{{false}}">
+                <a
+                  href="#layers"
+                  onClick="{{goToPopupTab}}"
+                  class="ipa-btn ipa-btn--primary"
+                  style="border: 0; display: inline-flex"
+                >
+                  לפרטים מלאים
+                  <svg
+                    viewBox="0 0 24 24"
+                    style="width: 16px; height: 16px"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <use href="#i-arrow-left"></use>
+                  </svg>
+                </a>
+              </sc-if>
+              <sc-if value="{{popupNoTab}}" hint-placeholder-val="{{false}}">
+                <p class="ip-small" style="margin: 0">
+                  הלומדה מתמקדת בשכבות 1, 2, 3, 4 ו-7.
+                </p>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "heroStyle": {"editor":"enum","default":"navy","options":["navy","hexagons"],"tsType":"string","section":"עיצוב"},
+  "defaultTab": {"editor":"enum","default":"7","options":["7","4","3","2","1"],"tsType":"string","section":"תוכן"},
+  "showPacketJourney": {"editor":"boolean","default":true,"tsType":"boolean","section":"תוכן"}
+}'
+    >
+      const COLORS = { 7:'#2EB4FF', 6:'#1AA0F0', 5:'#0C8BE0', 4:'#0075DB', 3:'#0064C4', 2:'#0059A8', 1:'#181D24' };
+
+      function buildLayersData() {
+        const danger = { badgeBg:'rgba(229,72,77,.10)', badgeColor:'var(--ip-danger)', cardBg:'rgba(229,72,77,.05)', cardBorder:'rgba(229,72,77,.25)' };
+        const normal = { badgeBg:'var(--ip-surface-3)', badgeColor:'var(--ip-blue)', cardBg:'var(--ip-surface)', cardBorder:'var(--ip-line)' };
+        const mk = (icon, title, kind, extra, problem) => Object.assign({
+          iconId: '#i-' + icon, title, isText:kind==='text', isPairs:kind==='pairs', isList:kind==='list', isGroups:kind==='groups', isTable:kind==='table',
+        }, problem ? danger : normal, extra);
+
+        return [
+          { key:'7', num:7, name:'Application', hebrew:'שכבת היישום', letter:'A', icon:'globe', hasTab:true,
+            popupText:'הממשק הקרוב ביותר למשתמש הקצה — הפרוטוקולים שמאפשרים לתוכנות לתקשר עם הרשת.',
+            cards: [
+              mk('info','מה זה?','text',{text:'שכבת היישום היא השכבה הקרובה ביותר למשתמש הקצה. היא מספקת את הממשק שבאמצעותו יישומים מתקשרים עם הרשת, ואחראית על הפרוטוקולים שמאפשרים תקשורת בין תוכנות.'}),
+              mk('list','פרוטוקולים ושירותים','pairs',{items:[
+                {term:'HTTP/HTTPS',desc:'גלישה באינטרנט (פורט 80/443)'},
+                {term:'FTP',desc:'העברת קבצים (פורט 20/21)'},
+                {term:'SMTP',desc:'שליחת דואר (פורט 25/587)'},
+                {term:'POP3/IMAP',desc:'קבלת דואר (פורט 110/143)'},
+                {term:'DNS',desc:'תרגום שמות (פורט 53)'},
+                {term:'SSH',desc:'גישה מאובטחת מרחוק (פורט 22)'},
+                {term:'DHCP',desc:'הקצאת כתובות IP (פורט 67/68)'},
+              ]}),
+              mk('server','התקנים ותוכנות','list',{items:['דפדפנים (Chrome, Firefox, Edge)','תוכנות דואר (Outlook, Gmail)','שרתי Web (Apache, Nginx, IIS)','שרתי DNS','Firewall ברמת יישום (WAF)']}),
+              mk('alert-triangle','תקלות נפוצות','pairs',{items:[
+                {term:'DNS Resolution Failed',desc:'בעיה בתרגום שם לכתובת IP'},
+                {term:'HTTP 404/500',desc:'שגיאות שרת או דף לא נמצא'},
+                {term:'SSL Certificate Error',desc:'בעיה באישור אבטחה'},
+                {term:'Authentication Failed',desc:'כשל באימות משתמש'},
+                {term:'Timeout',desc:'זמן התגובה חרג'},
+              ]},true),
+              mk('wrench','כלי אבחון','list',{items:['nslookup — בדיקת DNS','curl / wget — בדיקת HTTP','Developer Tools בדפדפן','telnet [host] [port] — בדיקת חיבור']}),
+              mk('table','פורטים נפוצים','table',{rows:[
+                {port:'80',service:'HTTP',desc:'אתרי אינטרנט'},
+                {port:'443',service:'HTTPS',desc:'אתרים מאובטחים'},
+                {port:'53',service:'DNS',desc:'תרגום שמות'},
+                {port:'22',service:'SSH',desc:'גישה מאובטחת'},
+                {port:'25',service:'SMTP',desc:'שליחת דואר'},
+                {port:'3389',service:'RDP',desc:'שולחן עבודה מרוחק'},
+              ]}),
+            ]},
+          { key:'6', num:6, name:'Presentation', hebrew:'שכבת הייצוג', letter:'P', icon:'file', hasTab:false,
+            popupText:'דואגת לפורמט, הצפנה וקידוד הנתונים כך שכל צד "מדבר" באותה שפה — למשל המרה בין קידודי תווים או דחיסה.' },
+          { key:'5', num:5, name:'Session', hebrew:'שכבת הפגישה', letter:'S', icon:'network', hasTab:false,
+            popupText:'פותחת, מנהלת וסוגרת "שיחות" (Sessions) בין שני מחשבים, ודואגת לסנכרון בין הצדדים לאורך זמן התקשורת.' },
+          { key:'4', num:4, name:'Transport', hebrew:'שכבת התעבורה', letter:'T', icon:'truck', hasTab:true,
+            popupText:'אחראית על העברת נתונים מקצה לקצה — אמינות, בקרת זרימה ותיקון שגיאות.',
+            cards: [
+              mk('info','מה זה?','text',{text:'שכבת התעבורה אחראית על העברת נתונים מקצה לקצה (End-to-End). היא מבטיחה שהנתונים יגיעו בשלמותם ובסדר הנכון, ומנהלת בקרת זרימה ותיקון שגיאות.'}),
+              mk('list','TCP מול UDP','groups',{groups:[
+                {heading:'TCP',bullets:['מבוסס חיבור (Connection-oriented)','אמין — מבטיח קבלת כל הנתונים','Three-Way Handshake: SYN, SYN-ACK, ACK','שימושים: HTTP, FTP, Email']},
+                {heading:'UDP',bullets:['ללא חיבור (Connectionless)','מהיר יותר, פחות אמין','שימושים: DNS, VoIP, סטרימינג, גיימינג']},
+              ]}),
+              mk('server','מושגי מפתח','pairs',{items:[
+                {term:'Segments',desc:'יחידת הנתונים בשכבה זו'},
+                {term:'Port Numbers',desc:'מזהים של יישומים (0–65535)'},
+                {term:'Flow Control',desc:'בקרת קצב העברה'},
+                {term:'Windowing',desc:'כמות נתונים לשליחה לפני ACK'},
+                {term:'Sequence Numbers',desc:'סדר הסגמנטים'},
+              ]}),
+              mk('alert-triangle','תקלות נפוצות','pairs',{items:[
+                {term:'Port Already in Use',desc:'פורט תפוס ע"י תהליך אחר'},
+                {term:'Connection Refused',desc:'השרת לא מקשיב על הפורט'},
+                {term:'Connection Timeout',desc:'לא נוצר חיבור בזמן'},
+                {term:'RST Packets',desc:'חיבור נקטע באופן פתאומי'},
+                {term:'Retransmissions',desc:'שליחות חוזרות (עומס/אובדן)'},
+              ]},true),
+              mk('wrench','כלי אבחון','list',{items:['netstat -an — חיבורים פעילים','ss -tuln — חיבורים (Linux)','tcpdump — לכידת מנות','Wireshark — ניתוח תעבורה']}),
+            ]},
+          { key:'3', num:3, name:'Network', hebrew:'שכבת הרשת', letter:'N', icon:'route', hasTab:true,
+            popupText:'אחראית על ניתוב מנות בין רשתות שונות, בעזרת כתובות IP לקביעת הנתיב הטוב ביותר.',
+            cards: [
+              mk('info','מה זה?','text',{text:'שכבת הרשת אחראית על ניתוב (Routing) של מנות נתונים בין רשתות שונות. היא משתמשת בכתובות לוגיות (IP) כדי לקבוע את הנתיב הטוב ביותר להעברת הנתונים.'}),
+              mk('list','פרוטוקולים עיקריים','pairs',{items:[
+                {term:'IP',desc:'פרוטוקול הכתובות הבסיסי'},
+                {term:'ICMP',desc:'בקרה והודעות שגיאה (Ping)'},
+                {term:'ARP',desc:'תרגום IP ל-MAC'},
+                {term:'OSPF',desc:'פרוטוקול ניתוב פנימי'},
+                {term:'BGP',desc:'ניתוב בין ארגונים'},
+              ]}),
+              mk('server','התקנים','list',{items:['Router (נתב)','Layer 3 Switch','Firewall — סינון לפי IP','Load Balancer']}),
+              mk('list','כתובות IP','pairs',{items:[
+                {term:'IPv4',desc:'32 ביט, למשל 192.168.1.1'},
+                {term:'IPv6',desc:'128 ביט, למשל 2001:db8::1'},
+                {term:'Subnet Mask',desc:'הפרדה בין רשת למחשב'},
+                {term:'Default Gateway',desc:'הנתב ליציאה מהרשת'},
+              ]}),
+              mk('alert-triangle','תקלות נפוצות','pairs',{items:[
+                {term:'Destination Unreachable',desc:'אין נתיב ליעד'},
+                {term:'TTL Expired',desc:'המנה "מתה" בדרך'},
+                {term:'IP Conflict',desc:'שני מכשירים עם אותו IP'},
+                {term:'Routing Loop',desc:'מנות סובבות במעגל'},
+                {term:'MTU Issues',desc:'גודל מנה לא מתאים'},
+              ]},true),
+              mk('wrench','כלי אבחון','list',{items:['ping — בדיקת קישוריות','tracert / traceroute — מעקב נתיב','ipconfig / ifconfig','route print — טבלת ניתוב','arp -a — טבלת ARP']}),
+            ]},
+          { key:'2', num:2, name:'Data Link', hebrew:'שכבת קישור הנתונים', letter:'D', icon:'link', hasTab:true,
+            popupText:'מעבירה נתונים בין התקנים באותה רשת מקומית, בעזרת כתובות MAC פיזיות.',
+            cards: [
+              mk('info','מה זה?','text',{text:'שכבת קישור הנתונים אחראית על העברת נתונים בין שני התקנים באותה רשת מקומית (LAN). משתמשת בכתובות פיזיות (MAC) ומטפלת בזיהוי ותיקון שגיאות.'}),
+              mk('list','תתי-שכבות וטכנולוגיות','groups',{groups:[
+                {heading:'LLC',bullets:['בקרת זרימה','זיהוי שגיאות','ממשק לשכבה 3']},
+                {heading:'MAC',bullets:['כתובות פיזיות','גישה למדיה (CSMA/CD)','מסגור (Framing)']},
+                {heading:'טכנולוגיות',bullets:['Ethernet (802.3)','Wi-Fi (802.11)','STP, VLAN, PPP']},
+              ]}),
+              mk('server','התקנים','list',{items:['Switch (מתג)','Bridge','NIC — כרטיס רשת','Access Point']}),
+              mk('list','כתובת MAC','pairs',{items:[
+                {term:'אורך',desc:'48 ביט (6 בתים)'},
+                {term:'פורמט',desc:'AA:BB:CC:DD:EE:FF'},
+                {term:'3 בתים ראשונים',desc:'מזהה יצרן (OUI)'},
+                {term:'כתובת שידור',desc:'FF:FF:FF:FF:FF:FF'},
+              ]}),
+              mk('alert-triangle','תקלות נפוצות','pairs',{items:[
+                {term:'Duplicate MAC',desc:'כתובות MAC כפולות'},
+                {term:'Switching Loops',desc:'לולאות ברשת (בעיית STP)'},
+                {term:'VLAN Mismatch',desc:'אי התאמת VLANs'},
+                {term:'Broadcast Storm',desc:'הצפת הרשת בשידורים'},
+                {term:'Duplex Mismatch',desc:'אי התאמת Full/Half'},
+              ]},true),
+              mk('wrench','כלי אבחון','list',{items:['arp -a — טבלת MAC-IP','getmac — כתובת MAC מקומית','show mac address-table','show spanning-tree','Wireshark']}),
+            ]},
+          { key:'1', num:1, name:'Physical', hebrew:'השכבה הפיזית', letter:'P', icon:'plug', hasTab:true,
+            popupText:'הבסיס של המודל — העברת ביטים גולמיים דרך כבלים, סיבים אופטיים או גלי רדיו.',
+            cards: [
+              mk('info','מה זה?','text',{text:'השכבה הפיזית היא הבסיס של מודל OSI. היא עוסקת בהעברת ביטים גולמיים דרך מדיה פיזית — כבלים, סיבים אופטיים או גלי רדיו — ומגדירה מאפיינים חשמליים ומכניים.'}),
+              mk('list','מדיית תקשורת','groups',{groups:[
+                {heading:'כבלים',bullets:['UTP — Cat5e/6/6a','STP — מוגן מהפרעות','Fiber Optic — Single/Multi-mode','Coaxial']},
+                {heading:'אלחוטי',bullets:['Wi-Fi — 2.4/5/6GHz','Bluetooth','Cellular — 4G/5G','Satellite']},
+              ]}),
+              mk('server','התקנים','list',{items:['Hub','Repeater','Media Converter','Modem','Patch Panel']}),
+              mk('list','מושגים חשובים','pairs',{items:[
+                {term:'Bandwidth',desc:'רוחב פס (Mbps/Gbps)'},
+                {term:'Latency',desc:'השהייה'},
+                {term:'Attenuation',desc:'דעיכת אות'},
+                {term:'Crosstalk',desc:'הפרעות בין כבלים'},
+                {term:'EMI',desc:'הפרעות אלקטרומגנטיות'},
+              ]}),
+              mk('alert-triangle','תקלות נפוצות','pairs',{items:[
+                {term:'כבל פגום',desc:'קרע, קיפול או לחיצה'},
+                {term:'חיבור רופף',desc:'RJ45 לא מחובר היטב'},
+                {term:'אות Wi-Fi חלש',desc:'מרחק או מכשולים'},
+                {term:'Port מת',desc:'פורט פיזי לא עובד'},
+              ]},true),
+              mk('wrench','כלי אבחון','list',{items:['Cable Tester','Tone Generator','Multimeter','OTDR — בדיקת סיב אופטי','Spectrum Analyzer']}),
+            ]},
+        ];
+      }
+
+      const JOURNEY_EXPLANATIONS = [
+        'שכבה 7: היישום יוצר את הנתונים (למשל בקשת HTTP)',
+        'שכבה 6: הנתונים מקודדים ומעוצבים',
+        'שכבה 5: נפתח Session לתקשורת',
+        'שכבה 4: הנתונים מחולקים לסגמנטים עם TCP/UDP',
+        'שכבה 3: נוספות כתובות IP ונקבע הניתוב',
+        'שכבה 2: נוספות כתובות MAC ונוצרת מסגרת',
+        'שכבה 1: הביטים נשלחים דרך הכבל או האוויר',
+        'הנתונים עוברים ברשת',
+        'שכבה 1 מקבל: האותות מומרים בחזרה לביטים',
+        'שכבה 2 מקבל: המסגרת נבדקת והכותרות מוסרות',
+        'שכבה 3 מקבל: כתובות ה-IP נבדקות',
+        'שכבה 4 מקבל: הסגמנטים מורכבים מחדש',
+        'שכבה 5 מקבל: ה-Session מזוהה',
+        'שכבה 6 מקבל: הנתונים מפוענחים',
+        'שכבה 7 מקבל: היישום מקבל את הנתונים',
+      ];
+
+      const ENCAP_STEPS = [
+        'הנתונים המקוריים נוצרים בשכבת היישום (Layer 7).',
+        'שכבת התעבורה (Layer 4) מוסיפה כותרת TCP עם פורטים ומספרי רצף.',
+        'שכבת הרשת (Layer 3) מוסיפה כותרת IP עם כתובות מקור ויעד.',
+        'שכבת קישור הנתונים (Layer 2) מוסיפה כותרת ו-Trailer עם כתובות MAC.',
+        'שכבה 1 הופכת הכל לביטים ושולחת אותם דרך המדיה הפיזית.',
+      ];
+
+      class Component extends DCLogic {
+        constructor(props) {
+          super(props);
+          this.layersData = buildLayersData();
+          this.state = { activeTab: this.props.defaultTab || '7', popupKey: null, encapStep: 0, journeyStep: -1 };
+        }
+
+        componentWillUnmount() {
+          clearTimeout(this._encapTimer);
+          clearTimeout(this._journeyTimer);
+        }
+
+        setTab(key) { this.setState({ activeTab: key }); }
+        openPopup(key) { this.setState({ popupKey: key }); }
+        closePopup() { this.setState({ popupKey: null }); }
+        goToPopupTab(key) { this.setState({ activeTab: key, popupKey: null }); }
+
+        startEncap() {
+          this.resetEncap();
+          const tick = (n) => {
+            this.setState({ encapStep: n });
+            if (n < 5) this._encapTimer = setTimeout(() => tick(n + 1), 1500);
+          };
+          this._encapTimer = setTimeout(() => tick(1), 200);
+        }
+        resetEncap() {
+          clearTimeout(this._encapTimer);
+          this.setState({ encapStep: 0 });
+        }
+
+        startJourney() {
+          this.resetJourney();
+          const tick = (n) => {
+            this.setState({ journeyStep: n });
+            if (n < 14) this._journeyTimer = setTimeout(() => tick(n + 1), 1200);
+          };
+          this._journeyTimer = setTimeout(() => tick(0), 200);
+        }
+        resetJourney() {
+          clearTimeout(this._journeyTimer);
+          this.setState({ journeyStep: -1 });
+        }
+
+        renderVals() {
+          const layers = this.layersData.map(l => ({
+            ...l,
+            color: COLORS[l.num],
+            iconId: '#i-' + l.icon,
+            onOpen: () => this.openPopup(l.key),
+          }));
+
+          const tabs = layers.filter(l => l.hasTab).map(l => {
+            const active = l.key === this.state.activeTab;
+            return { ...l, active, tabBg: active ? 'var(--ip-blue)' : 'var(--ip-surface-3)', tabColor: active ? '#fff' : 'var(--ip-blue)', onSelect: () => this.setTab(l.key) };
+          });
+
+          const activeLayer = layers.find(l => l.key === this.state.activeTab) || tabs[0];
+          const popupLayer = layers.find(l => l.key === this.state.popupKey) || null;
+          const popupOpen = !!popupLayer;
+          const popupHasTab = !!(popupLayer && popupLayer.hasTab);
+
+          const encapStep = this.state.encapStep;
+          const dataShown = encapStep >= 1, tcpShown = encapStep >= 2, ipShown = encapStep >= 3, frameShown = encapStep >= 4;
+          const encapText = encapStep === 0 ? 'לחצו על "הפעל אנימציה" לצפייה בתהליך' : ENCAP_STEPS[encapStep - 1];
+
+          const jStep = this.state.journeyStep;
+          const senderIdx = (jStep >= 0 && jStep < 7) ? jStep : -1;
+          const receiverIdx = (jStep >= 8 && jStep <= 14) ? 14 - jStep : -1;
+          const journeyText = jStep < 0 ? 'לחצו על "הפעל מסע" לצפייה באנימציה' : JOURNEY_EXPLANATIONS[jStep];
+          const mkJourney = (activeIdx) => layers.slice(0, 7).map((l, i) => ({ ...l, opacity: i === activeIdx ? 1 : 0.45, scale: i === activeIdx ? 'scale(1.06)' : 'scale(1)' }));
+
+          return {
+            layers, tabs, activeLayer,
+            popupLayer: popupLayer || { color: COLORS[7], iconId: '#i-globe', num: '', name: '', hebrew: '', popupText: '' },
+            popupOpen, popupHasTab, popupNoTab: popupOpen && !popupHasTab,
+            dataShown, tcpShown, ipShown, frameShown, encapText,
+            senderLayers: mkJourney(senderIdx), receiverLayers: mkJourney(receiverIdx), journeyText,
+            showPacketJourney: this.props.showPacketJourney !== false,
+            heroIsHex: (this.props.heroStyle || 'navy') === 'hexagons',
+            closePopup: () => this.closePopup(),
+            stopClick: (e) => e.stopPropagation(),
+            goToPopupTab: (e) => { e.preventDefault(); if (popupLayer) this.goToPopupTab(popupLayer.key); },
+            startEncap: () => this.startEncap(), resetEncap: () => this.resetEncap(),
+            startJourney: () => this.startJourney(), resetJourney: () => this.resetJourney(),
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

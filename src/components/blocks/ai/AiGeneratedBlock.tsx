@@ -12,7 +12,7 @@ export function AiGeneratedBlock({
       <Tag type="blue">נוצר ב-AI</Tag>
       <div
         className="text-[14.5px] text-neutrals-charcoal"
-        // eslint-disable-next-line react/no-danger -- מסונן דרך sanitizeRichText (DOMPurify)
+        // מסונן דרך sanitizeRichText (DOMPurify)
         dangerouslySetInnerHTML={{
           __html: sanitizeRichText(data.generatedContent),
         }}
