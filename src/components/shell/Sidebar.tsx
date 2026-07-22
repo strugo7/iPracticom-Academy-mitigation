@@ -67,6 +67,7 @@ export function Sidebar({ collapsed, onToggleCollapsed }: SidebarProps) {
 
   return (
     <aside
+      data-tutorial="sidebar-nav"
       className={cn(
         'sticky top-0 z-30 flex h-svh flex-none flex-col self-start bg-neutrals-charcoal px-3.5 py-[18px] text-white transition-[width] duration-[280ms] ease-[cubic-bezier(0.22,0.61,0.36,1)]',
         collapsed ? 'w-[76px]' : 'w-[252px]',

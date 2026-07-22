@@ -1,19 +1,22 @@
 /**
  * הסרגל העליון (מסמך 11 §4) — 1:1 עם design-export/AppShell.dc.html:
- * כותרת עמוד (צד ההתחלה), טריגר חיפוש גלובלי ⌘K (במרכז), התראות ופרופיל
- * (צד הסוף). ה-command palette עצמו ופיד ההתראות ממומשים בשלבי החיפוש
- * וההתראות — כאן המעטפת בלבד.
+ * כותרת עמוד (צד ההתחלה), טריגר חיפוש גלובלי ⌘K (במרכז), התראות ופרופיל (צד הסוף).
  */
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import {
+  getStoredNotifications,
+  getUnreadNotificationsCount,
+  markAllNotificationsAsRead,
+  markNotificationAsRead,
+  NotificationsPopover,
+  type NotificationItem,
+} from '@/components/notifications'
 import { Icon } from '@/components/ui'
 import { useAuth } from '@/lib/auth'
 import { BellIcon, SearchIcon } from './icons'
 import { getPageMeta } from './navConfig'
 import { usePageHeaderOverride } from './PageHeaderContext'
-
-/** מונה לא-נקראו — אין עדיין ישות התראות (מסמך 11: "לאמת/לבנות"); 0 = ללא badge. */
-const UNREAD_NOTIFICATIONS_COUNT = 0
 
 /** אווטאר 38px — תמונת פרופיל, ועם URL שבור/חסר נופלים לאות הראשונה של השם. */
 function ProfileAvatar({
@@ -41,24 +44,7 @@ function ProfileAvatar({
   )
 }
 
-function NotificationsButton({ unread }: { unread: number }) {
-  return (
-    <button
-      type="button"
-      aria-label="התראות"
-      className="relative flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-[13px] border border-neutrals-silver bg-white text-[#3D4753] shadow-[0_1px_2px_rgba(24,29,36,0.05)] transition-all duration-200 hover:border-[#CFD8E3] hover:bg-[#F8FBFE]"
-    >
-      <BellIcon />
-      {unread > 0 && (
-        <span className="absolute -end-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-neutrals-whisper bg-caution px-[5px] text-[11px] font-semibold text-white">
-          {unread}
-        </span>
-      )}
-    </button>
-  )
-}
-
-export function TopBar() {
+export function TopBar({ onOpenSearch }: { onOpenSearch?: () => void }) {
   const { user } = useAuth()
   const { pathname } = useLocation()
   const override = usePageHeaderOverride()
@@ -67,6 +53,23 @@ export function TopBar() {
   const subtitle = override?.subtitle ?? fallback.subtitle
   const backTo = override?.backTo
   const backLabel = override?.backLabel
+
+  const [notifications, setNotifications] = useState<NotificationItem[]>(
+    getStoredNotifications,
+  )
+  const [isNotifOpen, setIsNotifOpen] = useState(false)
+
+  const unreadCount = getUnreadNotificationsCount(notifications)
+
+  const handleMarkAsRead = (id: string) => {
+    const updated = markNotificationAsRead(id)
+    setNotifications(updated)
+  }
+
+  const handleMarkAllAsRead = () => {
+    const updated = markAllNotificationsAsRead()
+    setNotifications(updated)
+  }
 
   if (!user) return null
 
@@ -97,12 +100,14 @@ export function TopBar() {
         {/* טריגר חיפוש גלובלי (⌘K) — נפתח ל-command palette בשלב החיפוש */}
         <button
           type="button"
-          aria-label="חיפוש גלובלי"
-          className="mx-auto flex h-[46px] max-w-[460px] flex-1 cursor-text items-center gap-[11px] rounded-[13px] border border-neutrals-silver bg-white px-3.5 text-[14.5px] text-neutrals-lead shadow-[0_1px_2px_rgba(24,29,36,0.05)] transition-all duration-200 hover:border-[#9FD4F7] hover:bg-[#F8FBFE] hover:shadow-[0_4px_14px_rgba(20,60,110,0.08)]"
+          data-tutorial="search-bar"
+          onClick={onOpenSearch}
+          aria-label="חיפוש גלובלי (Cmd+K)"
+          className="mx-auto flex h-[46px] max-w-[460px] flex-1 cursor-pointer items-center gap-[11px] rounded-[13px] border border-neutrals-silver bg-white px-3.5 text-[14.5px] text-neutrals-lead shadow-[0_1px_2px_rgba(24,29,36,0.05)] transition-all duration-200 hover:border-[#9FD4F7] hover:bg-[#F8FBFE] hover:shadow-[0_4px_14px_rgba(20,60,110,0.08)]"
         >
           <SearchIcon className="flex-none text-accent" />
           <span className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-start">
-            חיפוש שיעורים, מאמרים, Playbooks…
+            חיפוש שיעורים, מושגים, מערכות…
           </span>
           <span className="flex-none rounded-[7px] border border-neutrals-silver bg-[#F4F8FC] px-2 py-[3px] text-xs font-semibold text-neutrals-lead">
             ⌘K
@@ -111,7 +116,31 @@ export function TopBar() {
 
         {/* התראות + פרופיל — צד הסוף (שמאל ב-RTL) */}
         <div className="flex flex-none items-center gap-3.5">
-          <NotificationsButton unread={UNREAD_NOTIFICATIONS_COUNT} />
+          <div className="relative">
+            <button
+              type="button"
+              data-tutorial="notifications-btn"
+              aria-label="התראות"
+              onClick={() => setIsNotifOpen((prev) => !prev)}
+              className="relative flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-[13px] border border-neutrals-silver bg-white text-[#3D4753] shadow-[0_1px_2px_rgba(24,29,36,0.05)] transition-all duration-200 hover:border-[#CFD8E3] hover:bg-[#F8FBFE]"
+            >
+              <BellIcon />
+              {unreadCount > 0 && (
+                <span className="absolute -end-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full border-2 border-neutrals-whisper bg-caution px-[5px] text-[11px] font-semibold text-white">
+                  {unreadCount}
+                </span>
+              )}
+            </button>
+
+            <NotificationsPopover
+              isOpen={isNotifOpen}
+              onClose={() => setIsNotifOpen(false)}
+              notifications={notifications}
+              onMarkAsRead={handleMarkAsRead}
+              onMarkAllAsRead={handleMarkAllAsRead}
+            />
+          </div>
+
           <Link
             to="/profile"
             className="flex items-center gap-2.5 rounded-full border border-neutrals-silver bg-white pe-1.5 ps-3 py-[5px] no-underline shadow-[0_1px_2px_rgba(24,29,36,0.05)] transition-all duration-200 hover:border-[#9FD4F7] hover:bg-[#F8FBFE]"

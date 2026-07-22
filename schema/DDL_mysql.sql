@@ -216,16 +216,23 @@ CREATE TABLE module_lessons (
   status                    VARCHAR(20)  NOT NULL DEFAULT 'draft',
   last_updated_by_name      VARCHAR(255) NULL COMMENT 'display snapshot',
   last_updated_by_email     VARCHAR(255) NULL COMMENT 'display snapshot',
+  -- soft-delete / recycle bin (audit) — deleted_at is the universal "in trash" marker (NULL = live)
+  deleted_at                DATETIME(3)  NULL COMMENT 'soft-delete marker (recycle bin); NULL = live',
+  deleted_by                CHAR(24) CHARACTER SET ascii COLLATE ascii_bin NULL COMMENT 'audit: who deleted',
+  deleted_by_name           VARCHAR(255) NULL COMMENT 'audit snapshot (display)',
+  deletion_reason           TEXT         NULL COMMENT 'audit: why deleted (required on delete)',
   created_at                DATETIME(3)  NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   updated_at                DATETIME(3)  NULL ON UPDATE CURRENT_TIMESTAMP(3),
   created_by                CHAR(24) CHARACTER SET ascii COLLATE ascii_bin NULL,
   PRIMARY KEY (id),
   KEY idx_lessons_topic_status (topic_id, status, order_index),
+  KEY idx_lessons_deleted_at (deleted_at),
   CONSTRAINT chk_lessons_status CHECK (status IN ('draft','published','archived','deleted')),
   CONSTRAINT chk_lessons_editor CHECK (editor_version IN ('v1','v2')),
   CONSTRAINT chk_lessons_parent CHECK (topic_id IS NOT NULL OR shared_module_id IS NOT NULL),
   CONSTRAINT fk_lessons_topic FOREIGN KEY (topic_id) REFERENCES topics (id) ON DELETE CASCADE,
-  CONSTRAINT fk_lessons_created_by FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL
+  CONSTRAINT fk_lessons_created_by FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL,
+  CONSTRAINT fk_lessons_deleted_by FOREIGN KEY (deleted_by) REFERENCES users (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 -- module_lessons.linked_exam_id FK is added at the end (exams created later).
 
@@ -600,13 +607,20 @@ CREATE TABLE concepts (
   external_links   JSON         NULL COMMENT '[{title, url}]',
   view_count       INT          NOT NULL DEFAULT 0,
   status           VARCHAR(20)  NOT NULL DEFAULT 'draft',
+  -- soft-delete / recycle bin (audit) — deleted_at is the universal "in trash" marker (NULL = live)
+  deleted_at       DATETIME(3)  NULL COMMENT 'soft-delete marker (recycle bin); NULL = live',
+  deleted_by       CHAR(24) CHARACTER SET ascii COLLATE ascii_bin NULL COMMENT 'audit: who deleted',
+  deleted_by_name  VARCHAR(255) NULL COMMENT 'audit snapshot (display)',
+  deletion_reason  TEXT         NULL COMMENT 'audit: why deleted (required on delete)',
   created_at       DATETIME(3)  NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   updated_at       DATETIME(3)  NULL ON UPDATE CURRENT_TIMESTAMP(3),
   created_by       CHAR(24) CHARACTER SET ascii COLLATE ascii_bin NULL,
   PRIMARY KEY (id),
   KEY idx_concepts_status_category (status, category),
+  KEY idx_concepts_deleted_at (deleted_at),
   CONSTRAINT chk_concepts_status CHECK (status IN ('draft','published','archived','deleted')),
-  CONSTRAINT fk_concepts_created_by FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL
+  CONSTRAINT fk_concepts_created_by FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL,
+  CONSTRAINT fk_concepts_deleted_by FOREIGN KEY (deleted_by) REFERENCES users (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- M:N junction Concept ↔ ModuleLesson (replaces related_lessons array;
@@ -653,12 +667,20 @@ CREATE TABLE troubleshooting_flows (
   version_history     JSON         NULL,
   edit_permissions    JSON         NULL,
   share_settings      JSON         NULL,
+  -- soft-delete / recycle bin (audit) — this table has no `status` enum (uses is_published),
+  -- so deleted_at is the ONLY soft-delete marker here (NULL = live). Uniform across all trashables.
+  deleted_at          DATETIME(3)  NULL COMMENT 'soft-delete marker (recycle bin); NULL = live',
+  deleted_by          CHAR(24) CHARACTER SET ascii COLLATE ascii_bin NULL COMMENT 'audit: who deleted',
+  deleted_by_name     VARCHAR(255) NULL COMMENT 'audit snapshot (display)',
+  deletion_reason     TEXT         NULL COMMENT 'audit: why deleted (required on delete)',
   created_at          DATETIME(3)  NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   updated_at          DATETIME(3)  NULL ON UPDATE CURRENT_TIMESTAMP(3),
   created_by          CHAR(24) CHARACTER SET ascii COLLATE ascii_bin NULL,
   PRIMARY KEY (id),
   KEY idx_flows_published_category (is_published, category),
-  CONSTRAINT fk_tf_created_by FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL
+  KEY idx_flows_deleted_at (deleted_at),
+  CONSTRAINT fk_tf_created_by FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL,
+  CONSTRAINT fk_tf_deleted_by FOREIGN KEY (deleted_by) REFERENCES users (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE flow_feedback (
@@ -754,13 +776,21 @@ CREATE TABLE procedures (
   requires_acknowledgement BOOLEAN      NOT NULL DEFAULT TRUE,
   published_date           DATETIME(3)  NULL,
   status                   VARCHAR(20)  NOT NULL DEFAULT 'draft',
+  blocks                   JSON         NULL COMMENT 'v2 block content [{id,type,order_index,data}] — like module_lessons.blocks; policies feature (block-based content model)',
+  -- soft-delete / recycle bin (audit) — deleted_at is the universal "in trash" marker (NULL = live)
+  deleted_at               DATETIME(3)  NULL COMMENT 'soft-delete marker (recycle bin); NULL = live',
+  deleted_by               CHAR(24) CHARACTER SET ascii COLLATE ascii_bin NULL COMMENT 'audit: who deleted',
+  deleted_by_name          VARCHAR(255) NULL COMMENT 'audit snapshot (display)',
+  deletion_reason          TEXT         NULL COMMENT 'audit: why deleted (required on delete)',
   created_at               DATETIME(3)  NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   updated_at               DATETIME(3)  NULL ON UPDATE CURRENT_TIMESTAMP(3),
   created_by               CHAR(24) CHARACTER SET ascii COLLATE ascii_bin NULL,
   PRIMARY KEY (id),
+  KEY idx_procedures_deleted_at (deleted_at),
   CONSTRAINT chk_procedures_content_type CHECK (content_type IN ('html','file')),
   CONSTRAINT chk_procedures_status CHECK (status IN ('draft','published','archived','deleted')),
-  CONSTRAINT fk_proc_created_by FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL
+  CONSTRAINT fk_proc_created_by FOREIGN KEY (created_by) REFERENCES users (id) ON DELETE SET NULL,
+  CONSTRAINT fk_proc_deleted_by FOREIGN KEY (deleted_by) REFERENCES users (id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='[schema-only, 0 records]';
 
 CREATE TABLE procedure_acknowledgements (

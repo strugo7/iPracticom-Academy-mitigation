@@ -19,6 +19,8 @@ import type {
   ModuleExam,
   ModuleLesson,
   Notification,
+  Procedure,
+  ProcedureAcknowledgement,
   Question,
   RoleUpgradeRequest,
   SecurityLog,
@@ -89,6 +91,10 @@ export interface IApiClient {
   courses: IResource<Course>
   knowledgeArticles: IResource<KnowledgeArticle>
   mediaAssets: IResource<MediaAsset>
+  /** נהלים פנים-ארגוניים (SRS §2.6, policies feature). */
+  procedures: IResource<Procedure>
+  /** אישורי קרא-וחתום (SRS §2.6) — נכתבת רק ב-runtime, ראו entities.ts. */
+  procedureAcknowledgements: IResource<ProcedureAcknowledgement>
   /** מבנה ארגוני (userManagement, מסמך 26) — אין בגיבוי, נזרע ב-split-backup.mjs. */
   departments: IResource<Department>
   /** התראות (userManagement, מסמך 26) — נכתבת רק ב-runtime, ראו entities.ts. */
@@ -122,6 +128,8 @@ export const ENTITY_NAMES = [
   'Course',
   'KnowledgeArticle',
   'MediaAsset',
+  'Procedure',
+  'ProcedureAcknowledgement',
   'Department',
   'Notification',
   'SecurityLog',

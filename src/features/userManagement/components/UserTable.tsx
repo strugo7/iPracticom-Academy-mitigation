@@ -23,9 +23,17 @@ function formatLastActivity(iso: string | null | undefined): string {
   return `לפני ${days} ימים`
 }
 
-export function UserTable({ members, search, onSearchChange, onOpenUser }: Props) {
+export function UserTable({
+  members,
+  search,
+  onSearchChange,
+  onOpenUser,
+}: Props) {
   return (
-    <section className="overflow-hidden rounded-2xl bg-white shadow-card">
+    <section
+      data-tutorial="users-table"
+      className="overflow-hidden rounded-2xl bg-white shadow-card"
+    >
       <div className="flex items-center justify-between gap-3 border-b border-neutrals-silver px-5 py-4">
         <h3 className="m-0 flex items-center gap-2 text-small font-semibold text-neutrals-charcoal">
           <TeamIcon size={18} className="text-accent" />

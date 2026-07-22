@@ -20,6 +20,7 @@ import {
   ManagerDashboardIcon,
   MediaIcon,
   PoliciesIcon,
+  RecycleBinIcon,
   QuizBankIcon,
   SettingsIcon,
   TrainingsIcon,
@@ -144,6 +145,18 @@ export function buildMainNav(user: User): NavEntry[] {
       label: 'פתרון בעיות',
       icon: TroubleshootingIcon,
     },
+    // פח אשפה מאוחד (נהלים/שיעורים/מונחים/תסריטים) — מנהל ומעלה בלבד
+    // (תואם לגייטינג המסלול; לא מוצג למדריך שאינו מנהל).
+    ...(isManager(user)
+      ? [
+          {
+            kind: 'link',
+            to: '/recycle-bin',
+            label: 'פח אשפה',
+            icon: RecycleBinIcon,
+          } as const,
+        ]
+      : []),
   ]
 }
 
@@ -169,6 +182,7 @@ export const PAGE_META: Record<string, { title: string; subtitle?: string }> = {
   '/certificates': { title: 'יצירת תעודות סיום' },
   '/concepts': { title: 'יצירת מונחים' },
   '/policies': { title: 'יצירת נהלים פנים-ארגוניים' },
+  '/recycle-bin': { title: 'פח אשפה' },
   '/recruitment': { title: 'גיוס' },
   '/admin': { title: 'ניהול המערכת' },
   '/help': { title: 'מרכז עזרה' },

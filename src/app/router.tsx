@@ -7,6 +7,7 @@
 import type { ReactNode } from 'react'
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 import { LoginPage } from '@/app/(auth)/login/LoginPage'
+import { HelpCenterPage } from '@/features/helpCenter'
 import { PagePlaceholder } from '@/app/(app)/PagePlaceholder'
 import { TrackDetailsPage, TrainingsPage } from '@/features/learning'
 import {
@@ -23,6 +24,12 @@ import { ExamPlayerPage } from '@/features/examPlayer'
 import { ProfilePage } from '@/features/profile'
 import { ManagerDashboardPage } from '@/features/manager'
 import { CandidateExamPage, InviteLandingPage } from '@/features/recruitment'
+import {
+  PoliciesPage,
+  PolicyEditorPage,
+  PolicyViewerPage,
+} from '@/features/policies'
+import { RecycleBinPage } from '@/features/recycleBin'
 import { SystemSettingsPage } from '@/features/systemSettings'
 import { DemoPage } from '@/app/dev/DemoPage'
 import { AppShell } from '@/components/shell'
@@ -109,6 +116,21 @@ export const router = createBrowserRouter([
         path: '/concepts/:conceptId/edit',
         element: guarded(canManageContent, <ConceptEditorPage />),
       },
+      // עורך הנהלים (policies) — מסך-מלא (פלטה/קנבס/הגדרות), כמו עורך-השיעורים.
+      // מדריך ומעלה (canManageContent). רשום לפני מסלול הצפייה :procedureId כדי
+      // ש-"new" לא ייתפס כמזהה-נוהל.
+      {
+        path: '/policies/new',
+        element: guarded(canManageContent, <PolicyEditorPage />),
+      },
+      {
+        path: '/policies/:procedureId/edit',
+        element: guarded(canManageContent, <PolicyEditorPage />),
+      },
+      // צפייה בנוהל + קרא-וחתום (policies) — מסך-מלא ממוקד עם פס-קריאה וסרגל
+      // אישור דביק (design-export/Policy Viewer.dc.html). RLS read `{}` — כל
+      // מאומת (לא canManageContent), ולכן מחוץ לגייטינג של קבוצת התוכן.
+      { path: '/policies/:procedureId', element: <PolicyViewerPage /> },
       {
         element: <AppShell />,
         children: [
@@ -121,7 +143,7 @@ export const router = createBrowserRouter([
             element: <LessonPlayerPage />,
           },
           { path: '/troubleshooting', element: <PagePlaceholder /> },
-          { path: '/help', element: <PagePlaceholder /> },
+          { path: '/help', element: <HelpCenterPage /> },
           // הגדרות מערכת — הסקשן הפעיל מה-URL (שלב 9). "ניהול משתמשים" הוא
           // סקשן פנימי (/settings/users), לא מסלול עצמאי.
           {
@@ -180,9 +202,17 @@ export const router = createBrowserRouter([
           // עמוד-מונח מלא — צפייה פתוחה לכל משתמש מאומת (KMS read {}, SRS §1.9);
           // יעד הניווט מסימון-מונח בשיעור. 'new' סטטי גובר על ':conceptId'.
           { path: '/concepts/:conceptId', element: <ConceptPage /> },
+          // נהלים פנים-ארגוניים (policies) — ספרייה + מעקב קרא-וחתום באותו מסך
+          // (design-export/Policies.dc.html). מדריך ומעלה (canManageContent).
           {
             path: '/policies',
-            element: guarded(canManageContent, <PagePlaceholder />),
+            element: guarded(canManageContent, <PoliciesPage />),
+          },
+          // פח אשפה מאוחד (recycleBin) — פריטים שנמחקו-רכות מכל הישויות. מנהל
+          // ומעלה (isManager); מחיקה-לצמיתות בתוך המסך היא אדמין בלבד.
+          {
+            path: '/recycle-bin',
+            element: guarded(isManager, <RecycleBinPage />),
           },
         ],
       },

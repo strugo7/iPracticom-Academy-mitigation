@@ -9,6 +9,7 @@ import {
   conceptSchema,
   learningTrackSchema,
   moduleLessonSchema,
+  procedureSchema,
   sharedModuleSchema,
   topicSchema,
   trackModuleSchema,
@@ -67,27 +68,75 @@ describe('סכמות היררכיית הלמידה מול הגיבוי האמי�
     const legacy = lessons.filter((l) => l.editor_version !== 'v2')
     expect(v2).toHaveLength(76)
     expect(legacy).toHaveLength(13)
-    expect(v2.every((l) => Array.isArray(l.blocks) && l.blocks.length > 0)).toBe(
-      true,
-    )
+    expect(
+      v2.every((l) => Array.isArray(l.blocks) && l.blocks.length > 0),
+    ).toBe(true)
   }, 20000)
 })
 
 describe('סכמת Concept מול הגיבוי האמיתי (שלב 6.8)', () => {
   it('96 מונחים, כולם עוברים parse', async () => {
-    const concepts = await createMockResource('Concept', conceptSchema).findMany()
+    const concepts = await createMockResource(
+      'Concept',
+      conceptSchema,
+    ).findMany()
     expect(concepts).toHaveLength(96)
   })
 
   it('category חורג מ-8 הקטגוריות של SRS — קטגוריות-ציוד עוברות as-is', async () => {
-    const concepts = await createMockResource('Concept', conceptSchema).findMany()
+    const concepts = await createMockResource(
+      'Concept',
+      conceptSchema,
+    ).findMany()
     const categories = new Set(concepts.map((c) => c.category))
     expect(categories.has('מצלמות אבטחה')).toBe(true)
     expect(categories.has('מרכזיות ענן (PBX)')).toBe(true)
   })
 
   it('related_lessons ריק בכל הרשומות — ה-junction concept_lessons טרם אוכלס', async () => {
-    const concepts = await createMockResource('Concept', conceptSchema).findMany()
-    expect(concepts.every((c) => (c.related_lessons ?? []).length === 0)).toBe(true)
+    const concepts = await createMockResource(
+      'Concept',
+      conceptSchema,
+    ).findMany()
+    expect(concepts.every((c) => (c.related_lessons ?? []).length === 0)).toBe(
+      true,
+    )
+  })
+})
+
+describe('סכמת Procedure מול הפיקסצ׳ר הזרוע (policies feature, SRS §2.6)', () => {
+  it('כל נהלי-הדמו עוברים parse, וכולם עם title + content_type', async () => {
+    const procedures = await createMockResource(
+      'Procedure',
+      procedureSchema,
+    ).findMany()
+    expect(procedures.length).toBeGreaterThan(0)
+    expect(procedures.every((p) => p.title.length > 0)).toBe(true)
+    expect(
+      procedures.every((p) => ['html', 'file'].includes(p.content_type)),
+    ).toBe(true)
+  })
+
+  it('נוהל content_type=html נושא blocks[], ונוהל content_type=file נושא file_url', async () => {
+    const procedures = await createMockResource(
+      'Procedure',
+      procedureSchema,
+    ).findMany()
+    const htmlProc = procedures.find((p) => p.content_type === 'html')
+    const fileProc = procedures.find((p) => p.content_type === 'file')
+    expect(Array.isArray(htmlProc?.blocks)).toBe(true)
+    expect(htmlProc?.blocks?.length).toBeGreaterThan(0)
+    expect(fileProc?.file_url).toBeTruthy()
+  })
+
+  it('ProcedureAcknowledgement מתחילה ריקה (runtime-only) ותומכת ביצירה', async () => {
+    const acks = createMockResource('ProcedureAcknowledgement')
+    expect(await acks.findMany()).toHaveLength(0)
+    const created = await acks.create({
+      procedure_id: 'seed-procedure-01',
+      user_id: 'u1',
+      acknowledged_at: '2026-07-22T10:00:00.000Z',
+    } as never)
+    expect(created.id).toBeTruthy()
   })
 })

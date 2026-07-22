@@ -4,6 +4,7 @@
  * lib/constants/enums.ts (QUESTION_TYPES ‏3 סוגים — 'matching' הוסר במכוון,
  * ראו entities.ts). הצבעים תואמים design-export/Question Bank + Exam Builder.
  */
+import type { ContentNodeKind } from '@/features/contentManager'
 import type {
   ContentStatus,
   DifficultyLevel,
@@ -60,11 +61,49 @@ interface ExamTypeMeta extends TypeMeta {
 
 /** סוג-מבחן (Exam.exam_type) — צבע+תווית+שם-שדה-קישור. */
 export const EXAM_TYPE_META: Record<ExamType, ExamTypeMeta> = {
-  track_exam: { label: 'מסלול', short: 'מסלול', color: 'denim', linkLabel: 'מקושר למסלול' },
-  module_exam: { label: 'מודול', short: 'מודול', color: 'success', linkLabel: 'מקושר למודול' },
-  topic_exam: { label: 'נושא', short: 'נושא', color: 'indigo', linkLabel: 'מקושר לנושא' },
-  lesson_exam: { label: 'שיעור', short: 'שיעור', color: 'bronze', linkLabel: 'מקושר לשיעור' },
-  standalone_exam: { label: 'עצמאי', short: 'עצמאי', color: 'neutral', linkLabel: 'הגדרת מבחן' },
+  track_exam: {
+    label: 'מסלול',
+    short: 'מסלול',
+    color: 'denim',
+    linkLabel: 'מקושר למסלול',
+  },
+  module_exam: {
+    label: 'מודול',
+    short: 'מודול',
+    color: 'success',
+    linkLabel: 'מקושר למודול',
+  },
+  topic_exam: {
+    label: 'נושא',
+    short: 'נושא',
+    color: 'indigo',
+    linkLabel: 'מקושר לנושא',
+  },
+  lesson_exam: {
+    label: 'שיעור',
+    short: 'שיעור',
+    color: 'bronze',
+    linkLabel: 'מקושר לשיעור',
+  },
+  standalone_exam: {
+    label: 'עצמאי',
+    short: 'עצמאי',
+    color: 'neutral',
+    linkLabel: 'הגדרת מבחן',
+  },
+}
+
+/**
+ * סוג-מבחן שאינו עצמאי → רמת-הצומת בעץ-התוכן שממנה בוחרים "מקושר אל"
+ * (standalone_exam לא מופיע — אין לו קישור-ישות, ראו ExamDetailsCard).
+ */
+export const EXAM_TYPE_TO_NODE_KIND: Partial<
+  Record<ExamType, ContentNodeKind>
+> = {
+  track_exam: 'track',
+  module_exam: 'module',
+  topic_exam: 'topic',
+  lesson_exam: 'lesson',
 }
 
 /** קטגוריית ברירת-מחדל כלל-ארגונית (זמינה לכל מחלקה) — כמו ב-learning. */

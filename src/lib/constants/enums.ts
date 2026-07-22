@@ -195,7 +195,11 @@ export const EVALUATION_DECISIONS = [
 export type EvaluationDecision = (typeof EVALUATION_DECISIONS)[number]
 
 // מצב בקשת שדרוג-תפקיד (RoleUpgradeRequest.status) — SRS §1.11, def pending.
-export const ROLE_UPGRADE_STATUSES = ['pending', 'approved', 'rejected'] as const
+export const ROLE_UPGRADE_STATUSES = [
+  'pending',
+  'approved',
+  'rejected',
+] as const
 export type RoleUpgradeStatus = (typeof ROLE_UPGRADE_STATUSES)[number]
 
 // סוגי שאלה (Question.question_type) — data.
@@ -239,3 +243,19 @@ export const CONCEPT_CATEGORIES = [
   'ארגוני',
 ] as const
 export type ConceptCategory = (typeof CONCEPT_CATEGORIES)[number]
+
+// ── נהלים (Procedure) — SRS §2.6, טבלת `procedures` ב-DDL ────────────────────
+// מחזור-חיים של נוהל (Procedure.status) — DDL CHECK IN(draft/published/archived/
+// deleted), SRS def 'draft'. משתמש רגיל רואה 'published' בלבד (API_CONTRACT §).
+export const PROCEDURE_STATUS = [
+  'draft',
+  'published',
+  'archived',
+  'deleted',
+] as const
+export type ProcedureStatus = (typeof PROCEDURE_STATUS)[number]
+
+// סוג-תוכן של נוהל (Procedure.content_type) — DDL CHECK IN(html/file), def 'html'.
+// 'html' → בלוקים/HTML נערכים בעורך; 'file' → מסמך שהועלה (file_url).
+export const PROCEDURE_CONTENT_TYPES = ['html', 'file'] as const
+export type ProcedureContentType = (typeof PROCEDURE_CONTENT_TYPES)[number]

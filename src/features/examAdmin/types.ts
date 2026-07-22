@@ -67,17 +67,21 @@ export interface ExamQuestionRow {
 
 /**
  * טיוטת-עריכה של פרטי-מבחן (אזור עליון בבונה).
- * הערת-סקופ: ה-design-export מציג שדה "מקושר אל" (בורר יעד track/module/topic/
- * lesson). בורר-ישות חוצה-היררכיה הוא feature נפרד (מסמך 12) — בשלב זה השדה
- * מוחלף ב-`category` (Exam.category, שדה חובה ב-SRS §1.4), שממלא את אותו תפקיד
- * סיווג ותואם RLS. exam_type נשמר כסיווג. הקישור הספציפי (linked_*_id) יתווסף
- * כשבורר-הישות ייבנה.
+ * "מקושר אל" (design-export: track/module/topic/lesson) ממומש ע"י
+ * `linked*Id` — בדיוק אחד מהם מאוכלס לפי `examType` (ריק ל-standalone_exam).
+ * `category` (Exam.category, שדה חובה ב-SRS §1.4) נגזר אוטומטית מה-Track
+ * שאליו שייכת הישות המקושרת (ראו examForm.ts); ל-standalone_exam בלבד הוא
+ * נבחר ידנית בטופס, כי אין ישות-מקור לגזור ממנה.
  */
 export interface ExamDraft {
   title: string
   description: string
   category: string
   examType: ExamType
+  linkedTrackId: string | null
+  linkedModuleId: string | null
+  linkedTopicId: string | null
+  linkedLessonId: string | null
   difficulty: DifficultyLevel
   passingScore: number
   topicTags: string[]

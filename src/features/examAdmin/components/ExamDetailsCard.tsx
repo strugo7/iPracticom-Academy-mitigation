@@ -1,8 +1,8 @@
 /**
  * אזור פרטי-המבחן בבונה (design-export/Exam Builder.dc.html שורות 102-183):
- * כותרת, סוג-מבחן, קטגוריה, קושי, ציון-מעבר, תגיות, ובלוק מבחן-כניסה
- * (תפקידי-יעד + מחלקות-יעד). controlled מול ExamDraft.
- * הערת-סקופ: שדה "מקושר אל" הוחלף ב-category (ראו types.ts).
+ * כותרת, סוג-מבחן + "מקושר אל" (track/module/topic/lesson — LinkedEntityField;
+ * ל-standalone_exam בלבד נשאר בורר-קטגוריה ידני), קושי, ציון-מעבר, תגיות,
+ * ובלוק מבחן-כניסה (תפקידי-יעד + מחלקות-יעד). controlled מול ExamDraft.
  */
 import { Icon, Input, Tabs, Toggle } from '@/components/ui'
 import {
@@ -12,9 +12,11 @@ import {
   type UserRole,
 } from '@/lib/constants/enums'
 import { DIFFICULTY_META, EXAM_TYPE_META } from '../constants'
+import { patchForLinkedEntity } from '../services/entityLinkPicker'
 import { ExamIcon } from '../icons'
 import type { ExamDraft } from '../types'
 import { FieldLabel, NumberStepper, SelectField, TagEditor } from './fields'
+import { LinkedEntityField } from './LinkedEntityField'
 
 const EXAM_TYPE_TABS = (Object.keys(EXAM_TYPE_META) as ExamType[]).map(
   (id) => ({
@@ -100,19 +102,29 @@ export function ExamDetailsCard({
               onChange={(id) => onChange({ examType: id as ExamType })}
             />
           </div>
-          <div>
-            <FieldLabel>קטגוריה</FieldLabel>
-            <SelectField
-              value={draft.category}
-              onChange={(e) => onChange({ category: e.target.value })}
-            >
-              {categoryOpts.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </SelectField>
-          </div>
+          {draft.examType === 'standalone_exam' ? (
+            <div>
+              <FieldLabel>קטגוריה</FieldLabel>
+              <SelectField
+                value={draft.category}
+                onChange={(e) => onChange({ category: e.target.value })}
+              >
+                {categoryOpts.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </SelectField>
+            </div>
+          ) : (
+            <LinkedEntityField
+              draft={draft}
+              categories={categories}
+              onSelect={(entity) =>
+                onChange(patchForLinkedEntity(entity, draft.category))
+              }
+            />
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

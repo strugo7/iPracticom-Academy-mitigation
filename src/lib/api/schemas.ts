@@ -18,6 +18,8 @@ import {
   MEDIA_FILE_TYPES,
   NOTIFICATION_PRIORITIES,
   NOTIFICATION_TYPES,
+  PROCEDURE_CONTENT_TYPES,
+  PROCEDURE_STATUS,
   PROGRESS_TYPES,
   QUESTION_TYPES,
   REQUESTED_ROLES,
@@ -55,6 +57,8 @@ import type {
   ProgressExamAnswer,
   Question,
   RoleUpgradeRequest,
+  Procedure,
+  ProcedureAcknowledgement,
   SecurityLog,
   SharedModule,
   Topic,
@@ -187,6 +191,10 @@ export const moduleLessonSchema = z.looseObject({
   status: z.enum(CONTENT_STATUS).nullish(),
   editor_version: z.enum(EDITOR_VERSIONS).nullish(),
   blocks: z.array(lessonBlockSchema).nullish(),
+  deleted_at: z.string().nullish(),
+  deleted_by_id: z.string().nullish(),
+  deleted_by_name: z.string().nullish(),
+  deletion_reason: z.string().nullish(),
 }) satisfies z.ZodType<ModuleLesson>
 
 const progressExamAnswerSchema = z.looseObject({
@@ -410,6 +418,10 @@ export const conceptSchema = z.looseObject({
   view_count: z.number().nullish(),
   created_by_name: z.string().nullish(),
   related_lessons: z.array(z.string()).nullish(),
+  deleted_at: z.string().nullish(),
+  deleted_by_id: z.string().nullish(),
+  deleted_by_name: z.string().nullish(),
+  deletion_reason: z.string().nullish(),
 }) satisfies z.ZodType<Concept>
 
 /** מבנה ארגוני (SRS §1.11, userManagement — מסמך 26). ראו הערת linkage ב-entities.ts. */
@@ -574,3 +586,50 @@ export const notificationSchema = z.looseObject({
   dedupe_key: z.string().nullish(),
   metadata: z.record(z.string(), z.unknown()).nullish(),
 }) satisfies z.ZodType<Notification>
+
+/**
+ * נוהל (SRS §2.6, טבלת `procedures`). חובה: title, content_type. loose —
+ * שדות עתידיים מה-API עוברים as-is. `category` נשאר string (ראו conceptSchema).
+ * `blocks` מנצל את lessonBlockSchema (מבנה גמיש; ולידציה סמנטית פר-בלוק בנגן).
+ */
+export const procedureSchema = z.looseObject({
+  id: z.string().min(1),
+  created_date: z.string(),
+  updated_date: z.string(),
+  created_by_id: z.string().nullish(),
+  title: z.string().min(1),
+  summary: z.string().nullish(),
+  content: z.string().nullish(),
+  content_type: z.enum(PROCEDURE_CONTENT_TYPES),
+  file_url: z.string().nullish(),
+  category: z.string().nullish(),
+  departments: z.array(z.string()).nullish(),
+  assigned_user_ids: z.array(z.string()).nullish(),
+  version: z.string().nullish(),
+  requires_acknowledgement: z.boolean().nullish(),
+  published_date: z.string().nullish(),
+  status: z.enum(PROCEDURE_STATUS).nullish(),
+  blocks: z.array(lessonBlockSchema).nullish(),
+  deleted_by_id: z.string().nullish(),
+  deleted_by_name: z.string().nullish(),
+  deleted_at: z.string().nullish(),
+  deletion_reason: z.string().nullish(),
+}) satisfies z.ZodType<Procedure>
+
+/**
+ * אישור קרא-וחתום (SRS §2.6, טבלת `procedure_acknowledgements`). אין רשומות
+ * בגיבוי — נכתבת ב-runtime כשמשתמש חותם. חובה: procedure_id, user_id,
+ * acknowledged_at. ייחודיות (procedure_id, user_id) נאכפת בשכבת השירות.
+ */
+export const procedureAcknowledgementSchema = z.looseObject({
+  id: z.string().min(1),
+  created_date: z.string(),
+  updated_date: z.string(),
+  created_by_id: z.string().nullish(),
+  procedure_id: z.string().min(1),
+  user_id: z.string().min(1),
+  user_name: z.string().nullish(),
+  user_email: z.string().nullish(),
+  acknowledged_at: z.string().min(1),
+  ip_address: z.string().nullish(),
+}) satisfies z.ZodType<ProcedureAcknowledgement>

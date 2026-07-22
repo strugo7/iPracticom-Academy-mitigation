@@ -94,7 +94,9 @@ for (const [name, records] of Object.entries(entities)) {
   const out = join(fixturesDir, `${name}.json`)
   writeFileSync(out, JSON.stringify(records))
   total += records.length
-  console.log(`  ${name.padEnd(24)} ${String(records.length).padStart(5)} records`)
+  console.log(
+    `  ${name.padEnd(24)} ${String(records.length).padStart(5)} records`,
+  )
 }
 
 if (migration.markers > 0) {
@@ -121,12 +123,21 @@ if (migration.markers > 0) {
 // (send-message / send-entrance-exam) in the user management feature.
 // SecurityLog (SRS §1.11, systemSettings doc 16) also joins: no login attempts
 // were ever recorded in Base44 — first written by mockAuthProvider on real login.
-const RUNTIME_ONLY_ENTITIES = ['LessonVersion', 'Notification', 'SecurityLog']
+const RUNTIME_ONLY_ENTITIES = [
+  'LessonVersion',
+  'Notification',
+  'SecurityLog',
+  // ProcedureAcknowledgement (SRS §2.6, policies feature) — אין רשומות בגיבוי;
+  // נכתבת לראשונה כשמשתמש חותם על נוהל (קרא-וחתום).
+  'ProcedureAcknowledgement',
+]
 for (const name of RUNTIME_ONLY_ENTITIES) {
   const out = join(fixturesDir, `${name}.json`)
   if (!existsSync(out)) {
     writeFileSync(out, '[]')
-    console.log(`  ${name.padEnd(24)} ${'0'.padStart(5)} records (runtime-only)`)
+    console.log(
+      `  ${name.padEnd(24)} ${'0'.padStart(5)} records (runtime-only)`,
+    )
   }
 }
 
@@ -138,14 +149,101 @@ if (!('MediaAsset' in entities)) {
   const users = Array.isArray(entities.User) ? entities.User : []
   const uid = (i) => users[i % users.length]?.id ?? null
   const seedMedia = [
-    { title: 'מצלמת אבטחה - חיבור PoE', file_type: 'image', file_size: 1468006, dimensions: '1920×1080', topic: 'מצלמות אבטחה', tags: ['מצלמות', 'התקנה', 'רשתות'], created_date: '2026-06-12T09:00:00.000Z', created_by_id: uid(0), usage: [ { ref_type: 'question', label: 'שאלה Q-152 · מאגר השאלות' }, { ref_type: 'module', label: 'מודול · מצלמות אבטחה' }, { ref_type: 'exam', label: 'מבחן · התקנת מצלמות IP' } ] },
-    { title: 'לוח MikroTik', file_type: 'image', file_size: 880640, dimensions: '1600×900', topic: 'רשתות', tags: ['MikroTik', 'רשתות'], created_date: '2026-06-10T09:00:00.000Z', created_by_id: uid(1), usage: [ { ref_type: 'question', label: 'שאלה Q-128 · מאגר השאלות' } ] },
-    { title: 'תרשים רשת', file_type: 'image', file_size: 552960, dimensions: '2000×1200', topic: 'רשתות', tags: ['רשתות', 'התקנה'], created_date: '2026-06-08T09:00:00.000Z', created_by_id: uid(0), usage: [] },
-    { title: 'הבהוב נורית LED', file_type: 'gif', file_size: 2202009, dimensions: '600×600', topic: 'מצלמות אבטחה', tags: ['מצלמות', 'התקנה'], created_date: '2026-06-06T09:00:00.000Z', created_by_id: uid(1), usage: [ { ref_type: 'lesson', label: 'שיעור · בדיקת תקינות מצלמה' } ] },
-    { title: 'התקנת מצלמה - הדרכה', file_type: 'video', file_size: 50331648, dimensions: '1920×1080 · 4:12', topic: 'מצלמות אבטחה', tags: ['מצלמות', 'התקנה'], created_date: '2026-06-04T09:00:00.000Z', created_by_id: null, usage: [ { ref_type: 'module', label: 'מודול · מצלמות אבטחה' }, { ref_type: 'track', label: 'מסלול · תקשורת מתקדמת' } ] },
-    { title: 'מדריך התקנה', file_type: 'pdf', file_size: 3355443, dimensions: '24 עמ׳', topic: 'התקנה', tags: ['התקנה', 'רשתות'], created_date: '2026-06-02T09:00:00.000Z', created_by_id: null, usage: [ { ref_type: 'module', label: 'מודול · יסודות רשתות' } ] },
-    { title: 'נתב ביתי - חזית', file_type: 'image', file_size: 737280, dimensions: '1500×1000', topic: 'רשתות', tags: ['רשתות'], created_date: '2026-05-30T09:00:00.000Z', created_by_id: uid(1), usage: [] },
-    { title: 'כבל רשת Cat 6', file_type: 'image', file_size: 419840, dimensions: '1200×800', topic: 'רשתות', tags: ['רשתות', 'התקנה'], created_date: '2026-05-28T09:00:00.000Z', created_by_id: uid(0), usage: [] },
+    {
+      title: 'מצלמת אבטחה - חיבור PoE',
+      file_type: 'image',
+      file_size: 1468006,
+      dimensions: '1920×1080',
+      topic: 'מצלמות אבטחה',
+      tags: ['מצלמות', 'התקנה', 'רשתות'],
+      created_date: '2026-06-12T09:00:00.000Z',
+      created_by_id: uid(0),
+      usage: [
+        { ref_type: 'question', label: 'שאלה Q-152 · מאגר השאלות' },
+        { ref_type: 'module', label: 'מודול · מצלמות אבטחה' },
+        { ref_type: 'exam', label: 'מבחן · התקנת מצלמות IP' },
+      ],
+    },
+    {
+      title: 'לוח MikroTik',
+      file_type: 'image',
+      file_size: 880640,
+      dimensions: '1600×900',
+      topic: 'רשתות',
+      tags: ['MikroTik', 'רשתות'],
+      created_date: '2026-06-10T09:00:00.000Z',
+      created_by_id: uid(1),
+      usage: [{ ref_type: 'question', label: 'שאלה Q-128 · מאגר השאלות' }],
+    },
+    {
+      title: 'תרשים רשת',
+      file_type: 'image',
+      file_size: 552960,
+      dimensions: '2000×1200',
+      topic: 'רשתות',
+      tags: ['רשתות', 'התקנה'],
+      created_date: '2026-06-08T09:00:00.000Z',
+      created_by_id: uid(0),
+      usage: [],
+    },
+    {
+      title: 'הבהוב נורית LED',
+      file_type: 'gif',
+      file_size: 2202009,
+      dimensions: '600×600',
+      topic: 'מצלמות אבטחה',
+      tags: ['מצלמות', 'התקנה'],
+      created_date: '2026-06-06T09:00:00.000Z',
+      created_by_id: uid(1),
+      usage: [{ ref_type: 'lesson', label: 'שיעור · בדיקת תקינות מצלמה' }],
+    },
+    {
+      title: 'התקנת מצלמה - הדרכה',
+      file_type: 'video',
+      file_size: 50331648,
+      dimensions: '1920×1080 · 4:12',
+      topic: 'מצלמות אבטחה',
+      tags: ['מצלמות', 'התקנה'],
+      created_date: '2026-06-04T09:00:00.000Z',
+      created_by_id: null,
+      usage: [
+        { ref_type: 'module', label: 'מודול · מצלמות אבטחה' },
+        { ref_type: 'track', label: 'מסלול · תקשורת מתקדמת' },
+      ],
+    },
+    {
+      title: 'מדריך התקנה',
+      file_type: 'pdf',
+      file_size: 3355443,
+      dimensions: '24 עמ׳',
+      topic: 'התקנה',
+      tags: ['התקנה', 'רשתות'],
+      created_date: '2026-06-02T09:00:00.000Z',
+      created_by_id: null,
+      usage: [{ ref_type: 'module', label: 'מודול · יסודות רשתות' }],
+    },
+    {
+      title: 'נתב ביתי - חזית',
+      file_type: 'image',
+      file_size: 737280,
+      dimensions: '1500×1000',
+      topic: 'רשתות',
+      tags: ['רשתות'],
+      created_date: '2026-05-30T09:00:00.000Z',
+      created_by_id: uid(1),
+      usage: [],
+    },
+    {
+      title: 'כבל רשת Cat 6',
+      file_type: 'image',
+      file_size: 419840,
+      dimensions: '1200×800',
+      topic: 'רשתות',
+      tags: ['רשתות', 'התקנה'],
+      created_date: '2026-05-28T09:00:00.000Z',
+      created_by_id: uid(0),
+      usage: [],
+    },
   ].map((m, i) => ({
     id: `seed-media-${String(i + 1).padStart(2, '0')}`,
     updated_date: m.created_date,
@@ -155,7 +253,9 @@ if (!('MediaAsset' in entities)) {
     ...m,
   }))
   writeFileSync(join(fixturesDir, 'MediaAsset.json'), JSON.stringify(seedMedia))
-  console.log(`  ${'MediaAsset'.padEnd(24)} ${String(seedMedia.length).padStart(5)} records (seeded)`)
+  console.log(
+    `  ${'MediaAsset'.padEnd(24)} ${String(seedMedia.length).padStart(5)} records (seeded)`,
+  )
 }
 
 // Department (מסמך 26) — ישות ארגונית שאין לה נתונים ב-Base44 כלל (SRS §1.11 היא
@@ -167,18 +267,227 @@ if (!('MediaAsset' in entities)) {
 if (!('Department' in entities)) {
   const now = '2026-05-01T09:00:00.000Z'
   const seedDepartments = [
-    { id: 'seed-dept-01', name: 'הנהלה', parent_id: null, order_index: 0, description: 'הנהלת החברה והמטה' },
-    { id: 'seed-dept-02', name: 'נציג/ת תפעול', parent_id: 'seed-dept-01', order_index: 0, description: 'ניהול התפעול השוטף וההתקנות' },
-    { id: 'seed-dept-03', name: 'תמיכה טכנית', parent_id: 'seed-dept-01', order_index: 1, description: 'מערך התמיכה הטכנית ללקוחות' },
-    { id: 'seed-dept-04', name: 'טכנאי שטח', parent_id: 'seed-dept-03', order_index: 0, description: 'טכנאים המבצעים התקנות, תחזוקה ופתרון תקלות באתר הלקוח' },
-    { id: 'seed-dept-05', name: 'שירות לקוחות', parent_id: 'seed-dept-03', order_index: 1, description: 'מענה טלפוני ותמיכה מרחוק' },
-    { id: 'seed-dept-06', name: 'מכירות', parent_id: 'seed-dept-01', order_index: 2, description: 'צוות המכירות ופיתוח עסקי' },
-    { id: 'seed-dept-07', name: 'פיתוח', parent_id: 'seed-dept-01', order_index: 3, description: 'פיתוח מוצר ותוכנה' },
-    { id: 'seed-dept-08', name: 'כספים', parent_id: 'seed-dept-01', order_index: 4, description: 'הנהלת חשבונות וכספים' },
-    { id: 'seed-dept-09', name: 'רכש', parent_id: 'seed-dept-01', order_index: 5, description: 'רכש וניהול ספקים' },
-  ].map((d) => ({ ...d, created_date: now, updated_date: now, created_by_id: null }))
-  writeFileSync(join(fixturesDir, 'Department.json'), JSON.stringify(seedDepartments))
-  console.log(`  ${'Department'.padEnd(24)} ${String(seedDepartments.length).padStart(5)} records (seeded)`)
+    {
+      id: 'seed-dept-01',
+      name: 'הנהלה',
+      parent_id: null,
+      order_index: 0,
+      description: 'הנהלת החברה והמטה',
+    },
+    {
+      id: 'seed-dept-02',
+      name: 'נציג/ת תפעול',
+      parent_id: 'seed-dept-01',
+      order_index: 0,
+      description: 'ניהול התפעול השוטף וההתקנות',
+    },
+    {
+      id: 'seed-dept-03',
+      name: 'תמיכה טכנית',
+      parent_id: 'seed-dept-01',
+      order_index: 1,
+      description: 'מערך התמיכה הטכנית ללקוחות',
+    },
+    {
+      id: 'seed-dept-04',
+      name: 'טכנאי שטח',
+      parent_id: 'seed-dept-03',
+      order_index: 0,
+      description: 'טכנאים המבצעים התקנות, תחזוקה ופתרון תקלות באתר הלקוח',
+    },
+    {
+      id: 'seed-dept-05',
+      name: 'שירות לקוחות',
+      parent_id: 'seed-dept-03',
+      order_index: 1,
+      description: 'מענה טלפוני ותמיכה מרחוק',
+    },
+    {
+      id: 'seed-dept-06',
+      name: 'מכירות',
+      parent_id: 'seed-dept-01',
+      order_index: 2,
+      description: 'צוות המכירות ופיתוח עסקי',
+    },
+    {
+      id: 'seed-dept-07',
+      name: 'פיתוח',
+      parent_id: 'seed-dept-01',
+      order_index: 3,
+      description: 'פיתוח מוצר ותוכנה',
+    },
+    {
+      id: 'seed-dept-08',
+      name: 'כספים',
+      parent_id: 'seed-dept-01',
+      order_index: 4,
+      description: 'הנהלת חשבונות וכספים',
+    },
+    {
+      id: 'seed-dept-09',
+      name: 'רכש',
+      parent_id: 'seed-dept-01',
+      order_index: 5,
+      description: 'רכש וניהול ספקים',
+    },
+  ].map((d) => ({
+    ...d,
+    created_date: now,
+    updated_date: now,
+    created_by_id: null,
+  }))
+  writeFileSync(
+    join(fixturesDir, 'Department.json'),
+    JSON.stringify(seedDepartments),
+  )
+  console.log(
+    `  ${'Department'.padEnd(24)} ${String(seedDepartments.length).padStart(5)} records (seeded)`,
+  )
+}
+
+// Procedure (SRS §2.6, policies feature) — ישות חדשה שאין לה נתונים ב-Base44.
+// עד שנהלים אמיתיים ייכתבו בעורך, זורעים כאן דמו עברי עם תוכן מבוסס-בלוקים
+// (content_type='html'/'file') כדי שהגלריה/הצפייה/המעקב ירוצו על נתונים
+// מציאותיים. departments משויכות לשמות המחלקות הזרועות; created_by_id למשתמש
+// אמיתי. נכתב רק אם הגיבוי אינו כולל Procedure — כשיגיע, הגיבוי מנצח.
+if (!('Procedure' in entities)) {
+  const users = Array.isArray(entities.User) ? entities.User : []
+  const puid = (i) => users[i % users.length]?.id ?? null
+  let blockSeq = 0
+  const block = (type, data) => ({
+    id: `seed-pblk-${String(++blockSeq).padStart(3, '0')}`,
+    type,
+    order_index: 0,
+    data,
+  })
+  const withOrder = (blocks) => blocks.map((b, i) => ({ ...b, order_index: i }))
+
+  const seedProcedures = [
+    {
+      title: 'נוהל בטיחות בעבודה בגובה',
+      summary: 'הנחיות מחייבות לעבודה על סולמות, גגות ומתקנים מוגבהים.',
+      category: 'בטיחות בעבודה',
+      version: '1.2',
+      status: 'published',
+      departments: ['טכנאי שטח', 'תמיכה טכנית'],
+      requires_acknowledgement: true,
+      created_by_id: puid(0),
+      blocks: withOrder([
+        block('heading', { text: 'מטרת הנוהל', level: 2 }),
+        block('text', {
+          content:
+            '<p>נוהל זה מגדיר את כללי הבטיחות לביצוע עבודות בגובה, במטרה למנוע נפילות ופציעות בשטח.</p>',
+        }),
+        block('heading', { text: 'ציוד מגן חובה', level: 2 }),
+        block('list', {
+          type: 'unordered',
+          items: [
+            'רתמת בטיחות תקנית',
+            'קסדת מגן',
+            'נעלי עבודה עם סוליה נגד החלקה',
+          ],
+        }),
+        block('separator', {}),
+        block('heading', { text: 'שלבי ביצוע', level: 2 }),
+        block('list', {
+          type: 'ordered',
+          items: [
+            'בדיקת תקינות הציוד לפני תחילת העבודה',
+            'עיגון הרתמה לנקודת עיגון מאושרת',
+            'תיעוד הבדיקה בטופס היומי',
+          ],
+        }),
+      ]),
+    },
+    {
+      title: 'נוהל התקנת מצלמות אבטחה באתר לקוח',
+      summary: 'תהליך עבודה תקני להתקנה, כיול ומסירת מערכת מצלמות.',
+      category: 'תפעול',
+      version: '2.0',
+      status: 'published',
+      departments: ['טכנאי שטח'],
+      requires_acknowledgement: true,
+      created_by_id: puid(1),
+      blocks: withOrder([
+        block('text', {
+          content:
+            '<p>לפני היציאה לאתר יש לוודא זמינות של כל הרכיבים ברשימת הציוד.</p>',
+        }),
+        block('table', {
+          headers: ['שלב', 'פעולה', 'זמן משוער'],
+          rows: [
+            { cells: ['1', 'סקר אתר וסימון נקודות', '30 דק׳'] },
+            { cells: ['2', 'משיכת כבילה והתקנת מצלמות', '90 דק׳'] },
+            { cells: ['3', 'כיול והגדרת NVR', '45 דק׳'] },
+          ],
+        }),
+      ]),
+    },
+    {
+      title: 'מדיניות אבטחת מידע וסיסמאות',
+      summary: 'כללי שמירה על סיסמאות, גישה למערכות והתנהלות מול מידע רגיש.',
+      category: 'אבטחת מידע',
+      version: '1.0',
+      status: 'published',
+      departments: ['הנהלה', 'תמיכה טכנית', 'טכנאי שטח', 'שירות לקוחות'],
+      requires_acknowledgement: true,
+      created_by_id: puid(0),
+      blocks: withOrder([
+        block('heading', { text: 'ניהול סיסמאות', level: 2 }),
+        block('text', {
+          content:
+            '<p>סיסמה חייבת לכלול לפחות 12 תווים, אות גדולה, ספרה ותו מיוחד. אין לשתף סיסמאות.</p>',
+        }),
+      ]),
+    },
+    {
+      title: 'נוהל קליטת עובד חדש',
+      summary: 'תהליך האונבורדינג מרגע החתימה ועד סיום ההכשרה.',
+      category: 'משאבי אנוש',
+      version: '1.1',
+      status: 'draft',
+      departments: ['הנהלה'],
+      requires_acknowledgement: false,
+      created_by_id: puid(2),
+      blocks: withOrder([
+        block('text', { content: '<p>מסמך זה בטיוטה ונמצא בעריכה.</p>' }),
+      ]),
+    },
+    {
+      title: 'נוהל דיווח שעות עבודה',
+      summary: 'מסמך PDF המפרט את אופן הדיווח החודשי במערכת הנוכחות.',
+      category: 'כללי',
+      version: '3.0',
+      status: 'published',
+      content_type: 'file',
+      file_url:
+        'https://assets.ipracticom.example/procedures/time-reporting.pdf',
+      departments: ['הנהלה', 'מכירות', 'תמיכה טכנית'],
+      requires_acknowledgement: true,
+      created_by_id: puid(1),
+      blocks: null,
+    },
+  ].map((p, i) => {
+    const created = `2026-0${(i % 6) + 1}-15T09:00:00.000Z`
+    return {
+      id: `seed-procedure-${String(i + 1).padStart(2, '0')}`,
+      created_date: created,
+      updated_date: created,
+      published_date: p.status === 'published' ? created : null,
+      content: null,
+      content_type: 'html',
+      file_url: null,
+      assigned_user_ids: [],
+      ...p,
+    }
+  })
+  writeFileSync(
+    join(fixturesDir, 'Procedure.json'),
+    JSON.stringify(seedProcedures),
+  )
+  console.log(
+    `  ${'Procedure'.padEnd(24)} ${String(seedProcedures.length).padStart(5)} records (seeded)`,
+  )
 }
 
 console.log(

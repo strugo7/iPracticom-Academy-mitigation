@@ -17,6 +17,8 @@ import type {
   InviteType,
   NotificationPriority,
   NotificationType,
+  ProcedureContentType,
+  ProcedureStatus,
   ProgressType,
   QuestionType,
   RequestedRole,
@@ -32,6 +34,23 @@ export interface BaseEntity {
   created_date: string
   updated_date: string
   created_by_id?: string | null
+}
+
+/**
+ * מטא-דאטת מחיקה רכה (soft-delete) — משותפת לכל הישויות ה"ניתנות-למחיקה"
+ * (נהלים/שיעורים/מונחים/תסריטי-שיחה). `deleted_at != null` הוא הסמן האחיד
+ * ל"נמצא בפח האשפה" (בלתי-תלוי ב-status, כי TroubleshootingFlow חסר status).
+ * מקור: DDL — עמודות deleted_at/deleted_by/deleted_by_name/deletion_reason.
+ */
+export interface DeletionAudit {
+  /** חותמת-מחיקה — הסמן האחיד לפח האשפה (null = חי). */
+  deleted_at?: string | null
+  /** מי מחק (audit). */
+  deleted_by_id?: string | null
+  /** snapshot שם המוחק (audit). */
+  deleted_by_name?: string | null
+  /** סיבת המחיקה (audit — חובה בעת מחיקה). */
+  deletion_reason?: string | null
 }
 
 /**
@@ -154,7 +173,7 @@ export interface LessonBlockEnvelope {
   visibility?: BlockVisibility | null
 }
 
-export interface ModuleLesson extends BaseEntity {
+export interface ModuleLesson extends BaseEntity, DeletionAudit {
   /** 9 רשומות בגיבוי האמיתי חסרות topic_id (שיעורים יתומים) — ראו הערה ב-TrackModule */
   topic_id?: string | null
   title?: string | null
@@ -355,7 +374,7 @@ export interface ConceptExternalLink {
  * - `related_lessons` מכיל מזהי ModuleLesson בלבד — ה-junction `concept_lessons`.
  *   אין קישור פולימורפי לתסריטים/נהלים; זו הצעת-הרחבה במסמך 17 שטרם אושרה.
  */
-export interface Concept extends BaseEntity {
+export interface Concept extends BaseEntity, DeletionAudit {
   term: string
   short_description: string
   /** HTML — עובר sanitizeRichText לפני רינדור (CLAUDE.md §5). */
@@ -374,7 +393,16 @@ export interface Concept extends BaseEntity {
   related_lessons?: string[] | null
 }
 
-export type TroubleshootingFlow = BaseEntity
+/**
+ * תסריט-שיחה / תרשים-פתרון-תקלות (SRS §1.6, DDL `troubleshooting_flows`).
+ * מוגדר מינימלית (title לפח-האשפה + DeletionAudit); שאר השדות loose. אין
+ * `status` — הישות משתמשת ב-`is_published`, ולכן `deleted_at` הוא סמן-המחיקה.
+ */
+export interface TroubleshootingFlow extends BaseEntity, DeletionAudit {
+  title?: string | null
+  category?: string | null
+  is_published?: boolean | null
+}
 
 /** SRS §1.7 `Invite.metadata` — שדות תצפיתיים בגיבוי האמיתי, לא סכמה נעולה. */
 export interface InviteMetadata {
@@ -562,4 +590,57 @@ export interface MediaAsset extends BaseEntity {
   alt?: string | null
   /** רשימת הפניות "היכן בשימוש" (denormalized — ראו MediaUsageRef) */
   usage?: MediaUsageRef[] | null
+}
+
+/**
+ * נוהל פנים-ארגוני (SRS §2.6 `Procedure`, DDL `procedures`). מנהל כותב/מפרסם
+ * נהלים לעובדים בדרישת "קרא וחתום". מזהה Base44 (ObjectID) נשמר as-is כ-PK.
+ *
+ * חובה לפי SRS: title, content_type. RLS: read `{}` (כל מאומת רואה published);
+ * write admin/manager. `category` נשאר `string` (DDL `VARCHAR(100)` ללא CHECK,
+ * כמו Concept) — רשימת-ההיצע לעורך חיה ב-constants של feature הנהלים.
+ *
+ * ⚠️ שדה `blocks`: מודל-התוכן שנבחר הוא בלוקים (כמו ModuleLesson), אך ה-DDL
+ * הנוכחי שומר `content` LONGTEXT HTML בלבד ואין עמודת `blocks`. במצב Mock-first
+ * זה נשמר as-is; יש לאשר מול צוות ה-API הארגוני הוספת עמודת `blocks` JSON
+ * ל-`procedures` (או סריאליזציה ל-`content`) לקראת Phase 12 (CLAUDE.md §6).
+ */
+export interface Procedure extends BaseEntity, DeletionAudit {
+  title: string
+  summary?: string | null
+  /** תוכן HTML גולמי (content_type='html') — מסונן לפני רינדור */
+  content?: string | null
+  content_type: ProcedureContentType
+  /** מסמך שהועלה (content_type='file') */
+  file_url?: string | null
+  category?: string | null
+  /** קבוצת-יעד: שמות מחלקות שהנוהל משויך אליהן (targeting config, נשאר JSON) */
+  departments?: string[] | null
+  /** קבוצת-יעד: מזהי-משתמשים ספציפיים (targeting config, נשאר JSON) */
+  assigned_user_ids?: string[] | null
+  version?: string | null
+  /** האם דרושה חתימת קרא-וחתום מהמשויכים (SRS def true) */
+  requires_acknowledgement?: boolean | null
+  published_date?: string | null
+  status?: ProcedureStatus | null
+  /** תוכן מבוסס-בלוקים v2 (מנצל את LessonBlockEnvelope; DDL: `procedures.blocks`) */
+  blocks?: LessonBlockEnvelope[] | null
+  // מטא-דאטת מחיקה (soft-delete) — מ-DeletionAudit; DDL: deleted_at/deleted_by/…
+}
+
+/**
+ * אישור קרא-וחתום (SRS §2.6 `ProcedureAcknowledgement`, DDL
+ * `procedure_acknowledgements`). רשומת-חתימה אחת פר (נוהל, משתמש) — DDL
+ * `UNIQUE(procedure_id, user_id)`. אין רשומות בגיבוי; נכתבת ב-runtime בלבד
+ * (המשתמש חותם). RLS read: admin/manager או בעלים; write: בעלים בלבד.
+ * user_name/user_email הם snapshot-audit לאי-התכחשות; ip_address לתיעוד.
+ */
+export interface ProcedureAcknowledgement extends BaseEntity {
+  procedure_id: string
+  user_id: string
+  user_name?: string | null
+  user_email?: string | null
+  /** חותמת-הזמן של החתימה ("נחתם") */
+  acknowledged_at: string
+  ip_address?: string | null
 }
