@@ -7,7 +7,7 @@
 import type { ReactNode } from 'react'
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 import { LoginPage } from '@/app/(auth)/login/LoginPage'
-import { HelpCenterPage } from '@/features/helpCenter'
+import { HelpArticleEditorPage, HelpCenterPage } from '@/features/helpCenter'
 import { PagePlaceholder } from '@/app/(app)/PagePlaceholder'
 import { TrackDetailsPage, TrainingsPage } from '@/features/learning'
 import {
@@ -144,6 +144,7 @@ export const router = createBrowserRouter([
           },
           { path: '/troubleshooting', element: <PagePlaceholder /> },
           { path: '/help', element: <HelpCenterPage /> },
+          { path: '/help/editor', element: <HelpArticleEditorPage /> },
           // הגדרות מערכת — הסקשן הפעיל מה-URL (שלב 9). "ניהול משתמשים" הוא
           // סקשן פנימי (/settings/users), לא מסלול עצמאי.
           {

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { CategoryKey } from '../types'
 
 interface HelpCategoryHeroProps {
@@ -17,13 +18,13 @@ export function HelpCategoryHero({
     <div className="flex flex-col gap-3">
       {showNewArticleButton && (
         <div className="flex justify-end">
-          <button
-            type="button"
-            className="inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full border border-accent text-accent font-semibold text-xs hover:bg-accent/10 transition-all cursor-pointer"
+          <Link
+            to={`/help/editor?mode=create&category=${categoryKey}`}
+            className="no-underline inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full border border-accent text-accent font-semibold text-xs hover:bg-accent/10 transition-all cursor-pointer"
           >
             <span className="text-base font-bold">+</span>
             מאמר חדש בקטגוריה
-          </button>
+          </Link>
         </div>
       )}
 

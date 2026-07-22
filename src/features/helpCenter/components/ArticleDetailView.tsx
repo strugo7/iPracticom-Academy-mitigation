@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Icon } from '@/components/ui'
 import type { HelpArticle } from '../types'
 
@@ -32,13 +33,13 @@ export function ArticleDetailView({
         </button>
 
         {showAdminEditButton && (
-          <button
-            type="button"
-            className="inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full border border-accent text-accent font-semibold text-xs hover:bg-accent/10 transition-all cursor-pointer"
+          <Link
+            to={`/help/editor?mode=edit&title=${encodeURIComponent(article.label)}`}
+            className="no-underline inline-flex items-center gap-1.5 h-8 px-3.5 rounded-full border border-accent text-accent font-semibold text-xs hover:bg-accent/10 transition-all cursor-pointer"
           >
             <Icon name="Edit" size={14} />
             ערוך מאמר
-          </button>
+          </Link>
         )}
       </div>
 
