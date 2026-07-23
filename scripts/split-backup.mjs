@@ -130,6 +130,11 @@ const RUNTIME_ONLY_ENTITIES = [
   // ProcedureAcknowledgement (SRS §2.6, policies feature) — אין רשומות בגיבוי;
   // נכתבת לראשונה כשמשתמש חותם על נוהל (קרא-וחתום).
   'ProcedureAcknowledgement',
+  // Troubleshooting (SRS §1.8, ספריית ה-Playbooks — מסמך 05). ה-guard כאן הוא
+  // רשת-ביטחון: אם הגיבוי כולל את הישות היא נכתבת קודם (existsSync → דילוג),
+  // ואם לא — נכתב [] כדי שהספרייה תציג מצב-ריק במקום לזרוק על fixture חסר.
+  'TroubleshootingFlow',
+  'TroubleshootingSession',
 ]
 for (const name of RUNTIME_ONLY_ENTITIES) {
   const out = join(fixturesDir, `${name}.json`)

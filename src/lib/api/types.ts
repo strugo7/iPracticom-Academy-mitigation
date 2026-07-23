@@ -28,6 +28,7 @@ import type {
   Topic,
   TrackModule,
   TroubleshootingFlow,
+  TroubleshootingSession,
   User,
   UserProgress,
   WizardConfig,
@@ -83,6 +84,8 @@ export interface IApiClient {
   questions: IResource<Question>
   concepts: IResource<Concept>
   troubleshootingFlows: IResource<TroubleshootingFlow>
+  /** שיחות-שירות מתועדות (SRS §1.8) — מזינות את לשונית "תסריטים חסרים" (מסמך 05). */
+  troubleshootingSessions: IResource<TroubleshootingSession>
   invites: IResource<Invite>
   candidateAssessments: IResource<CandidateAssessment>
   roleUpgradeRequests: IResource<RoleUpgradeRequest>
@@ -120,6 +123,7 @@ export const ENTITY_NAMES = [
   'Question',
   'Concept',
   'TroubleshootingFlow',
+  'TroubleshootingSession',
   'Invite',
   'CandidateAssessment',
   'RoleUpgradeRequest',

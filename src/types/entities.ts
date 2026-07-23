@@ -394,14 +394,41 @@ export interface Concept extends BaseEntity, DeletionAudit {
 }
 
 /**
- * תסריט-שיחה / תרשים-פתרון-תקלות (SRS §1.6, DDL `troubleshooting_flows`).
- * מוגדר מינימלית (title לפח-האשפה + DeletionAudit); שאר השדות loose. אין
- * `status` — הישות משתמשת ב-`is_published`, ולכן `deleted_at` הוא סמן-המחיקה.
+ * תסריט-שיחה / תרשים-פתרון-תקלות ("Playbook", SRS §1.8, DDL
+ * `troubleshooting_flows`). שדות-הכרטיס של ספריית ה-Playbooks (מסמך 05) —
+ * loose ואופציונליים כמו שאר הישויות. `flow_data` (הגרף עצמו, §1.8.1) נשאר
+ * `unknown` עד שלב העורך (7.2). אין `status` — הישות משתמשת ב-`is_published`,
+ * ולכן `deleted_at` (מ-DeletionAudit) הוא סמן-המחיקה-הרכה.
  */
 export interface TroubleshootingFlow extends BaseEntity, DeletionAudit {
   title?: string | null
+  description?: string | null
   category?: string | null
+  difficulty_level?: string | null
+  tags?: string[] | null
+  usage_count?: number | null
+  success_rate?: number | null
+  /** דקות */
+  avg_completion_time?: number | null
   is_published?: boolean | null
+  /** `{ nodes[], connections[] }` — מבנה מלא ב-SRS §1.8.1, נטען בעורך (שלב 7.2). */
+  flow_data?: unknown
+}
+
+/**
+ * שיחת-שירות מתועדת (SRS §1.8 `TroubleshootingSession`). כשלא נמצא Playbook
+ * מתאים, `missing_flow=true` מסמן פער לטיפול בלשונית "תסריטים חסרים" (מסמך 05
+ * §4.1). `handled` מסמן שהטיפול הושלם. אין שדות-חובה.
+ */
+export interface TroubleshootingSession extends BaseEntity {
+  agent_name?: string | null
+  phone_number?: string | null
+  missing_flow?: boolean | null
+  missing_flow_description?: string | null
+  duration_minutes?: number | null
+  solution_found?: boolean | null
+  handled?: boolean | null
+  flow_id?: string | null
 }
 
 /** SRS §1.7 `Invite.metadata` — שדות תצפיתיים בגיבוי האמיתי, לא סכמה נעולה. */

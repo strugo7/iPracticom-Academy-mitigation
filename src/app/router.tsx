@@ -31,6 +31,7 @@ import {
 } from '@/features/policies'
 import { RecycleBinPage } from '@/features/recycleBin'
 import { SystemSettingsPage } from '@/features/systemSettings'
+import { TroubleshootingPage } from '@/features/troubleshooting'
 import { DemoPage } from '@/app/dev/DemoPage'
 import { AppShell } from '@/components/shell'
 import { DashboardPage } from '@/features/dashboard'
@@ -142,7 +143,20 @@ export const router = createBrowserRouter([
             path: '/trainings/:trackId/lessons/:lessonId',
             element: <LessonPlayerPage />,
           },
-          { path: '/troubleshooting', element: <PagePlaceholder /> },
+          // ספריית ה-Playbooks לפתרון בעיות (שלב 7.1, מסמך 05) — צפייה פתוחה
+          // לכל מאומת; פעולות היצירה/עריכה מגודרות בתוך המסך (canManageContent).
+          { path: '/troubleshooting', element: <TroubleshootingPage /> },
+          // הנגן (7.3) והעורך (7.2) נבנים בשלבים הבאים; עד אז placeholder כדי
+          // שקישורי הכרטיס/יצירה/עריכה לא ייפלו ל-catch-all (דפוס ה-repo).
+          {
+            path: '/troubleshooting/new',
+            element: guarded(canManageContent, <PagePlaceholder />),
+          },
+          { path: '/troubleshooting/:flowId', element: <PagePlaceholder /> },
+          {
+            path: '/troubleshooting/:flowId/edit',
+            element: guarded(canManageContent, <PagePlaceholder />),
+          },
           { path: '/help', element: <HelpCenterPage /> },
           { path: '/help/editor', element: <HelpArticleEditorPage /> },
           // הגדרות מערכת — הסקשן הפעיל מה-URL (שלב 9). "ניהול משתמשים" הוא

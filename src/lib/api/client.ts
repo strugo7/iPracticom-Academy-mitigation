@@ -60,6 +60,7 @@ export const apiClient: IApiClient = {
   questions: resource('Question', questionSchema),
   concepts: resource('Concept', conceptSchema),
   troubleshootingFlows: resource('TroubleshootingFlow'),
+  troubleshootingSessions: resource('TroubleshootingSession'),
   invites: resource('Invite', inviteSchema),
   candidateAssessments: resource(
     'CandidateAssessment',
