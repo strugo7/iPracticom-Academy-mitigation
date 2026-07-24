@@ -13,6 +13,7 @@ import {
 } from '../services/flowPlayerService'
 import {
   advance,
+  buildTimeline,
   buildTrail,
   canGoBack,
   chooseOption,
@@ -136,6 +137,10 @@ export function useFlowPlayer(flowId: string | undefined) {
     () => (flow && session ? progressRatio(session, flow.flow_data) : 0),
     [flow, session],
   )
+  const timeline = useMemo(
+    () => (flow && session ? buildTimeline(session, flow.flow_data) : []),
+    [flow, session],
+  )
 
   const cta = currentNode ? (CTA_BY_TYPE[currentNode.type] ?? null) : null
 
@@ -152,6 +157,7 @@ export function useFlowPlayer(flowId: string | undefined) {
     isTerminal: isTerminalNode(currentNode),
     cta,
     trail,
+    timeline,
     progress,
     canGoBack: session ? canGoBack(session) : false,
     // actions

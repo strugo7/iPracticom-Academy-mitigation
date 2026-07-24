@@ -24,6 +24,14 @@ const ICONS = {
     ),
   },
   chevronDown: { el: <polyline points="6 9 12 15 18 9" /> },
+  restart: {
+    el: (
+      <>
+        <path d="M3 2v6h6" />
+        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L3 8" />
+      </>
+    ),
+  },
   chevronBack: { el: <polyline points="15 18 9 12 15 6" /> },
   play: { el: <polygon points="6 3 20 12 6 21 6 3" /> },
   clock: {

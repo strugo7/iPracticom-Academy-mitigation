@@ -16,6 +16,7 @@ import type { FeedbackDraft } from '../types'
 import { FeedbackForm } from '../components/FeedbackForm'
 import { FlowPlayerChrome } from '../components/FlowPlayerChrome'
 import { NodeRenderer } from '../components/NodeRenderer'
+import { SessionLogPanel } from '../components/SessionLogPanel'
 import { useFlowFeedback } from '../hooks/useFlowFeedback'
 import { useFlowPlayer } from '../hooks/useFlowPlayer'
 import { feedbackFormSchema } from '../schemas'
@@ -91,16 +92,18 @@ export function FlowPlayerPage() {
     )
   }
 
+  function handleRestart() {
+    setDraft(EMPTY_FEEDBACK)
+    setFormError(null)
+    setDone(false)
+    player.restartFlow()
+  }
+
   if (done) {
     return (
       <FlowFeedbackDoneScreen
         libraryTo={LIBRARY_ROUTE}
-        onRestart={() => {
-          setDraft(EMPTY_FEEDBACK)
-          setFormError(null)
-          setDone(false)
-          player.restartFlow()
-        }}
+        onRestart={handleRestart}
       />
     )
   }
@@ -157,9 +160,11 @@ export function FlowPlayerPage() {
         if (player.canGoBack) player.back()
         else navigate(LIBRARY_ROUTE)
       }}
+      onRestart={handleRestart}
       closeTo={LIBRARY_ROUTE}
       cta={cta}
       onCta={onCta}
+      sidePanel={<SessionLogPanel timeline={player.timeline} />}
     >
       {isFeedback ? (
         <FeedbackForm value={draft} onChange={setDraft} error={formError} />

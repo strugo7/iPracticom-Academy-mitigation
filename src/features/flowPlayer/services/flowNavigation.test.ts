@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { flowDataSchema } from '../schemas'
 import {
   advance,
+  buildTimeline,
   buildTrail,
   canGoBack,
   chooseOption,
@@ -169,5 +170,33 @@ describe('buildTrail', () => {
     const trail = buildTrail(atAct, flow)
     expect(trail.map((t) => t.nodeId)).toEqual(['start', 'q1', 'act1'])
     expect(trail.map((t) => t.type)).toEqual(['start', 'question', 'action'])
+  })
+})
+
+describe('buildTimeline', () => {
+  it('maps every session-log entry to a labelled, typed, timestamped item', () => {
+    const atAct = chooseOption(
+      advance(createInitialState(FLOW_ID, flow, T), flow, T),
+      flow,
+      1,
+      T,
+    ).state
+    const timeline = buildTimeline(atAct, flow)
+    // start (visit) → q1 (advance) → act1 (answer "לא")
+    expect(timeline).toHaveLength(3)
+    expect(timeline.map((e) => e.type)).toEqual(['start', 'question', 'action'])
+    expect(timeline.at(-1)).toMatchObject({ label: 'לא', timestamp: T })
+  })
+
+  it('labels non-navigation actions (back / feedback)', () => {
+    const atQ = advance(createInitialState(FLOW_ID, flow, T), flow, T)
+    const timeline = buildTimeline(openFeedback(goBack(atQ, T), T), flow)
+    expect(timeline.map((e) => e.action)).toContain('back')
+    expect(timeline.find((e) => e.action === 'back')?.label).toBe(
+      'חזרה צעד אחורה',
+    )
+    expect(timeline.find((e) => e.action === 'feedback')?.label).toBe(
+      'מעבר למשוב',
+    )
   })
 })

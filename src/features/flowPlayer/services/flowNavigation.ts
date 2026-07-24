@@ -11,7 +11,7 @@ import type {
   FlowOption,
   SessionLogEntry,
 } from '../schemas'
-import type { PlayerState, TrailEntry } from '../types'
+import type { PlayerState, TimelineEntry, TrailEntry } from '../types'
 
 /** צומת יעד בתוך ה-flow הנוכחי, או קפיצה ל-Playbook אחר (deep-link). */
 export interface DeepLink {
@@ -216,6 +216,37 @@ export function buildTrail(state: PlayerState, flow: FlowData): TrailEntry[] {
     const node = getNode(flow, id)
     if (!node) return []
     return [{ nodeId: id, label: nodeLabel(node), type: node.type }]
+  })
+}
+
+/** תווית-פעולה לרשומת-יומן שאינה מעבר-צומת (חזרה / מעבר-למשוב). */
+const ACTION_LABEL: Record<string, string> = {
+  back: 'חזרה צעד אחורה',
+  feedback: 'מעבר למשוב',
+}
+
+/**
+ * ציר-זמן תיעוד-הסשן (מסמך 08 §1/§3) — כל רשומת `session_log` מומרת לפריט-תצוגה
+ * עם תווית (details → כותרת-צומת → תווית-סוג), סוג-הצומת (לצבע), וחותמת-זמן.
+ */
+export function buildTimeline(
+  state: PlayerState,
+  flow: FlowData,
+): TimelineEntry[] {
+  return state.sessionLog.map((entry) => {
+    const node = getNode(flow, entry.nodeId)
+    const label =
+      entry.details?.trim() ||
+      ACTION_LABEL[entry.action] ||
+      nodeLabel(node) ||
+      entry.action
+    return {
+      nodeId: entry.nodeId,
+      label,
+      type: node?.type ?? 'question',
+      action: entry.action,
+      timestamp: entry.timestamp,
+    }
   })
 }
 

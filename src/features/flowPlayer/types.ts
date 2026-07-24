@@ -19,6 +19,18 @@ export interface TrailEntry {
 }
 
 /**
+ * פריט בציר-זמן תיעוד-הסשן (פאנל הדסקטופ, מסמך 08 §1/§3) — נגזר מ-`session_log`.
+ * `timestamp` הוא ISO; הפורמט לשעה (Asia/Jerusalem) נעשה בשכבת-התצוגה.
+ */
+export interface TimelineEntry {
+  nodeId: string
+  label: string
+  type: FlowNodeType
+  action: string
+  timestamp: string
+}
+
+/**
  * מצב הנגן המלא. `checkedActions` ממפה `nodeId → מערך-מסומנים` פר צומת action,
  * כדי שהצ'קליסט יישמר אם המשתמש חוזר ומתקדם שוב. `startedAt` הוא ISO — ממנו
  * מחושב `duration_minutes` בשליחת המשוב.
