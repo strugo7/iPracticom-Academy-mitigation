@@ -71,6 +71,30 @@ export const PLAYBOOK_NODE_COLORS: Record<PlaybookNodeType, string> = {
   linked_flow: '#8B5CF6', // סגול
 }
 
+/**
+ * קטגוריות Playbook (TroubleshootingFlow.category) — 8 הקטגוריות הקנוניות של
+ * SRS §1.8. כמו קטגוריות-המונח, זו **רשימת-ההיצע** ולא חוזה-סגור: הספרייה מציגה
+ * ומסננת כל ערך שמגיע מה-API (מטא ניטרלי לקטגוריה שאינה כאן), כדי שאף Playbook
+ * לא ייעלם. המטא הוויזואלי (תווית קצרה + צבעים) יושב ב-feature/constants.
+ */
+export const TROUBLESHOOTING_CATEGORIES = [
+  'מרכזיות ענן (PBX)',
+  'Firewall MikroTik',
+  'מצלמות אבטחה',
+  'מערכות סאונד',
+  'גילוי אש',
+  'בקרי טמפרטורה',
+  'רשתות',
+  'כללי',
+] as const
+export type TroubleshootingCategory =
+  (typeof TROUBLESHOOTING_CATEGORIES)[number]
+
+/** רמת קושי Playbook (TroubleshootingFlow.difficulty_level) — SRS §1.8, def 'בינוני'. */
+export const TROUBLESHOOTING_DIFFICULTY = ['קל', 'בינוני', 'מתקדם'] as const
+export type TroubleshootingDifficulty =
+  (typeof TROUBLESHOOTING_DIFFICULTY)[number]
+
 // ── סוגי אירועי התקדמות (UserProgress.progress_type) ──────────────────────
 // SRS §1.5 + הדאטה האמיתי. lesson_quiz_attempt הוא legacy שקיים בדאטה (4 רשומות)
 // ואינו נספר באף מדד (PROGRESS_ENGINE.md §8-ג).

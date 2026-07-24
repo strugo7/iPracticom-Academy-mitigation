@@ -133,6 +133,10 @@ const RUNTIME_ONLY_ENTITIES = [
   // FlowFeedback (SRS §1.8, flowPlayer feature) — משוב-נציג; נכתב לראשונה בסיום
   // סשן בנגן ה-Playbooks (מסמך 07).
   'FlowFeedback',
+  // TroubleshootingFlow (SRS §1.8, ספריית ה-Playbooks — מסמך 05). רשת-ביטחון:
+  // אם הגיבוי כולל את הישות היא נכתבת קודם (existsSync → דילוג); אם לא — נכתב []
+  // כאן, וה-seed של ה-Playbook-דמו למטה מחליף אותו כדי שהספרייה+הנגן ירוצו.
+  'TroubleshootingFlow',
   // TroubleshootingSession (SRS §1.8) — רישום שיחת-שירות + "תסריטים חסרים";
   // נכתב לראשונה במסלול "התקלה לא נפתרה" (מסמך 08).
   'TroubleshootingSession',

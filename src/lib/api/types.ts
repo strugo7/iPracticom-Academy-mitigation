@@ -87,7 +87,7 @@ export interface IApiClient {
   troubleshootingFlows: IResource<TroubleshootingFlow>
   /** משוב-נציג לאחר Playbook (SRS §1.8, FlowPlayer) — נכתבת רק ב-runtime. */
   flowFeedbacks: IResource<FlowFeedback>
-  /** רישום שיחת-שירות + "תסריטים חסרים" (SRS §1.8) — נכתבת רק ב-runtime. */
+  /** שיחות-שירות מתועדות (SRS §1.8) — מזינות את לשונית "תסריטים חסרים" (מסמך 05). */
   troubleshootingSessions: IResource<TroubleshootingSession>
   invites: IResource<Invite>
   candidateAssessments: IResource<CandidateAssessment>
