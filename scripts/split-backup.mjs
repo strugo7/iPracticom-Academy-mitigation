@@ -130,6 +130,12 @@ const RUNTIME_ONLY_ENTITIES = [
   // ProcedureAcknowledgement (SRS §2.6, policies feature) — אין רשומות בגיבוי;
   // נכתבת לראשונה כשמשתמש חותם על נוהל (קרא-וחתום).
   'ProcedureAcknowledgement',
+  // FlowFeedback (SRS §1.8, flowPlayer feature) — משוב-נציג; נכתב לראשונה בסיום
+  // סשן בנגן ה-Playbooks (מסמך 07).
+  'FlowFeedback',
+  // TroubleshootingSession (SRS §1.8) — רישום שיחת-שירות + "תסריטים חסרים";
+  // נכתב לראשונה במסלול "התקלה לא נפתרה" (מסמך 08).
+  'TroubleshootingSession',
 ]
 for (const name of RUNTIME_ONLY_ENTITIES) {
   const out = join(fixturesDir, `${name}.json`)
@@ -487,6 +493,151 @@ if (!('Procedure' in entities)) {
   )
   console.log(
     `  ${'Procedure'.padEnd(24)} ${String(seedProcedures.length).padStart(5)} records (seeded)`,
+  )
+}
+
+// TroubleshootingFlow (SRS §1.8, flowPlayer feature) — אם הגיבוי אינו כולל
+// Playbooks עם flow_data בר-ניגון, זורעים Playbook-דמו עברי אחד (אבחון תקלת
+// מצלמת אבטחה) לפי התרחיש של design-export/FlowPlayer.dc.html, כדי שנגן ה-
+// Playbooks ירוץ על גרף מציאותי. flow_data תואם את סכמת ה-feature (SRS §1.8.1).
+// נכתב רק אם הגיבוי אינו כולל TroubleshootingFlow — כשיגיע, הגיבוי מנצח.
+if (!('TroubleshootingFlow' in entities)) {
+  const users = Array.isArray(entities.User) ? entities.User : []
+  const now = '2026-06-20T09:00:00.000Z'
+  const cameraFlow = {
+    id: 'seed-flow-camera-01',
+    created_date: now,
+    updated_date: now,
+    created_by_id: users[0]?.id ?? null,
+    title: 'תקלת מצלמת אבטחה',
+    description:
+      'אבחון מודרך שלב-אחר-שלב לתקלת מצלמת אבטחה שאינה מציגה תמונה ב-NVR. ענה על השאלות ונגיע יחד לפתרון.',
+    category: 'מצלמות אבטחה',
+    tags: ['מצלמות', 'PoE', 'רשתות'],
+    is_published: true,
+    difficulty_level: 'בינוני',
+    usage_count: 48,
+    success_rate: 88,
+    avg_completion_time: 4,
+    version: 1,
+    flow_data: {
+      nodes: [
+        {
+          id: 'start',
+          type: 'start',
+          title: 'תקלת מצלמת אבטחה',
+          description:
+            'אבחון מודרך שלב-אחר-שלב. ענה על השאלות ונגיע יחד לפתרון.',
+          position: { x: 0, y: 0 },
+          nextNodeId: 'q_led',
+        },
+        {
+          id: 'q_led',
+          type: 'question',
+          title: 'האם נורית ה-LED במצלמה דולקת?',
+          description: 'הסתכל על גב המצלמה ובדוק אם נורית החיווי דולקת.',
+          position: { x: 0, y: 160 },
+          options: [
+            { id: 'o_led_on', text: 'כן, דולקת', targetNodeId: 'q_nvr' },
+            { id: 'o_led_off', text: 'לא, כבויה', targetNodeId: 'a_poe' },
+          ],
+        },
+        {
+          id: 'a_poe',
+          type: 'action',
+          title: 'בדוק את חיבור החשמל ו-PoE',
+          description: 'בצע את הבדיקות הבאות וסמן כל פריט שהושלם.',
+          position: { x: -220, y: 320 },
+          actions: [
+            { id: 'c1', text: 'ודא שכבל הרשת מחובר היטב בשני הקצוות' },
+            { id: 'c2', text: 'בדוק שנורית ה-PoE במתג דולקת' },
+            { id: 'c3', text: 'נסה פורט PoE אחר במתג' },
+          ],
+          nextNodeId: 'q_after_poe',
+        },
+        {
+          id: 'q_after_poe',
+          type: 'question',
+          title: 'האם המצלמה עלתה לרשת עכשיו?',
+          description: 'המתן כ-30 שניות ובדוק אם המצלמה מזוהה ב-NVR.',
+          position: { x: -220, y: 480 },
+          options: [
+            { id: 'o_up', text: 'כן, המצלמה עלתה', targetNodeId: 's_poe' },
+            { id: 'o_still', text: 'לא, עדיין אין תמונה', targetNodeId: 'e_escalate' },
+          ],
+        },
+        {
+          id: 'q_nvr',
+          type: 'question',
+          title: 'האם מופיעה תמונה ב-NVR?',
+          description: 'בדוק בממשק ה-NVR אם ערוץ המצלמה מציג תמונה.',
+          position: { x: 220, y: 320 },
+          options: [
+            { id: 'o_img_yes', text: 'כן, יש תמונה', targetNodeId: 's_ok' },
+            { id: 'o_img_no', text: 'לא, מסך שחור', targetNodeId: 'a_reboot' },
+          ],
+        },
+        {
+          id: 'a_reboot',
+          type: 'action',
+          title: 'אתחל את המצלמה',
+          description: 'נתק את המצלמה מהחשמל ל-10 שניות וחבר מחדש.',
+          position: { x: 220, y: 480 },
+          actions: [
+            { id: 'r1', text: 'נתק את כבל ה-PoE מהמצלמה' },
+            { id: 'r2', text: 'המתן 10 שניות וחבר מחדש' },
+            {
+              id: 'r3',
+              text: 'בדוק את ערוץ המצלמה ב-NVR',
+              hyperlink: { url: 'https://kb.ipracticom.example/nvr-channels', label: 'מדריך ערוצי NVR' },
+            },
+          ],
+          nextNodeId: 'q_after_reboot',
+        },
+        {
+          id: 'q_after_reboot',
+          type: 'question',
+          title: 'האם התמונה חזרה?',
+          position: { x: 220, y: 640 },
+          options: [
+            { id: 'o_back', text: 'כן, התמונה חזרה', targetNodeId: 's_ok' },
+            { id: 'o_no_back', text: 'לא, עדיין שחור', targetNodeId: 'e_escalate' },
+          ],
+        },
+        {
+          id: 's_poe',
+          type: 'solution',
+          title: 'הבעיה נפתרה!',
+          description:
+            'חיבור ה-PoE חודש והמצלמה חזרה לפעול. ודא שהתמונה מופיעה ב-NVR לפני סגירת הקריאה.',
+          position: { x: -220, y: 640 },
+        },
+        {
+          id: 's_ok',
+          type: 'solution',
+          title: 'הבעיה נפתרה!',
+          description:
+            'המצלמה מציגה תמונה תקינה ב-NVR. תעד את הפעולה וסגור את הקריאה.',
+          position: { x: 420, y: 800 },
+        },
+        {
+          id: 'e_escalate',
+          type: 'end',
+          title: 'הסלם לתמיכה',
+          description:
+            'התקלה חורגת מהאבחון הבסיסי. פתח קריאת שירות לצוות התמיכה עם פירוט הבדיקות שבוצעו.',
+          position: { x: 0, y: 800 },
+        },
+      ],
+      connections: [],
+    },
+  }
+  writeFileSync(
+    join(fixturesDir, 'TroubleshootingFlow.json'),
+    JSON.stringify([cameraFlow]),
+  )
+  console.log(
+    `  ${'TroubleshootingFlow'.padEnd(24)} ${'1'.padStart(5)} records (seeded)`,
   )
 }
 

@@ -11,6 +11,7 @@ import type {
   Department,
   Exam,
   ExamAttempt,
+  FlowFeedback,
   Invite,
   KnowledgeArticle,
   LearningTrack,
@@ -28,6 +29,7 @@ import type {
   Topic,
   TrackModule,
   TroubleshootingFlow,
+  TroubleshootingSession,
   User,
   UserProgress,
   WizardConfig,
@@ -83,6 +85,10 @@ export interface IApiClient {
   questions: IResource<Question>
   concepts: IResource<Concept>
   troubleshootingFlows: IResource<TroubleshootingFlow>
+  /** משוב-נציג לאחר Playbook (SRS §1.8, FlowPlayer) — נכתבת רק ב-runtime. */
+  flowFeedbacks: IResource<FlowFeedback>
+  /** רישום שיחת-שירות + "תסריטים חסרים" (SRS §1.8) — נכתבת רק ב-runtime. */
+  troubleshootingSessions: IResource<TroubleshootingSession>
   invites: IResource<Invite>
   candidateAssessments: IResource<CandidateAssessment>
   roleUpgradeRequests: IResource<RoleUpgradeRequest>
@@ -120,6 +126,8 @@ export const ENTITY_NAMES = [
   'Question',
   'Concept',
   'TroubleshootingFlow',
+  'FlowFeedback',
+  'TroubleshootingSession',
   'Invite',
   'CandidateAssessment',
   'RoleUpgradeRequest',

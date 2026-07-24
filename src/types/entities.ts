@@ -404,6 +404,47 @@ export interface TroubleshootingFlow extends BaseEntity, DeletionAudit {
   is_published?: boolean | null
 }
 
+/**
+ * משוב-נציג לאחר שימוש ב-Playbook (SRS §1.8, FlowPlayer מסמך 07). נכתב ע"י
+ * הנגן בסיום סשן. השדות הנתפסים-אוטומטית (`session_log`, `duration_minutes`,
+ * `step_number`, `resolved_at_step`) מצורפים ע"י הנגן, לא ע"י המשתמש.
+ * מבנה `flow_data`/`session_log` מפורט בסכמות ה-feature (features/flowPlayer).
+ * חובה (SRS): flow_id, user_id, user_name, user_email, was_helpful.
+ */
+export interface FlowFeedback extends BaseEntity {
+  flow_id: string
+  flow_title?: string | null
+  user_id: string
+  user_name: string
+  user_email: string
+  was_helpful: boolean
+  resolved_at_step?: string | null
+  step_number?: number | null
+  duration_minutes?: number | null
+  customer_sentiment?: string | null
+  feedback_text?: string | null
+  suggestions?: string | null
+  session_log?: unknown[] | null
+  rating?: number | null
+  would_recommend?: boolean | null
+}
+
+/**
+ * רישום שיחת-שירות (SRS §1.8). `missing_flow=true` מסמן פערים לטיפול בלשונית
+ * "תסריטים חסרים" (מסמך 05). נכתב ע"י מסלול "התקלה לא נפתרה" בנגן (מסמך 08).
+ * אין שדות-חובה.
+ */
+export interface TroubleshootingSession extends BaseEntity {
+  agent_name?: string | null
+  phone_number?: string | null
+  missing_flow?: boolean | null
+  missing_flow_description?: string | null
+  duration_minutes?: number | null
+  solution_found?: boolean | null
+  handled?: boolean | null
+  flow_id?: string | null
+}
+
 /** SRS §1.7 `Invite.metadata` — שדות תצפיתיים בגיבוי האמיתי, לא סכמה נעולה. */
 export interface InviteMetadata {
   created_by?: string | null

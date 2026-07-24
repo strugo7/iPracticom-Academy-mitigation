@@ -21,6 +21,7 @@ import { LessonEditorPage } from '@/features/lessonEditor'
 import { MediaLibraryPage } from '@/features/mediaLibrary'
 import { LessonPlayerPage } from '@/features/lessonPlayer'
 import { ExamPlayerPage } from '@/features/examPlayer'
+import { FlowPlayerPage } from '@/features/flowPlayer'
 import { ProfilePage } from '@/features/profile'
 import { ManagerDashboardPage } from '@/features/manager'
 import { CandidateExamPage, InviteLandingPage } from '@/features/recruitment'
@@ -100,6 +101,9 @@ export const router = createBrowserRouter([
       // מסך מלא ללא AppShell (מסמך 14 — design-export/Exam Player.dc.html):
       // כותרת/טיימר/הגשה עצמאיים, ללא sidebar/topbar
       { path: '/exams/:examId/take', element: <ExamPlayerPage /> },
+      // נגן ה-Playbooks (שלב 7.3, מסמך 07) — מסך-מלא ממוקד עם chrome משלו
+      // (כותרת/חזרה/סגירה/CTA), ללא AppShell. RLS read `{}` → כל מאומת.
+      { path: '/troubleshooting/:flowId', element: <FlowPlayerPage /> },
       // עורך השיעורים (שלב 6.2, מסמך 19) — מסך מלא עם סרגל-עליון משלו, ללא
       // AppShell. מוגן ל-canManageContent (מדריך ומעלה), כמו קבוצת התוכן.
       {
